@@ -1,0 +1,786 @@
+All right. Thank you, VulnCon. My badge
+says Robert, but you can call me Bob.
+I want you to imagine
+that the CVE program
+was never built.
+I want you to imagine that none of this
+existed and that this VulnCon conference
+didn't happen.
+Now, somebody comes up to you and says,
+"I want you to help me understand how we
+can get rid of all of these
+vulnerabilities that we see in the
+software. I want you to build out a new
+plan
+for eliminating all of these problems
+that we have
+in 2026."
+What would your North Star be?
+What would you put into your list
+of activities
+that would build out a new program to
+accomplish these goals?
+Well, you might be talking about
+governance.
+You might be thinking a lot about
+funding. You might be thinking about the
+uh the Tech Stack and if things are
+voluntary or if they're mandatory.
+You might think about data models. You
+might think about uh some of the
+processes that we run into that uh
+decide who's doing what and where and
+when. So, you might think of some of
+these things and probably a whole bunch
+more if you were designing it from
+scratch. But, I want to just talk a
+little bit about some of these ideas
+around the data models and the processes
+and the um
+who's doing what sort of activities.
+So, we have some core challenges today.
+And one of those is that we have a data
+entry problem. So, the schema is not
+super uh specific within CVE records and
+it turns out you can put a lot of kinds
+of things in a lot of different fields
+even if that wasn't the intent when they
+were designed.
+And we also struggle with root cause
+analysis. So, we want to figure out how
+do we stop the recurring classes of
+coding error that we see over and over
+again. We have CWE, but not every CNA
+puts in CWE fields, and they don't all
+use them consistently.
+And of course, product identification is
+one of the great unsolved problems in
+every sector, and we would want to take
+a look at that in order to make some
+progress.
+Who does what when? I keep saying that.
+When do we do certain activities? Do we
+do them upstream?
+Do we do them downstream?
+Where is these Where are these
+activities taking place? And of course,
+governance. How are we going to organize
+all of our activities?
+So, what would this vision look like?
+This North Star, where would you end up
+if you were sailing towards it? Well,
+I personally want to live in a world
+where ransomware is a shocking anomaly,
+where we don't blame the IT folks for
+not patching all of the servers that
+just couldn't be patched, almost like
+laws of physics. You can't violate them.
+And we know that you can't do that, but
+that's where I want to live.
+I also want to live in a world where we
+have software developers who are given
+all of the tools to eliminate recurring
+classes of coding error, so software
+gets safer and safer and safer over
+time.
+That's where I want to live. Maybe
+that's not your vision, maybe you have a
+different one, but that's the one that I
+built out. And one of the things I think
+we should do more as a sector is think
+more about the world outside of software
+and technology. I think there's so much
+to learn from other sectors. And if you
+take a look at some of the mission
+statements for some of these
+agencies, you'll see that they're very
+outcome driven.
+National Highway Transportation Safety
+Agency.
+save lives.
+It's really simple. It's an outcome.
+They also want to prevent injuries,
+reduce economic costs due to road
+traffic crashes.
+How about the Environmental Protection
+Agency? Protect human health and the
+environment.
+That's pretty simple and it's an
+outcome.
+NTSB, make transportation safer. And I
+could go on, but the point here is that
+we want to start talking more about
+outcome-focused missions that then help
+the organizations and the entire
+ecosystem start to build processes and
+sensibilities that lead to those
+outcomes.
+Now,
+within the world of CVE, CVE is not an
+agency, so this is this is not an
+apples-to-apples comparison, but I don't
+think it's an apples-to-elephants
+comparison. I think it's more like maybe
+apples-to-oranges. And so the CVE
+mission statement is to identify,
+define, and catalog publicly disclosed
+cybersecurity vulnerabilities.
+And that's fine and certainly in 1999, a
+much-needed improvement.
+But where we are today in 2026,
+this is an activity. This is not an
+outcome. And I think a lot of the things
+that I see in the program
+stem from this from the mission
+statement that focuses on the
+activities,
+not the North Star.
+So,
+what would I propose
+as a different mission statement? I've
+done this several different times and I
+come up with
+different ways of saying it every time,
+so I'm just going to confess that, but
+a consistent theme looks like this.
+To reduce the dangers
+of using software
+through the analysis of root causes
+of software security defects
+and to promote secure-by-design
+development practices. So, the idea here
+is to focus on the outcome,
+Just make software safer, reduce the
+dangers.
+We're going to analyze things, which
+obviously means means we need to have
+the data. We need to have the data
+scientists who can analyze it.
+And we're going to get better at
+improving development processes over
+All right, we've heard so much about
+quality at this conference, and I'm so
+happy to see so many talks about
+quality.
+Uh
+Jay Jacobs uh and Jerry Gamblin did a
+really great talk, which included their
+uh data quality assessment framework,
+and it's much more robust than what I'm
+going to show you here. But, this is how
+my simple brain thinks about things.
+What is quality? Well, when I take a
+look at the CVE records, I want to make
+sure that they are complete. So, all the
+things that the defenders need, and
+hopefully the data scientists who are
+looking at the CWE fields and things
+like that, they're all present.
+I also want to make sure that they're
+accurate. So, you put the right stuff
+into the right bucket. It sounds so
+simple, but we're just not there yet.
+And timely.
+So, you want CNAs to issue them quickly
+to help defenders protect their systems
+today. We don't want long delays. Hey,
+good news,
+complete, accurate, and timely spells
+CAT, and I know you're going to remember
+that because everybody on the internet
+loves a cat. So, you will remember this.
+Um
+and you know, over time, hopefully, if
+we were able to do this, the CAT CVE
+records are going to lower the cost and
+the complexity and the volatility, and
+they're going to improve the ability for
+defenders to defend today, but also for
+developers to be able to build systems
+that are better tomorrow. So,
+in the spirit of show, don't tell, I
+could put up a bunch of bullet points, I
+could write a uh
+white paper.
+Uh I decided to build a system that
+would represent some of these ideas.
+So, how would an end user search for CVE
+records in this new imagined world?
+Well,
+uh here's the prototype that I built.
+And you can see that it's fairly
+straightforward. You've seen systems
+like this before. Uh here we have uh you
+can search records, you can look at
+products, you can look at CNA. So,
+there's some basic navigation. In this
+particular
+screenshot, I'm a public user and I'm
+browsing as guest. So, sign in if you
+want to get some additional features.
+So, this is what a person would stumble
+upon if they just clicked.
+And we've got some pinpoint addressing.
+So, I've started to
+uh started to to click on some things
+here. And the And the basic idea, the
+design principle
+is that all of this should be very
+intuitive to that user performing that
+task.
+And now I've completed the search. I now
+have some candidate records.
+And I'm interested in taking a look at
+this particular record.
+So, when I do, you'll see a familiar
+sort of page. You'll see the uh the
+information about the the scope and uh
+some things like that. You'll see that
+we have a series of tabs that include
+the overview, which we're looking at
+now,
+uh some technical details. So, here
+we've got some CVSS information and CWE
+information. And then also history
+information. And the history, I think,
+is super important because it allows me
+to understand what has been happening to
+this particular item over time. And
+it'll help me understand if things have
+been changing. It also lets me know who
+changed what and when.
+Okay, so that's not super revolutionary.
+That doesn't show off some of the ideals
+that I just talked about before.
+So, let's talk a little bit about what a
+CNA agent does in order to issue a
+record.
+So, here I work for Acme Security
+Solutions. And you'll notice I'm logged
+in as Maria Rodriguez. And if you look
+at the top there, she is a CNA super
+agent. So, she has some broader controls
+than a normal agent would. And her scope
+is only Acme security solutions. Other
+agents, other super agents would have
+different scopes, of course.
+And this particular CNA has the
+authority to comment on these particular
+products.
+And you'll also note that when we logged
+in, we saw some additional UI. So, Maria
+can look at her activity, look at her
+notes. We'll talk about community notes
+in a minute. And
+disputes and subscriptions.
+Subscriptions allows anybody to tag a
+particular object. It could be a CNA, it
+could be a product, it could be a
+package, it could be
+a CVE record, and will allow them to get
+emails whenever those things change.
+So, um
+in this particular task, we want to
+create a CVE record, but we have not yet
+created the product. And so, in this
+model, you cannot create CVE records
+willy-nilly because CVE records are
+assigned to a package or a product of
+some sort. They have to have a parent
+object in order for you to issue them.
+So, we've got a problem here. Maria's
+not able to to actually create one of
+those. And so,
+the design principle here is that these
+identities are managed upstream
+in a very carefully curated way. So,
+there's no need to enrich them
+downstream because we've made sure that
+they are correct at the moment of
+creation. You can't actually create a
+CVE record unless it has that parent
+object. So, that gives you
+the completeness and the accuracy.
+And because it's done upstream, for the
+defenders, that means that these are
+timely.
+And you can't see it over here, but
+there's another cat over here. Complete,
+accurate, and timely.
+Okay. So, we need to create the
+the package or the uh product. So, she
+creates this. This is the Acme Geo Park
+app. It's the app that you use to find
+out where you were parking at. That's
+the best I could come up with late at
+night. And she creates information. It
+can be She can decide it's an
+application or she could put in some
+pearls. She could define what hardware
+architectures, operating systems, all
+those things. A complete record, of
+course, would be more complex, but that
+will give you a general idea. And it
+worked. So, here is the new product that
+we have created under the products page.
+And
+at this point, we can click on that to
+see what's
+What is this product? Well,
+it's pretty empty because we just
+created it. So, there are no CVE
+records.
+There's also no CSR records. So, these
+are configuration security records.
+These So, we separate in this model
+defects that are product coding errors
+versus configuration problems. So, in
+this model, we don't try to throw
+everything onto a CVE record
+when they're really just different. We
+try to separate those and we have
+separate objects for those.
+So, now we can create a CVE record.
+And the design principle here is that
+Maria, even though she's a super
+administrator for this for the CVE CNA,
+she can only issue the CVE records for
+those within her scope and other agents
+within within that particular CNA may
+have different scopes. And she can't
+mistakenly type the name of this product
+because everything is a lookup. These
+are not
+places where you can enter free-form
+text.
+Okay, we're going to fill out the CWE
+field and don't show this to Steve
+Christey Coley because he will get mad
+at me for this. But anyway, I was vibe
+coding and so why why the hell not?
+we can take a look at the different
+classes and the
+the bases and the variants. And so,
+Maria's looking at a
+buffer error over here. So, that's the
+the class, and then she can select a
+base weakness. And so, she's selected
+this particular one.
+And so, she could do that. Or,
+she could use AI cuz everybody's got to
+slam AI in everything. So, I'm no
+exception. So, here, and hopefully
+nobody would actually type this, but she
+says, "You know, it's that thing where
+you have a string that writes past the
+end of the buffer. What's that again?"
+And the AI asks some clarifying
+questions, and then she answers those,
+and then it comes back and says, "I
+think that's CWE-120."
+And if she wants to, she can then select
+this suggestion, and
+that then pre-fills the
+the the drop-downs above. So, this may
+not be exactly correct, but I think I
+think you'll get the general idea of
+what it is that we're trying to do here.
+So, she has now correctly selected the
+CWE. She can add information about
+components and the operating systems.
+And here she has the auto-generated
+summary. And this is very similar to
+what you'll see in Vulnogram, where you
+can fill out the various fields, and
+then there's a button you can press to
+say, "Show me the
+the end result of that." And this is
+different because this system allows for
+um
+uh is really focused on strongly typed
+uh identifiers.
+And at that point, um
+uh
+you can create any string that you want.
+So, whatever the user is who is going to
+be interacting with this data,
+the record itself doesn't by itself have
+to be readable. It has to be generated
+in in presented in a form that allows
+them to understand. That also means you
+can just easily translate that into
+whatever language you're thinking about.
+Okay, so we created the record. It
+works.
+And let's talk a little bit about what
+the agent does
+in terms of getting feedback. So right
+now feedback doesn't really exist in a
+standardized form. GitHub issues has a a
+really great feedback page. Other CNAs
+have different ways of collecting
+feedback, but there isn't a standard
+way. So in this model there are
+community notes and they allow people to
+provide specific information about what
+they would like to see changed in a CVE
+record. And so now we've logged in as
+Dr. Sarah Kim and she is saying I think
+that this should be a different CVE
+CWE for this particular record. She
+suggests an alternative, provides some
+rationale, and then the community notes
+has been created.
+Now, if we go back and log in as Maria,
+who is is the owner for this particular
+CNA,
+she's able to go and click triage and
+then she can either accept or decline
+the change request
+or do something else. But that's how we
+start to build up some feedback so that
+CNAs
+can improve the quality of the records
+over time.
+All right, how does a CNA agent manage
+the CNA? Well, we'd probably ultimately
+have some some single sign-on system,
+but here we have the ability to look at
+the overview. We can look at the
+products and we look at the agents here.
+Maria
+has scope because she's a super agent to
+create additional users.
+And so she does so. There's a guy named
+George Washington. She creates a record.
+She creates a an entry for him. So now
+he is just a regular agent and his
+he now needs to log in to the uh, to be
+able to activate his account.
+And, uh, and again, these different, uh,
+these different agents can have
+different scopes depending on whatever
+is appropriate for that particular CNA.
+So, let's take a look at some of the
+things that we've talked about here. We
+talked about some of the challenges
+around data entry and the fact that we
+have free-form text and how this model
+changes that by turning everything into
+strongly typed fields and that allows us
+to make things that are not just machine
+readable at the time of issuance, but
+they're machine usable at the time of
+issuance.
+Uh, root cause analysis. So, from the
+secure by design perspective, I really
+want to make sure that the industry is
+getting better at identifying the class
+of coding error that led to this
+particular problem and to be able to
+remediate, uh, not just for that
+particular bug, but we want to figure
+out how we're going to eliminate entire
+classes of coding error over time. And
+what this will give us is,
+um, the ability to really start moving
+towards a secure by design future.
+Product ID.
+Again, one of the hardest problems that
+we're going to face. This is only a
+partial solution and I think we need a
+lot more thinking, but you can see how,
+at least for the the use cases that
+we're describing here, the CNA agent not
+only can be held accountable for these
+things, but we've given them the tools
+to do a good job. So, doing the right
+thing is easy and, uh, is the default.
+And we talked a little bit about the
+work stream. So, who's doing what
+and when? And so, if we improve quality
+at the source, we have less of a burden
+of trying to fix things downstream,
+which is always going to be error-prone
+because the people downstream will not
+necessarily have the right information
+or the right expertise as the people who
+are upstream and it will allow them to
+create these CVE records that are
+complete, accurate in a timely manner
+and that's going to be better for the
+defenders today.
+And if we build out this this larger
+system, CVE
+uh the ecosystem uh can be truly
+reliable in ways that we cannot really
+imagine today.
+some takeaways.
+The
+the idea of a North Star is really key.
+I think a lot of times we make local
+decisions with local data, and we have
+local outcomes. And what we really need
+to do is start building out a larger
+North Star that is informed by the
+successes in other sectors. These other
+sectors, planes, trains, automobiles,
+medicine, food, they've all had dramatic
+improvements in safety over the last 100
+years.
+Some cases, if you count architecture, a
+few thousand years.
+Those sectors have a great deal to teach
+us about how to build systems that are
+going to be safe for the users, and also
+for the general public.
+And I would like to encourage people to
+think more like product managers. So,
+the CVE program isn't really a product,
+but I think it is. And it's kind of
+weird, because we don't charge for this.
+It's free, and it's mostly volunteers,
+and there are a whole bunch of reasons
+why it kind of sort of doesn't look like
+a product. But I think it is a product,
+and it's a product that's goal is to,
+like I said in the mission statement, to
+reduce the dangers of using software,
+something like that. And if we start
+thinking about it like a product
+manager, we may start engaging in
+activities that are different, which are
+much more outcome folks uh focused.
+And if we start really focusing on
+quality, which I've heard in so many
+talks this week, which is I'm just
+eternally grateful for, if we think
+about completeness, accuracy, and
+timeliness,
+if we do that through the lens of the
+downstream consumers
+as opposed to some platonic ideal, I
+think we'll start to be able to make
+better decisions. Today, again, we seem
+to make a lot of decisions based on
+fragments of
+of perspective, but one of the things
+that Jay Jacobson and I have done is we
+stood up the the consumer working group.
+And the consumer working group is
+designed to gather information from our
+customers. So, we're trying to act like
+product managers and ask them, "How do
+you like our product?" It turns out some
+of them don't love our product.
+But when they tell us why, we think
+those may be solvable problems. So, we
+want to start measuring what we're doing
+by the downstream consumers. And um
+and then, of course,
+just this constant idea of asking, "How
+can we move the responsibility for
+making these CVE records complete,
+accurate, and timely further and further
+and further upstream?"
+So, uh if you want to play with the
+prototype, feel free.
+It's incredibly incomplete. You'll see a
+bunch of dead ends. That's the nature of
+these prototypes.
+If you'd like to join the consumer
+working group,
+got a QR code for that.
+And if you'd like to help me think
+through these ideas and build a better
+system,
+the one on the bottom there is a way to
+send me some information. Maybe we do
+some pair programming, get a Zoom call
+going, that sort of thing.
+So, with that, I'd be happy to take any
+questions you have.
+Hi.
+Um thank you for your presentation. Um I
+sort of have a
+concern wrapped in a question or a
+question wrapped in a concern. Um as a
+CNA
+I publish CVEs.
+So, when I learned how to do it, I
+learned how to sort of lean toward the
+quality thing to be complete and
+accurate and timely.
+And yet, I have constraints Mhm. that
+might not um be visible in the timely
+kind of category and the complete
+category.
+Um which brings up my question is that
+this seems really focused on
+how open source software works,
+whereas my products that I'm
+creating CVEs on or getting CVEs about
+are not um
+the public is can't take a look at
+cannot look at my hardware and help me
+try and figure out, you know, maybe some
+of the accuracy around that. So, is
+there continued sort of
+is there understanding around the
+constraints that businesses have when
+they are publishing their CVE as far as,
+you know, that accuracy and that
+completeness? Um and the second has to
+do with that um lookup
+that product lookup. I don't know the
+names of all my products and my products
+might change in the middle of me
+creating a CVE.
+So, how will
+how can that be addressed or thought
+about as well for that free form in the
+lookup of products?
+>> Yeah, so for for the second one uh
+so
+if the product names are changing over
+time, uh I guess the question is what is
+that velocity of change and what is the
+what is the the benchmark for all
+products? Most products get a name, may
+occasionally change. Uh if your products
+are changing, like how often do they
+change? Do they change on a monthly
+basis? How and how do your customers
+adapt?
+>> actually haven't figured that out yet.
+I'm new to the to
+our product our insert thing. So I
+haven't quite figured it out, but it has
+some of it has to do with some of the
+product being firmware
+attached to hardware.
+the shift and then knockoffs being
+our own knockoff we're knocking
+ourselves.
+Okay, sounds like a very interesting use
+case. So I would love I would love to
+continue the dialogue but what was
+because some of these nuances are
+important but remind me of the of the
+first question again.
+>> first question is about the
+that
+my products are not like open source
+products that
+the public has a view into open source
+products
+that they don't have into my products.
+>> Yeah, but So how does that Yeah, so I
+think the ultimate idea is to have the
+identity be handled by the CNA so that
+you would be in charge of that. And so
+however you wanted to do that in this
+again, this is a prototype. So
+just you know
+it is what it is. It's not going
+anywhere today. So don't worry. But
+yeah, so the idea is to move that
+upstream so that we're not trying to
+figure out how to name things much later
+downstream. So sometimes the records are
+usable right off the bat and sometimes
+they need to get enriched by NVD or
+others in order for them to be usable.
+The idea is to put you in the driver's
+seat so that you are the one who's
+making that decisions. The system if we
+design the system correctly, it would be
+empowering. It would make it easy for
+you to do the right thing and it would
+then telegraph to your customers in the
+public what it is that was actually
+happening in the ways that are
+appropriate for you know your business.
+So the idea is really to truly put you
+in the in the driver's seat. So the
+question in my mind is how can we work
+together to make the changes to the sort
+of prototype so that all of our mental
+models can be aligned. And again, this
+is the point of the North Star. If I put
+up a bunch of slides with just bullet
+points, you might not along and say
+that's fine. As soon as I put up an
+actual demo, you're like, "Excuse me, I
+have a problem." And that's the whole
+point of doing it so that we could get
+this feedback. Thank you.
+But I do hope that you'll reach out.
+Any other questions from the audience?
+Uh what would you see as the biggest um
+impediments to moving towards what
+you're suggesting um particularly in the
+open source space?
+What are the biggest impediments towards
+open source?
+>> Towards moving towards the type of
+system that you're proposing here. So I
+think a lot of it is just setting the
+vision. And so again, I wanted to have
+enough fidelity with this vision that
+people could see themselves enough in it
+that they could say, "I'd like to
+suggest some improvements." So I think
+the whole point is for us to set that
+North Star. This is my more North Star.
+And if you wanted to come up with a
+different one,
+these are the the kinds of act These are
+the kinds of mental processes I would
+encourage you to to to think about. You
+might come up with a very different
+model for how you would implement some
+of these ideas. But I think these are
+the core elements of of our successful
+North Star creation. And so
+this is the first time I've demoed it.
+So
+I think the question is, can we refine
+it over time? And can we figure out how
+to
+to refine it because my experience has
+been that when you show people that
+where everyone should be ending up and
+if we can get rough consensus,
+people just sort of navigate towards
+towards that. They find little ways to
+sail towards that North Star. That's
+been my experience. But in the absence
+of that, what happens is people focus on
+the local data and their local decisions
+and they have local outcomes. So I
+wouldn't say that there have been
+impediments. We have to address a lot of
+issues. Who's going to pay for this? Who
+is going to run this? I mean, all of the
+issues of governance and and some of
+these issues, those all remain. In fact,
+they might get bigger. But, if we
+continue to focus just on today's
+problems, we're we're just not going to
+get ourselves out of this mess.
+I guess it needs a lot of buying from
+the CNAs. So, I guess the
+>> the CNAs, the downstream consumers,
+there are so many different kinds of
+stakeholders. But again, uh I want to
+emphasize measured by the downstream
+consumers. And that for me is where we
+will
+demonstrate that we're really doing a
+good job.
+And I think that is our time. Yep.
+Thanks. Thank you so much for the
+question. Thank you.
+Thank you.
+>> [applause]

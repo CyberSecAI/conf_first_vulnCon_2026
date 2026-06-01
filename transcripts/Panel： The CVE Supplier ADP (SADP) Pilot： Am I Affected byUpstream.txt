@@ -1,0 +1,1451 @@
+Good morning everyone. Welcome to
+VulnCon 2026 and to the panel talk.
+The CVE supplier ADP pilot MI affected
+by upstream.
+This panel is going to be presented by
+Art, Jeremy, Saeed, Lisa, and Yogesh.
+I'll do a quick update about what about
+the
+session. I'm going to be the speaker
+moderator and then hand it over to our
+esteemed panel.
+Um, there is a session survey that you
+all would would already know uh that is
+available within the conference mobile
+app. And as a courtesy to our speakers
+and audience, please ensure your cell
+phones are set to silent and refrain
+from taking photos unless told upon, but
+this is a TLP clear session, so it is
+okay to record and take pictures.
+Um, and as it is a TLP clear session, we
+are live streaming
+for remote participants and for
+in-person participants, as Art
+mentioned, there is a microphone, so
+we'll be taking questions after the
+slides are presented.
+And with that, let's get started.
+Uh, thank you. Thanks for the
+introduction. Uh, back again.
+Um,
+I'm going to introduce the panelists
+just very briefly. I'll ask our actually
+ask our panelists to introduce
+themselves briefly, which is the lazy
+moderator version of of introductions.
+Uh, I'm Art Manion.
+Uh, I work at a company called Faros.
+Uh, a lot of my work is supporting uh
+CISA, who's you've heard you've heard
+speak earlier today uh in all sorts of
+vulnerability related work. A smaller
+piece of that is I'm involved in the uh
+CVE program pretty heavily. I'm on the
+CVE board.
+I attend
+a number of working groups um and um I'm
+in one of the working groups, the
+supplier ADP pilot is sort of
+I guess homed or owned by the strategic
+planning working group, uh and that's
+where this this work is sort of taking
+place. Um so, that's just sort of where
+I'm coming from in my background. I'll
+be the moderator. I will try hard not to
+get into the questions and answers too
+much and let my panelists
+uh handle most of that, but I'll I'll
+probably mess up a couple of times. Um
+brief introductions, please, yeah?
+Lisa, sure, yeah.
+>> Hello. Does this work? Yeah.
+Just so you know, the battery is like a
+tiny sliver, so it may not work the
+whole time.
+Um
+hello, I'm Lisa Olson and I work at
+Microsoft in MSRC. I sort of manage
+Patch Tuesday.
+Uh we got it out the door a little bit
+ago without me.
+so anyway, uh I've also been on the CVE
+board since 2018 and I kind of CVE is my
+life, so that's sad.
+Hey everyone, my name's uh Jeremy
+Daigneau. I work at MITRE. I've been
+with them for about 10 years and my main
+work lately is this on CVE. I've been on
+a CVE working with the CVE project for
+about 4 years and my latest role is uh
+lead of the automation infrastructure
+work we're doing to support all the cool
+things the program wants to do and all
+that.
+Good morning, everyone. I am Yogesh
+Mittal.
+I'm a piece of manager at Red Hat. Uh
+it's an honor to be a part of this panel
+because Red Hat is a root and CNA LR.
+So, I want to share the perspectives,
+the learnings that we had in last two
+couple of years from the CNAs uh that
+shows Red Hat as their root open source
+CNAs.
+Uh hi everyone, uh my name is Saeed
+Abbasi. I'm a senior manager for
+security research at Qualys, their
+research unit. Uh we mainly consume all
+the CVEs uh and uh our team uh build
+detection for every single CVE that
+matter and also our team do a lot of
+vulnerability research, zero-day
+hunting. And uh today we're going to
+have a perspective from a vendor uh that
+is doing uh vulnerability scanning for
+over 10,000 plus customers. Uh
+So,
+um thanks everyone and special special
+thanks to Saeed who joined our panel
+like 16 hours ago, maybe, last night. Um
+we really wanted to have a perspective.
+We have we have primarily some
+uh the in CVE terms, the supplier, the
+vendor, producer of the software, who
+are also CNAs and making the CVEs.
+That was our original sort of
+stakeholder group. We really wanted to
+make sure that people who do vulner-
+vulnerability management and detection
+and scanning at scale might also find
+this useful. Or if not, we we want to
+know that sooner than later. So,
+appreciate your last minute uh join,
+Saeed. Yeah. Of course.
+>> Okay.
+There's going to be a small presentation
+component to this. I'm going to go
+pretty quickly. Uh there's nothing
+really rocket science here about the
+about the material. But just as a
+background on AS ADP, uh a couple of the
+panelists are going to
+talk in a little detail to a couple of
+their slides, but then the rest of this
+is panel.
+Once the slides are over, the room is
+open. And again, if everyone's feeling
+quiet, we have lots of canned questions,
+but we'll take questions as soon as the
+the slide part uh is done.
+AS ADP is it pretty straightforward.
+Turns out a lot of software is made of
+other software. Surprise. Um and uh
+it turns out, right, if my upstream has
+a CVE in it,
+am I affected? Am I not affected? How do
+I tell my users and customers?
+That's it. Like that is the that is the
+genius idea that that VEX and and AS ADP
+kind of really are.
+Um and you know, the answer can vary. I
+could be affected. I could be not
+affected. Uh the VEX
+specification, so to speak, gets into a
+little bit of detail about
+how, why am I not affected? Um, but
+again, this is sort of the CVE program,
+CVE Corposis version of should should we
+and how would we convey this
+information?
+Um, so yeah, do should we should we do
+this? And if so, how?
+Um, and for the moment, we're going with
+live experiment. And that is this pilot
+program.
+So, um, we're doing it. We did it in
+some test data. Um, there's a little bit
+of live production data, I think. Thank
+you, uh, thank you one of our
+participants. It's very small scale on
+purpose for now.
+Uh, proof of concept, does it work? Is
+it useful? And, um,
+if the CVE program does decide to do
+this at scale, we have some some big
+questions and big big bits of work to
+do. But for now, right, live experiment.
+Um, who's involved? These are the
+supplier CNAs who have volunteered.
+Thank uh, we thank them very much for
+for contributing supplier ADP
+containers.
+Uh, and we also have, as I mentioned,
+uh, Qualys this year. And sort of by
+proxy, the consumer working group, uh,
+in CWE, uh, in CVE, pardon my acronym
+slip, um,
+is
+guess what? Very oriented around
+consumers of CVE information.
+So, we're trying really hard to, you
+know, we could we can produce data,
+great.
+Is it useful? Can people access it? Is
+it the right data? Is it helping helping
+you do vulnerability management? Want to
+make really sure we're answering that
+question successfully before we spend a
+ton of energy making SADP a a bigger
+deal.
+Um, like I mentioned, this is sort of
+you know, VEX for CVE is the shorthand
+version of this.
+There are a bunch of ways you can do VEX
+today. These are some of the formats
+that do it, all that I can think of. I
+may have missed something.
+And we're going to try it in the CVE
+program as an ADP container. Um,
+in a CVE record, there are containers.
+It's just bit bits of JSON.
+The CVE record at least contains a CNA
+container. That's the main thing. That's
+the simplest CVE record. You may have
+seen other ADP containers showing up. Uh
+CISSA full enrichment is an ADP
+container. The CVE program has a mostly
+references uh container that gets added,
+also. This is A container's a generic
+way to add information to a CVE record
+and to know who said it. All right, each
+container is owned by someone. They said
+those things. They didn't say the stuff
+in the other container. So, that
+provenance is an important part of of
+the ADP idea. Um and for SADP, we're
+using the ADP container.
+Um some awesome-looking uh made up by
+hand in some cases
+um
+JSON examples here.
+We're going to have to figure out how to
+how somebody can figure out that, you
+know, this container is a is an SADP
+container and not another kind of ADP
+container.
+got to figure out what format it's in.
+Is there the idea that the reference the
+information might be elsewhere, not in
+this JSON file or this JSON API call,
+but maybe elsewhere on the internet. I
+have to go retrieve it. That's an open
+question.
+another silly example as to how to do
+that remote reference.
+Um and then, you know, what what must be
+in an SADP container? You're only doing
+this
+to um
+state the status of the downstream
+software with regard to the upstream
+CVE. So, you have to provide that
+something in the affected array,
+something with CPE, something with
+package URL to say
+what software you're talking about with
+respect to the upstream problem.
+Um and, you know, CVE's got a lot of
+infrastructure and stuff on the back end
+that that makes it all work. We're just
+right hand off to Jeremy for a moment.
+Um so, I'll I'll click ahead, yeah.
+>> Yep. All right, then. Um so, little bit
+about how this works. Um if anyone's
+already familiar with how CVE records
+are created in our infrastructure, it
+uses something called CV services. Um
+and then, for ADPs, there's an endpoint
+to create ADP containers and SADP
+containers will use the exact same
+endpoint.
+Um uses the exact same schema, no actual
+new stuff to support that. Now, what you
+can do right now is you go on the
+cve.org website, uh you can search for
+SADP, and you can see examples of these
+records that were created on production
+data. Uh we don't have a ton, but we do
+have some good examples to take a look
+at. They will have a neat little badge
+denoting that they are indeed an SADP
+record, um and that we have just for the
+pilot to demonstrate as a way to, you
+know, hey, this is the record I want to
+look at for this pilot. And those are
+the examples right there of what you
+will see in search results, so you know
+right away where to look.
+Um next slide. Oh, sorry. Yeah.
+Oh, oh, sorry. Yeah.
+>> Too far. Uh
+Oh.
+Thought sorry, did you have two I did.
+Whatever. I'll I'm sorry. I know what I
+want.
+>> You wanted both slides. Yeah, go figure,
+right? Um no, real quick.
+>> I hit the other one. I thought you were
+replacing my
+>> You already um touched upon this a
+little bit ago anyways, but we have a
+GitHub repository where all the records
+with SADP containers are stored on as
+well. Um and there's a folder in there
+called public um uh SADP data, and you
+can look in there to actually see the
+raw JSON of the records if you want to
+see it that way. And that's
+automatically updated with a GitHub
+action that's take brings in the diff
+records as they're created. And then,
+just to note, there is a a folder in
+there called archive pilot data. That
+has a whole lot of records in it. It's
+not real, right? That's from our pilot.
+So, anything in there you won't see on
+the actual cve.org website, but it might
+be good to take a look at just for an
+example.
+And and importantly, we have as of like
+hours ago, we had Siemens, I think Yep.
+publish into the um published production
+production pilot uh SADP content, right?
+>> 20 records or so, so thank you to them.
+Thank you, Siemens.
+Is that There you are. Yes, there's
+Please take a bow, right? No pressure in
+the front row right there. One of the
+Thomases or Tobys did something, right?
+Back back home, so That was yeah,
+awesome. Thank you.
+Yeah, hey, sorry, man. I I I messed up
+Jeremy's slides. It's my fault, all
+right? I know. Seriously.
+Um Yeah, all right. So, uh yeah, that's
+sort of what's happening. And there's
+some bigger uh
+boy database architecture and services
+and API and schema design questions
+here. You know, 20 records from Siemens
+and 100 plus from Microsoft and then,
+you know, hundreds and low thousands of
+records fine.
+You know, go back for a minute, right?
+All the software that's in the other
+software.
+I don't know what the scale of that is.
+Six 10 to the sixth or higher like we
+have a some big architecture questions
+to to resolve. Um maybe soon. Yeah,
+please. Yeah. We have like some ideas
+about that. No, I won't say perfect
+solutions, right? But we might have to
+consider things like maybe we limit who
+can have an SVE container or maybe we
+limit how many are on a record, things
+like that. And we can get really into
+technical details of a distributed
+database might be the right way to do
+it, right? So, we have some ideas, but I
+think this is going to be a great
+discussion point to have later on. And
+we're definitely aware of the problem,
+right?
+Great. Thanks, Jeremy.
+Um Lisa a bit if you if you'd like about
+uh
+Microsoft's.
+>> we're
+We haven't really jumped into the pilot
+yet. Um
+few busy busy things happening. However,
+um we we want to take it in phases. And
+and the first phase is the simplest
+phase and we want to do that fairly
+soon. And that is simply having a
+reference to the Chrome CVE that we have
+fixed in Edge. You may have noticed that
+we re-publish all the Chrome CVEs that
+are fixed on a weekly basis usually. Um
+because Edge consumes Chrome and so we
+say, yep, we've we've consumed the new
+version of Chrome and so therefore these
+CVEs are fixed. Uh
+We did like 60 of them last last week
+because because Google is serious about
+fixing their vulnerabilities now.
+Um so, that's a good thing. This the
+second phase, as you may or may not
+know, we've sort of dipped our toe into
+Vex, and we're publishing Vex
+attestations for
+Azure Linux. And so, Azure Linux is is a
+is a is a repo, um, is a Linux repo
+distro, I guess is what you would call
+it. And um,
+and we published probably
+eight or 9,000, uh, Vex files on CBEs
+that are part of Azure Linux. And so,
+and so we're doing that, and that would
+be a second phase that kind of breaks
+the boundaries of of what this pilot can
+do. So, so that's sort of a dip your toe
+in a little further and and see what we
+can do there.
+The The thing that I think might be
+interesting as a third phase, and and
+maybe the second phase sort of gets into
+this is
+showing what the kernel kernel.org CBEs,
+how they're interpreted by different
+vendors. Red Hat Red Hat does this, we
+do it for Azure Linux, and so that might
+be a interesting outcome of of the
+pilot,
+uh, before, you know, we all do this at
+scale using Vex. Yep.
+Which Red Hat already does, but we don't
+except for Azure Linux. Anyway, that's
+that's me. Great.
+Uh, thanks, Lisa. And speaking of
+Red Hat, uh, queue you up, Himanshu.
+Great. Yep. Thanks.
+>> Yeah, so Lisa rightly touched upon the
+the model that open source ecosystem
+works on, upstream and downstream. They
+are downstream for Chrome, Google is
+upstream for Chrome. And this is this is
+exactly the If If I just expand that
+further and scale that, this is exactly
+the problem that the open source
+ecosystem is facing today.
+So, in open source, you have a
+downstream software called supplier,
+consuming lots of upstream packages, and
+the downstream distros,
+they're compiling, they're, you know,
+they're configuring, packaging those
+software, and selling to their end
+consumers.
+In open source,
+like if an upstream package is
+vulnerable, it's not necessary that the
+downstream supplier software is
+exploitable to the same vulnerability.
+And it's it's a
+it's a problem that we have been
+handling and dealing with for a long
+time in the open source ecosystem.
+So, this is where the supplier ADP
+initiative can help. So, the
+So, there are two scenarios in open
+source. If an an open source CNA
+provides the uh
+the information, the CV record they
+publish, they give their assessment,
+the downstream distros, the suppliers
+will have opportunities to enrich that
+record, and, you know, provide their
+context information. Like kernel.org
+example that Lisa shared. So, uh the
+other example is kernel.org. So, so they
+they do not have the visibility of end
+user. You're using Android phones,
+you're using desktops, you're using
+servers. They cannot determine what is
+the CVSS score, what is the impact for
+the downstream user, end users. So, they
+do not provide that information in their
+CV records.
+Being in supplier ADP, it gives us and
+our end consumers and the entire
+ecosystem the visibility and
+transparency about our own assessment.
+So, today all the vendors are putting
+their vex files, they are doing their
+own assessments, they are publishing
+their information for the consumption.
+Having a SDP pilot, if we have SDP
+containers for the downstream distros,
+we will have one-stop shop, and the CV
+record will include information from all
+those contributors and distributions.
+Right.
+Yep.
+Thanks. Um so that's the This is the
+slide the slide presentation part. Um
+we're all big fans, I guess, of of
+supplier ADP. I'm not sure Said is
+entirely a big fan, but he hasn't been
+on the fan uh the fan trip as long as
+the rest of us.
+Um so um we're going to open up to
+audience questions here. Um and again,
+if
+if people, you know, want to stay quiet,
+that's perfectly fine. We got a lot of
+other other material to cover.
+Uh so there's a mic in the center, so
+please use it because we are streaming.
+I don't want to collect the audio for
+everyone.
+And actually, since I really didn't give
+you a chance, Said and everyone else had
+a slide, um
+I I I do want to just very
+straightforwardly ask, right? We have a
+bunch of people supplying software, a
+bunch of downstream involved. We did
+talk to some upstream who
+technically don't have to do anything
+because downstream's going to attach to
+their records and their information, but
+as a uh as I as I like to call it, an
+institutional
+vulnerability data and CVE consumer
+is this Does this at least sound useful?
+Is it a bad idea, a good idea? What
+would you need? What's missing?
+Any Any thoughts generally on on on this
+idea? Yeah. Um yeah, sure. Uh
+To give you a perspective that uh why
+this is an important problem to solve,
+uh I'm going to tell you how we solve it
+at Qualys, right? Internally, because we
+are serving a large number of customer.
+And like to last year, we released
+100,000 signature across 46,000 uh
+46,000 CVEs. So the scale is really
+there, right? And the customer demand a
+speedy uh signatures, accurate,
+obviously. And uh the way that it works
+is we have to go and subscribe to every
+single security advisory mail list,
+RSS feeds, CISA feeds, right? And all of
+that. So, there is a huge automation
+involved to get all of that. And then I
+start building all the these detections.
+And the key here is that uh because
+supplier ADP wasn't there, we have to go
+through every single one of those in
+order to serve our customer and build
+these uh signatures. Today, we have a
+median of uh 12 hours for critical and
+zero day uh vulnerability from research
+all the way to the release. So, and
+still customer asking, "Can we have it
+faster?" So, this will uh help in that
+regard. To to give you more context, uh
+2 years ago, we uh discovered
+vulnerability called regression in
+OpenSSH. It was a uh remote code
+execution vulnerability. And
+the day that it dropped and we went
+through the responsible disclosure,
+during that first week, we released 79
+uh signature for the same CV across 79
+different vendor. And none of them came
+from a centralized place, right?
+And uh
+this is the scale and that's what it
+require. Imagine that uh this can lower
+the barrier for all the uh CNAs that
+they can add uh their uh as a container
+to that uh CV record if they are
+affected or is like a
+impact statement. And uh the other thing
+I want to touch on is uh with uh the age
+of AI AI and all AI discoveries, and we
+are seeing that a lot of vulnerabilities
+being discovered, mostly low-hanging
+fruits and medium-hanging fruits uh CVEs
+that uh
+it's coming. It mean it means that
+such a uh uh
+system like uh
+a supplier ADP is required to move uh
+the ecosystem forward because the amount
+of the data and the amount of CVs that
+you're expecting is much higher and uh
+there is a need for a speedy
+discovery and also release of such a
+data out to for anyone that they want to
+start a scan because there is a lot of
+vulnerability being discovered but at
+the end of the day VM vendors need to
+provide a way for every single customer
+to detect those and remediate those. So
+it means that we need a system like this
+to go a little faster. Obviously we
+solve majority of these internally but
+this is a quality sophisticated
+vendor mature very long time there but
+something like this bring the lower
+bring lower the barrier for every single
+CNA to start contributing.
+Yeah, thanks. I mean that
+in theory that is right if there's if
+there's
+one or fewer sources for this
+information
+that seems to be more efficient than
+having how many
+hundreds of different scrapers and
+grabbers and feed readers and things to
+collect all the information from
+individual individual supplier sources.
+So that's one of the promises in theory
+of of this idea.
+Um I I did want to go back a minute to
+and this is open to anyone but I
+mentioned we have right we have the
+downstream suppliers represented. Got
+Yogesh and Qualys here.
+I sort of glossed over this but
+what
+what would the Linux kernel or curl or
+the libpng maintainer or right if
+upstream is a maybe a CNA and providing
+their CVE records and doing everything
+the right way
+and you know one or two or 10 or 100
+SADPs are adding on to their record
+any concerns for for upstream
+in our in our plans here?
+So um
+So me and Pete we run a open source CNA
+users group. We are running that for
+last 2 years.
+And this was one of the challenges that
+would that was voiced out by kernel
+kernel and other some of the open source
+CNA. Like I said,
+you are running like kernel is running
+on your Android phone, you have a
+desktop, you have a data center. So,
+the upstreams, they do not have the
+environmental context about the end
+users.
+And if we force them to provide the CVSS
+severity and CWE, they'll default to the
+worst case scenario. So, assume they'll
+think about a data center server and
+they'll say it's critical.
+Maybe it's not critical for your Android
+phone at the end of the day. So, you may
+get panic that hey, I have got a patch I
+need to apply to my Android phone.
+So, they voiced out these challenges and
+concerns and we collaborated with CV
+board and MITRE and rest of the group
+and we gave that feedback saying hey,
+this is this is what we are seeing as a
+challenge.
+they're happy that the downstream
+vendors, the suppliers and the end users
+get the contextualized
+data. So, for example,
+we are shipping rail to our customers.
+Our customers and like SUSE will have
+their their own SDP container for
+example. Ubuntu will have. So, every
+customers, the consumers will have the
+contextualized data
+within the CVE record instead of them
+referring to the different vendor
+portals. At the same time, we feel that
+gap. So, kernel cannot give that
+metadata.
+We fill that gap as suppliers and we
+help our downstream consumers at the end
+of the day.
+Does anybody want to add anything?
+Uh I'll just I'll comment briefly. The
+Linux kernel is public about not wanting
+uh for example, CVSS evaluated for
+the upstream kernel
+vulnerability.
+And they're pretty uh uh, pretty
+strongly opinionated that indeed
+downstream distributions and others
+should be doing that and adding that
+closer to the context of of that distro
+that distro or
+wherever you are in the downstream
+chain, so
+curl agrees with you very much. Yeah,
+right. Yeah.
+on the topic one more thing. So, if I if
+I go grab a CVE record
+and it's from curl and I see a Microsoft
+container and a Red Hat container and a
+Debian container and a bunch of other
+ones
+I have a question.
+Should I do I go bug curl?
+Do I bug Microsoft?
+Who do I
+if I'm not sure about this container in
+this record, who do I go bother with my
+my my customer question about
+being affected or not?
+Yeah, please.
+Well, if if all the SATP containers
+contain the answer, they don't have to
+bug anybody.
+Yes, good. Well well said. Ho-
+hopefully, I
+I concern is that perhaps people will
+still ask questions. Uh, so I just
+wanted to to clarify that another
+concern of upstream is hey
+um you've probably read blog posts from,
+uh,
+who's the curl maintainer? Daniel
+Stenberg? Daniel?
+Uh, so right.
+if if he gets bothered, uh, with
+questions about Microsoft's use of curl
+he's going to write an angry blog post.
+Uh, but that's okay. I mean he and he's
+not wrong. Just that, um
+there was some concern I think at one of
+those meetings, Yogesh, that
+upstream would also be getting support
+or questions calls support calls or
+questions
+because of the SATP content. And I think
+the best we can do from CVE is to be
+clear who said what.
+If a question about Microsoft's use of
+curl, it seems obvious you would ask
+call your Microsoft support contact, but
+people are people, so, um we're not sure
+where that'll that'll really end up.
+Yeah.
+I audi- audience questions? The slide
+says it's time for questions for
+panelists. Anybody?
+All right. Nope.
+Oh, we have one. Oh, sorry. Great. Thank
+you.
+Thank you very much for this. Um
+very interesting project. Um
+as a national cert extremely interested
+in
+knowing what's being used
+from upstream and downstream to advise
+our
+stakeholders.
+Um how do you see this different than
+S-bomb? I mean it's kind of the opposite
+of S-bomb in the sense of instead of
+suppliers
+um telling you all the different
+software or open source
+solutions they're using.
+You're enriching the CVE record of um
+upstream, downstream. Sorry, I'm not too
+sure
+That direction's up. Yeah, so you know,
+the latest example would be that this
+WolfSSL uh vulnerability that uh we are
+all
+hopefully seeing.
+a lot of people are implementing this
+package.
+Um so, the goal is to document all these
+package. So, uh how do you see it
+for the few like for the next
+vulnerability affecting the same? Are
+you enriching it every time with an SEDP
+container
+for every single vulnerability that your
+software is is using?
+Anyone care to answer that? Maybe I can
+I can talk about it. So,
+like Siemens and us were part of the
+pilot.
+To be very honest,
+the SEDP went live last week. It's a
+production pilot at the moment.
+As Red Hat, we are trying to figure out
+what is best for the community and best
+for our end consumers. We don't want to
+flood the system at the end of the day.
+That's not our goal.
+Me and my guys are still figuring out
+what is the best approach to utilize SDP
+so that it helps everybody out at the
+end of the day. And at the same time it
+does not bother Jeremy with a lot of
+records, SDP records coming up and you
+know, the infrastructure is slowing
+down. So, that's still something we are
+figuring out.
+I'm open for any suggestions or
+recommendations that these group has for
+us to implement these further down the
+road. So, we got the concept, we got the
+structure. Implementation part we are
+not there yet and we are open for any
+suggestions and feedback on that.
+One last question. So, for this
+specifically
+>> [snorts]
+>> am I understanding of the project is
+that you will come and enrich, I call I
+say enrich, but you will come and add
+SDP container that to state which
+products are either
+vulnerable, not vulnerable, even if
+you're using so, can we draw conclusion
+that
+you are using this library, but in this
+particular case you are it's not exposed
+therefore not vulnerable. So, you know,
+for me next time I
+I see this vulnerability, I know that
+your software
+or your you know, your downstream is
+actually using it so therefore I should
+be tracking for you know, could be
+exploitation, could be for anything, you
+know, so I'm
+trying to create this big database of
+downstream
+um software using this package.
+>> Yeah. So, like we already produce vex
+files that gives a lot of context to our
+data and that's one of the discussions
+that we are having having is
+are we just replicating whatever we put
+in vex files? Is it going to make sense?
+Is it going to help the community out
+and the downstream consumers?
+So, we are looking at those scenarios
+and the application of SDP and
+accordingly like I said it's a JSON
+record, right? You can put things there
+and they can be machine readable and
+consumed, but we want to be very
+conscious and sensible about what we put
+there which is useful and helpful not
+just the [snorts] garbage.
+Yeah. So,
+I'll add a very small amount. So,
+>> [sighs]
+>> um yeah, the VEX idea did come from the
+S-bomb sort of work, right? What
+software is in the software is its own
+interesting question. Forget about
+vulnerabilities and CVEs, just what is
+my what is my dependency graph for all
+of the softwares is its own giant
+problem, right?
+and VEX was born of that to convey
+exactly what we've been talking about.
+Yes, I use WolfSSL, but not in a way
+that's exploitable. So, how do I convey
+that without lots of support calls and
+people having to track things down? So,
+at first the the implication that
+Microsoft would publish an ADP container
+about WolfSSL would imply to me that
+yes, indeed somewhere Microsoft uses
+WolfSSL or curl or something.
+But, I don't think you can assume that
+for sure.
+And I'll can I pick and pick on Red Hat
+for a tiny bit? I've seen some VEX
+statements from Red Hat. There was one
+that struck me the other day that was
+something I don't know what the software
+was, but
+some clearly not Linux oriented software
+whatsoever and you had a great VEX
+statement open VEX statement saying, you
+know, we're not affected. We don't use
+this.
+But, if you can imagine that the use,
+you know, the graph of what software I
+use is large. The graph of what software
+I don't use is even bigger. So, I don't
+know that
+where the line is on that, but I I don't
+think we want um everyone saying I don't
+use any of
+you know, 10 million things on the
+internet. That's not going to help us.
+It's going to flood us also. So,
+unanswered question, but I think the
+implication is true. Why would I bother
+saying SA8P information if I didn't have
+the software in the first place. But,
+not a not a you cannot be uh don't fully
+assume that yet. Okay, thank you.
+Hey. Yeah, so
+First, thank you for the success of the
+pilot. And second, uh do you already
+have an insight into the increase in
+quality of the records or of the whole
+ecosystem based on the pilot outcome?
+I It's pretty pretty early. I don't
+know.
+Yeah, if you Please sit.
+Jeremy, yeah.
+The short answer is not really, but it's
+just early on, so we're starting to see
+what this can do. And I think we're
+still trying to define like, you know,
+what we want to actually add to it,
+right? What are the most useful parts? I
+think someone mentioned earlier figuring
+out what the community is actually
+[snorts] looking for to make this useful
+for them, right?
+And I mean there there there's some
+other talks, you know, quality is
+definitely a concern of I think
+everyone, and there's some talks this
+this week about it. Uh I um
+my sort of variant on that is
+quality for what? So,
+if we need institutional consumers to be
+able to get this stuff and amplify it to
+all of their customers,
+that might, you know, you need quality,
+but can't have just isolated pure
+quality. What's the What's the reason
+you're doing the thing? And yeah, to
+Jeremy's point, I don't think we know
+yet.
+>> Okay. Um We've made some guesses and
+started some things off, but part of the
+pilot is to figure that out. So, but
+thanks, yeah. And thank you again. Thank
+you, Siemens, for making our
+presentation 20 records better uh 6
+hours ago or whatever it was, yeah.
+Hey
+All all the better, Chris, of course.
+Hey, thank you. I have a one comment and
+one question. The comment is just thank
+you guys so much. I think one thing that
+I see being talked about this is it
+makes a opportunity for downstream
+vendors to talk about their security,
+and that is, you know, a selling point,
+but also it's it's good that we create
+these human pathways that we're actually
+building more information, making it
+incentivized. The question I have is, as
+someone who has responded to incidents
+and have looked into some of these bugs,
+sometimes from the downstream to the
+very bottom, it is changed in such a
+fundamental manner. And so, I'm curious,
+where do you define that line? Are you
+looking to
+like populate additional description or
+contextual data that may be relevant.
+But yeah, just where do you find that
+line between downstream vulnerability
+versus, you know, what it becomes by the
+end?
+Yeah, that's the contextualized data
+So, ASADP gives us the opportunity to
+provide that contextualized data.
+We So, during pilot, I want to be
+honest, we we had a lots of
+brainstorming around what the schema
+should look like, what should we
+accommodate in like should should we
+accommodate the affected versus not
+affected thing as well at the versions,
+what software. So, during pilot, we
+evolved
+throughout the journey like from where
+we start and where we are today.
+We went live last week and our goal is
+provide that contextualized information
+to our downstream consumers. So, for
+example, and the guy sitting behind
+just after you,
+he gave a presentation in EUCRA, like
+there could be a dependency change in
+open source ecosystem and it can go up
+to 60. Yeah. So, you know,
+So, Red Hat is a distro, so we are
+thinking from our perspective, but as a
+community, we have to think through that
+who is our downstream consumers and how
+is that data making sense to those
+downstream consumers instead of like I
+said, instead of just putting everything
+we have in VEX file and just copying and
+pasting there, it's going to blow up the
+CV record at the end of the day. So,
+that's the contextualized
+and sensible decision that we are trying
+to make at the moment.
+Yeah,
+hopefully we don't have terabyte CV
+reports anytime soon.
+>> [laughter]
+>> Exactly.
+Hi.
+So, since there's nobody behind me, I
+can I can just do a comment and then a
+So, the comment is just to put a context
+on
+on this problem,
+which is So, we work with Apache Kafka
+and Kafka uses log 4j which uses Jackson
+databind which uses snake yaml and snake
+yaml has
+eight very well documented
+vulnerabilities or CVEs.
+And so the Kafka maintainers, they often
+get hit by downstream as in do something
+about it because my SCA tool has just
+still told you that
+you're vulnerable. And the answer is so
+would Kafka do an update? The answer is
+no because by VEX they do that. So by
+the anecdotal story just tells you this
+is a practical evidence where the the
+middle the middle people the open source
+people they're getting hit all the time
+by the downstream vendors. So having
+these VEX documents and generating them
+and then propagating them propagating
+them upstream as well that helps
+reducing that noise. Uh that the ones
+that is published as that. So now Kafka
+is doing that Solar is doing that like
+these VEXes are published on their
+websites. You have to do that. Anyway,
+uh so but it comes at a cost like what
+is the cost of generating the VEXes and
+also what is the cost of making
+mistakes? So we have heard from people
+who are very familiar with the VEXes
+that for commercial projects per project
+it costs about half a million dollar or
+so every year because of head count and
+everything and the process is almost
+always manual. So the people who are
+generating like like Microsoft uh is
+generating now and Red Hat is
+generating. How much of it is still
+manual and what is the cost or
+like generating each of these VEX
+statements? Any ideas on on those?
+So I want to say it's automated and it
+has to be automated from
+consumption perspective as well because
+we call about machine readable data,
+right? There could be human efforts at
+the start maybe validating things maybe
+collecting things but I think it should
+be automated further down the road. So,
+it's an investment from that
+perspective.
+There has to be people involved at some
+at some point in the in the life cycle,
+right? And and there are people involved
+sort of closer to
+to figuring out if the CVE
+does affect it or not. But from from
+then on it just flows automatically and
+to the publishing.
+And publishing happens automatically,
+too. So, yeah, that that whole pipeline
+is not going to work if you're doing it
+at scale for every Microsoft product
+unless, you know, much of it is
+automated.
+Thank you. Yep.
+Jesus.
+Hello. Snuck up on me.
+what is the
+what is the expectation of like
+this software composes the software that
+I compose into my software that is
+composed into my downstream software.
+Right? Cuz like
+I mean, the examples will be obvious,
+right? Like Linux kernel
+goes into a thing that goes into a thing
+that goes into a thing that I buy,
+right? Um what what is the expectation
+there? Cuz it seems like this is going
+to be ginormous.
+I'm happy to Yeah. All right. I mean,
+yes. The potential is
+like orders of magnitude non-linearly
+more information than CVE ever thought
+it would ever contain.
+So, right?
+If there were software identity for
+every piece of software on the planet
+and yeah, all the dependency graph, I
+don't know what that size is, but it's
+it's not it's enormous. And I I don't
+expect us to get there ever, but
+we can do better than kind of nothing or
+hodgepodge. And you know, to be to be
+fair here and this goes back to the
+S-bomb Vex days, right? You know, Red
+Red Hat and Microsoft and every major
+software sort of ecosystem, they do
+this. You you can type, you know, I can
+type a package manager update command.
+Microsoft update is automatic and it
+works. Red Hat's probably automatic or I
+can probably type an RPM command.
+Because
+someone knows those dependencies
+for that sort of vertical
+software ecosystem.
+The attempt here for CVE is to enable
+that for for everyone. CVE is not going
+to make anyone do it,
+but can we enable it? And is it possible
+to do in CVE? And is there some
+efficiency gain so that
+Qualys doesn't have to check as many
+sources and Red Hat and Microsoft's
+customers don't have to go to as many
+places to find find the answers.
+Um the scale is astronomically
+geologically bigger than what we're used
+to. So, I
+um in theory all of those everyone in
+that chain taught or everyone in you
+know, the the the sneaky animal chain
+would attach could could attach their
+information.
+And you're accidentally building a
+dependency graph
+in the vulnerability information in CVE,
+which is its own
+separate architectural problem, but
+um that's the idea. Anyone could
+eventually
+add uh
+add an SAAP container.
+That's the theory. I mean, we're early
+we're early stage, so scale isn't
+absolute. I think the first I was on the
+call, you mentioned Yogesh with uh
+what's the name of the group? The
+the open source CNAs. I think the first
+question they said was, "What are you
+What are you talking about? You can't
+scale that large. It'll never happen."
+So, that was the first comment I
+received when
+when talking to upstream. Also briefly,
+there's at least two other Vex related
+talks today. Lisa, you have one?
+Sort of. Sort of Vex. Um
+right here, Jessica has a a Vex a Vex
+talk. So,
+I don't think it's SAAP related, but if
+you're interested in this Vex and the
+downstream problem, there are other
+lots of people worried about this and
+working on it. So, um
+go to their
+go to their talks as well. We're done.
+Sure. I mean, I I
+Yeah. So, we get we you know, we have a
+shared problem. We have the common
+vulnerability enumeration.
+We were even Oh, sorry. Or an exposures.
+My my E is out of date. I wish it was
+still enumeration, but I I lost that
+discussion years ago. Uh common Common
+is the important word.
+We have CVE. Again, is there an
+efficiency to be gained by a standard
+place and way to help convey all of this
+Vex like downstream. And
+you know,
+are you affected or not and what is
+what's the actual metadata in the
+context? That's critical stuff.
+We're not going to I don't think be able
+to get to the details right away. That
+might still require going and reading
+downstream's detailed advisory.
+But we can at least give you put points
+you in the right direction, right?
+Um actually, at least one more question
+in in on in this in this scale
+department, right?
+Sort of mechanically, we can have the
+SADP container right in the the JSON
+file or right in the record right there.
+And or we could have a reference pointer
+from that to say Red Hat's OpenVex
+repository or Microsoft security update
+guide.
+any thoughts panelists on the data is
+all stuffed into the CVE corpus
+or it's pointers to external information
+that somebody would have to either go
+collect and assemble.
+Or both. Both is an option.
+I think we were pretty clear-headed when
+we started talking about this whole
+thing that that this was a pilot that
+could never be fully recognized, right?
+It's it's not It's not going to work at
+scale. But that doesn't mean you can't
+do some experimenting and see what does
+work and what does work maybe leads us
+into, you know, a different set of ideas
+about
+you know, Vex's be because of uh
+security.text Vex's sort of a
+distributed sort of solution. And that
+could be not workable either at scale,
+Um this is obviously a centralized
+solution which probably isn't going to
+work. But as an industry, I think we
+have to
+have an open mind about what is going to
+work because because this is a big
+problem that we need to solve together.
+And and so
+So
+No, Todd, we are not thinking that this
+this is going to work.
+What was the question? Um oh, sorry. My
+My question is
+Do we shove all of the data into the CVE
+corpus or do we give you a robust
+pointer to get it from elsewhere? Or
+both? That's that's sort of the same the
+same thing, distributed versus
+centralized. And and [snorts] I think
+that we're going to
+Microsoft is going to experiment with
+both.
+and we'll see we'll see how it works
+out. I think this is an experiment.
+>> Yeah.
+And like I said, we are still figuring
+out how to go live with the SDP. And
+this is one of the thoughts we had. Uh
+my team is
+What is that So our end consumers, they
+look at our Vex. They know where to go
+and where to fetch the Vex files and you
+know, use them.
+So we are trying to maintain that
+balance that we maybe we can have the
+severity, CVSS, and CWE and other stuff
+which the upstreams do not provide and
+give the reference to our Vex files.
+That is one of the approach we are
+looking for so that we don't bother
+Jeremy with, you know,
+megabytes and gigabytes of data all the
+day. So that's the balance we are trying
+to figuring out at the moment.
+Yeah, on the screen here is an entirely
+made up by hand um
+made up example of what a
+uh we're sort of calling a robust
+external reference might look like. So,
+as opposed to just a URL straight to the
+What did I make up here?
+That's CSAF fix JSON I'm pointing to,
+Lisa. It's a real URL, but I sort of
+hacked it together, right? But this this
+whole X_ADP reference, it's not just a
+URL, good luck, but hey, it's a URL,
+it's uh it's CSAF whatever format it is
+at the end, so you can automatically
+figure out what it is. There's some
+some namespace and version information,
+so machine usability is hopefully
+enabled by
+some metadata about the reference and
+not just here's a URL,
+good luck. Uh
+right? You have to write a new scanner
+to scraper to figure out what whatever
+that whatever that thing is. But this is
+entirely made up. You see the X_ written
+by hand, not official. We haven't
+decided it's good or bad or is missing
+something or anything else yet.
+Pete, yeah. I would postulate uh that as
+we go through this
+that we need to actually have a pointer.
+Uh I would say the container actually be
+attached to the record. Whether you pull
+or not is a a different question.
+I I postulate that simply because
+the challenge is going to be the
+aggregation.
+And taking from Lindsey's comments
+uh and Nuno's uh about the
+interoperability and and and the
+likeness of the data, we need to have it
+in a spot where the uh and I'm going to
+call it the scanning vendor community
+that Qualys is representing here, uh has
+an ability to say, I got it from an
+authoritative
+location instead of the pointers all
+over.
+Because otherwise, the community
+consuming doesn't know to trust or not.
+And I think we have to establish that.
+So, I'm going to
+anchor off of what Lindsey said about
+trust and interoperability and
+infrastructure and say these ought to be
+tenants that we ought to um at least
+postulate for that that discussion and
+move it forward because I think uh
+the Qualys' and and the and the others
+in that field need that level of
+assurance to invest.
+And I think that's the same for for
+those who would follow Microsoft and Red
+Hat uh through that entire process is am
+I going to go and invest in that? Uh I
+need to have some level of assurance.
+So, I think that's one of the things we
+ought to possibly as we go through and
+say how does the
+ecosystem respond to that and and what's
+the temperature? Yeah.
+Please do. Just want to know that that
+was great, Pete, uh because imagine
+every time you get a a scanner to look
+for your vulnerability in that you will
+have a reference point that this came
+from here, which is uh a trust signal
+right there, and nobody need to question
+that and they can directly see it from
+uh the CV record. That's a great point.
+It it's going to come back to I hate to
+say it a governance issue about the
+authoritative CNA, and the question is
+is it the authoritative kernel? And then
+it came down and and Microsoft Azure did
+it one way with their Linux and Red Hat
+went another way and a bunch of them
+went a third, and you know, who do you
+follow? Is it kernel, which is the
+current methodology, which drives the
+ecosystem crazy? So, if if this is going
+to be successful in informing, I think
+it's got to address those problems that
+says to help people understand.
+Yeah, a very technical minimum is
+the the the the imagine CVE process
+would at least tell you who owns that
+ADP record. And if you believe that CVE
+really does believe that that is Red
+Hat, hopefully that some of that trust
+can be transferred through that I the
+provenance of the of the owner of the
+ADP record.
+Um I've got at least one last question
+and and you know, great ADP, we all
+think it's probably worthwhile in some
+way as ADP. Um
+I can imagine this happens already,
+right? There's a CVE record out there,
+the CNA wrote the description, did the
+CVSS scores, did some other stuff.
+Uh downstream comes and says something
+adding context for that downstream's use
+of upstream. Great.
+But, you could imagine there could be uh
+a disagreement or conflict or it's not
+just additional enriching information,
+but it could veer into a disagreement of
+some kind. Um
+That's going to happen given the given
+the scale alone. How do we
+How do we deal with um a dispute, a
+disagreement, information that even
+without, you know, it being a
+even without it being a you know, a a
+dragged-out fight, simply conflicts. If
+I have ADP information that says
+something different than the CNA
+information or two ADP containers that
+conflict in some way, what do we
+How do we handle that?
+I'm I'm asking my panelists. Any
+thoughts? Yeah.
+So, yeah, that's a great question.
+So, first and the foremost, the SADP
+container is very much contextualized
+and the vendor specific information. It
+remains within the purview of the
+vendor.
+if if upstream CNA says that it's a
+vulnerability it's a CV record means
+it's a vulnerability, upstream
+acknowledges that, right? So, if
+upstream says it's a vulnerability,
+regardless of the downstream sees that
+as a vulnerability or not, the
+downstream can provide their context for
+their end consumers at the end of the
+day. The other SADP, for example, if
+there is
+there is an open source software that
+Red Hat is consuming, we say not
+vulnerable or affected, Microsoft may
+say affected. So, whatever each SADP
+supplier is talking about is just about
+their own context, and that's that's the
+line we should draw, I think, at the
+moment.
+Yeah. Uh
+just want to add one more thing.
+I believe as long as the scanner is
+still relying on uh CP that problem and
+that dispute is it will be right.
+And uh we are seeing it time to time.
+But uh the way that the scanners need to
+work is not going by the CP because
+right now we have over 350,000
+signature, not even single one of them
+really rely on the CP data. We rely on
+the artifacts and the evidence on the
+that machine. So uh we have
+uh if the CP is involved for detecting
+those vulnerabilities, those disputes,
+they're going to be there.
+Uh and hopefully uh SADP can help uh
+with some of that.
+So um we were we're at time here. Uh I
+want to thank my panelists. Please give
+them a uh round of applause.
+>> [applause]
+>> Thank you very much.

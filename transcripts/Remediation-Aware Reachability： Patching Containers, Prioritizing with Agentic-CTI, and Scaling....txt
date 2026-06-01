@@ -1,0 +1,1275 @@
+Hello Phoenix.
+Let's see if we can
+Can you hear all right? Yeah.
+All right. So, as I said, I originally
+had
+this presentation focus on rich ability
+analysis, context vulnerability
+management.
+But with all that happened this year and
+it's just April, I thought
+probably should call and talk about the
+elephant in the room that is AI, AI
+apocalypse
+and all of the misconception that is
+around here.
+I don't know about you, but I'm tired.
+It's April and it feels like it's been a
+year already.
+We had probably the most dense amount of
+attacks
+in package management,
+um
+vulnerability throughout.
+And attacker using AI and intelligence
+in a way that I never seen before.
+So, that's why I wanted to focus today
+on giving a little bit of clarity about
+what's happening and how to equip
+yourself in this new AI age and how to
+use AI in an intelligent way and
+demystify a lot of fog, fear,
+uncertainty and doubt that is out there
+about, "Hey, I have the latest model
+that's going to one shot your
+vulnerability and uh having the CISO
+panic about it, trashing everything that
+we've been doing for the past 20 years
+because the latest AI model that can't
+even defend themselves uh announced that
+they're going to one shot the
+vulnerability. So,
+let's chill for a second. Let's take a
+step back. Let's take a breather because
+it's been quite a year.
+A little bit of background about me,
+I've been in vulnerability management,
+application and cloud security for the
+past roughly 15 years. I've been head of
+uh application and cloud security in one
+of the largest transformation. So, a lot
+of panic around moving things to the
+cloud, a lot of vulnerability panic.
+And in all of these conversation, I
+always said, you can argue with people,
+but it's very difficult to argue with
+people that have data about things. So,
+a lot of the discussion today is going
+to be how to use a data-driven approach
+to demystify a lot of this fad, a lot of
+this noise that you see out there.
+And on that subject, just as a follow on
+element, having data is absolutely key
+to make good decisions. That's for us as
+human and agent or agent and human
+alike.
+This presentation has LLM part, but what
+I want to say is
+no human right now can live without AI.
+But that shouldn't encourage anybody to
+replace their brain with AI. So, 10x
+your capability with intelligence with
+LLM, and I promise no LLM got hurt
+during this presentation, but was
+thoroughly abused and used.
+So,
+oops, too fast.
+It's going to be a five-part
+presentation, so we're going to go
+through a landscape of like where we are
+today
+from code to runtime, how's AI have
+changed the landscape of exploitation
+and vulnerability, and how to equip
+yourself to fight AI with AI, and where
+to use intelligence in all of this life
+cycle, and how
+this life cycle is changing slightly
+from traditional vulnerability
+management and package and malware
+analysis because that's been a lot of
+the target of this year. So, I want to
+spend a little bit of time on that. Um
+there is a surprise at the end of the
+talk, something we're announcing to help
+you guys all, guys and girls and
+everybody in between, to fight AI with
+AI.
+I want to do a show of hands.
+If you believe you have control of your
+vulnerability.
+Zero. All right. I see the honesty here.
+Play with me. If you believe your
+company has a functional vulnerability
+management program.
+Okay, we have show of hands. We have
+some hands. If you believe that that
+vulnerability management program covers
+all areas scope and vulnerability that
+you you have from software, cloud, and
+infrastructure.
+Okay, we have honest people in the room.
+Usually we have couple of hands that are
+left standing and the last part is
+usually where it gets all the hands
+down. If you believe that your
+vulnerability management program has
+attribution embedded in so that you you
+know who owns a particular asset.
+And even worse,
+knowing what measurement and what
+metrics are actually effective from a
+vulnerability management perspective.
+Usually that
+gets all the hands down and that is
+where I say, "Well, I don't believe you
+if you still have your hands up." But
+let's talk about it at the end of the
+presentation.
+So, where are we today?
+Well, we are 300,000 plus vulnerability
+and an acceleration of 25% more
+year-on-year and this is not slowing
+down. But I wanted to just point you out
+from 2015, we had an acceleration up to
+40x of number of vulnerability declared.
+Defender are not keeping up and
+the reason why there are so many more
+vulnerability, it's a number of reason
+that I'm going to cover on the initial
+part of the presentation. But the way we
+used to secure software and
+infrastructure in 2015 is very, very
+different
+on how we secure it today.
+We have container, we have software that
+goes in container, we have a firm
+ephemeral asset that gets spun up and
+approaching this environment with
+traditional vulnerability management
+approach doesn't work anymore. Now enter
+Z I in the room.
+This
+complex landscape get warped in terms of
+speed. If a container got published
+every hours every week, now it's
+published every minute. So the speed and
+the ability for us as defender to fight
+AI without AI is almost impossible.
+And I feel you. There is burnout, there
+is a lot of fatigue. I've been there, I
+fight 40 million critical vulnerability
+and dealing with engineers that were
+pushing back because we had one of the
+massive transformation.
+Caused me burnout. So that's one of the
+reason why we created Phoenix in the
+first instance. We created Phoenix for
+us to convince not engineers to fix
+vulnerability, but the rest of the
+business to realize how much problem
+they were sitting on and gamifying the
+their perspective what should they reach
+in terms of vulnerability and what are
+the action that they had to do and
+implement and suggest to our engineering
+team
+to
+reach a specific point because if if
+it's not important for your boss as an
+engineer, it's never going to be
+important for you.
+So
+I'm not going to talk about too much
+about that today, attribution, because
+that's a massive problem and I want to
+focus on how we can go faster with AI.
+on the landscape and all of these are
+part of our software that's going to be
+released at the end of the presentation,
+so you'll have best of data-driven
+approach around all of the intelligence
+that you can imagine and more. But
+basically we measure as well the
+acceleration of vulnerability and we
+project as well
+when the vulnerability is going to hit a
+million.
+Anybody want to take a bet if we're
+going to hit a million vulnerability in
+2013 or before? Show of hands of who
+believe 2013 is the magic number?
+None of us believe?
+Before?
+Possibly. Like the speed of the rate
+like we track as well the difference
+from the
+projection rate. So, if you're going
+faster than what we project, roughly 25%
+has been in the last three or four
+years.
+Um probably more. Yes, I agree with you.
+Like if we take the state of just the
+malware in package management that has
+been the attack surface of recent with
+Axios being one of the recent one with
+100 million vulnerability a day embedded
+in all the JavaScript. Uh that attack
+surface has been compromising the
+package, but also compromising the
+maintainer. That is a new tactic that
+has been implemented by North Korea and
+other threat actor because it's been
+very effective. And then if we take
+TeamPCP that has changed tactic on a
+daily basis, attack surface on a daily
+basis.
+I never thought I would put an advisory
+out on a daily basis. I used to put an
+advisory out every month. Now it's every
+day in a week and I put seven advisory
+out for TeamPCP changing completely the
+landscape technique and tactics. Uh
+a clear example of a vibe coded attack
+and a vibe coded reactive attack. So, we
+don't need to wait for meters to be out
+there. The capability are already there.
+So, not fud, but
+definitely the realization that we need
+to move faster because everybody else is
+moving faster.
+And then if you want to top it down with
+Sun Worm or Glass Worm or Canidae Worm
+or React for Shell or
+the infamous Shai Halud.
+All of these are saying that our package
+management and software ecosystem is so
+fragile and is getting targeted
+consistently. So, it's something that we
+need to embed in our vulnerability
+management program because the ecosystem
+is on fire. And don't believe on metas
+that goes out there because they can't
+even defend themselves. They can even
+uh use and chain
+their own vulnerability in Claude code.
+We found three critical vulnerability
+using one of our technology that is
+metas level
+to chain and extract any message from
+Claude. We disclosed to them uh and they
+should have found it themselves. But
+anyway, that's to demystify a lot of the
+fat that is out there. Um there is a lot
+of marketing out there on AI model to be
+used as a one-shot vulnerability. But
+again,
+AI is just a tool. Use a tool as a tool.
+Otherwise, you become the tool. So,
+demystify that. Let's chill a little bit
+and let's use this technology to get
+faster and that's the purpose of the
+talk.
+vulnerability exploitation is
+accelerating, but it's not just about
+CVE. If you look at out there, we have
+800,000 vulnerability if we combine
+malware analysis together with
+vulnerability traditional. So, we are
+closer to a million vulnerability
+faster than you think we are.
+And time to exploitation are dropping
+massively from weeks to sub days. We
+track mean time to exploitation, mean
+time to zero day, and mean time to
+POC. To give you a prospective of like
+how fast are we accelerating on uh
+exploitation rate.
+And this is not new. Uh all of this will
+be available as well on a platform. You
+can monitor this in real time to help
+you making the argument with data, with
+all of your CISO, with all of your
+community, because we want to demystify
+a lot of this and empower you with the
+best data possible, grounded in truth,
+not grounded in fad.
+But, why is this happening right now?
+Well, it's been happening for a little
+while. GitHub has declared a 50% of all
+the code base last year will be AI
+generated. I do believe that this number
+is wrong. I do believe that we closer to
+80% or 90% of all the code modern code
+base generated by AI. The capability of
+malware generating LLM were already out
+there last year. We do not need to wait
+for metas to panic. Uh this
+capability, being able to chain all of
+these models together and executing in a
+consistent fashion, can already one-shot
+vulnerability with 3 minutes from
+declaration to exploitation, like what
+we seen in JetBrains last year, and what
+we seen in the time of attack method
+this year.
+But, also AI is being used to raise
+advisory, and this is the
+um maintainer of curl. If you seen, he's
+been very vocal about AI-based generated
+report, very
+truthful and
+like-for-like
+advisory that are completely BS.
+He actually taken down the vulnerability
+disclosure program from curl, from
+HackerOne, and recently re-introduced it
+uh because it's an important program,
+but
+defender like us are
+tired and are being targeted by both
+exploit and fake uh declaration of
+exploit.
+So, are we all going to be replaced from
+by AI? Probably not.
+But, are we all all going to be replaced
+by engineers that know how to use AI?
+Probably yes. So, let's get on with it.
+Let's get on board with it. Let's get on
+board with this technology.
+And that is if you want to take one
+message out of this presentation today,
+aside from being data-driven approach,
+is we need to get faster and we have the
+technology to use it. Let's use it in
+the proper way.
+But we need to take a step back and
+demystify.
+I had a warning presentation at the very
+beginning that I use a lot of meme
+because this topic and argument is heavy
+enough. If we don't laugh about it and
+we all get together with a a joke and a
+laugh,
+we're screwed.
+So, let's let's all all have a laugh
+about the fact that right now we're
+reacting pretty much at vulnerability
+scanner one or multiple one getting
+delivered to the engineers and we
+believe those things to be truths
+without contextualizing, prioritizing,
+and really know
+the question that we should ask. And the
+four question that I tell everybody to
+ask in your vulnerability management
+program,
+first of all,
+finding problems is cheap.
+Finding more problems is cheaper.
+Finding maybe one shot vulnerability
+using an LM is even cheaper right now.
+Or it can be expensive depending on your
+code base, but that's a different story.
+But if we have the solution and the
+problem and if we don't know who owns
+that particular piece of software,
+what does that do to us?
+As an engineering team, as a security
+engineering team, are we going to go and
+change every line of code for all of our
+engineers?
+Probably if you're a small organization,
+you might have a shot at it, but
+probably not. So, knowing who owns that
+particular piece of asset and software
+is super important for your
+vulnerability management program, even
+before finding the exploit there.
+Knowing which and where that particular
+problem and vulnerability comes from, is
+it software, is it in a container? Is
+that container even running?
+Because that gives us the context and
+that gives us the lead to suggestion of
+of
+how we fixing this. And ultimately, but
+not least important, can anyone reach it
+from a network perspective, from a
+software perspective, from a container
+perspective?
+And in all of these age,
+an alarm will not help you answering
+this question because this is all
+context that you need to feed into an
+agent to make these decisions. I can
+technology is technology. All of this is
+what you need as a human or as an agent
+to make informed decisions about where
+do we fix it, who should fix it, and
+this is the fix.
+And if we take an example of a
+vulnerability
+that is included in a container, very
+simple example. One scanner in a
+software perspective, without naming the
+scanners, will give you a 6.6 CVS
+CVSS.
+If it's in pipeline, it will give you an
+eight. If it's a runtime, it's give you
+a 9.8. It's the same problem in
+different landscape, in different
+scenarios.
+You need to decide which one is
+truthful. How do you make that decision?
+They're all valid.
+They're just a different stage of
+a landscape. So, my suggestion is
+usually understand how things are
+chained together from code to cloud
+to container and understand if the
+problem is in application land and your
+software team needs to get on with it or
+is in the container and in the
+container, if it's the base image or
+is the image itself or is the source
+image that that image got generated
+from.
+An alarm will not help you in any of
+these stage because this is the context
+that an agent would require to make an
+intelligent decision and decide this is
+a build file issue, this is a base image
+issue, or this is a container issue.
+And it's complex. All of this is
+complex. All of this takes weeks. So,
+the goal for a vulnerability management
+program is not to focus on the source of
+all of the vulnerability, but to focus
+on
+the end part, the critical vulnerability
+in system that are running, that are
+active, and are in production. And
+answering those question, then we can
+feed this context and information to an
+LLM to make quick fixes and decisions.
+But again, this is all context that
+helps an agent to make intelligent
+decision, or a human to make intelligent
+decision, to move from pure
+vulnerability into remediation, into
+critical remedies.
+And just to drop uh this This is a use
+it from last year. It was Chris Martin
+presentation. Uh I really like the size
+of it, that if you look at the whole
+landscape of vulnerability management,
+only a percentage of it are exploitable.
+Probably this landscape is going to
+change a lot with the ability to chain
+vulnerability together, but this doesn't
+remove the fact that
+what's important is not the bottom of
+the pyramid, where we have raw
+vulnerability delivered to us, but it's
+where the those vulnerability live, and
+how we should fix it, and how should fix
+those vulnerability.
+That's where we need to point. That is a
+mature vulnerability management program,
+because we can move faster.
+Attribution and contextualization has
+been proven to move the needle on mean
+time to exploitation, sorry, mean time
+to resolution the most.
+Knowing who needs to do what, even if
+you don't have the remediation in the
+solution, accelerate dramatically the
+time to remediation.
+And it helps our narrative to move away
+from pure X amount 100,000 vulnerability
+to few remedies, because it makes the
+discussion lighter from an engineering
+team.
+How many time you had an argument with
+engineering team saying, "Hey, you need
+to fix 400 critical versus if you apply
+these two patches, you're probably going
+to be all right and fix the majority."
+That's the biggest bang for buck.
+That's the kind of conversation that
+helps an engineer avoiding the push back
+and saying, "Yeah, probably we can
+schedule this upgrade in the next
+sprint. I can probably get on board with
+that." It's demystifying all of that.
+But again, you need good data quality
+and good intelligence.
+I haven't talked about AI, at least not
+in a positive way so far. So, let's talk
+about AI.
+So, can we use AI?
+Yes, if we have good data and if we feed
+good data to prioritize things. So, if
+we take a a step back on how we use
+triaging and vulnerability analysis in
+2015, we used to scan,
+triage, open a ticket, determine a
+patch, or an engineer will determine a
+patch and verify.
+Do you think that's still valid in the
+age of AI?
+Show of hands for yes.
+Okay.
+We have a room that understand AI.
+An agent will push
+for each engineer at least half a
+million lines of code a month, where
+that used to be the deliver the delivery
+of a year worth of work. So, having
+scanning methodology that scans at CI
+level, that's way too low, way too late.
+So, we need a system that helps us
+making intelligence decisions as soon as
+the code get generated and even before.
+I'm going to touch on that quickly
+because later on I'm going to touch on
+that, but that's a whole different talk
+about how do we prevent vulnerability
+from entering in our pipeline, in our
+engineering environment altogether. What
+I want to focus on is
+we have agent that can block
+vulnerability from
+entering our operational environment,
+but again, they need to be empowered
+with the right context, with the right
+ownership. Probably ownership is a
+little bit less critical in there, but
+the right intelligence and information
+and vulnerability. So,
+in an age of AI, we need to empower
+defender with data, intelligence,
+context, and agent that can react at the
+same speed and level. We can't afford to
+ignore anymore. I want to mention again
+Axio's vulnerability because from
+initial trigger to massive exploitation
+was 4 hours.
+Uh from the leak of cloud code, it took
+us
+uh 8 hours to produce nine
+vulnerability, nine critical
+vulnerability with three exploit.
+And if we could do it, anybody else
+could. But we declare it, somebody else
+is probably using it maliciously.
+the time and speed of vulnerability
+generation to exploitation is morphed.
+And the way these things morphed is out
+there. Now,
+you can just say, "Hey, I'll just take
+my vulnerability. I'll throw it into an
+LLM." What does that do for you? Well,
+probably an LLM will follow the SEO
+ranking, not trustworthy information to
+analyze advisory. But it will just
+choose the first things that runs on on
+the on Google, and probably those are
+blogs, those are marketing things
+because they tweak the SEO ranking to
+show up higher. We use it, everybody
+else does it, but that doesn't mean that
+those are good quality information.
+For our intelligence advisory system, we
+use uh an EDQE system that basically
+rank the page and the quality of
+advisory that each of the sources for
+our 2 million sources process so that we
+can prioritize the sources that give us
+good quality information, that
+understand and analyze CTP, threat
+actor, all of that information that we
+need to use to make intelligent
+decisions. Again, if you just Google and
+one shot vulnerability into Claude, into
+ChatGPT, they only going to use a search
+tool methodology because they are that's
+how they're programmed to to work. So,
+having ranked and high trust worthy
+again going back to the high quality
+data to make high quality decision.
+Terrible terrible data in, terrible
+decision out.
+This is probably something I wanted to
+touch very quickly but not dive deeper
+that we need to rethink
+completely
+how we secure our CICD pipeline, and how
+we prevent things from entering
+uh
+code generation. And I have an an entire
+different token and we can talk about it
+later uh
+if you want to know and understand how
+coerce agents to not introduce
+vulnerability in the first place, or how
+to do security at even before a
+specification level, before the code get
+generated. Because if you are at this
+level where the code is already
+generated, that is probably looking at a
+half a million uh line of code a month
+to analyze, and that's going to burn a
+lot of tree with an LLM trying to triage
+all of that code. So, in an age of AI
+where the amount of code that get
+generated that leads into SaaS
+application, into packages, we need to
+push for prevention and DevSecOps rather
+than reaction and vulnerability
+exploitation.
+So, how can we empower and how can I
+empower you to fight AI with AI?
+Today we're releasing an open source
+threat intelligence platform called
+Phoenix Blue that collides the past 20
+years worth of work that we've done in
+our industry collecting threat
+intelligence, vulnerability assessment,
+agentic assessment, and extraction of
+information from advisory. All of the
+NPM and malware ecosystem completely
+analyzed with LLM and with LLM that
+judge the work of an LLM,
+we found that the hallucination was
+terrible with certain model and less
+terrible with other model, but we said,
+"This is going to change continuously,
+so we're going to use a judge that's
+going to judge the work of an LLM for
+extraction of intelligence." And we
+apply that throughout the platform. Um
+This will empower you
+to make decent and good decisions around
+which vendor you want to use, which
+vulnerability is actually real, which
+package has malware
+available
+for free.
+We want to break the industry and the
+fad that is out there around threat
+intelligence and give you the power of
+data and a data-driven approach uh
+without the need to spend a fortune
+around it.
+And these things will work with your
+agent. So, you can plug an MCP uh our
+MCP you can plug directly into your
+agent or through uh API and basically
+enable a triaging agent to make
+intelligence decision again with good
+quality data. This will not solve you
+your attribution and context that's we
+have other tools to solve that, but if
+you need good quality and intelligence
+information, this is the source. We
+process 2 million uh advisory on an
+hourly basis, 100 gig of data on an
+hourly basis to give you the best
+quality of information, and we wanted to
+open-source it so that everybody has
+access to it and can judge this work.
+So, it's not a marketing slide on a
+presentation, but give you the ability
+to use this so that we can all get
+better and fight AI with AI, making AI a
+better decision.
+I want to
+um explain a little bit why we start
+building this system. So, last year when
+we were working on analysis of
+vulnerability, we have created a
+prediction system that was working on
+can we identify the patterns of issue
+that leads to exploitation, ransomware,
+and so on. When we look at the quality
+data,
+the key decision element that is the
+key tactic and techniques that are used
+in vulnerability
+have almost a 50%
+absence from the NVD.
+Uh if you have dealt with vulnerability,
+CWE are terribly used or are terribly
+enriched because nobody used them. So,
+we had to re-index the whole NVD. To do
+that, we basically created a neural
+network that look at good quality data.
+Again, not AI, but AI. Um not that it
+ain't, but still AI. Sorry.
+So, we created basically a good data set
+of data uh from CISA and other things
+that were vetted and we have basically
+re-scored and rewrote the entire NVD,
+the whole 343,000
+vulnerability with CWE, CAPEC, TTP, and
+so on so that you can derive and you can
+move from pure vulnerability to threat
+actor, to technique that they use, and
+identify if this particular
+vulnerability could be applicable to you
+in your particular sector and industry,
+and particular threat actor are using.
+We use a chain that in hinge or relies a
+lot on CWE and CAPEC, but we also found
+that advisory were really good at
+identifying this intelligence and also
+mentioned certain things. So, our LLM
+extractor or analyzer look at both the
+chain of vulnerability we can
+reconstruct as well as extracting threat
+actor intelligence from advisory
+themselves. So, we can give you the best
+and widest, richest information to make
+decision. Is this vulnerability bad for
+me in my particular context, in my
+industry? Not in general. Is this CVSS a
+nine or a 10?
+And if you want to look at the data as
+well, we publish all of the data of the
+threat type and impact that leads to
+ransomware exploitation and so on. Um
+again, they are mostly common remote
+code execution, buffer overflow, things
+that can be triggered remotely. That is
+kind of logical, but again, we wanted to
+prove last year all of these data to be
+grounded, sorry, all of these assumption
+to be grounded in data.
+So, that we can use this year all of
+these into our new scoring system.
+last year and the past 2 years from
+scoring system perspective has been all
+about predicting which vulnerability
+will manifest and be exploitable in the
+future. We've been in the EPSS group,
+we've been working with this industry on
+predicting what is the vulnerability
+that's going to lead to better
+exploitation tomorrow.
+In an age of AI,
+that is changing.
+The ability to react fast and still
+identify what predictable is the
+challenge that we pose ourselves on like
+what model do we use to blend prediction
+analysis to react before something
+happen, but as well when something is
+happening, react fast. So, we had to
+come up with a number of elements and a
+number of scoring system to help us
+divide the word between paper tiger and
+tier one classes.
+But again,
+looking at the intelligence that's out
+there, there is a sea of data seeping
+through all of that sea of data to score
+and use the right intelligence has been
+our first challenge. That's why we use a
+scoring system that is as well open
+source. So, in our Phoenix blue, you can
+go and vote the advisory that you
+consider good and good quality and that
+will influence the decisions partially.
+There is a consensus LLM that look at
+your data, our data, and make decisions
+so that you as a community can influence
+what is good quality data, what is bad
+quality data, so that we seep out the
+noise and we focus on what's important.
+One of the things that we wanted to get
+out of this formula is the concept of
+paper tiger and eliminating paper tiger.
+Anybody familiar with the concept of
+paper tiger?
+Something that looks aggressive on
+paper, a CVSS 9 and 10,
+but doesn't have any evidence of
+exploitation,
+uh is not something that can be
+triggered remotely, something that is
+not going to be bad for you potentially.
+And then the tier one system,
+something that is critical, that is
+grounded in intelligence, that is being
+used at scale, that is accelerating in
+the use, that possibly is using
+ransomware, that is have listed, that is
+humanly verified. That's the stuff where
+we should be focusing on. So, the
+objective of the platform is to help you
+making decision between paper tiger and
+tier one classes. Now, this was a bit
+extreme to just divide in these two
+words, so we made the system more
+granular and have four scoring system.
+I'm going to talk about the fourth
+element in a second. But basically,
+looking at tier one classes
+vulnerability, things that are
+exploitable, things that are acting
+fast, things that are used by threat
+actor in ransomware or large
+exploitation, and things that are
+accelerating versus things they are
+emerging. So, things that are
+potentially bad for your industry,
+repeat offender like Ivanti, Fortinet,
+things that you are familiar with that
+have repeated attack service and
+offender because they are being used by
+enterprise.
+So, we created a plan so that we can
+classify all of the vulnerability
+available in all these scoring systems
+and give you a quick action point.
+Again, a lot of this is grounded on
+intelligence and in evidence, so we'll
+give you exactly why we classify
+something as a tier one, tier two, and
+tier three, and we have multiple data
+point. This was a picture taken six days
+ago. We introduced three more data point
+in here. That's the level of what the
+world is moving and we're moving it fast
+enough to empower everybody to make good
+decisions with good data. But, some of
+the elements that we use, let's see if
+this works, is evidence of exploitation,
+prediction of likelihood, acceleration
+of exploit, time to exploitation, base
+severity, blast radius and popularity of
+a POC when we don't have evidence of
+exploitation or other element, but we
+know that there are POC and exploit that
+are getting forked. So, that's a good
+thing
+signal for us to say, "These are getting
+popular. We don't have evidence of
+exploitation, but we know that people
+are copying that exploit and probably
+doing something malicious with it." So,
+we score that, but there is a lot out
+there that score and say, "Hey, you have
+a GitHub link. There is a POC." We don't
+consider that a good POC. We consider
+good POC something that has forks, that
+has comments, that have intelligence
+data, and we're introducing as well an
+LLM that's going to prove if that
+exploit is real and usable and it's not
+something just written from an LLM.
+We score as well using the intelligence
+and the quality of data that we have in
+the system together with the threat type
+and threat impact. Those are prediction
+analysis. Those are more on the
+prediction. What are the classes of
+vulnerability that lead into ransomware
+and exploitation? We use that as blended
+part of the prediction as well as end of
+life. Like things that are end of life
+for us are a risk both on a software
+perspective and packages perspective.
+So, we included those as well as bug
+bounty information because a lot of the
+vulnerability that are out there, we
+don't know if they're getting exploited
+in the grand scheme of things or in
+private bug bounty program. So, we have
+a collaboration with Bugcrowd and few
+other organization to bring you the bug
+bounty intelligence information in real
+time so that you can make good decision
+around how popular is this information
+in the wild.
+All of this to get to basically a matrix
+of what can you safely ignore or park
+for now?
+What is interesting to look at that is
+hot and popular today in the wild.
+Something that is There is a threat
+confirmed, but it's not yet popular or
+accelerating. And the other category,
+enterprise watch, of everything that has
+a critical vulnerability, but we don't
+have evidence yet of exploitation.
+But it's something that's going to go
+there because it's a repeat offender.
+It's something that got exploited in the
+past. So, we know and we have a good
+feeling about these things that they're
+probably going to move to either of
+these two classes. But again, something
+to take all of this complex landscape
+and trying to boil it down to Do we need
+to act on it? Do we park it? Or do we
+park it until next week?
+Ultimately, your engineering team, your
+management team will want to know out of
+all of the vulnerability, what are the
+buckets you're going to put it in? So,
+if you have a system like this, it will
+help you massively communicating of like
+these are the things we should worry,
+these are the things we should worry
+later. These are the thing we we need to
+keep an eye on. These are the thing that
+are safely to park for now. But again,
+this can change on an hourly basis. So,
+having a system that is reactive with
+intelligence is absolutely key. That's
+why we created this system that is
+grounded in prediction analysis, but
+also is grounded on real-time
+information and we score it and we
+weight it in a way so that reactive
+information gets into that
+prioritization system so that you can
+rely on this system
+um and not wait for something to be
+enriched in the NVD that we know it
+takes 28 days. This act in minutes.
+Now, all of this
+I've talked a lot about
+vulnerability in traditional system.
+I want to shine a light a little bit on
+the NPM and the malware package system
+because from 2019 all the way down to
+today, we had an acceleration, a massive
+acceleration of attack in this ecosystem
+because it's a fragile ecosystem. The
+way open source is published, the way
+GitHub can be exploited with GitHub
+action as we seen this year, the way
+maintainer that work for free are
+getting compromised by redactor is a
+thing signal that this should absolutely
+be part of your vulnerability management
+program.
+And if you want a history of things just
+this year, not going too too much back,
+like
+Shai Halud, 800,000 package compromise,
+probably one of the largest attack in
+the ecosystem.
+Uh Axios, one of the largest attack in
+our front end. Reactor Shell, Team PCP,
+changing on a daily basis their C2
+tactic and the way to exploit things
+with dynamic and
+late time exploitation.
+All of this to say, none of this, with
+exception of Shy Halud, made their way
+to 1 MVD.
+These things, if you just rely on CVSS
+on CV, you'd be completely unaware of
+these things.
+There is a whole landscape of 800,000
+vulnerability combined CV and malware
+that is out there but is not declared
+as a CV.
+So, in this day and age, if you don't
+rely on this
+as a good and way of information to make
+decision, can this go forward as a
+software or not?
+You're going to be in a in a in a not
+good state with LLM and AI producing.
+Because of these characteristics,
+because we don't have the same data
+point, we introduced another scoring
+system that is OSS metric scoring system
+that is um
+tailored on
+the Linux Foundation uh OSS scoring
+system that was supposed to be out there
+to help anybody deciding if a package is
+vulnerable or not. It was never
+implemented, so we said
+eff it, let's do it ourselves. So, we
+publish and score all of the package
+system we could put our hands on. We
+analyze all of these package system in a
+way that you can basically create a
+firewall and block those package from
+entering your pipeline
+uh and connect this firewall management
+system as well to your agent. Again, you
+can do that and you can do that for free
+uh because there is a lot of
+demystification and a lot of
+over-bloated firewall and package
+manager out there. We need to empower
+everybody to defend themselves in an era
+of AI with the best data quality that
+you can use and doing it now because the
+system is on fire. And if you look at
+what's out there,
+you have 28 days from GitHub to actually
+go from initial exploitation to a
+declaration and a registration of
+things.
+By the hour, by the first hours, with
+Axios or with Team PCP, you're already
+compromised.
+You need to be able to act fast having
+your library out there, but also having
+a system that blocks those library out
+there.
+The way we did that, again, it's not
+humanly possible. Every hour, just NPM
+produce a thousand packages,
+a thousand version of packages. Any
+human will die on that amount of
+scrutiny. And those are packages in
+every different environment. And then
+that's one of the package manager.
+Again, we created we couldn't do that
+with just an LLM because it will burn an
+enormous amount of token and it's not
+necessary. So, we created another neural
+network with 77 parameters that will
+look for exploitation and late stage
+exploitation to prevent
+uh packages from exploding in your CI/CD
+pipeline only when they get invoked. And
+that's was a tactic that has been
+implemented with canister worm and as
+well with uh Team PCP with late stage
+NPM attacks that explode in your CI/CD
+pipeline only when specific condition
+were met. We have those here, but as
+well that's where LLM shine in reviewing
+things. So, this forms our analyst to be
+the first gate to analyze those packages
+and then pass the malicious one to an
+LLM that then scores them and analyze
+them and then it passed to a judge that
+judge the work of this LLM. And then
+there is a consensus LLM analysis across
+all of these three system that determine
+where these disagree or where they all
+agree and then they get passed to a
+human to approve it or if we have enough
+threshold and signal to approve them
+automatically. Again, so that we can go
+from initial malware exploitation to
+publication in 15 minutes.
+This is
+how you protect your software supply
+chain pipeline in the age of AI with an
+enormous speed because your system are
+moving fast, your attacker moving fast,
+so your intelligence needs to move as
+fast. If you use an intelligence system
+out there, ask the question, "How fast
+can you get me this answer?" And if they
+waffle about, don't trust them.
+solution to bring all of this. I know
+that this is dense, but this is the
+landscape we will live in and this is
+the landscape where we want to empower
+defender to have an opinion about this
+and how to bring all of these together
+into an intelligence way. And again, I'm
+out there, ask me question. I'm out here
+with IANS and uh our organization to
+help demystifying a lot of the flood and
+really saying, "Ignore a lamb."
+This is something that we used to do for
+20 years is changing. Yes,
+there is a way to use AI to defend
+ourselves, but we need to do it in an
+intelligent way. So, the chain you
+should do and consider right now is, "Is
+there a threat available? Is this threat
+reachable? Is this vulnerability
+reachable? Is this vulnerability in a
+package that is running somewhere in a
+software that is running in a system
+that is active? Can we trace the root
+cause analysis? It is exploited." That's
+where Phoenix Blue uh comes into play to
+give you the intelligence and uh
+awareness of something that is
+exploitable now or something that you
+keep an eye on because it will probably
+lead to exploitation later and then we
+have Phoenix blue and Phoenix purple
+that helps you delivering the right
+vulnerability to the to the right team.
+Again, it takes a village to secure an
+organization. That's why we have
+different part of the platform that
+specialize in different part of the
+vulnerability management program.
+Blue for threat intelligence, orange for
+organization and reachability analysis,
+and green for remediation.
+And we wanted to make available blue so
+that blue so that everybody can defend
+themselves if you're implement your own
+agent or if you making data-driven
+decisions. But this doesn't fix the
+problem of reachability analysis. This
+is something you need to do in your
+organization
+even if you have the best intelligence
+available to know
+is this problem manifesting in my
+software environment, in my CI/CD
+environment, in my container
+environment, or in the base image
+environment? And having the ability to
+then inform this um
+empower agent with this quality and
+information so that you can go and
+one-shot remediation. We have This is
+our intelligence system in our own
+software that one-shot and fix not one
+vulnerability, but an entire library
+with regression testing and an
+assessment. We trust this system so much
+that we one-shot remediation so that we
+can even ignore the remedy and the time
+to fix because that's where LLM shine
+and fixing in an automated way. But you
+need to have good intelligence data to
+make good intelligence decision as an
+agent or as a human.
+And that's why we have a manifesto
+called the human first AI second
+manifesto to demystify a lot of the
+father that is out there and the fact
+that AI is going to replace human.
+Absolutely BS.
+Human with AI will replace human without
+the
+But AI is out there to make good and
+intelligent decision, but the methods to
+use that and to do that is a traditional
+method. Having good quality data, having
+the right context, and making the right
+decision at the right time with human or
+agent or ideally human based on agent.
+All of this presentation and this talk
+is not new. It's what we've been working
+on as a CTM attribution, vulnerability
+prioritization, and remediation. This
+CTM is an old old name that has come
+back to life because it's what we need
+to implement right now.
+conclusion.
+We have a chance right now to fight AI
+with AI, but we need intelligence
+for the AI area. So, you can register
+today, you can get access to Phoenix
+Blue
+for you or your agent to make
+intelligence-based decision. It's one of
+the largest intelligence-based system
+out there. Uh
+or you can just, if you don't trust the
+QR code, phoenixintel.security.
+Security is in our name, so trust us.
+Jokes aside, um
+but it's out there. We wanted to empower
+all the defender with a high-quality
+data, and we wanted to create a
+coalition by uh collaborating with
+organization like Valerian, VulnCheck,
+uh Background, and others to bring you
+the high-quality data at your fingertip.
+Uh
+for free
+to react fast in the age of AI.
+Thank you so much for your time. I know
+it was
+heavy, but hopefully you've taken out
+something. I want to leave enough time
+for questions. I think we have 10
+minutes.
+Cool.
+Hit me.
+I have a question.
+With with EPSS
+Sorry, sir.
+Use the mic. I'm sorry.
+Um with shorter time to exploitation and
+um,
+EPSS scores, do you find that there is
+less accuracy in EPSS scores now?
+Um, in other words, do you find that
+there are
+more vulnerabilities with low EPSS
+scores that now end up being exploited
+because of AI? That's a very good
+question. That's uh, if you don't know
+EPSS, we have a forum where we debate
+these kind of questions continuously and
+that's that been the topic of
+past 2 years.
+It depends, like everything in
+cybersecurity, it depends. I see that
+packages, specific vulnerability,
+usually have lower EPSS because EPSS is
+geared up to detect things that can be
+detected on a network basis. So,
+anything that is remote code execution
+type of vulnerability will have a
+roughly faster reaction from an EPSS
+perspective, but a lot of the malware
+and package and vulnerability we have
+out there that are getting exploited
+faster and do not have those
+characteristics. So, the lag time is
+probably
+varies. Uh,
+EPSS is a tool to use and we use it in
+our scoring system to predict as a
+prediction method, but it's not the only
+tool to rely on to determine if
+something is exploited because the
+landscape and the things to consider are
+so wide. That's why we created a an
+overarching scoring system that consider
+the prediction but as well the real-time
+intelligence information so that you can
+react immediately or you can predict
+what something is going to get
+exploited. So,
+short answer is yes,
+EPSS on certain things will be less
+effective. So, if you just rely on EPSS,
+you're probably going to have a problem.
+Any other question?
+All clear. I'm surprised. This is tense.
+Either I I shocked you all or it was
+super clear. So, I'll take it as a
+compliment regardless.
+Okay, cool.
+And it And it will prove that those
+credentials. So, when I when I go off
+stage, I'm going to start approving
+things. Yes.
+Yes, absolutely. Um
+How does it work for the
+Okay. Um
+Or ask Phil for the slide.
+>> [laughter]
+>> All right, brilliant. Thank you very
+much. It's been a pleasure having you
+here.
+>> [applause]

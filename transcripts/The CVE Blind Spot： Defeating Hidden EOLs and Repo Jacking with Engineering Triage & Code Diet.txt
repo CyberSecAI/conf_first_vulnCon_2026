@@ -1,0 +1,806 @@
+Okay.
+So, good afternoon everyone.
+Thank you for uh joining us for the
+final day of Balcom.
+We know it's been a packed day, so we'll
+make this our count.
+My name is Junosuke Tanai, and this is
+Kota Kambei. We are from Future
+Corporation in Japan.
+And to be honest, this is my first time
+speaking.
+So, please go easy on me, especially in
+Q&A session. Is okay? Okay. So, let's
+start.
+Uh Mr. Kambei is a creator of Virus, an
+open source binary scanner of uh
+10,000 GitHub stars.
+And also the creator of Uzomuzo. You
+know Uzomuzo? This is a life cycle
+governance tool we'll demonstrate later.
+And he received Google OSS Peer Award in
+2022.
+And I'm a security engineer at Future
+Corporation.
+And I work on binary management and
+supply chain security.
+Earlier this year, I published a
+verification report on Ruby supply chain
+attack.
+Which is actually how this whole talk
+started.
+And together, we operate a cloud-based
+binary management platform built on the
+Virus scanner.
+So today, we'll show you why C++ based
+binary management platform has a
+dangerous blind spot. And a
+complementary approach to close it.
+But first, let me tell you what happened
+to us about 7 weeks ago.
+Part one, repo hijacking is our story.
+Let us set the scene.
+On February 20th
+4th in 2026, we were doing our routine
+release of our binary management
+platform.
+We pulled the version 0.2.169.1
+from GitHub releases, just like we do
+every release cycle.
+4 days later, that repository was
+hijacked.
+Here's what happened. A self-described
+autonomous AI agent called Hacka Bot
+Kuro reportedly powered by Claude Opus
+4.5 scanned more than 47,000
+GitHub stars looking for exploitable
+GitHub action workflows.
+And it found at least seven targets, and
+at least five were likely compromised.
+I look at the slides.
+The most severe was three B repository
+full takeover.
+And more than five across Microsoft and
+Data Dog the others. Uh details are on
+the slide.
+The most interesting footnote is on the
+last record.
+The agent's attack was reportedly
+blocked by another AI model.
+If confirmed, it would be the first
+recorded case of AI on AI defense in
+supply chain attack.
+Here's how fast it happened.
+A pull request target fires the
+attacker's PR, exfiltrate personal
+access token.
+Only 90 minutes later, the stolen token
+is used to take over the entire
+repository.
+By next morning,
+178 releases deleted, and 24,000 GitHub
+stars gone. The timeline is on the
+slide.
+And that vulnerable workflow,
+it had been exposed more than three
+months,
+and a security scanner had already
+caught it back in November 2025.
+Now, remember we had brew 3.0.269.2.1
+from the GitHub releases on February
+24th. That was right
+attack window.
+So, we had to verify
+what our binary time varies.
+At that point, there was no official
+statement anywhere.
+But, we found a French language post
+that identified exact the dates when
+downloads could have been compromised.
+And another security blog post said that
+if you didn't download directory from
+GitHub releases, you are safe.
+However, we downloaded the directory
+from GitHub releases during the attack
+window.
+So, we were right in the crosshairs.
+So, we did our three access
+verifications.
+Binary hash comparison, build time
+stamps, and Sigstore signature
+verification.
+The bottom line, our binary was not
+tampered with proven cryptographically.
+The full methodology is in our blog
+post.
+But, the story didn't end there.
+Three weeks later,
+the attacker came back.
+Incomplete credential rotation left
+residual tokens.
+On March 19th, second wave hit across
+multiple ecosystems.
+What started as a single repository
+takeover became an ecosystem-wide chain
+Our system was
+again unaffected.
+We were on version 1.69.3 protected by
+immutable releases.
+But, in the first wave, immutable
+releases has not been enabled yet.
+So, for us, the trust anchor that held
+across both waves but single store
+signatures.
+This experience raised two important
+questions.
+Question one,
+could this have been prevented?
+Question two,
+that could the CV assistant track the
+damage?
+Let's examine question one.
+To answer the first question, we did
+something that
+as far as we know, nobody else has done.
+We cloned all seven repositories
+targeted by the hacker bot curl and
+checked out the commits just before the
+attack started.
+And run Open SSF score card locally.
+Here's an example for tree B. We checked
+out the February 26th commit and run
+score card in the local mode.
+Every number in this presentation is
+fully reproducible. The complete script
+including seven repositories covering
+the exact commit hashes is in our
+published blog. You can verify
+everything yourself.
+Here's the result. But this is what the
+score card saw before the attack
+Two patterns jumped out immediately.
+Look at token permissions column.
+Zero out of 10 across all seven
+repositories.
+At the time, every single had over
+privileged tokens.
+And second, look at dangerous workflow
+column.
+Four scored zero out of 10
+and three scored a perfect score, 10 out
+of 10.
+Keep that in mind.
+Finding one, for tree B, score card
+flagged dangerous workflow zero out of
+10.
+And then look at the specific warning,
+untrusted code checkout API diff at line
+59.
+This appears to align with the
+workflow that that Hackable Clo exploit.
+The same file, the same line.
+The same story for Awesome Go. Scorecard
+fraud, untrusted code checkout. PR code
+checkout.yaml line 40.
+That's exactly workflow that attacker
+exploit with poisoned go init function.
+And Rust Python.
+Scorecard fraud is a board script
+injection and untrusted code checkout.
+The warning strongly
+Sorry. This warning strongly suggests
+there were entry points.
+So, the signal was there. The attacker
+found it.
+Finding it there. Actually, this is the
+uncomfortable part.
+Three out of seven targets had a perfect
+dangerous work
+flow score, 10 out of 10, before the
+But, they were targeted and still
+compromised.
+Argie, issue comment script injection.
+AI discovery agent, branch name
+injection. And Delock ISC scanner, file
+name injection.
+Scorecard was not designed for this kind
+of attack, and the attacker used a
+techniques outside of Scorecard's scope.
+So, here's our verdict.
+Could the Scorecard prevent this attack?
+Three out of seven, likely
+likely yes.
+Trivy, Awesome Go, and Rust Python. The
+warnings could align closely with attack
+vectors. The signal was there.
+But, in practice,
+acting every Scorecard findings is
+always feasible at scale.
+And remaining four, no.
+The attacker used a techniques outside
+Scorecard's scope. From issue command
+script injection to AI prompt injection.
+The Scorecard is viable. It got three
+out of seven attack vectors. But no
+single tool is sufficient. You need
+defense in depth.
+Now, second question.
+Even if
+we couldn't prevent all of these
+attacks,
+could the CVE system attribute tracked
+Look at the CVE count. It is stable.
+Repository takeover, no CVE.
+Token theft, no CVE. Remote code
+execution, no CVE. Across both waves,
+far more targets were hit
+than CVEs were assigned.
+The CVEs do exist, but
+Sorry, the CVEs do exist for the
+malicious code in a specific version.
+Not for their
+entire chain attacks it happened.
+The reason is simple.
+Workflow misconfiguration, repository
+hijacking, and CI/CD RCE. None of these
+fit the definition of CVE's
+vulnerability.
+The entire attack chain fell outside
+CVE's scope.
+The CVEs were designed for software
+flaws.
+Not for infrastructure attacks that
+produced compromised artifact.
+So, if not through CVE,
+how did we actually learn about this
+supply chain attack?
+Not through CVE, not through our
+scanner, not through CSPM.
+We learned about it on X.
+When one of the most significant
+sub-writing attacks in 2026
+is communicated through social media,
+instead of our vulnerability management
+industry has built,
+it tells us our detection infrastructure
+hasn't caught up with threat landscape
+yet.
+This is the CVE blind spot.
+The most destructive outcomes,
+repository take over, token theft,
+ecosystem widespread, have no CVE today
+and likely never will.
+This is not delay problem. This is a
+scope problem.
+So, let's map what CVE can't see and how
+code diet addresses it.
+Part four, the CVE blind spot.
+CVE blind spot falls into three
+structural categories. First, attack
+techniques, repository take over,
+credential theft, CI abuse. We saw all
+of this in the Hackabot cloud campaign.
+Dozens of attack actions across small
+ecosystem and only a handful CVEs.
+They are not software bugs. They are
+tactics and CVE doesn't cover tactics.
+And second, configuration issues.
+The public target misconfiguration that
+enables the entire attack,
+it's site-specific,
+not a flaw in any product, so no CVE.
+And third, unmaintained software, EOL
+packages.
+When software is abandoned,
+there is no CNA,
+no maintainer to assign CVEs. No one is
+watching.
+Actually, for the first two categories,
+the ecosystem is already responding.
+Like immutable releases and scorecards
+and workflow hardening. So, visible
+problem get fixed.
+But what about invisible ones?
+Unmaintained software is the most
+dangerous category because it often goes
+without unnoticed.
+Let's go deeper.
+So, what are hidden EOLs?
+There are software packages that have
+reached end of life, but they still
+remain in production without anyone
+knowing.
+There are four types. The most common is
+dead end EOL.
+The maintainer vanished without
+migration path.
+Think Google home there. The repository
+is archived. But the readme has no mic
+no deprecation notice.
+No pointer to standard library
+replacement.
+Or lazy sizes.
+No release over five years, but still
+downloaded 200,000 times a week.
+And the most dangerous category is
+transitive EOL.
+Your direct dependency is healthy.
+But three levels down, your code is
+dead.
+The example on the slide shows an
+express supply excess dependency chain.
+Millions of applications silently
+depending on abandoned code
+buried deep in your tree.
+The other two types, stranded and hollow
+EOL, are on the slide with example.
+And that and just a utility library.
+We found an archived package used there.
+Access control code of a widely trusted
+secret management tool.
+Many of you use this tool.
+Zero CVE is no one watching.
+Mr. Kamiya will show you this about this
+later.
+So, here's key insight.
+No CVE doesn't mean no vulnerability.
+For EOL package, a clean CVE record
+reflects a lack of ongoing research,
+not a lack of exploitable flaw.
+So, now many reports analyze GitHub
+data, what's out there in the world. We
+did something different.
+We analyzed what's actually running in
+production at 100 organizations in
+Japan.
+60,000 OSS packages in real systems.
+And as you see, our number is much lower
+than trend.
+This research was published in Nikkei,
+Japan's financial leading newspaper.
+And here's what surprised us.
+We expected most production OSS to be
+healthy. It wasn't. Only half, 51.5%
+is in a healthy state. The other half
+has a lifecycle risk that no CVE will
+ever capture.
+Think of it as an iceberg.
+Most organizations only track what's
+above the waterline.
+94% of official EOL announcement.
+But below the surface, four four more
+time risk that no one sees.
+And this isn't just a Japan problem.
+Black Duck's
+2026 OSS audit report found 93% of code
+bases contain components with no
+development activity in over two years.
+Our number matches global trend.
+And when we break down this by
+ecosystem,
+each one has distinct risk structure.
+NPM has the highest abandonment rate,
+and Python has the most stored packages.
+A Go benefits from strong standard
+library.
+Each ecosystem has its own patterns, and
+the details are
+in our published published report.
+Most SCA tools excel at finding known
+CVEs,
+but these tools cannot answer, "Is this
+package still maintained?"
+That's actually what Code Dx designed
+for.
+Part six, Code Dx.
+Many of you already use EPSS and SSPC
+and reachability analysis to prioritize
+your CVEs. These tools are excellent.
+We are not proposing to replace it,
+but they can work within the CVE
+ecosystems.
+For the risk that never get a CVE, like
+abandoned dependencies and supply chain
+exposure, we need a complementary
+approach. That's Code Dx.
+Code Dx has two pillars. Pillar one,
+detect.
+Lifecycle governance.
+Finding EOL and
+abandoned dependencies before it become
+incidents.
+That's what Usomuzo does.
+Seven state classification, both with a
+human contributor and cross ecosystem
+coverage.
+And pillar two, remove.
+Eliminate unnecessary dependencies and
+shrink your attack surface. That means
+standard library replacement and
+self-implementations.
+Here's what the two pillars look like in
+practice.
+On the left, your current state. Six
+dependencies,
+lifecycle risk unknown.
+In the middle, after Usom Usom runs PR1,
+three of them sprout. Stored, official
+EOL, and effective EOL.
+Uh on the right,
+you were down to three dependencies plus
+one standard library replacement using
+Code Diet.
+Smaller attack surface, lower
+maintenance cost.
+So, in short,
+Toy Yards, what you can touch. Diet,
+what you can't.
+They are complementary. One hundred what
+enter in the CV funnel, and the other
+hundred what doesn't.
+So, it's time. Let Mr. Kanbe will show
+you how Code Diet looks like in
+Thank you, Tanai-san.
+You just saw what happened and what
+scanners cannot see.
+Now, let me show you what what we did
+about it.
+Three things.
+One,
+how we found the hidden risk in your web
+dependencies.
+Two,
+the same issue in CI/CD.
+And three,
+how we fixed it.
+Everything I show you today is open
+source.
+You can try it tonight.
+Act one,
+we started by understanding what we had.
+Our scanner bars has hundreds of
+We chose only 60 of them.
+But someone else chose the rest.
+Can we trust them?
+We don't know.
+So, I made Uzumozu.
+You give it your S-bomb,
+go.mod,
+or GitHub URL.
+It checks GitHub, deps.dev,
+scorecard, and package registries,
+and gives you every dependency at once.
+Before I show you the results, let me
+explain how it works.
+It will take 30 seconds.
+Today, you get archived flags,
+maintenance scores,
+but none of them tell you stalled or end
+of life.
+We give you seven stages.
+Active.
+Someone is working on it.
+Legacy safe.
+Quiet, but stable.
+No action needed.
+Stalled.
+This means activity is slowing down.
+This is your alert.
+And three levels of end of life.
+Why does this matter?
+Because stalled and end of life need
+different actions.
+Stalled, you watch.
+EOL, you remove.
+And the judgement is ecosystem aware.
+In go get is a package manager.
+In NPM you must publish to the registry.
+Same code, different answer.
+The tools adapt.
+We combine many signals.
+Commit history
+release frequency scorecard.
+And we remove bot noise. So, we don't
+count Dependabot as real activity.
+Let me be clear.
+We are not replacing
+anything. And Sneak find CVEs great at
+it.
+But zero CVEs does not mean safe. It
+just means no one is looking.
+Scorecard looks at one level at a time.
+End of life date tracks about 450
+projects by hand.
+Bolt has new
+Bolt has 209.
+A normal NPM project has over 1,000.
+Who's O Muzo covers
+what they miss.
+Give Who's O Muzo
+your project and it shows you which
+packages have zero CVEs?
+But no one is main maintaining them.
+Now, let me show you what that looks
+like on a real project.
+Let's look at HashiCorp Vault.
+Green is safe.
+Red is EOL.
+11 EOL.
+No CVEs
+reported.
+No alerts from your scanner.
+Your scanner will never find this.
+>> [snorts]
+>> Let's zoom in
+on one of those 11 EOL.
+Active project get hacked.
+Archived project have no one to notice.
+Copy structure
+archived.
+No one watching.
+The creator left the company. He said
+publicly,
+"I am now very rarely writing Go.
+I want to work on new things."
+Some of his libraries have com-
+community forks,
+but copy structure has none.
+No one picked it up.
+No one will fix it.
+This package is used in the access
+control layer.
+Normally,
+each check gets its own copy.
+If compromised,
+they all share the same data.
+Deny rules silently disappear.
+No error, no log.
+Silent. That's what makes it dangerous.
+How did we find this?
+Step one,
+Uzo Mzo
+finds the EOL.
+Step two, an LRM checks the code.
+plus LRM.
+Manually,
+this would take weeks.
+With these tools, minutes.
+That's packages.
+Now, that's about CI/CD.
+Act two, CI/CD.
+Other tools checks
+how you use actions.
+Open SSF scorecard looks at your config.
+But, is the action itself still
+maintained?
+You pin by SS SS HR. Good.
+But, if the owner is gone,
+still no fix, no still
+no fix will come.
+We scanned Grafana.
+Almost all green.
+Except this one.
+Tivuteks GitHub app token
+archived
+14 sports
+in the release pipeline. Release build
+that's the binary users download.
+Archived means no one is watching.
+If it's compromised
+no one will
+no one will notice. No one will fix it.
+One compromise inject into you every
+build.
+Packages, actions, same as HashiCorp
+Vault
+same pattern.
+Now, how did we fix it?
+Act three, how we fix it.
+We started on our own project bus.
+We found the problems but then which one
+do you fix fast?
+Our project had 468
+Dependabot pull requests since 2023.
+That's about 140
+per year.
+How hard is it to remove?
+How risky is it to keep?
+How much value do you do you get?
+The LRM scores each one priority A, B,
+or C.
+Go home dear archived.
+One line change
+standard library done.
+We sent a fix to Tor B2.
+Easy.
+Let's keep going.
+We replaced nine packages. Good work.
+Then we check the binary size.
+Almost no change.
+Just like a real diet.
+They were still there as in the indirect
+Adding a dependency takes one line, but
+removing it took us weeks.
+So, we changed our approach. Instead of
+each package, we removed the big
+It brought in 100 of packages we didn't
+need. We
+replaced it with direct calls.
+Look at these numbers.
+Binary size from 100 to 34, minus 68%.
+Now, that's a diet.
+Did we break anything?
+We tested it. We used LLM to write
+tests.
+Then we run
+our scanner bars against 129
+real projects.
+Old the code passes new code.
+Identical, only two changes, and both
+were improvements.
+The new code was more correct than the
+old.
+Diet doesn't just make code smaller.
+It makes code better.
+Code diet works.
+But some dependencies are
+too deep in your code to remove quickly.
+What do we do?
+Remember copy structure from HashiCorp
+Vault?
+The longer you wait to remove it, the
+harder it gets.
+Minutes, weeks, months.
+Detect early, diet early.
+We learned all this
+the hard way.
+So, I made two tools so you don't have
+to.
+Uzo Mzo diet
+tells you what to what to remove first
+and how hard it will be.
+Four steps.
+Sbom builds a dependency graph.
+Then it reads reads your source code.
+How many files, how many calls,
+health signals from scan.
+And the final score.
+The idea is simple.
+Big impact, big risk big risk.
+Easy to remove.
+Top of the list.
+Not just Go, Go language.
+And one important thing, scan and diet
+no LLM.
+Always the same result. Same input, same
+output every time.
+Here is a real run on HashiCorp
+Terraform.
+Top of the list easy fix.
+Start here.
+Bottom, look at these numbers.
+Don't start here.
+And sometimes diet finds something
+better.
+A package in
+your S1 file with no imports in your
+source code.
+It's there, but never used. You can
+delete it right now.
+So, now you know what to remove.
+But, how dangerous is it to keep?
+Remember copy structure from act one.
+Data flowing, ACL rules, client tokens,
+attack scenario, shared data, silent ACL
+bypass.
+Result critical.
+Action, write it to yourself, about 100
+lines.
+This is what an automated score cannot
+cannot do.
+Looking at data flow, building attack
+scenarios.
+The LLM does the rest.
+Every other tool stop stops at
+detection.
+Scorecard gives you a number. SCA gives
+you gives you a vulnerability. Then,
+good luck.
+We go from detection all the way to
+removal.
+Three tools.
+Three questions.
+How dangerous is it to keep?
+Is it worth it to remove?
+Do it safe.
+Scan every CI build.
+Diet every quarter.
+The cloud skills per dependency when you
+are ready.
+The whole pipeline is open source. Copy
+the cloud skills into your project.
+It works for actions, too. We reported
+every issue we showed today.
+Torebi, Grafana, HashiCorp Vault
+uh Next.js all reported. We reported
+from days ago.
+And already some someone submitted a fix
+to Grafana.
+The owner said, "We are handling it
+internally."
+Detection is fast. Response take time.
+But the system works.
+Since Barcode was accepted, I have been
+working up at 4:00 a.m.
+every morning.
+Everything is open source. Try to your
+uh project 5 minutes.
+We will We will be You will be surprised
+what what what you find.
+And remember,
+don't give up on your diet.
+Did you Did you scan the QR code?
+Did you Did you start it?
+Uh Did you start GitHub star, please?
+Okay, Taniguchi-san, back to you.
+Thank you, Mr. Kombe.
+Do you want to take picture?
+Yeah.
+So,
+before I take ways,
+let me frame where we are.
+Phase one, vulnerability management,
+it's treating disease.
+APSS SSPC on research with analysis, it
+works.
+On phase two, lifecycle management,
+responding to the clear risk. This is
+where UzoMuzo helps.
+On phase three, OSS health management,
+it's preventive medicine. Reducing your
+attack surface before it become
+incident. That's called diet.
+So, vulnerability management is treating
+the disease, called diet is preventive
+medicine.
+So, three key
+three key takeaways.
+First, CVE doesn't equal complete
+picture. In the first wave alone, seven
+targets, only one CVE.
+48.5%
+of production OSS has
+lifecycle risk.
+As Mr. Khan showed you, Bolt had 11 EOL
+packages with zero CVEs.
+And the Grafana release pipeline
+depended in archived actions in 14
+places.
+So, EOL packages, archived actions,
+abandoned maintainers, no scanner will
+flag. No one is tracking.
+Uh two, two years what you can patch,
+diet what you can't.
+You saw the proof.
+Our scanner binary went from 106 MB
+down to 34.
+And 127 out of 129 OSS project passed
+regression.
+Diet works.
+And last one, start today.
+Uzum OSS is open source. Scorecard runs
+in your environment. And the code diet
+starts small. Replacing go home DIR with
+standard library takes only 15 minutes.
+And here are all resources. Uzum Uzum
+and Virus are open source.
+And our additional resources in our blog
+And one last thing, remember, we learn
+about a supply chain attack on our
+security tool through X.
+If this talk resonated with you, share
+#codediet
+on X.
+Let's make sure the next signal doesn't
+get lost. Thank you.
+>> [applause]

@@ -1,0 +1,1510 @@
+[music]
+>> All right. Welcome everybody.
+I'm very thrilled to be here with this
+prominent group
+uh to talk about CVE record disputes. Um
+my name's Alex Summers. I am
+Put my coffee down here before it's
+almost
+I am MITRE's CVE and CWB project lead. I
+am here to ask questions uh and probably
+not much more because we have very very
+smart people here to answer questions
+for us.
+Um [snorts]
+CVE record disputes are a point of
+contention or a point of challenge for
+many in the ecosystem. Um we as the CVE
+program have put out some information
+about it uh over the last year that I'd
+like to call your attention to if you
+weren't familiar. One is the dispute
+policy itself which you can find in the
+resources tab of cve.org. Um but more
+recently we've actually done a couple
+engagements on the subject from variety
+perspectives just like we will today. Uh
+from the perspective uh a rather in the
+form of a blog last December uh talking
+about uh CVE record disputes and the
+policy and some of the
+inherent details about it. And then more
+recently a podcast. So if you are really
+interested in the subject, there's other
+thoughts there to dive into. Um so as we
+get started here, I would like to have
+our panelists maybe go down the line and
+sort of introduce themselves.
+Uh say a little bit about your role and
+um and then we'll get to dive in.
+Uh so I'm Jimmy. Uh I work for the Trend
+Micro Zero Day Initiative and manage
+Pwn2Own and we purchase vulnerabilities
+uh all over the world. Vendor doesn't
+matter. Hardware, software, you name it.
+We're buying it.
+Any industry vertical.
+Yeah, that's
+my my team lives and breathes it and
+CVD, CVEs, all the good stuff.
+Yeah.
+Should work closely with you also. So
+um Lindsey Sieradzki, branch chief of
+vulnerability response and coordination.
+This is the fourth and final time I have
+to do that this week.
+Yes.
+>> [laughter]
+>> Um we do things like the known exploited
+vulnerabilities catalog on behalf of
+CISA. Oh wait, I should have said I'm
+from CISA. I didn't say that part. I'm
+from CISA. We do the known exploited
+vulnerabilities catalog or the KEV. Um
+we also do CISA's coordinated
+vulnerability disclosure work where we
+handle a large throughput of
+vulnerability disclosure cases uh and
+assign CVEs and our work as a CNALR,
+which is sort of what I'm representing
+here. Um we also do all of the SSVC
+triage for emerging CVEs on behalf of
+the federal civilian executive branch
+agencies to prioritize how to apply
+federal resources to vulnerability
+response efforts.
+Hey, I'm Lisa Olson and I work for
+Microsoft uh MSRC. I sort of manage
+Patch Tuesday for the last 13 years and
+um
+So that's it. Oh and I've been on the
+board since 2018.
+Hi, I'm Yogesh Mittal. I'm from Red Hat
+as a root and as a CNALR at Red Hat, we
+do get involved into complex
+vulnerability disputes as a root and we
+we do ensure that those CV data are
+accurate and fair and you know, they are
+useful for the open source supply chain.
+Uh hi everyone. My name is Saeed Abu
+Sayeed. I work for Qualys
+as a senior manager for security
+research at Qualys threat research unit.
+Our job is to build detection for every
+single CVEs that matter and also our
+team do vulnerability research, zero-day
+hunting as well and we're serving
+our customers which they are more
+[snorts] than 10,000 with every single
+CVEs that is coming out.
+Wonderful. All right. Well, it's it's
+really a pleasure to be with all of you
+today to talk about this.
+Um to start us off, Lisa, can you
+briefly walk [clears throat] us through
+sort of how
+how the um dispute policy came to exist?
+And uh the two types of CVE record
+disputes that we typically see. Okay.
+So, Microsoft monitors how much we use
+Copilot. And you're supposed to use it
+for everything all day long.
+So, I asked Copilot to summarize the
+dispute policy.
+So, I'll quickly summarize what Copilot
+summarized for me.
+>> So,
+>> [clears throat]
+>> Who handles disputes? Uh the CNA with
+the proper scope should be there. And
+and um
+and oftentimes it's this there's a CNA
+of last resort there. And somebody who
+is, you know, wanting to dispute
+something is is there. What can be
+disputed?
+Whether it's a vulnerability or not can
+be disputed. Um
+There's
+a a tag that is a disputed tag. So,
+those CVEs can be can wind up as being
+disputed, and you can dispute the fact
+that it's disputed. Um
+Then there's uh CNA operational rule
+violation. Somebody assigns a CVE to
+something that shouldn't have gotten a
+CVE. Um somebody took a hammer to a uh
+box and started banging on it. That
+That's not a CVE.
+Um
+And it specifically says that in the
+rules. So, that's
+And assignment disagreements. Oh, it
+This is about counting CVEs. How many
+CVEs should get, you know, should this
+thing get? If it's one vulnerability, it
+should get one CVE. If it's more, it
+should be broken up and given individual
+CVEs. So, there's all sorts of types of
+disputes.
+Transparency requirements is number
+three.
+Uh
+this should be made public at some
+point. I mean, often times disputes go
+back and forth between the three
+parties, usually MITRE and the
+researcher,
+and and in my case, Microsoft. This
+happens a lot to me.
+And um and so at some point it it
+becomes becomes public.
+So, there's the initiation process,
+acknowledgement process, tagging if it
+gets tagged as disputed. Uh and review
+and the decision timeline, just to make
+it quickly, a decision must be made
+within five business days after
+acknowledgement. And if the uh
+if it exceeds 15 days, then somebody can
+escalate.
+And I've certainly had things escalated
+because I'm often not as timely as I
+should be.
+Um if the disagreement persists and
+cannot be resolved, the CVE record
+remains tagged as disputed with an
+explanation.
+And um
+a CNA L R, these are special rules. CNA
+L R must not assign a CVE ID without
+first consulting the supplier, CNA
+ensuring
+the supplier has the first right of
+refusal. And this has happened to me.
+Sometimes we don't want to assign for
+something and
+and they want MITRE.
+I say, "Go go ahead, MITRE. You assign
+for it."
+It's not ideal, right? That's not an
+ideal situation, but it happens.
+And so, that's about it. Did I do a good
+job? Yeah, I think it's a good overview.
+>> Um yeah, and one one thing that I'll
+also add about sort of the policy
+itself, too, is that it's existed and
+built from deliberations of the CVE
+community, right? So, if you and and
+ideally we'll hear questions and from
+the audience, too, about it. Um if you
+have ideas about how to improve it, we
+definitely want to hear them.
+Um Yogesh, so for people that are in
+attendance,
+uh, that might be unfamiliar with the
+whole process. What what exactly, um,
+you know, what does somebody do? How do
+you How do you actually file a CVE
+record dispute? Where do they go? What
+should they expect?
+So, yeah, if you are not familiar with
+the process, don't use social media.
+Don't start the debate there. The CVE
+program has a dispute policy.
+First and the foremost, find the CNA who
+assigned that CVE record.
+And if you go to cve.org, you can get
+the contact details. You can reach out
+to those teams. They may have a form.
+They may have an email ID. Kick off a
+dispute process. And like Lisa said, you
+have to acknowledge. The CNAs have to
+acknowledge. So, the dispute policy has
+time-bound expectations. I'm trying to
+avoid the word SLA here because there is
+no agreement at all. So, so CVE program
+expects the CNAs to acknowledge within 3
+days.
+And the CNAs will then validate
+[clears throat] if it is a legitimate
+dispute. Then they'll put a disputed
+tag, and they have 5 days to, [snorts]
+you know, conclude that dispute. So,
+until then it will be in disputed tag.
+If
+you're not happy with the CNAs' uh,
+conclusion, then you have all rights to
+go up higher up the chain. You can go
+root, and you can go the top level root.
+However, as you can imagine, there there
+could be mutual disagreements between
+the two parties. So, uh, the disputed
+tag may remain there forever.
+Thank you for that. Yeah, great. And And
+from that point, right? The disputed tag
+sort of staying there forever on that
+point, Lindsay, one of the most common
+questions that we hear is why are some
+CVE records permanently disputed? Um,
+can you talk about why they might
+persist in that state indefinitely?
+Sure. Uh, when we get this question,
+too, I, um, I don't have co-pilot notes.
+I have notes from our CVD team lead
+who gave me first-hand, um, kind of
+information, but uh, certainly the
+um disputed forever tag can be
+frustrating, especially if you're
+seeking closure to a to an issue on a
+CVE record, but I I think what's
+interesting about that tag is that it it
+indicates that there might be different
+perspectives on a vulnerability or on a
+CVE in particular um on the assignment
+side. And I I think actually Lisa
+probably covered some of these in
+talking about the um dispute policy
+itself, but you might have an issue
+where two organizations don't agree on
+what the definition of a CVE-worthy
+vulnerability is. And if both of those
+um definitions or both of those policies
+somehow fit within the scope of the CVE
+program and within the CVE assignment
+rules of the CVE program, then perhaps a
+dispute tag is added to that CVE record
+and it stays there indefinitely because
+two organizations um with a stake in the
+record uh have a disagreement about
+whether it constitutes a vulnerability
+or not. There might be technical
+disagreements about how the
+vulnerability itself works or what kind
+of access it grants or doesn't grant,
+those kinds of things.
+Um and and I think um as much as we like
+closure and would like to see all
+disputes resolved, um that's not
+realistic in a program as distributed
+and large as the CVE program.
+Um I think sometimes
+disputes will be resolved and perhaps a
+CVE will be
+rejected or or something like that. Um
+or or you know, the
+whatever happens will happen, but other
+times having the dispute tag on there
+indicates that at some point in time
+there was some disagreement about the
+qualifications of that CVE record.
+I think that's kind of it from my
+perspective, but I don't know if anybody
+else on the panel has another has
+observed from experience maybe another
+reason why a dispute tag might last
+forever.
+>> Yeah, it's it's always most of the times
+a disagreement, yeah. Yeah. Oh, and
+actually I will add one thing about the
+CISA KEV because I think this is unique
+from CISA's perspective. You know, we
+add CVEs to the known exploited
+vulnerabilities catalog, and the KEV
+does have a prerequisite that a
+vulnerability needs to have a CVE
+attached to it in order to be added to
+the KEV, but we do add disputed CVEs to
+the KEV occasionally. It's not my
+favorite thing to do. It's no one's
+favorite thing to do. Um, but we do
+occasionally add disputed CVEs to the to
+the KEV. And one thing that we've sort
+of learned over time, you know, the
+first time it happened, we're like, "Oh,
+this is a bad idea." And we did it. And
+then maybe the second time it happened I
+don't have the right numbers, but maybe
+the second time it happened, we did it,
+and then that CVE was eventually
+rejected and we had to take something
+off the KEV. And that was a really big
+deal, and then it wasn't a really big
+deal because we did it, we took it off
+the KEV, and actually the world
+continued moving forward, and people
+still um, used the KEV and need the KEV,
+and and then turned out that patching
+that thing uh, was probably a good idea
+anyways, even if that uh, vulnerability
+got taken off the KEV for being for the
+CVE having been rejected.
+>> Yeah. So, from that perspective, um, I
+think we may have maybe had a little bit
+of an existential concern about disputed
+CVEs, but if for the purposes of the
+KEV, but learned that we can we can live
+through it. We can deal with it. Yeah.
+That's an interesting story. Yeah, I So,
+I know there's just a lot of different
+perspectives about, you know, and some
+of the pain points that come from an
+indeterminate
+or or permanently disputed record, and
+we'll probably hear from others about
+that and maybe from the audience as
+well. It'd be great. But, I wanted to
+ask uh, Saeed, sort of you have a
+different perspective and maybe you can
+on that note, but also just in general,
+um, as one who sort of represents the
+uh, if you may, speak for the entire
+vulnerability management uh, vendor
+space at this moment. You have that
+power now. Uh, you know, the perspective
+of uh, the challenges that you see
+related to that topic.
+Thanks. Uh,
+That's right. We Our perspective is a
+little different because uh, we're
+dealing with the customers and they are
+dealing with these vulnerabilities
+uh, every single day. And we are in a
+a catch-22 situation because from a
+customer point of view, they're saying
+that, "Okay, you are detecting this
+vulnerability." The vendor is saying
+it's not It's not a bug or
+uh,
+we won't fix it.
+So, it is a false positive.
+From our point of view is
+this is a disputed vulnerability. It
+means there is a bug. There are discuss
+discussion about it.
+And we are in this situation that we
+have to choose to annoy them with the
+bug that it is out there
+or decide to not publish any signature
+for it that in case they get breached as
+uh, Lisa mentioned, it was weaponized in
+the wild. So,
+we have a false negative. It means that
+we didn't detect it for them and then
+there's liability there. So, uh,
+and
+things getting a little different when
+uh, they're dealing with the high
+severity series. If the vulnerability
+has a CVSS of 9.8, obviously there are
+people are still using CVSS and they
+have dashboards that look at. So, they
+want to get resolved quickly.
+And also when there are cases that they
+deal with the
+uh, PCI compliance.
+Very often they ask that, "Okay, how
+should we respond? There is a detection.
+There is no patch for it. There is a
+dispute going on.
+Uh,
+can you provide us some document or some
+write-up so we can at least provide to
+our auditors?" So, there's uh, a lot
+going on. But one more thing regarding
+to what uh, Lisa mentioned, uh, Lindsay
+mentioned, sorry. Uh,
+if there is a bug that is being
+weaponized in the wild, it is irrelevant
+that it's disputed or not.
+And we believe that
+at that point doesn't really matter and
+it has to be
+reported as a vulnerability regardless.
+Thank you.
+Um Jimmy, you've been very patient. But
+as one who likely engages with other
+researchers often, which is a really key
+part of this this whole process here,
+I'm sure you can talk from your
+perspective, what are the key challenges
+in navigating this dispute process from
+your perspective?
+So, in general, you know, dealing with
+researchers, they generally have a
+certain type of personality.
+And [snorts] I'm in a unique position
+where
+we're an offensive-minded group in a
+defensive company. And you know, we are
+actively researching and you know,
+developing exploits and things to try to
+build protections into our products and
+as well as acquiring them through our
+bounty program and through our Pwn2Own
+contest and
+at times it could be really difficult
+because like, "Hey, where's my CVE?" And
+I'm like, you know,
+it's not there yet. We can't assign it.
+We have to follow, you know, the rules.
+And uh
+some of it can be some of those can be
+pretty high-profile CVEs. And they end
+up being exploited in the wild.
+And we got we end up having to wait. And
+with with both of those, you know,
+people don't realize just how difficult
+CVE is in general. There there are so
+many nuances.
+Um you know, I reported this. You don't
+get a response. Maybe there's no PSER.
+Um or maybe there is.
+Um then you have a disagreement about
+whether or not it's a vulnerability or
+not and you kind of go back and forth.
+And then I have There's the threats.
+>> Yeah.
+Then I have the other side of it. Yeah.
+Then I have the other side of it is uh
+our other customers, which are like, you
+know, the ones that pay my check. And
+you know, we have customers that are
+expecting like a CVE so they can track
+this vulnerability and kind of
+understand where it's where it's coming
+from and and have have it, you know,
+have that number, right? Um
+whether or not it deserves one, you
+know, that's another argument, but
+uh I think that's
+the biggest challenge is managing those
+two expectations between the two
+parties.
+and then the other one is really the
+more difficult conversations. Um
+it's uh I call it CBD for me, but not
+for thee.
+And oftentimes you report a
+vulnerability and you'll never hear from
+the vendor again.
+And that that's even from the top
+vendors, you know, the higher profile
+vendors. Eventually you hear from them,
+but I I mean, I'm not speaking in
+absolutes here, but uh
+you know, it can be very difficult to
+get a response back and there could be
+lots of challenges going back and forth.
+And it could be even more complicated as
+a dependency in another product and now
+we're both
+pointing at each other.
+And you know, eventually a decision has
+to be made, it has to get published. Um
+And you know, nine times out of 10, it's
+not about whether it's a vulnerability
+on our side.
+Um you can have that argument, I guess,
+all you want. Um
+but we're getting to the point where
+we're not going to assign we we've
+released a fix. We're not going to
+assign a CVE for this. We don't think
+it's worth it.
+And this is not
+This isn't targeting any one specific
+vendor. There are several vendors that
+are CNAs across the board that engage in
+this practice.
+Uh we don't think it's worth the CVE,
+but we fixed it. Or
+we only fix CVEs that are at this level
+of CVSS or
+you know, whatever the the the excuse or
+the reason doesn't necessarily matter
+and I will acknowledge that depending on
+the volume and the size of the vendor,
+that is tough, right? Uh you
+can't service everything.
+And you have to pick what the most
+impactful vulnerabilities are.
+But at the same time, we're seeing a lot
+of exploitation in lower
+CVSS vulnerabilities that are being used
+as exploit primitives as initial access
+to get,
+you know,
+these ATPs, these threat these
+campaigns, and you know, they might look
+minuscule and low severity, but
+they're, you know,
+the proof is in the pudding. You see it
+every month or a couple of months goes
+in the cab. Somebody drops a POC on
+Twitter or whatever.
+and then you get to
+other nuances like I've submitted a
+vulnerability chain, right? Three bug
+chain.
+Uh we're only going to patch the initial
+access. The other two vulnerabilities
+remain.
+The most impactful ones that give you
+system or root or whatever whatever the
+context is.
+All I All we need to do, and I know it's
+easier said than done, but uh odds are
+in our business and the volume we get,
+somebody will find a bypass.
+And now we're back at square one. And
+the excuse is, "Oh, well, it needs to be
+chained with another vulnerability." I
+was like, "Well, we already did that the
+first time.
+We gave you the whole chain. You should
+fix the whole thing,
+you know? So, that's sort of That's the
+the tough part. There's a lot of nuances
+in that, and
+uh we even dealt with it uh with the
+with with Red Hat I think last year at
+Pwn2Own. They had
+um we were going to call a vulnerability
+a zero day.
+And
+we did a dedupe. We went through kernel
+assigning CVE. We're like, "Oh, nope,
+you know, this is this is a zero day.
+You know, you're going to get a
+deduction." And all that's the back-end
+stuff you probably don't see, but
+uh what we ended up finding out was that
+Red Hat didn't think that affected them.
+And it ended up affecting them. And
+so we were either able to get a
+basically a full win cuz it's a valid
+vulnerability on their side because they
+believed that that
+that dependency wasn't
+affected by their by
+by their product, you know? So, it ended
+up
+sort of changing the game there. And
+that's not to not to pick on you, but
+but that that happens that happens
+everywhere. That's the context. Yeah.
+That's the context here. It just
+happened to be as a as a excuse,
+[laughter] but So, I mean, just on that
+though, Jimmy, like would you say that
+the majority of the disputes that you
+deal with that these challenges, right?
+It seems to be at the point of
+determining whether or not you're going
+to assign it all, not necessarily once
+it's been assigned, right? Is that Yeah,
+yeah, my perspective is quite different
+than the suppliers, right? We're trying
+to get an assignment and not just
+because we want to assign as many of
+numbers as possible. Like if we can
+actually demonstrate, "Hey, this is not
+a vulnerability."
+We'll do defense in depth, whatever.
+We've done that plenty of times.
+You know, we agree to disagree and we
+say, "You know what? I can see that, you
+know, why
+you know, this is not a vulnerability."
+But we'll also release a defense in
+depth and we'll explain why.
+Um but we've also had that turn.
+A few years back, you know, we had
+the ICS contest
+that we used to run and
+one of the vendors was like, "Oh, you
+know,
+we're going to do a defense in depth.
+We're not going to actually do a fix on
+that."
+I mean, we didn't believe that to be a
+good idea.
+We never do.
+And we we signed a CVE anyway, so we
+gave the vendor stance like this is what
+they're doing.
+And then the next year the team came and
+used that defense in depth, that bug
+that should have been actually patched
+in a seven-bug vulnerability chain. Like
+that's
+as a "Oh, yeah, well, maybe we should
+fix this." You know, so that's that's
+sort of my my perspective and and I have
+not just to answer to the researcher and
+try to take care of them and make sure
+because the CVE is like the resume,
+right? They're expecting
+to to get some sort of acknowledgement
+for their work and at the same time
+us with the volume we have in good faith
+we are giving vulnerability information
+for free and often times very impactful
+high severity things that eventually
+even actually become exploited in the
+wild, and we discover this through our
+own protections and our vulnerability
+intelligence where hey, we've we've
+acquired this vulnerability.
+Now we have all these filters firing off
+these signatures, whatever protections
+we have built in. What's going on? We
+start investigating, and we have to say,
+"Hey, vendor, your
+this bug is being exploited in the wild.
+Here IOCs, here all these things, you
+know?" And that's sort of
+why we want to have that. Um you know,
+but yeah, I think I'll get off in the
+soapbox.
+>> Thanks, Jenny. I was going to just say
+it. Like there's [laughter] no problems
+at all with this process.
+Really quickly though, it's not just
+Jenny, right? That's a That's a CBD
+forever problem. We So we do CBD and
+have the same experience and the same
+pushback on post-off CVEs and and are in
+the same boat similar boat and usually
+say like sorry. Yeah. No, I've been on
+Vince. Right, exactly. So there you go.
+>> Yeah. We feel it, too. Like a little bit
+of, you know, No, I totally get it. We
+feel it. So uh Yogesh, you're welcome to
+comment on the particular issue that was
+raised. However, I did want to
+if you wanted to, but also just from a
+broad I think you have a an interesting
+perspective too in representing a lot of
+the engagement you do in the open source
+community and some of the challenges
+they have
+in navigating this as well.
+>> Yeah, and I think Jimmy put the right
+example there. So what happens in open
+source, there is a disagreement between
+the researcher and the upstream
+community maintainer. Okay? And many a
+times, and this is something like if you
+attended my talk yesterday, we talked
+about the OSS CNE, and we talked about
+the five biases and the failures.
+Dispute is one of the feedback that we
+received from majority of the open
+source communities. There are CVEs that
+end up being in disputed state forever.
+So Red Hat as a downstream vendor,
+we respect upstream's assessment. And we
+also respect the disputed tag, but at
+the end of the day like like Jimmy said,
+he would come to us, "Hey, I need a
+fix."
+Said will come, "Hey, our customers are
+demanding the fix. Our customers
+directly demand the fix."
+This is the challenge that we voiced out
+to the roots council, to the CV board
+saying this is where the open source
+ecosystem feels like we are in a
+deadlock situation and hence we need a
+help from the wider world.
+Does
+Can you Can you expand maybe more? I
+almost want to hear more about like from
+the perspective like if the if there's a
+feeling of deadlock from the open source
+side of it and they don't Do they Are
+there thoughts about the solution and
+how it could be resolved in that way?
+Like because I understand there's sort
+of the perspective of oh we we're going
+up up against this behemoth in this
+process that maybe
+let's say on the worst case scenario
+favors this one side of the argument,
+right?
+How how can we move forward? How could
+we potentially correct that?
+So is Yeah, yeah, go ahead. Sorry. So
+in those cases
+being Red Hat, we have two decades of
+experience in the P search space.
+We do the deep dive
+there. We we provide We provide the
+technical reference there and we provide
+our opinion as well. So like Jimmy said,
+very first thing we'll try to
+contextualize that ourselves. Like hey,
+do we have to panic ourselves or do we
+have to take some actions as a Red Hat?
+Yes or no? Then we step into the roots
+shoes and we try to figure out how we
+can help the dispute resolution.
+Maybe we can point them to right right
+channel or maybe we will provide a
+different perspective all together which
+will be based on some technical analysis
+that my guys will do and will tell them,
+"Hey, this is I think not a
+vulnerability or a vulnerability." And
+then we bring the upstream maintainer to
+the conversation. Right. Okay. I think
+it could be a little more nuanced than
+that. I mean, from a
+from like a kernel level, you know, not
+everybody consumes
+everything in the kernel, right? They
+pick and choose what they want. Red Hat
+doesn't use the same thing that Kali or
+whatever, you know, whatever flavor of
+Linux you like, right? And then you have
+the argument of like, well,
+you know, kernel says that they're
+that's their implementation of that
+piece of the kernel and it's not our
+problem. Then you have
+them saying, oh, well, no, that's
+upstream. We did it right. This is, you
+know, so you have, you know, this back
+and forth
+that can and I don't know how many of
+you've dealt with upstream before, you
+know, it can be a little a little spicy
+and uh
+so you end up sort of at at a deadlock
+and, you know, they're doing their best
+to try to make it work.
+And,
+you know, if you're lucky, one of those
+maintainers is, you know, in the kernel
+and it works for you, right? If you're
+lucky. Um, you know, with Red Hat and
+Ubuntu, they have
+plenty of maintainers on that project,
+but there is enough chance that the
+vulnerability in question is not
+something you directly maintain and you
+have zero control over.
+So, we've had sort of the research
+perspective, the open source
+perspective. Lisa, I wonder uh
+from your side and maybe
+talking more about from the vendor
+perspective, the products that you
+um,
+you know, have to deal with uh going
+through the dispute profiles around this
+and maybe just about, you know, some of
+the things that you see from your
+perspective, but also the how they
+escalate in your opinion and how they
+might
+resolve one way or the other. I don't
+know, your experience there.
+Hm. Yeah.
+Yeah, well, as as uh Jimmy and and all
+of you know, we, you know, we're dealing
+with a massive scale of reports at
+Microsoft. I mean, the the numbers
+in a round way
+because I don't know the real numbers,
+but if you think about the funnel, we
+get about
+uh 50,000 submissions
+a a year and that boils down to
+somewhere around, let's say, 10,000
+cases.
+And and then, you know, it boils down to
+around
+1,000 to 1,200 CVEs that we did in last
+year.
+>> wait till AI gets out of here.
+What?
+>> Just wait till AI gets out of
+>> I know. I know and that was last year.
+Think about this year. So,
+so,
+you're right. It comes down to time and
+resources that you can devote to this
+and also, like I said in my talk
+yesterday, CVEs cost the world a lot,
+too. And so, we have in the past, you
+know, made a cut off on on lows and and
+mediums. We break our our own rules all
+the time, but um
+I think it's a slippery slope and we're
+going to have to do everything. Like,
+>> you know, in the next in the next year,
+we're just going to have to do
+everything. So, hang on to your hat,
+people, cuz we're going to be, you know,
+patch Tuesday. It's going to be 1,000
+CVEs. I I mean, those the the That's the
+numbers that we could get to until, of
+course, we fix every single
+vulnerability in the in the work. Right.
+And so, Enter CISO.
+>> Many um
+uh many years ago, we
+we had talked with MITRE and said, "Hey,
+you know, we don't mind if you assign
+CVEs on our behalf." And and, you know,
+if it if it gets
+to the point that, you know, it becomes
+a burden to you and you can't handle it,
+then let us know and we'll we'll work on
+it again. And and so,
+I think we're all in this together and
+but like I say, I think it's a slippery
+slope and the tsunami is coming and
+we're just all going to have to figure
+out how to do more with less.
+On that positive note, say that I might
+ask [laughter] you
+uh
+you mentioned earlier, you know this
+idea that you have
+customers of your products right that
+are dealing with
+a CVE record that sort of has this
+dispute in it right and and for those
+folks that haven't looked at them right
+it can look different right there's
+obviously a tag somebody mentioned the
+tag that goes on it right and then
+within the description there might be
+the reasoning right the supplier says
+this and
+can you talk a little bit more about
+what the challenge is from a I don't
+know if you can speak from the audit or
+compliance perspective but sort of I I
+feel like you might engage with those
+kind of perspectives can you talk a
+little bit about that? Yeah for sure um
+obviously the CVE has the dispute badge
+right
+in NVD and every other places plus
+in the change log there's all the tracks
+of all the communication
+things get a little out of hand when
+the customer is saying that okay take a
+look at this blog the vendor is saying
+this here or look at this forum
+so and then we go and take a look and
+say okay
+scanner cannot
+go and do all of this so we
+go back and say let's see if we have a
+machine usable Vex should be
+the place for these details
+and in some cases it's not right
+plus sometimes
+based on our experience 50% of all the
+disputes is the vendor is saying that we
+are not going to fix it
+end of story there's this is just some
+changes but the key is that if there is
+a vulnerability and we are detecting it
+the auditor expect that being patched
+and having that on their scanner and
+their report scanner report showing that
+this vulnerability exists and it passed
+all the SLAs that they have so they are
+in a situation that
+okay
+I need an answer because there is no
+patch what should we do, right? And some
+cases in open source,
+there are Ubuntu patching it, Red Hat
+doesn't patch it, and then
+they are showing that, okay, how in the
+world one vendor same CVE, because the
+way at this we work at Qualys for every
+CVE per vendor, we have a detection. So,
+if there's 10 vendors same CVE, we have
+10 detection for it, depending which one
+it going to get flagged. Uh and it all
+boils down to uh
+they cannot act on it.
+that that is the part that they reach
+out and sometimes we
+we are able to
+put some things together based on what
+you're seeing publicly and share so they
+can pass their audit as this. That's why
+when I read blog, it was really good. It
+was multiple discussion about how PCI,
+for example, coming to the picture, and
+obviously if we can
+entertain more with them, so they are
+more familiar with all the concepts of
+disputes, so they can
+you know
+help in this situation. Yeah.
+And I think
+so, me and Art, we we were on a panel
+yesterday for SADP. So, the struggle
+that he has is aggregation. Like, there
+is a CVE with a dispute record. Do I go
+to all 10 vendors' portals, fetch their
+Rex files, contextualize these? Maybe
+when SADP project matures, maybe we can
+solve this problem that way. Like, even
+if it's a dispute, hey vendors, do
+provide your context. Uh
+forget about the disputed tag, but do
+you ship the code? Are you affected or
+not affected? And let the scanning
+vendors and enterprise consumers make a
+decision or ask for that. Yeah. So, I
+think it will mature that way. It's a
+It's a good plug. If you didn't see the
+SADP pilot
+talk yesterday, obviously it'll be up
+online, I guess in a in a
+uh in a in a month or so, I guess. But,
+um yeah, um interesting stuff there.
+Um this, by the way, will be your
+warning that in, I don't know, the next
+two questions, be thinking of questions
+because I'm going to turn it over to you
+guys in a second. But,
+um that'll be your warning. Um
+Jimmy, I was going to ask to come back
+to you and, you know, it might be um
+sort of a a loaded question, maybe. But,
+what is ZDI doing and
+what what are they doing to avoid
+disputes? How can, you know, prevent
+sort of just the idea of like, "Well,
+screw this. I'm just going to drop it."
+Well, yeah. I mean, first off, it's it's
+inevitable. Um depending on how much how
+much you handle, what the volume is,
+there's no way to avoid a dispute. It
+just happens. It's just part of the
+process. Uh
+we we generally follow like a pretty
+good standard of what a
+like a blue chip vendor would expect in
+a report. And you would think that would
+be like basic knowledge, right? That,
+"Oh, I'm going to submit a report and
+it's going to be formatted and I can
+read it and it makes sense."
+Uh but, you probably wouldn't believe
+some of the stuff they receive.
+Uh and I've seen some stuff that we've
+that we've gotten like they probably get
+way worse than we get.
+>> Uh I mean, so generally, uh you know, we
+we have specific classes of
+vulnerabilities that we want to
+purchase.
+Uh we generally try to avoid things that
+are not uh
+going to get fixed, right? There's no
+value in that for us. Um
+they
+are well reproduced on the latest
+version,
+uh they're stable, they have a strong
+analysis, or we fill the gap in that
+analysis because not every submission
+has a strong analysis.
+And so, we have to it's at least
+reproducible, then we have to produce
+the analysis. And we basically build,
+you know, the entire
+analysis with the impact, the CVSS, the
+CWE, the whole nine. And it's all
+packaged up in a way that a vendor could
+receive it and process it and understand
+what's happening.
+And often times we, you know, draw
+pictures and make videos and, you know,
+the whole nine. We do whatever we can to
+ensure that the affected vendor can
+reproduce this, you know,
+in in an effective way that makes sense.
+Um there are some nuances to that if
+you've been in this for a minute, but
+you know, that's generally what we try
+to do.
+Um there are [snorts] some funny
+instances where you have to
+go back and, you know, pull smashing the
+stack out and, you know, like, "Here you
+go. This is how memory corruption
+works."
+>> You know, things like that. But that's
+part of the process, right? Uh you know,
+if a vendor doesn't know, it's an
+educational experience.
+So if you're on Vince, you know, you
+probably dealt with some of those types
+of vendors. Um
+or any sort of the smaller file parsing
+vendors, they're all kind of the same as
+well.
+But yeah, that's sort of, you know, what
+we try to do to avoid disputes. Um
+you know, latest version, full report,
+good analysis. we don't require
+anything or submit anything that we
+haven't been able to reproduce on our
+own.
+I think that helps too just from the
+dis- the the adjudication level up the
+dispute process that we're talking
+about, right? The more information that
+can be shared earlier to help with these
+adjudications, the better. So
+applaud you on that. So two questions
+and then we'll open it up. Um Lisa, I
+was going to ask
+Um one thing in the blog that I alluded
+to back in December, right?
+was that like all CVE program policies,
+um the CVE record dispute policy is a
+living document, right? It's um it's
+something that can be reviewed and can
+be discussed. Can you talk a little bit
+about how CVE program policies sort of
+come to be and and how are they refined
+and how smooth sailing that is and, you
+It's not very smooth sailing and it
+takes forever.
+Um, you know what? There is a strategic
+planning working group that that handles
+most of the documents that the CVE
+program uh produces.
+It meets every Wednesday at 1:00. Not
+today. Not today.
+>> Yeah. And uh
+you know, when like when we revised the
+rules, that process took like 2 or 3
+years. And and we we started, you know,
+doubling up, so we'd meet for 2 hours
+every every week and and we we really
+try to get things done, but it there's a
+lot to hash out. And the dispute policy
+itself was it took
+a good 6 months, I think, to to get it
+to a place.
+>> Last July, I think it came out. And I
+think in this latest iteration of of
+changing all these documents with the
+rules and the dispute policy,
+Art, who is the main person that has the
+pencil,
+uh really tries to write it with
+with changes in mind. And and then then
+people can file a uh issue on GitHub to
+say, "Hey, I think this should change."
+And and so I think the the CVE program
+is is trying to be able to to evolve
+these things over time and and, you
+know, manage disputes
+with the dispute policy in a more timely
+manner than trying to rewrite the whole
+document over again. Right. I think
+that's fair. Yeah, that's a good
+overview. I appreciate that.
+Lisa, and lastly, before we open it up,
+Lindsay, um
+looking forward, I know I mentioned the
+blog, I mentioned the podcast and and
+before and we'll actually have a QR code
+here in a second when it switches over.
+Um what feedback is the program seeking
+right now
+on behalf of or rather on the subject of
+disputes and what's the kind of input
+that might be be most helpful? Yeah,
+sure. So, I'll a couple things. I opened
+up the link here to just walk you
+through what's actually going to be
+asked if you do go do this survey. So,
+first it is four questions, really
+short. Um it's going to ask you what
+your role is. So, you get to select
+multiples in case you have multiple
+roles. You might be a CNA and you might
+also represent security researchers
+through your CNA role.
+Um or you might be a a compliance
+person, an auditor, something like that.
+Um it's going to ask you if you've used
+the dispute process that's outlined in
+the blog.
+And then it's going to ask you for um
+your comments and questions. So, when we
+ask for comments on the disputes policy
+in particular, I think we're looking for
+those alternative perspectives. Um you
+notice that there's a diverse set of um
+representation across this panel, for
+example, um
+diverse perspectives on the disputes
+policy itself. You've got the CVD angle,
+you've got the sort of vendor angle,
+vendor and supplier angle, open source,
+and a tool vendor as well. Um and so, I
+think it's really interesting to hear
+about the sort of challenges that the
+dispute tag might cause if you're on the
+compliance side. I think it's also
+interesting to hear um if there are
+alternative sort of proposals for how
+that should be handled in tooling or,
+you know, if there are things that we
+could be recommending. Um but I also but
+there is one last question, which is
+like, do you want Can we follow up with
+you and, you know, you can be an active
+part of this group. But um I think I
+would also like to hear from the panel
+if there's anything you all would be
+interested in hearing. Um but to me,
+from a program management perspective,
+the uh diversity of perspectives on how
+the dispute process and the dispute tag
+on the CVD record impacts your
+day-to-day would be really valuable.
+Any thoughts from the panel before we
+Yeah, I think
+the Council of Roots CV program, we have
+we have talked about this, you know, we
+are calling volunteers.
+Uh the main
+one thing I want to highlight is if you
+are a maintainer, you are a compliance
+auditor, you are an enterprise customer,
+please, please, please do get involved
+if you're frustrated with the dispute
+policy. Like, we have the working
+groups, we have the board, we have
+different councils, I would say.
+If we are running out of ideas, we need
+your perspectives and please get
+involved. And this is what the QR code
+is, like, we need your perspectives. Be
+a part of this process and help us solve
+this problem. Yeah, thank you.
+All right, so now it's your time to
+shine. I gave you warning.
+I know it's warm. I know it's the end of
+the day.
+Um we have a tremendous set of
+brainpower and experience on the stage
+and uh they're at your mercy for
+questions about the dispute process or
+maybe about other things if they're
+kind. So, are there any questions from
+the audience for the panel?
+Can you go to the microphone? Yeah, all
+right, thank you.
+[snorts]
+>> Hello, friends.
+Uh in
+CVE record disputes, right? Like,
+most disputes don't end in rejection.
+Most disputes kind of hang out for a
+while. What do you think is like a
+normal level of disputes? Like, a normal
+ratio, right? Like, so like in in last
+year, there were 85 in 2025, there were
+85 disputed records that showed up last
+year. And that seems to be kind of
+stable, like, 80 to 100-ish in a year.
+it seems very low and I'm just kind of
+curious
+>> is very low, yeah. Yeah.
+>> Right, yeah, that's the thing. Like, if
+it's less than 2%, right? Like, 2% I
+think would be huge. Yeah. Um
+is I'm just wondering if there's like a
+a notion of like, "Well, what's a normal
+level of disputed CVEs?"
+Is that for anybody in particular or
+all?
+>> Any anyone I would say I would say Alec.
+Me.
+>> So like I guess what I'm getting at is
+like there will like vulnerabilities are
+weird, right? They describe weird
+behavior. They're all very corner casey.
+Jimmy may disagree.
+>> No, I don't disagree with that at all.
+honestly,
+like
+You should expect some.
+>> about 10
+people like, "We're going to dispute
+this."
+And nothing happens. Right. Wow. There's
+a lot of that. Like we're Yeah, we're
+going to dispute this. We don't like it,
+you know, and And I think a lot of them
+get caught early on, right? Like before
+publishing. Oh, it's beautiful. The
+moment I publish the record, it's like
+an email within like 24 hours or if I
+publish it on a Friday afternoon, I get
+an email on Monday. It's beautiful.
+Like if they're if they're not
+responding to me cuz we deal with a lot
+of vendors too that are not mature and
+we we we try to get them involved and
+uh especially with our contests and we
+try to have them there and be a part of
+it and you know, experience the uh
+offensive mind, but
+ghosts, crickets, you know, but the
+moment that CVE hits, man, it's like
+like wildfire.
+But sometimes they say they're going to
+dispute it and they don't. No, they
+don't. Yeah. I've even had the FBI CC a
+vendor on an email. Be Yeah, it's kind
+of kind of crazy.
+I I want to add like ratio-wise it could
+be very low.
+So this is So when we did the outreach,
+we we host quarterly roots, you know, as
+a open source root. We we speak to our
+open source CNAs.
+There are some open source projects who
+don't care now. They stopped caring
+about this. So, you may not see disputed
+tag,
+but it's an unknown dispute which is not
+visible to the world. And that's the
+part we should be more worried about
+because the open source maintainer is
+saying, "I don't care. I won't give you
+the fix."
+And some other CNA or some, you know,
+some bug bounty programs, researchers,
+anybody else assign the CVE, they don't
+care either.
+So, as an ecosystem, we are locked
+there. Like the the code expert saying,
+"I don't care. I I'm not going to give
+you the fix." But the downstream entire
+open source supply chain is expecting a
+fix fix at the end of the day.
+And that's the
+that's the worrying part I think we
+should consider when we are designing
+this dispute policy that it should be
+encouraging. It should be, you know, it
+should help them
+share their voice and
+we should conclude at the same time.
+Also, third actors also they don't care,
+too, right? If it's disputed, there's no
+patch and the vulnerability is there.
+They're going to like it, which is not
+good for anyone.
+Or on the counter of the dispute saying
+that it it isn't a vulnerability and it
+isn't exploitable, for example.
+They wouldn't be able to.
+Do you have an opinion on how many is
+too many?
+Not not yet.
+>> I will happily give up my spot. Yeah,
+yeah.
+Thank you for the question. Any other
+questions?
+Do you have another one? Oh, okay.
+Um do you think labeling things as
+dispute brings attacker attention to a
+CVE? Because like
+there is a universe of CVEs, right? Most
+of them are boring and we know this
+because most of them never ever ever
+ever see exploitation activity, POCs,
+anything else.
+So, by having any marker that makes it
+interesting in this like sub 100 a year,
+do you think attackers
+I mean, this is probably a Jimmy
+question. Maybe a Lindsey question. Do
+you think attackers
+will see it Do you think
+mythos will seek those out?
+no.
+I'm actually pretty sure, even without
+having any data in front of me, that a
+lot of those are probably pretty boring
+vulnerabilities, to be honest. They're
+probably boring. Uh They're boring. The
+other side of that is,
+if you ask any supplier, CNA or not,
+uh anything published about their
+product is dangerous, and they don't
+like it. Uh we have one vendor recently
+became a CNA within the last year or so,
+uh was convinced that our advisory was
+what tipped off attackers to
+exploit their product in the wild. But,
+it was already being exploited in the
+wild, and we told them it was being
+exploited in the wild before it was
+reported to anybody else. And the moment
+we created filters for it, our customers
+happened to have those products in their
+environments, and the moment we shipped
+the filter, they hit. Like,
+and then they were like, "What's going
+on?" You know, I'm sorry, but our
+advisories are pretty limited in nature.
+You know, you get the basics. Pretty
+much anything that's in a in a in a
+record, right? That's public. Um we
+don't publish POCs or anything like
+that, and you know, I hate to break it
+to you, but they're in your code, man.
+Like, it's just
+how it works. They've got They've got
+you reversed, and you've got to figure
+it out.
+Yeah, if anything, I hope that the
+acceleration of
+you know, AI-identified vulnerabilities
+maybe gives us one more talking point
+when we do CVD to say, "Hey, if we can
+find it, somebody already found it."
+Because I'm tired of that speech, and we
+give it every, you know, every day or
+whatever. So, I I'm not going to speak
+too much from the like attackers'
+perspective, but you did ask if you
+think the tag gives special attention to
+something from the perspective of like a
+defender or someone who needs to
+choose what to patch, I mean, probably.
+If I see the disputed tag, I'm probably
+going to go, "Uh-huh, I want to reread
+that description again and try to
+understand it." And then I think there's
+an interesting interesting question
+there certainly from if I'm like on this
+panel from the CNA perspective or the
+CNALR perspective, I definitely think if
+something's disputed, the responsibility
+of making sure that the record has some
+sort of description of the dispute or
+clarification. I really think that's
+important. We've gone back and done that
+before.
+Um and I've seen vendors do it as well.
+Um I don't know that all do, but I I do
+think that's kind of important. Um but
+from you know, taking it from a slightly
+different angle,
+um probably does draw a little bit of
+attention, but it is a small percentage.
+Thank you. Thank you for the questions.
+Is there any other question?
+Okay, I might if there isn't then I
+might just give each of you all just a
+quick 30-second last takeaway that you
+might have if you'd like.
+Um for the audience and Yeah, I think it
+would be great if any dispute goes to
+the vex document, so it's machine
+usable.
+Uh I think that would be fantastic.
+Yep. I would just reiterate that scan
+the code. Please Please get involved
+because you know, we need certain like I
+said and in the roots council meeting I
+I voiced this out like we need the
+compliance auditor. We need the
+enterprise customers to come and tell us
+what they expect and accordingly we can
+modify the policy. So, please I would
+encourage to join the join the group.
+Great.
+Lisa?
+Well, I agree with you that more people
+should get involved with the program
+because it only makes it better when
+when people you know,
+give their time and their passion to
+what we're all trying to do, make the
+world safe. Mhm.
+Lindsay?
+Okay, I think maybe an unpopular
+opinion. I don't know, but um
+I would implore us all to accept some
+nuance because that's basically what a
+dispute tag is and we don't like it.
+Like a I don't love nuance all the time.
+I would really like to resolve
+everything all the time every single
+time. It doesn't happen that way. That's
+not real life. And it doesn't happen
+that way in vulnerability management,
+which is very difficult on the
+compliance side. I understand. I
+recognize that. But um I I do think the
+program we work in a nuanced world.
+Coordinated vulnerability disclosure is
+difficult. Identifying vulnerabilities
+is difficult. Identifying software is
+difficult. And so I I think we have to
+accept some nuance and I appreciate that
+the dispute policy is an attempt to
+represent nuance in the program.
+Jimmy? Uh wholeheartedly agree with
+everybody in line here. I won't repeat.
+Um I will say there is a nuance that I
+did not cover. And that is uh just a
+high level and I've had discussions with
+minor about this. Uh
+You have vendors that um use their bug
+bounty program scope as their disclosure
+policy.
+Chew on that for a little bit. Uh
+let's not confuse I don't want to pay
+for this class of vulnerability versus
+yes, it's a vulnerability, but we don't
+want to pay for it. So, it's rejected.
+Good luck. Mhm.
+So, just kind of chew on that. It falls
+in line with a lot of the other things I
+discussed, but
+but yeah, that's another thing to look
+at as we you know, try to scale. And I
+imagine just as many vendors that are
+closing their programs are going to be
+opening programs because they don't have
+the personnel. Not everybody has an
+MSRC, right? They have to leverage the
+platforms available to them to to scale
+out. So,
+you will see probably more and more of
+that grow as time goes on.
+All right.
+Um food for thought. Thank you. Let me
+be the first to thank everybody for
+joining. Appreciate you guys' time.
+>> [applause]
+>> Thanks for being here.

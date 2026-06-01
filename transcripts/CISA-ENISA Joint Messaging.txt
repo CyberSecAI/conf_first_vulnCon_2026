@@ -1,0 +1,1310 @@
+Hi, good morning. Can you hear me all
+right? Okay, great. Good morning. Good
+morning, everybody.
+>> Uh Nuno, I noticed when you stood up you
+looked around to make sure I was here
+because I was in the back trying to
+frantically register.
+Um I found out that I was coming 72
+hours ago for sure, so I'm very excited
+to be here with you. I do have um my
+novella of notes here. So, if I'm
+flipping through my pages, it's because
+I want to make sure that I tell you
+everything I need to tell you today.
+Um
+I am
+I heard a little echo. Did you hear an
+echo?
+>> No.
+Back away. Back away.
+All right. I'm really excited to be
+here. First of all, I want to thank um
+First and the CEE program for having us
+here. I want to thank Jay and Pete and
+Chris. Thank you so much for having us.
+We are really delighted to be here. Um
+you may have heard
+uh that CISA is going through a time
+right now and certainly DHS is still in
+an unprecedented shutdown at this time.
+So, when I say I'm excited to be here,
+um it's genuine. It's It's not blowing
+smoke. Um so, thank you to your teams.
+Thank you, Grace, and to the events
+team. You guys are fantastic and have
+been more than understanding with us and
+I really appreciate that. Um with that,
+I think we'll do introductions. Does
+that sound good? Yep. Awesome. Okay, my
+name is Lindsey Sircovnic. I have met
+many of you in the room, but not all of
+you. Um I'm the branch chief for
+vulnerability response and coordination
+at CISA. We do all kinds of fun things
+like uh the known exploited
+vulnerabilities catalog. If you use that
+in your tooling or if you ever, you
+know, um
+peek at it from day to day, that's my
+team. We're a small but mighty team. In
+fact, there are two people in this room
+that used to work on that team. Over
+there, Wade. Hi, Wade. And Todd is
+somewhere. So, um it's a great team um
+working diligently and tirelessly behind
+the scenes to make sure that you all
+have the, um, most up-to-date about
+confirmed exploitation in the wild, uh,
+and that our federal civilian executive
+branch agencies can do their jobs
+according to the binding operational
+directive that asks them and implores
+them to patch exploited vulnerabilities.
+Uh, we also do coordinated vulnerability
+disclosure on behalf of CISA. And that
+is an interesting team because, again,
+small but mighty, we love to do that at
+CISA. But, um, that team handles
+thousands of coordinated vulnerability
+disclosure cases per year. At any given
+time, we're handling between 250 and 300
+cases across a really mighty coordinated
+vulnerability disclosure analyst team.
+And, of course, the outcome of that
+coordinated vulnerability disclosure
+work is the disclosure of CVEs.
+Um, something else that we do is Vuln
+Enrichment. I'm going to talk about that
+a little bit later. Well, I think it's
+today.
+Is Art here? Yeah, I got
+I'm speaking with Art a little bit later
+today about our Vuln Enrichment project,
+um, where we take CVE records that don't
+quite have all the information that they
+need and we do our very bestest to, uh,
+fill those records in. And, um,
+what we'll talk about in that talk
+specifically is how we use Vuln
+Enrichment as a project to experiment
+with vulnerability data and find out
+what's actually useful and what's worth
+spending our time and money on. And when
+I say our time and money, I mean our
+time and your taxpayer dollars. So, that
+is a really great project that's near
+and dear to my heart, um, specifically
+for the feedback loop that it creates,
+uh, when we are thinking about how we
+want to reinvest in the ecosystem.
+Um, and then, finally, we are the
+sponsor of the CVE program. We are the
+only sponsor. We are, um,
+obviously, CISA is the federal sponsor
+of CVE and we have been for a couple of
+decades. Um, we're we're invested and
+dedicated.
+My presence here is a testament to that.
+And you may not know this, I do know
+this unfortunately as a federal
+employee, in a shutdown situation, we do
+not receive traditionally we do not
+receive pay, we certainly don't travel.
+Many of us work without pay in fact. So,
+I did get paid yesterday, 58 days
+without a paycheck, that was fun.
+But we take our work as civil servants
+very seriously.
+We believe in serving the public and the
+people who are still there are doing
+that work diligently every single day.
+The bar for traveling during a federal
+shutdown or during an agency shutdown is
+super high.
+It gets approved at at a secretary's
+level and we essentially need to prove
+that we're protecting life and property.
+So, I just want to put that out there
+because I want you to understand how
+important the CVE program is to CISA and
+to DHS. We believe that by sponsoring
+CVE and having an active participant
+participation role in CVE program, that
+we are protecting life and property
+by enabling defenders such as yourselves
+and tooling vendors and creators.
+I know there are many of you out there
+as well, that we're we're enabling you
+all to do your jobs. So, we take it very
+seriously, the bar is high
+and and I I really wanted to emphasize
+that.
+And I have my wonderful colleague here
+from ENISA. Nuno, would you like to
+introduce yourself? Yeah,
+well, once again and thank you very much
+for the invitation. It's my first time
+in this kind of event.
+Great energy, so for me it's like
+a great great great venue to also to
+share what we're doing. So, myself, my
+name is Nuno. I've been in ENISA not for
+so long, about 3 years.
+And since last year I took office as
+head of sector in a specific sector
+doing
+a unit that does situational awareness
+and incident reporting. What we do in
+our in our sector basically,
+not just vulnerabilities, I will talk
+about this during my my keynote. But
+indeed we do incident reporting. There's
+several legislations that we take care
+in the sector. So incident reporting
+there's a database that we take care of
+and it's called CISA. There's a report
+that we need to do it also based on EU
+legislation. The big thing that we're
+working at the time as well and
+everybody has heard about it is the
+single reporting platform. So we are
+building it at the moment needs to be
+ready by 9/11. A strange date.
+So besides that indeed what we are
+working and that's why I'm here as well
+is that we are stepping up a lot in when
+it turns in terms of vulnerability
+the vulnerability space.
+I will also give a bit a bit more of
+insight of what we're doing what we
+achieved already what we want to
+achieve.
+But indeed there
+and there again it's all
+because of the colleague that is here
+again Yiannis that has been working on
+this before I arrived to ENISA.
+And indeed
+what we want to say basically is that
+for us it's very important this
+transatlantic connection with CISA. At
+the end of the day we do
+liaise a lot. I think in within ENISA we
+are
+different beast than CISA and then MITRE
+a very different one. We are an agency
+an executive agency that we work on
+behalf of the member states. We work to
+support the member states and the
+internal market. So indeed we don't do
+coordinated vulnerability disclosure. We
+are there to support and to do whatever
+the member states and the commission ask
+us to do
+and hence we are a very different beast
+when we talk about the different
+organizations that we have here.
+Yeah and that's it from from my side a
+bit of of introduction. I think we can
+move on later.
+>> So one of the things I want to talk
+about and Jay mentioned it and Pete also
+mentioned it in their opening
+remarks is the tremendous growth of
+vulnerability reporting. Can I see a
+show of hands across the room of those
+of you who receive or generate
+vulnerability reports?
+Yeah, sure. Thanks, Todd.
+Great. Okay, so you get them. So, of all
+of the people that was a lot of hands
+actually. Of all the people that have
+raised their hands, how many of you have
+noticed an increase in the last quarter
+in your vulnerability reporting?
+Right. Okay, so my CBD analyst told me
+before I came here like, "Oh, you got to
+tell them. We got to mention it." I'm
+like, "Yes, I'm I'm going to mention
+it." We've had a tremendous I have a
+couple of them here, too. But, we have
+had a tremendous increase in reporting
+just at CISA on the vulnerability
+side. And of course, I consider that
+an indicator that others may also be
+experiencing that. And then, if you've
+followed the news at all, you might have
+heard the cyber news. You might have
+heard something a little peep over the
+last week or two about
+some emerging technologies, I'll say,
+that are are likely to also increase
+vulnerability reporting
+both
+valid and probably also
+um
+slop. Are we allowed to say slop?
+Probably also just beautiful reports
+that have no value.
+And so, this is something that we feel
+acutely at CISA and I'm sure you are
+your teams are as well. And we are
+recognizing that we're at a turning
+point and we have to figure out
+how to take this process that was once
+15 years ago quite manual, that we've
+actually been working on trying to
+automate and make less manual over the
+years, and make it quite scalable
+for the eventuality that things like
+AI-powered vulnerability discovery
+lead to.
+And so, that's top of our minds. Of
+course, that's not the only thing. Um,
+there are other emerging technologies
+that we are concerned about and focused
+on as well. And all of that sort of
+points to the direction of growth,
+growth, growth, growth, growth.
+Um, but I do want to emphasize something
+that we've said in our previous sort of
+public statements and things that you
+may have seen in our uh CVE vision paper
+last fall. Um, we've been in a growth
+era in the CVE program and this is
+something you're going to hear about
+both in this talk and then later today
+um or or later this week when I talk
+with Alex Summers from MITRE and the CVE
+program secretariat about um
+our CVE data quality era.
+Uh and so I
+I think it's really important to
+remember that over the last
+10 years, over the last decade, the CVE
+program has been in that growth era.
+It's grown from having
+you know, one single CNA to having a
+handful to having today over 500 CNAs
+representing 41 countries across the
+world. Um, I think that's tremendous and
+uh
+you know, I it's I have listened to some
+of the feedback on the program and on
+the growth and I hear the I hear the
+counter arguments of growth doesn't
+always equal quality and I agree.
+Uh and so I I think although it's um
+easy and maybe um
+thrilling and uh
+natural to want to talk about growth of
+the program and how it scales, I want us
+to remember that we've started to put
+those things in place already over the
+last decade and one of the things that
+we now genuinely need to focus on is
+quality. And Alec and I are going to
+talk about this a little bit more
+tomorrow, but quality doesn't actually
+just mean data quality. It might mean
+data quality for a CNA. Um, a CNA might
+be really focused on whether and how
+they're putting out quality data in
+their CVE records. But for us at the
+programmatic level, it means quality of
+experience as well. So, we do find that
+you know, we we are getting feedback at
+the program level and have been for many
+years. A lot of it is the same and we
+need to act on it. Uh that quality of
+the program experience needs to improve.
+And this is things like how do you as a
+researcher submit records in a way that
+is
+um pain-free. And how do our UIs and our
+infrastructure support
+um efficient and
+you know, um
+easy reporting. These things are going
+to matter a lot as we continue to scale.
+Uh so, we're going to talk a little bit
+about program quality um and how that
+really needs to be the focus. Although
+we [clears throat] are keeping growth in
+mind, quality will matter even more as
+we continue to get more and more
+reports. And so, this is really a
+turning point in vulnerability
+management. We all feel it. I I read a
+an article a blog this morning
+about how over the last quarter we've
+had more
+um unique cyber attacks, you know, there
+people are always saying this, right?
+But we've had more unique cyber attacks
+in the last quarter than we have ever.
+But the the interesting thing about this
+perspective in this article was that and
+nobody's talking about it, right? The
+media's tired. They are exhausted
+talking about how many more
+vulnerabilities we're going to be
+discovering throughout the world because
+of AI. They're exhausted talking about
+ransomware. They're exhausted talking
+about data breaches. So, I do see and I
+think others see that this is quite a
+turning point and that the CVE program
+is going to need to adapt. And as we've
+kind of seen this over the last 6 months
+to a year, CISA for sure as the as the
+sole sponsor of the CVE program, and I
+know the CVE program participants
+themselves agree, have recognized that
+we need to bring in other organizations.
+This can't be a US-centric
+program, because this is not a
+US-centric problem. Um and so our our
+perspective is that bringing in our
+colleagues from across the Atlantic to
+represent the European Union is nothing
+but um
+the the most natural and logical step,
+and that it's a good move for the
+program. And that's part of why after
+seeing this growth and seeing these um
+changes ecosystem-wide, recognizing that
+the CVE program needs to improve, um one
+of the biggest steps and and the first
+step was bringing in our colleagues at
+ENISA.
+So that's kind of our uh the background
+of our um
+you know, our our focus on why we need
+to evolve, right? Well, we can't be
+US-centric forever. Again, representing
+over 40 countries in the world, there's
+no way that uh the US alone could run a
+program without our colleagues at ENISA.
+So I think I mentioned um
+the growth of the program in the last
+decade. Has anybody
+here recently, in the last maybe 2
+years, has your organization become a
+CNA?
+I see a handful, actually. That's great.
+Okay. Like four or five. Um how So would
+you say that that CNA onboarding
+process, if you were a part of it, was
+pretty good, right?
+So if that's something that we want to
+improve um as well. I mean, I think I
+think it's fantastic, but what I'm
+seeing is as we start to onboard more
+CNAs, we're going to need more
+um quality time with those CNAs to make
+sure that they understand what program
+growth means as well.
+So I hope to see you more hands um over
+the next couple years when I do the same
+question to you all of organizations
+becoming CNAs. I probably should have
+asked how many of you are already CNAs
+and have been then I would get 10 hands
+instead of five. But anyways, that's
+just a little demonstration.
+Uh and Nuno, I think I will pass it over
+to you to talk about
+um sort of the interoperability piece.
+Yeah, from from from our side and based
+on on what you said and how we see
+things also from the European
+perspective, what we're trying to
+achieve as well is that so besides, you
+know, stepping up uh within the CVE
+program, this is something that has been
+uh happening since 2004 and 2024 as
+being a CNA then being a root CNA um
+last year, um we are trying to build up
+and step up um our our participation in
+the CVE program, but at the same time we
+are also trying to build up um
+EU vulnerability services capacity. So,
+this is something that has been asked by
+the member states um by the commission
+for us to step up
+um and this is something that will also
+uh will come uh at the later stage.
+There's a new uh legislation coming up,
+the new cybersecurity act that is being
+discussed at the moment. There there's
+even
+a wider and bigger step up in this in
+this area. Uh so, what we're doing at
+the moment is that we're just since that
+there's this request, we don't have the
+money nor the people at the moment, but
+indeed because we want to step up we are
+already trying to do something. We try
+to do something with the member states.
+I'll talk about this at a bit uh a bit
+later. But indeed, what matters is that
+besides stepping up um our participation
+in the CVE program, we also indeed are
+trying to build up our own uh capacity
+to support the member states uh when we
+talk about vulnerabilities and we talk
+about different services. I'll also talk
+about them later. But what's important
+for me and standing here with uh with
+Lindsey as well is the fact that
+whatever we build, whatever we're trying
+to build, we do it in cooperation. So,
+there's always the idea of
+interoperability that we always use the
+same backbone and then we are aligned
+and yesterday we had a quick chat and we
+were actually discussing this this
+topics
+because we're the stuff that we're
+trying to build at the moment we need to
+make sure that it's aligned with
+whatever the colleagues on the other
+side of the Atlantic are doing and and
+that's why I'm here also to prove that
+we are doing that and whatever we're
+going to build in the future the next
+year or two it will be again
+interoperable not just with CISA with
+CVE program and what's happening out
+there at the moment. Yeah. I think
+that's really important because when I
+speak [clears throat] to stakeholders
+across the CVE program one of the
+questions in fact I just spoke to a
+really good friend of the program only a
+few days ago
+and one of the things he said is you
+know I'm kind of I don't think he said
+it like this but I'm going to tell it to
+you like this because I can't remember
+his exact words and this is most
+entertaining but he said I'm I'm kind of
+nervous right because
+you know it seems like the ecosystem is
+fragmented. I don't under I have
+stakeholders both in the United States
+and Europe and I don't understand how I
+don't know what ENISA is going to be
+doing I don't know what the CVE program
+is going to be doing and so if nothing
+else one of the things I'd like you to
+take away from our joint talk today is
+that we are focused on a united vision
+for the program that provides
+interoperability. So yes of course ENISA
+and Nuno your your folks are required to
+do things by legislation that is for
+sure something different that the
+program's going to need to focus on in
+the future but interoperability isn't a
+question of
+should we it's a question of how do we
+do this because
+you're you all sitting out there you
+have stakeholders who are international
+just like we at CISA do
+and I think what's important and just
+like you all do and I think what's
+important is that we don't get too
+wrapped up in trying to have our biggest
+footprints um and our our sort of
+separate programs, we need to focus on
+how those programs are going to operate
+together in a way that's smoothest for
+you all the stakeholders and defenders.
+Um I think it's something that you all
+have probably heard, but from the CVE
+program sponsor perspective, we would
+like to take a much more sort of product
+management perspective of the CVE
+program. We are producing and generating
+data that you all defenders use
+worldwide, and how can we make sure that
+the data that we are producing is
+actually useful to you. Of course, the
+other side of that is feedback, right?
+And so I do hope that you all feel free
+to provide that feedback. Um you're
+welcome to talk to me today. You can of
+course contact the CVE program, but I'd
+also like to see people participating in
+the working groups. The CVE programs
+working groups are are quite effective
+in uh generating conversation that I
+think is useful to feedback into how the
+program improves itself. So I would give
+just a a small plug for the working
+groups, if you don't mind.
+So now that we've talked about the
+interoperability, which to me is like
+one of the most important things and
+something that um has been flagged to me
+by stakeholders as a serious concern,
+um I really want to talk about uh
+going forward, what our joint sort of
+focus is going to be on. Um did anyone
+read this is CVE vision paper in the
+fall? Can you raise your hands?
+Oh, great.
+Hi.
+Great. Um does anybody want a link to
+that? You want me to send you that?
+Okay, I'll catch you I'll catch you
+later. Um I don't have a pen or I'd
+write it down, and I found out I was
+coming 3 days ago, so I don't have
+slides either, but I'm happy to provide
+that link to you.
+Okay, thank you, Pete. I appreciate it.
+Um so we'll we'll get that link to you.
+Um but in that vision paper, you're
+going to hear a lot of the same things.
+We're going to say a lot of the same
+things that are in that vision paper.
+But what I want you to do is and I'll
+give you a a chance to plug the
+Johannes' talk as well. But what I want
+you to do is throughout the next
+I don't know how many days. We're here
+for 3 days. Throughout the next 3 days,
+um, please attend, obviously, as many
+talks as you can, but please consider
+attending the CVE um, quality era talk
+that I'm doing with Alec later tomorrow.
+Um, the Vuln Richmond talk that I'm
+doing with Art this afternoon.
+Consider attending Janno Springs' talk.
+Janno's my colleague at CISA back in the
+back, um, about how AI systems are
+software systems.
+Um, please consider attending the CVE
+disputes panel, which Alec has very
+graciously put together with several
+CNAs from across the ecosystem.
+Um, and also a fantastic talk that I'm
+very excited about from our CVD analysts
+about the CVE program or about CVE's
+CSAF and VEX. Um, that's probably the
+most down in the weeds about the sort of
+data that we
+uh, deal in and shuffle day to day. Um,
+although Vuln Richmond will be a little
+bit as well.
+Uh, and I what I would really like to do
+what I would really like to hear you
+guys
+hear from you guys later in the week is
+how you felt having attended some of the
+CISA talks and then of course some of
+the talks that um,
+all of our colleagues across this room
+are putting on, how you feel about the
+health of the CVE program. I want to
+hear how you feel we could be taking
+feedback better. I'd like to hear how
+you feel um, the working groups are are
+formulated. Should there be a working
+group on emerging technologies that has
+to do with CVE specifically? Should
+there be a working group about some
+really niche thing that you and two
+other people care about, um I want to
+hear about that. So, find me at the end
+of the week or throughout the week, too.
+Um I usually have like a dumb accessory
+on, a scarf, some silly glasses. Um find
+me. I'm happy to talk about it, but I'm
+also happy to provide contact
+information for myself and the CVE
+program, um so that you can contact
+people uh and give that feedback. But, I
+wanted to give that little plug um and
+I'll let you go ahead and you know, give
+your plug also for Johannes's talk. Yep.
+Uh indeed. So, indeed, uh the idea is
+also to talk a bit what we already
+achieved also when I talk about not just
+what we're doing uh in the EU as ENISA,
+but also what we achieved in the CVE
+program. And that's a bit what the talk
+of Johannes around 4:30 will be. So,
+whenever you have difficult questions,
+uh it's on him, not to me. Thank you. Uh
+but then uh the idea uh here is just to
+mention some of the things that we're
+trying to do at the moment or we already
+achieved. Um at this moment in time, um
+we support the member states as I was
+saying, and we support them uh in or on
+the policy side when we talk about uh
+coordinated vulnerability disclosure.
+Um and then also uh one of the main uh
+achievements that we had as ENISA as a
+whole was something that also was
+stemming from a legis- a piece of
+legislation, NIS2. And it was the the
+build-up on the development of the EU
+vulnerability database. Again, this is
+not for fragmentation. Uh this is
+something that actually also relies on
+the CVE program on uh on the CVE
+numbering. And indeed, it's something
+that supports also the EU stakeholders
+and basically aggregates a number of
+identifiers around around the world. So,
+this is uh I think two things that we're
+quite proud of that we do at the moment
+uh at ENISA. Um then when we talk about
+the CVE program and what we've done, uh
+and we're still also quite proud of it.
+It's uh since 2004 2024, we we were an
+uh CNA and then uh indeed from last year
+from November we finally got to root
+CNA. We're at the moment still a very
+small team.
+Then again we had an incredible support
+by CISA and MITRE on this
+and now finally we are already
+onboarding new CNAs and this is
+something that we're quite proud of
+being actually a very small team but I
+think it also happened because of the
+team is quite engaging and also the
+support that we've been having by CISA
+and MITRE on on all this.
+Yeah and this
+I think it's something that this is what
+we've done and we are quite proud of the
+stuff that we want to do further and I
+think we can talk about this at a later
+stage. So now I'll talk about a little
+bit about some of our specific
+initiatives and thank you for bearing
+with me while I shuffle through 30 pages
+of notes here
+to find what I was looking for. So so
+you'll
+as I was saying earlier if you've read
+the CVE program vision you'll see some
+repeat information in here and that's
+because we do actually genuinely take it
+seriously. I I don't want you to think
+that all of this is lip service because
+well first of all that would be sad for
+me because I talk and hear about it
+every single day of my working life and
+so
+I can I can actually attest to the fact
+that there are
+program management folks at CISA who are
+genuinely taking these initiatives to
+heart and that we we are really thinking
+about how to enact
+and trying to enact many of these
+sort of vision pieces. So the first
+thing I want to talk about is pretty
+obvious that's program diversification.
+CVE's grown quite organically over the
+years. I'm I know I've mentioned it
+already I'm very proud of the
+representation that we have across the
+CVE program partners in the CVE
+numbering authorities to have 500
+organizations over 500 organizations
+that are committed to Um, sort of having
+that CVE membership, uh uh, oops, excuse
+me, having that CVE membership, um, you
+know, as a part of their sort of like
+declarative statement about their
+security programs, I think is, um,
+really amazing and valuable. And so, but
+part of that organic growth means that
+there [clears throat] are parts in the
+vulnerability ecosystem that might not
+yet be participating in ways that we
+think would be really valuable. So, just
+off the top of your heads, can you think
+of an organization
+that has maybe been
+Well, I'm not not by name, but a type of
+organization that's maybe been really
+active in the news over the last 2 weeks
+that should potentially have
+representation in the CVE program?
+Anybody? Shout it out.
+AI. Okay, thank you. I heard the name,
+but yeah, AI, maybe AI organizations,
+um, should have some representation in
+the CVE program. So, that's one, but
+there are others, right? The open source
+community has traditionally had a
+complicated relationship with CVE. I
+think it's come
+a long way, and I would like to see it
+improve even more over time. And that
+that includes,
+um, or that that, uh, involves us being
+more responsive. And I know that. We
+know these criticisms. We know these
+things. We hear them. We have heard
+them. And, um, we're committed to
+addressing them. So, I think that
+includes that that involves us being
+more responsive to communities that that
+might have, um,
+problems or difficulties working within
+the CVE framework, and that's something
+that we want to address. Um, so, program
+diversification is huge. Open source
+community, academia, academia is sort of
+represented. Researcher groups are much
+more represented now than they were 5
+years ago. Um, we have a researcher
+working group that I think is quite
+constructive towards bringing
+researchers into the fold. Um, and I
+think that's something that we have to
+really, um,
+genuinely focus on as a
+a declared intent of the program and not
+just as sort of a goodwill feeling that
+needs to, you know, that people want to
+talk about that it but that isn't
+actually codified in, from my
+perspective, the contract management
+side.
+Um, that's something that when we get
+that feedback from the program, we need
+to be able to build it into the way that
+we execute the contract and I think
+that's really important. Um, I think the
+next one you might want to talk about
+So, I want to talk about the vision for
+the future as well, indeed.
+And an important take is of course
+internationalization. Again, that's why
+I'm here. And when we talk about CNAs,
+now we have around 500 or something.
+About 1/5, 83 are coming from from
+Europe.
+What we want to do, being now a root CNA
+as well, is that we want to increase
+this number. So, the idea is that more
+and more the CD program will be more
+international.
+For instance, we already transitioning
+some under us. We are onboarding already
+some others. And if for instance, we
+intend or will try to have all the
+C-Search, the national C-Search under
+our root. So, for us,
+I think at the moment, it's one of our
+biggest priorities to try to have more
+diversification in terms of different
+countries, but not just different
+countries, but also different kinds of
+organizations. Again, I was telling you
+that in this case it's a bit of a
+different beast than C-Sun Mitre and the
+national C-Search. So, also this helps
+and this takes into the point that
+Lindsay was making that we need this
+diversification but also
+internationalization.
+And then again, from our side, we're
+quite
+keen on continuing to do that. Yeah,
+absolutely.
+Uh, we also want to talk about um Yeah.
+partnerships. I think that's really
+important.
+Indeed. So, because when we talk about
+the CD program, well, it's not in force.
+So, as we know, it's based on trust.
+It's based on we all want to do
+something good. Um, we the the program
+basically does
+something that no other program does.
+Um, and what we need to do also when we
+talk about the future is that
+we need to continue to build this
+trusted relationships.
+I think examples like this meetings like
+these ones and also
+the meetings that we have in the working
+groups it helps to build this distrust.
+And it's only when and if we have this
+kind of trust we know each other and we
+talk to each other. Yesterday we had
+some meetings where this was quite
+important. We need to
+put a face into the people that are
+working in in the other CNA's
+and this is something that in the future
+I think we need to work further and
+especially if you want to augment the
+number of CNA's this then will be more
+difficult task as more people more
+different to know more difficult to know
+everybody but at least I think
+from our standpoint as well from ENISA I
+think building trust relationships this
+is one of the most important things that
+we need to do in the future as well.
+Yeah, absolutely and I'm going to tag on
+to that one a little bit because
+something that I think is quite
+important for the CVE program is face
+recognition
+and I just mean having a face for the
+program but I mean how many of you have
+interacted with Alec Summers or his team
+at MITRE and in the CVE Secretariat?
+A lot of you, right? And
+I think that's really important if
+you're working in day-to-day CVE
+operations you need to be able to have
+close partnerships with those people who
+are kind of enabling that work and I do
+want to give compliments to Alec and
+Anthony and and their team they do a
+really good job and
+>> [applause]
+>> thank you.
+they do a fabulous job and it is a hard
+job also.
+Um, know from being on the coordinated
+vulner So, a a little bit about my
+background before doing what I do now,
+which is just to get on stage and
+talk for 27 minutes about um a 30-page
+document. Um, but before I did this, I
+did coordinated vulnerability disclosure
+as a disclosure analyst, and I used to
+have this spiel about how being
+coordinated vulnerability disclosure is
+like being a a hostage negotiator.
+And like everybody hates you. You're
+never doing the right thing.
+Um, and it's true. Like it's a very
+Being in in coordinated vulnerability
+disclosure, those of you who do it know,
+it's an un- like you're you're on
+somebody you're on everybody's bad side
+until the thing goes public, and then
+you might make like three new friends.
+And um, but it's really important
+because doing that those vulnerability
+cases over and over and over again,
+>> [clears throat]
+>> you build bonafides, and you build um a
+community around you of other people who
+are doing the same things. And so,
+although you have a some- times
+thankless job, you also share in common
+um with that community the feeling that
+um you are are making a a a difference,
+and and that even though you're doing
+hard work in a thankless job, um
+you're making a difference. You know,
+you're really like um
+contributing to uh people's ability to
+defend themselves against the bad guys,
+the baddies.
+Um, and so, I do genuinely the CVE
+Secretariat does an amazing job, the
+CNA/LR does an amazing job. Um, it is
+really tough work. It is thankless, and
+I appreciate them. Um, and those
+partnerships are so key. Uh, I go to
+conferences all the time where people
+say, "Oh, hey, I talked to your CVD team
+yesterday, this guy Daniel, or I talked
+to Tyler, or I talked to Owen." And um,
+yeah, you guys.
+Um, and I I you know, I I had such a
+good experience with them. Please like
+give them my kudos. And I love being
+able to do that because they sit back at
+home working their butts off on stuff
+that's really difficult and
+making zero friends in the process,
+telling people that their software isn't
+working or that their research wasn't
+legitimate.
+Um and so I think those partnerships are
+key because vulnerability management is
+often not very glamorous.
+Anybody feel that way?
+Yeah. Vulnerability management is often
+not very glamorous. And um we're always
+telling people they need to do something
+they don't want to do or something
+that's hard. Um and so we need to have
+that face recognition.
+Um the partnerships aspect of it for me
+uh from a CISA perspective shows me that
+we need to be out in the world um from
+sort of my level and below even um
+meeting people. And so I do hope that by
+providing by me being here on stage, by
+um having made the case that the CVE
+program is protecting life and property,
+which I genuinely believe because it
+underpins a multi-billion dollar
+industry that protects all of us.
+Um I am hoping that you feel comfortable
+coming to me and coming to my team and
+coming to the CVE program
+um and saying, "Hey, I I don't think
+this thing is working." Or I really want
+to suggest this. Or um
+you know, this improvement has been
+great. Thank you for making this
+improvement. Um I'm hoping that by
+putting that
+face out there, of course our executives
+have spoken about CVE. Um Nikki
+Anderson, who's our acting director, and
+Chris Pyatt, who's our executive
+assistant director for cybersecurity,
+they've both been out there talking
+about CVE and how important it is to
+CISA and how much of a priority it is to
+the department. And I think that's
+wonderful and it should signal to
+everyone that it is a genuine
+um priority for the Department of
+Homeland Security and for CISA to
+continue sponsoring and improving the
+CVE program. But I sort of the more
+operational piece of the CVE program in
+the way that we participate as a CNA/L R
+and as a top-level root and as a CNA, I
+hope that by having myself here I'm
+demonstrating to you that CISA not only
+sponsors the program and puts out these
+vision papers that give you an idea of
+where we're going, but we're also in it.
+Um we have skin in the game. Is that the
+idiom? I'm so bad at idioms. My people
+who have been on my team before know
+this about me. I'm very bad at idioms.
+We have actual skin in the game. We are
+actually operating within the program as
+a CNA. We are part of working groups. We
+are We have board CVE board members. Um
+and I I think that partnerships piece is
+partly built on the fact that we build
+that
+that feeling of partnership and trust
+through face recognition and through
+shared sort of
+grit going through the actual disclosure
+process. So, thank you for letting me
+speak a little bit on the partnerships
+point there because um that's part of
+the reason that I'm here. Uh protecting
+life and property, which I have now said
+for the third time.
+Um All right, the last couple are are
+mine to talk about and one of them,
+actually both of them I I'm going to
+talk about in a little bit more detail
+in our quality era talk um tomorrow with
+Alec, but I will uh sort of glaze over
+them now. So, the first one is
+infrastructure modernization.
+Um if you have done anything with the
+CVE program and as a CNA and even as a
+researcher reporting vulnerabilities,
+you know that there's some room for
+improvement. Is that a surprise to
+anybody here?
+No? Okay, great. Um
+the CVE program needs to modernize. We
+need our infrastructure to modernize in
+order to accommodate the growing number
+of vulnerability reports we're going to
+get, but even if we had not a did did
+have a growing number of vulnerability
+reports, we still need to modernize. Um
+my focus is on making the experience of
+using the CVE program better, faster,
+more efficient, and less painful. Does
+that sound good to everybody?
+Sounds good? All right, great. So, I'll
+talk to you a little bit more about
+infrastructure modernization when I talk
+with Alec. Um Alec and his team are also
+quite focused on this problem and um
+have been really responsive in helping
+us to fix it.
+Um the very last thing I'm going to talk
+about and I've already sort of mentioned
+it a little bit, so it could be
+repetitive, is quality, of course. It
+always comes back to quality for me. Um
+how can we make the program better? How
+do we make the data better, which all of
+you all are already sort of obsessed
+with? I know there's several talks about
+data quality today.
+But how do we make the program quality
+better? I want the experience to be
+better. How do we do that? I want the
+schema to be better. How do we do that?
+Um a lot of this comes back to those
+working groups, which have, again,
+really valuable participation from many
+of you and hopefully more in the future,
+um to give that feedback about what
+parts of the program deserve to have a
+little bit of a quality improvement.
+We are quality-focused. If you haven't
+heard me say this before,
+get ready. Buckle up. Um if you have
+heard me say this before, I apologize.
+This is my line. We've been in a growth
+era for the last decade. We're moving
+into a quality era. That should signal
+to you all that we need your feedback
+about what makes a quality program. The
+last year has been
+a freaking roller coaster for CVE and
+everybody, really. Um but actually, I'm
+going to do a spin. I'm going to put a
+spin on it. Um I'm I'm practicing. Uh
+actually, it's been kind of valuable
+because we got a lot of really good
+feedback about what the program needs to
+do in that in order to kind of grow up
+past its 27 years and then kind of move
+into the next
+um phase of life. Uh so, I
+you know, I wouldn't do it again the
+last year, wouldn't ask for it again
+personally. Um but I've learned a lot
+and I think not just me personally, I
+think CISA learned a lot, I think um the
+Secretariat learned a lot, and I think
+we got a lot of really, really good
+insight into the pain points in the
+program. Um and of course, getting that
+insight over the last year showed us we
+need better feedback loops. And so
+again, I'm just going to plug those
+working groups, everybody. If you have
+feedback you want to give, the working
+groups are a great place to do it.
+So, above all, quality.
+I think that's kind of our
+we're kind of getting to the end here.
+We do want to leave some time for
+questions.
+But let me just double-check
+how we want to close this.
+Yeah, when I from just to also when we
+talk about quality and how we see it
+from the perspective of of the EU side,
+we're also kind of trying to achieve
+this and as I was saying, we already did
+some
+some evolution within the CVM program,
+but not just, but also the way we see
+quality is also again to provide these
+services to the member states. At the
+moment also what we are working on and I
+already said the single reporting
+platform, this will have a huge impact
+in the EU when we talk about
+vulnerabilities.
+Um and also something uh quite
+interesting. Again, it's something that
+of course we'll use again information
+stemming from uh colleagues at CISA. Uh
+we're also trying to build a EU CAF
+catalog. Uh there uh besides information
+stemming from from the colleagues from
+CISA, we will also try to
+liaise it with the CRA single reporting
+platform, but also with information
+eventually stemming from uh national
+CERTs and any other information that uh
+that we have.
+When we talk about the the the quality
+area from
+uh air from from our side when we talk
+about the CVE program,
+uh what we intend to do indeed is this.
+So, since now uh since November last
+year, since we are uh a root CNA, at the
+moment we are, you know, trying to grow
+the team, uh have and to mature the
+services that we provide at the moment.
+Um and I think that will feed into the
+quality that we try to to to have in in
+the EU. And then um also very excited
+that in principle, if all goes well, and
+it's something a path that we're trying
+to to achieve, which is to achieve the
+top-level root uh CNA. So, there's
+something that I think we mentioned uh
+we talked uh we discussed uh
+uh when not just with CISA, but with
+MITRE, and it's something that uh you
+know, in the future it's something that
+uh you see it positively as well. And
+for us, it's something that we want to
+do. And and as the our team also grows,
+it's something that we could uh envisage
+supporting the quality area that uh they
+are that we we want to uh to come in.
+Um but that's that's the main messages
+from our side as well. We're growing,
+not just within the CVE program, but
+also outside of it. But anything that we
+do outside of it does indeed uh has
+always in mind interoperability with
+what we're doing. Yeah, that's perfect.
+Um we are really excited about the the
+prospect of ENISA becoming top-level
+root. Uh that's great news for the
+program. You know, as we move through
+this sort of quality era and and trying
+to be a little bit more responsive to
+increasing number of vulnerability
+reports, we can't forget the federation
+is still
+um a a great tool for for scaling. And
+so, to to me, federation and one of the
+next steps may include having another um
+CNA Lair.
+Yeah, and and as I as I also in the way
+that the way that we can see things,
+Europe or the EU, well, ENISA, by being
+a top-level root, we can also function
+as a regional hub when you talk about
+the CV program and then eventually other
+areas of the world might do the same.
+But the idea is that we would support as
+much as we can the CV program by
+operationalizing in itself. So to work
+on it and to support you by by the work
+that we do nowadays or every day. No,
+wonderful.
+So
+in summary
+In summary, we will leave some time for
+[snorts] questions. There is a little
+timer down here. Is this including
+question time?
+I think so.
+>> Sure. I'll interrupt you. That's great.
+>> So we have 15 minutes for questions.
+>> Question time and if it doesn't include
+question time, I'm going to give you
+coffee time, too.
+All right. So in summary
+we are
+going through a bit of an evolution.
+Not a surprise to anybody. I feel very
+positively about it. DHS clearly feels
+very positively about it because I'm
+here protecting life and property by
+talking about the
+by talking about the CVE program.
+I want to reassure people here that the
+CVE program is healthy. It is stable.
+It is a top priority for CISA and for
+the department. And partnership is top
+of mind. Partnership with the NISA in
+particular has been quite fruitful and
+we are really really excited about that
+future.
+We are not blind to some of the feedback
+that the program has received over the
+last year and I feel confident that
+moving into the future we'll be able to
+address it.
+Does any Did anybody here respond to log
+for shell?
+Raise your hand, Pete.
+All right. So
+when I was first at CISA and I had I did
+before coming to CISA, but when I first
+started at CISA,
+I've been here 5 years. So it was like
+fairly felt fairly new to CISA. I felt
+new to public service and log for shell
+blew our freaking minds.
+Everybody here felt similarly, I'm sure.
+And I can remember Does anybody remember
+what CISA did for log for shell?
+Does anybody remember what we did?
+Okay, so we put up an affected products
+repository. Do you remember that?
+Yeah, so we put up an affected products
+repository and that was something new
+and different that we hadn't done
+before. And love it or hate it,
+it totally changed the game at CISA for
+a number of reasons. The first one was
+we said, "Hey, let's stop putting out
+PDFs and documents." We
+Spoiler alert, we didn't stop doing
+But let's start stop putting out PDFs
+and documents and let's create an actual
+GitHub repository where people can
+contribute to this in an open and
+transparent way that allows us to gather
+feedback. So, that was the first thing.
+That was a
+game changer at CISA.
+Showing people that we could do that. I
+know that this sounds stupid, but it's
+not stupid. It's a big deal for public
+service. Showing people that we could do
+that and that we could do it
+semi-effectively and that it actually
+doesn't take 300 people to do it was a
+game changer. That literally set the
+stage for us being able to do things
+like vuln enrichment in the future.
+the other thing that we did that a lot
+of people probably don't know, but it is
+public, so I'm allowed to say it, is we
+coordinated with certs across the world
+to update that repository. Um that was
+also a big deal. That was huge.
+Traditionally, we had these really
+formal agreements
+and we still have formal agreements with
+international organizations and all of
+our operational collaboration with those
+organizations went through these
+agreements that were
+like formal and you had to schedule like
+a Zoom call, you know, 20 days in
+advance and we just didn't have this
+great operational collaboration
+pace and speed. And
+that repository, love it or hate it,
+sorry Pete, that repository changed the
+game for that international operation
+operational collaboration as well. And
+so in my mind, we learned so much from
+Log4j Shell and and we have learned so
+much

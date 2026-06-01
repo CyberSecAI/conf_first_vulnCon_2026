@@ -1,0 +1,692 @@
+[music]
+>> Okay. All right. All right. So, I think
+that, you know, this is my first time to
+VulnCon and I want to thank the
+organizers for
+letting me come and speak.
+I have been on committees to select
+people and it's really hard. It's really
+hard. There's always really good talks.
+So, I am honored to be here.
+I'm going to talk to I want
+I want everybody to step back for a
+minute and think about something
+different. I have seen so many great
+presentations today and many of them are
+on data.
+Most of them are on data.
+We've learned about pearls and CPEs and
+obviously CVEs and BU did a great job on
+going over dependencies and dependency
+graphs.
+But at the end of the day, we've got to
+fix vulnerabilities and
+I got very interested in cybersecurity
+during the early days of the Ukrainian
+war when some vulnerabilities were used
+to take down um
+Starlink's communication. Took them over
+2 weeks to get it back up.
+That is a big problem, right? If you
+think about it.
+The public the public sector has some
+different challenges when they're
+talking about trying to secure on orbit
+um assets
+space vehicles
+fighter jets
+You know, they have
+they have a they have a really cool
+thing called Crimson Shock. It's a case
+that looks like a a
+looks like a suitcase. It is a suitcase
+and it has ground sensors in it to see
+if you can if they can tell if Russia's
+shooting off rockets.
+Really interesting stuff. All of it's on
+the edge.
+So, I started thinking about how we
+would ever really protect those kinds of
+environments.
+And
+we came up with some very interesting
+things and I'm going to talk to you
+about it today. And
+that's why I say production is the new
+attack surface. And why we have to start
+thinking about vulnerabilities from not
+only shifting left, but we have to think
+about it on the right because it's the
+right that's in that's under attack.
+So, on average, according to like Shawna
+type in um
+Open SSF and the research that's being
+done, we're solving about 80% of
+vulnerabilities. We're doing a pretty
+good job of scanning, DAS, SAS testing
+to get vulnerabilities out of software
+before it gets deployed.
+But, the truth of the matter is 100% of
+the vulnerabilities attack production
+environments, right? So, we're doing a
+lot of good hard work and everybody's
+doing a great job to get them out of the
+vulner- out of the software supply chain
+or out of the code before it goes to
+production, but we have production to
+deal with.
+And everybody likes numbers, so do I.
+So, I threw some up there so I wouldn't
+be the odd person out.
+>> [laughter]
+>> 200% increase in vulnerabilities over
+the past 3 years. That is
+astronomical if you think about it.
+Averages to about 47 critical and
+high-risk vulnerabilities per day.
+Uh cost about 10,000 10 to 50,000 10 to
+50,000 dollars to fix a single
+vulnerability depending on the severity.
+And while each company is uh dealing
+with 47, let's say they dealt with 1% of
+that.
+It's still a lot of vulnerabilities.
+You're talking 100 to 300 a year just
+for critical and high-risk.
+Now, that number Oh.
+This number, I don't know how to point.
+But, this number we got to fix. 100
+plus. The government says it's could be
+up to 180 days to on an on-orbit system.
+Because if you think about a satellite,
+they only have 10 minutes to make an
+update. And sometimes they're not going
+to fix a vulnerability. They're going to
+actually do fix something that's very
+specific to their payload.
+And less 10 days for an average
+attacker. Okay.
+Uh I I did this sometime ago.
+I read somewhere um on an article that I
+was cruising through
+uh that now attackers can can attack in
+less than 6 hours. I don't know if
+that's true,
+but they do it by using AI and getting
+AI to tell them how to how to
+how to use the the the vulnerability to
+do the attack. So, I think we're behind
+the eight ball on some of this stuff.
+So, the goal for us as a community is to
+be able to address runtime software
+supply chain attacks in less than 1 day.
+That's it. That's the goal.
+So, I'm going to talk about
+potential ways that we can do this.
+We're going to go through the production
+security gap so we can all understand
+why it's there.
+We're going to talk about a digital
+twin. How How many of you have ever
+heard of a digital twin?
+Yeah, one or two. It's really popular in
+the public sector, not so much in the
+private. I'm going to try to put it all
+together how a digital twin can work.
+I'm going to talk about compliance and
+fixes and um security for what's live.
+So, who am I? Um I am the co-founder of
+a little company called DeployHub.
+We started an open source project during
+COVID. Like I had nothing to do, right?
+It was pretty boring. I started reaching
+out to folks about this problem and I
+built a small community. We started
+coding on it. Um it got accepted into
+the Continuous Delivery Foundation.
+Uh I'm currently serving on the board of
+the Continuous Delivery Foundation as a
+strategic advisor and I'm also uh on
+their technology oversight committee. I
+have also served on the boards of the
+Open Source Security Foundation, both
+their TAC and their governing board. Um
+and I am the community director for
+Ortelius, and I am on Fridays on
+TechStrong Gang. So, if you want to
+talk about you want to hear me talk with
+some other future of analyst about all
+kinds of really cool topics, I'm on on
+Fridays.
+All right.
+So, why do we have a blind spot in
+securing what we build?
+Not what we run.
+So, we worry about securing what we
+build, but I don't hear a lot of talk
+about what securing what we run. This is
+the difference.
+Um
+you can do a great job on one side of
+the house and still find
+vulnerabilities. And that's the point
+that I really want to make today. That's
+the most important thing that you can
+walk away with.
+The weak post-deployment security is a
+is a defense strategy that we must
+improve.
+We're strong on offensive strategy.
+Offense offensive meaning
+pre-deployment.
+But, when it goes over the wall, the
+so-to-speak wall,
+we now have a problem defending what we
+have out in post in in the runtime
+environment.
+So, what happens is the systems become
+weak after release.
+Not because we didn't do a good job, but
+because we have new vulnerabilities that
+weren't reported when we did the
+release.
+So, new CVEs emerge after deployment. We
+all know that, but we do not do a good
+job of talking about it or sorting out
+how we can potentially fix it, and I
+call it the blind spot.
+So, let's think about the imbalance. I
+love hockey.
+Go Avalanche.
+I I I I'm a nice fan, but Avalanche is
+really great this year.
+Um they're amazing. Um
+so, if we think about what this looks
+like from the perspective of a hockey
+game.
+If your team's out there and they're
+doing SCA and they're doing SAS and
+they're doing DAS, they're doing
+everything they can pre-deployment,
+they're scoring points for you. They're
+a really strong offensive team.
+But who do you have in your net?
+Do you have a goalie? Do you have a
+couple of defensemen?
+Probably.
+If depending on the size of your
+organization, that's the interesting
+part of this problem. It depends on the
+size of your organization and how
+resource constrained you are.
+To you know, teams like um Encore,
+Sonatype, Men, Sneak, of course, GitHub.
+They're really good offensive players.
+They're scoring points for us. We need
+work on the defensive side. So, I'm
+going to talk about some of the
+defensive techniques that are out there
+and why I think it needs work.
+All right. So, where is the gap?
+Pre-deployment tools are easy.
+How many of you have ever used Sneak?
+It's super easy. You just point to the
+open source repo and it's done. You have
+value within five less than five minutes
+of signing up for it.
+You immediately start using it even
+though it might annoy you later. It's
+like it's giving me too much noise. It's
+at least give you value in a very short
+period of time, right? You didn't have
+to bring in an army to get it done. You
+as a developer or an individual sitting
+there, I mean, I use it for the open
+source community projects that I work
+on. It's super easy.
+And that is an important aspect. Most of
+the tools that are on the offensive side
+can be implemented by a DevOps engineer,
+a developer, a single developer like
+Sneak, for example. Super super simple,
+easy to adopt.
+Post-deployment solutions are way more
+complex.
+Um they have complex architecture
+uh with weeks to deploy it uh within
+your the organization.
+Uh and they're adopted mainly by large
+enterprises. So,
+for example, if you think about, you
+know, some of the tooling, you know,
+Aqua, Rapid7's popular within the public
+sector.
+There's phases that you have to go
+through to get it done. Very different
+from our pre-deployment tooling. Very
+different.
+This is not this
+this chart that I give you is not an an
+un
+It's not an exaggerated
+uh project plan for implementing
+observability tooling
+or agent-based security tooling.
+You know, two to four weeks just to do
+the planning and the scoping. Asset
+inventory, where's that?
+There. Asset inventory, that is the
+hardest one, especially if you're in
+cloud environments.
+Um credential setups you have to deal
+with.
+You know, turning on turning in tuning
+and false positive reductions as you
+work through it. So, they're they're
+really good at what they do.
+But my argument and my complaint here is
+that they don't make it easy to get them
+into the process.
+They're heavy. They require They're
+expensive and they require a team. Not
+everybody has that kind of team. If you
+do and you have the money, you should be
+implementing these tools. But not
+everybody can afford to do so.
+So, let's talk about some of the
+limitations of these tools.
+So, agent is the most common of the
+post-deployment tooling.
+As I pointed out, they're they have
+operational overhead.
+I can promise you they're never going to
+put an this kind of a stack on a
+satellite.
+At least not in the next five years.
+Maybe we will have You know, I'm looking
+forward to the possibility that we would
+have an on-orbit Kubernetes data center,
+right? How How better to solve solve our
+AI issues? Get just put the data centers
+out in space where it's already cold
+and there's plenty of of of sun you can,
+you know, charge with.
+But right now you're not going to you're
+not going to see that. And you know,
+did you know that a satellite is the
+size of a toaster?
+Literally, they're called cubes.
+And they're very constrained in terms of
+what uh you you want to put on them.
+And they're contested.
+So that means that they are potentially
+going to be have potentially be attacked
+by even another satellite. They call it
+situational awareness. Cuz one satellite
+that's probably about to die could go
+and take out a satellite that you just
+put up there. And it's not just private
+uh public sector satellites, it's
+private, too.
+Caterpillar has tons tons
+of satellites. Caterpillar. Because they
+have GPS they need for autonomous
+driving tractors.
+Inventory and tracking is really really
+challenging. Um and it's hard to deploy
+in these in the any edge environment. To
+try to put an agent on a constrained
+environment is really really hard. So
+it's not done. It just isn't done.
+So there are agentless solutions, um but
+they do have some limited visibility,
+especially in containers. Because
+containers
+don't stick around, right?
+They are short-lived. That's the whole
+point of a container. So your inventory
+becomes more complex to track. And it's
+easier to miss them.
+So
+are why are we have some solutions for
+post-deployment?
+They're hard to implement and they don't
+satisfy all of our needs.
+let's talk about a digital twin.
+What if
+we can contain
+we can track for every release
+the S-bomb
+the get repo
+and the
+endpoints.
+Right? Those three things actually
+give us everything we need
+to track what's actually occurring
+on an endpoint that's running in
+production and we don't even have to
+touch it. We don't have to scan it.
+We don't have to do anything to it. We
+just know it's out there because
+somebody deployed it and we have the
+S-bomb and we have we know where the get
+repo is. Those are the three most
+important things that we need. A Helm
+chart could do it. Kubernetes audit logs
+can do it.
+So, we're
+I'm challenge challenging you to rethink
+how we can do detection of
+vulnerabilities in our live production
+systems where we are most threatened and
+where what we have to fix now.
+So, in a digital twin
+on the, you know, from the old way of
+doing things, you have your old scanning
+and artifacts. These are periodic scans.
+They have high computing costs and there
+are detection delays when you were use
+them.
+In a digital twin
+we continuously sync.
+So,
+Gartner just came up with the new term.
+So, you all know, I started hearing
+about it like in maybe August or
+September and I was starting to catch up
+it's starting to be more widely used.
+It's called CTEM, continuous threat
+exposure management.
+I'm talking about CTEM here,
+continuously syncing
+again your your S-bomb information and
+your endpoint information against an OSV
+dev, for example.
+Which gives you a real-time correlation
+and you can basically let's say you just
+scan you synced every 10 minutes against
+that digital twin's configuration data,
+you're going to pretty much get an
+instant alert. So, now you have a method
+to about every 10 minutes determine if
+there's a new vulnerability that was
+reported that's now has showed up in
+your production environments.
+So, most important right now, I hope
+there were two amazing S-bomb
+presentations yesterday in the room over
+here, and I was sad that were more
+people attending it cuz they were very
+good. And both of them talked about
+operationalizing an S-bomb. And this is
+what we're talking about. S-bombs are
+not a checkbox. They're not just a new
+doc that you check into your get repo
+and say yes, we did it.
+They should be operationalized. And we
+are talking about using an S-bomb in a
+digital twin to make it operational.
+So, it can
+sync against these against new CVEs and
+the CVE feeds.
+Digital Digital a digital twin knows
+where OS packages are running on the
+endpoint and can identify threats on
+endpoints almost instantly.
+Literally, if you wanted to scan every
+30 seconds, you could do that.
+So, it determines fixed requirements
+focusing on high-risk and critical CVEs
+impacting live systems.
+Now, let's take it another step.
+Potentially, if we know there's a
+vulnerability running on a on an
+endpoint,
+and we know what the get repo is,
+potentially we have the ability to do
+auto remediation.
+Which means that we can go we can go
+find the And this This is this the toil
+developers go through. So, you know, we
+could do it using an MCP server to do
+this pretty easily.
+Go find what the the new the new version
+of the
+of the package that should be used.
+Be used graph probably would be a really
+useful tool in doing that.
+Um if there's if there's potential for
+breaking changes, you create an issue.
+If it looks like a simple update, you
+create a PR.
+Now, Mend has Renovate that does that.
+But sometimes Renovate will update
+everything. If you [laughter] only want
+We're just trying to fix one problem,
+right?
+Just one problem, and let the developers
+know we've done your research. Here's a
+PR or an issue.
+That potentially has the ability to to
+reduce the time it takes to get it done.
+So, how the digital twin, what it does
+is it consumes an S-bomb
+um and the deployment metadata.
+It's and some other pieces, too, which
+I'm not going to get into cuz I just got
+the 10-minute flag.
+Uh
+it synchronizes with OSV-dev.
+And then it reports the new CVEs uh to
+to and uses AI to analyze the
+requirements to remediate the fix.
+Benefits,
+the most important one is easy to
+implement.
+It's like instead of pointing to a repo,
+you point to your S-bomb, right?
+You point to your S-bomb and you grab
+your Helm chart. If we had those two
+things, the digital twin is almost
+complete. It's not that much data that
+you have to consume to in order to
+achieve it.
+Um focus only on deployed
+vulnerabilities and defend deployed
+endpoints. That's that's the whole point
+to address the mean time to remediation.
+Looking for precision over noise and
+faster remediation, so that 100 days,
+especially in the private the the public
+sector, is has to it has to be brought
+down.
+So, just rethinking this, rethinking how
+S-bombs can uh replace the the
+re-scanning of re- GitHub repos instead,
+and present better data.
+Data that's very specific to the moment.
+use deployment metadata to to to reflect
+the endpoint map to the S-bomb, and then
+use the vulnerability scanning to get
+your information. So, a new
+architectural pattern here is get the
+S-bomb, get the deployment metadata,
+build your digital twin, and then start
+scanning that instead of your repos for
+for high-level and critical,
+and then do a response.
+We get rid of the noise.
+The easy installation, time to value in
+less than 10 minutes, organizational
+buying is not required. A developer can
+do this on their own without doing too
+much as long as they could knew how to
+generate an S-bomb.
+And if it's within enterprise and
+government um
+uh uh uh
+requirements now. It fits well into the
+SSDF actually. So, it aligns with NIST,
+it aligns with um
+uh uh the container security and uh of
+course 14028.
+So, production is an active surface. It
+really is where the we have to start
+focusing. Defending uh defense
+vulnerability response uh
+strategizes on improving and being
+stronger on the defending side of the of
+the the court.
+And post-deployment detection tooling
+must be cheaper and easier to implement
+in order for this to happen. We can't
+rely always on these heavier uh agents
+and the digital twin is a good way to
+get there.
+Auto remediation reduces down um from
+from months to days and our goal is
+accomplished.
+I would love for you to join the the
+Ortelius project. Ortelius, Abraham
+Ortelius, start created the first world
+map.
+I actually started with a a logo that
+was the um compass rose, which of course
+you guys use for Vone Con.
+Uh it is an a post-deployment
+vulnerability uh detection platform
+that's incubating at the Continuous
+Delivery Foundation. And we also the
+Continuous Delivery Foundation also has
+something called the CICD Cyber Security
+Guide. If you're interested in
+contributing to that, we could use help.
+Uh and it basically is a guide that
+says, "Here's the SSDF or here is Craig
+and these are the tools you need to use
+to achieve these tasks."
+And on that, I say thank you. And yes,
+please reach out. I would love to talk
+to you. That is really my my email.
+I if you have questions, if you want to
+get involved, if you want to challenge
+me on anything I've said today, please
+reach out. Um I'd love to chat.
+And thank you.
+>> [applause]
+>> Questions?
+Somebody challenge me on this part this
+premise. It's got to be some hole in it.
+Hi Tracy. John Berglund um with IBM and
+I So, my colleague Adi and I, we spoke
+yesterday on the whole I I love your
+idea. I love the potential simplicity of
+it, maybe, if it's that simple. What
+what's super intriguing to me and you
+you brought this out quite clearly, I
+think, is the importance of the
+the quality of the S-bomb, the accuracy
+of the S-bomb, because when that
+isn't there,
+it
+well, it it everything hinges upon that
+and that's a real challenge, right? I
+think, you know, Rogue, you're
+um
+I Thank you for bringing it up. Um last
+year at uh CityCon, we did a kind of a
+heart-to-heart during lunch. There was
+about 90 people in the room and I asked
+why they weren't generating S-bombs in
+their CI/CD pipeline and the top reason
+was because they don't believe that
+they're accurate.
+So, Well, they weren't.
+They They just say they're not right. We
+don't believe they're accurate and
+there's no point.
+They If they don't have a a reason to If
+they're not doing business with the
+public sector, they don't have to
+generate one, so why would they? If they
+don't believe they're accurate.
+Um yeah, I would like to see more
+research done on that. And things like
+the graph we just saw, another way to
+help
+solve this problem is through
+de-bloating.
+If we know what's reachable, let's take
+the stuff out that's not.
+Some of these uh like, you know, some of
+these packages are just so so bloated.
+And this is a common problem that I see
+in software development. I've been doing
+build management for a very long time in
+a previous life a company called
+OpenMake Software we created a product
+called Meister and Meister made sure
+that everything that you were bringing
+through your your your version path was
+what you needed and nothing else. So you
+didn't have that deep loading but it's
+gotten way way way out of hand. So
+everything that we have stacked up in
+those in all those packages just add to
+the stack for vulnerabilities. So
+better better S-bombs, a discussion on
+deep loading, those are the and post
+deployment you know, mean time to
+remediation. I think they're the three
+key areas that
+we may not be considering as a community
+and we should start thinking about it
+and it and it applies to AI as well in
+all those in all cases.
+Thank you for giving me a soapbox.
+>> It's quite lovely.
+>> Hey Tracy, quick question.
+A great S-bomb starting point, yes, plus
+one from my side.
+Deployment metadata, what do you think
+about conception to use attestation like
+for example in total attestation that
+will contain information where is the
+S-bomb, how it's deployed and so on.
+So automatically you can detect what is
+going to be deployed and you know where
+to find all information about S-bomb and
+so on. It's a great question. The open
+source community at the Orteleus have
+been talking about provenance and
+attestation and the best thing about a
+digital twin is we can add as much
+information that we need to, right? It
+can grow fairly large. It doesn't
+matter.
+The more configuration data that we can
+put in there, the better. Even if there
+was an easy way to get to
+cloud configuration parameters, right?
+And it's There's some of the The problem
+with some of this data is it's hidden in
+scripts. It's not easy to find.
+I mean, even connecting a deployed
+package to a repo isn't possible, right?
+That's another area that we tried to
+address by saying we're going to grab
+the the the repo and the the deploy
+script at the same you know, the home
+chart at the same time to capture that.
+So, yes, attestation and your providence
+that you talked about yesterday, both
+that can be added, which is why I sent
+you an email and invited you to a
+meeting with John.
+Thanks a lot.
+Yeah, it needs to go there. It
+absolutely does. Along with probably
+some other things that this community
+could probably really build out an
+interesting digital twin.
+Okay, thank you.

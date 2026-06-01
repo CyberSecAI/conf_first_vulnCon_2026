@@ -1,0 +1,680 @@
+[music]
+>> Hi, I'm Christina. I'm a product manager
+at Nvidia and this is my first time
+being at Vulkan, first time presenting
+here and I must say I'm super nervous
+because I feel like you guys all know
+much more about what I'm talking about
+than I do myself. But I have Jessica
+with me and she I do most of the talking
+and she does the actual work. So I'm
+have my support here. Um Jessica is um a
+software engineer and we work closely
+together to solve our vex problems
+basically.
+Um and this talk is very much about it
+has a very long title. Um I don't think
+we thought that through how it's going
+to look on the slide and how it's going
+to
+be uh spoken out but this is basically
+our story on how we
+um over the years um started using vex
+um how we evolved using vex and where we
+still see a gap and a proposed solution
+on how to publish vex in a consumable
+way and an industry standard.
+Um we go more into the details here.
+Um but yeah.
+How does it work?
+Uh-oh. Uh-oh.
+Next slide, please.
+>> [laughter]
+>> Okay.
+Is that how we do it? Next slide,
+please. Okay, cool.
+Uh works for me.
+Um so a little bit of context. Yes,
+Nvidia. Uh we make software. People
+don't think usually about Nvidia making
+software because we are clearly known
+for hardware, right? But we actually um
+publish a large amount of software.
+And I am a software product manager for
+Nvidia AI enterprise and my role is
+mainly I work with customers to make
+sure that the software we build aligns
+with their expectations when it comes to
+security and compliance. So for me it's
+super important that the software they
+pull from us, they they use from us is
+um they know it's secure and it's um
+ready to for production, right? That's
+just kind of my role.
+And um over the years over the last
+[snorts] years at NVIDIA, we very much
+like and praise the era of transparency,
+and we use this in several different
+areas when it comes to model cards and
+so on. But also for NVIDIA Enterprise,
+we embraced it in form of VEX,
+vulnerability exploitability exchange
+records, right? Um
+we published those a lot with the goal
+that our customers get a
+machine-readable clear statement on all
+the CVEs in the software we publish, so
+they know what's going on.
+And um we did that for the reason
+because we hope this would be a massive
+time saver on the customer side, right?
+They take our software, they scan it,
+guess what? There are CVEs. And ideally,
+they don't have to spend a lot of time
+figuring out what's going on with the
+CVEs because we already proactively,
+being transparent as we are, published a
+VEX statement for every CVE that there
+is.
+And very selfishly on my side, my inbox
+is full of a lot of emails from
+customers which have these very scary
+and very long PDFs attached with lines
+and lines of CVEs that their scanner see
+in our stuff
+um that we have to manually sort through
+because they ask, "Hey NVIDIA, what's
+going on? Tell us why these CVEs are
+there. What should we do about it?" So,
+we do this manual review flow where we
+go through these reports. It's very
+painful. And we were really, really
+hoping that VEX helps us with that. Um
+turns out we're not quite there yet, and
+we'll talk through why that is and um
+our journey in a little bit more detail.
+I'll try this again.
+Ah, it's working. Great. So, we don't
+have to spend a lot of time on this, but
+this is NVIDIA Enterprise. This is the
+product I work on, and it's a suite of
+software that you use to make uh
+production AI applications work, right?
+It gives you the building blocks in all
+kinds of layers of the stack from
+application development with uh NVIDIA
+NeMo for um attentive AI or Omniverse
+for physical AI. We give you the models,
+our own models. We take open source
+models, we package them very efficiently
+in something we call NIM and so on. So,
+this goes down the whole stack. It is
+model serving. It is software for GPU
+orchestration.
+Um down to the operands like GPU
+operator, network operator. So, you can
+see like every one of these little boxes
+is a product that comes with like little
+many many artifacts. And for us, um
+a big part of this is containerized.
+So, we build container images. Um and
+our customers use this. They scan it and
+we get a lot of reports and a lot of
+feedback, right?
+Um
+Why What does it make um especially
+complex for AI software? And I feel like
+I don't have to even tell you guys that,
+but usually I have. But here everybody
+knows this like software is made out of
+software. We've heard in the
+last talk. And one of our images comes
+with like 350 something software um
+dependencies and packages. And many of
+those are open source, right? Because we
+want to embrace open source. We use open
+source. We need it. Um but this comes
+with many CVEs. We have to handle. We
+have to sort through. We have to
+um figure out what's going on. And also
+we have to figure out how to actually
+patch this. Um
+because this is enterprise software, we
+need to be conscious of breaking APIs.
+It needs to be stable. So, we cannot
+often times just like take what's
+available open source. We have to be
+very conscious. So, this
+is a lot of work. The scale is very
+large. We have a lot of products. We
+have a lot of containers. The number of
+CVEs is already high. It's getting
+higher and higher. We all should We all
+know that, right? So, um automation is
+really key and we really leaned into
+automation. I want to talk a little bit
+more about that later. But more
+importantly, like we do all of this work
+figuring out what's going on and we it
+would be very sad if we wouldn't be able
+to share that with our customers in a in
+a scalable way. And that's why we really
+um leaned into VEX to be able to share
+this information as as best as we can.
+>> [snorts]
+>> Okay. So, this is like the beginning of
+our VEX journey. So, um more than 2
+years ago we established a new branch as
+part of NVIDIA Enterprise, which we
+called the production branch. And it's
+basically we're taking like
+at the beginning it was a small set of
+containers that we took out of of our
+portfolio and we kind of
+froze a specific version for 9 months.
+So, we keep kept it stable while every
+month releasing um CVE patches for that,
+right? And because this is
+the the pitch is you take it you can
+take it in production, don't worry about
+it for 9 months, you can just use it. Um
+we had to backport a lot of CVE patches
+into those versions that were pinned in
+the containers.
+Um we did that and do that
+to a certain degree ourselves, but we
+also do it a lot of with partners that
+they'll provide this private patches for
+us. And the problem with that is it's
+it's like private backports, like nobody
+knows about this externally. So, we kind
+of needed a way to communicate it to a
+customer. Customer takes the image, they
+scan it.
+Scanner doesn't know, it sees just the
+main version of this package and says,
+"Hey, this is exploitable." But actually
+it isn't. So, this was our first use
+case for VEX records. You can see this
+here, this is like we we map it to the
+digest, we say it's patched by NVIDIA,
+and [snorts] the status resolved.
+And we made those VEX records and are
+still making those VEX records available
+on NCC, and this is the screenshot you
+see here. In NCC it's just our container
+registry we use to distribute software.
+So, there's a little button on the
+container repo where you can download
+this VEX record and have all the
+information you you need. So, in the
+beginning this was all manual, very
+small set of containers, small set of
+CVEs, the resolved ones. Um we provided
+that information for.
+But um
+fairly quickly we learned that we kind
+of have to expand on that because we got
+like starting a lot of more of those
+reports where customers were like, "Hey,
+this CVE here in Ubuntu, what's going on
+with that? Why can't you patch it,
+right?" So, we needed more VEX. That was
+phase two. More VEX More VEX means we
+had to automate this because we have a
+lot of containers, a lot of CVEs. If you
+want Vex for everything, this needs to
+be automated. It's not handleable by a
+human. So, we have now this very um
+I want to say sophisticated flow. Um we
+scan a we scan a container and
+immediately it kicks off um
+it kicks off an automation that looks
+through the scan result. Um
+a part of it is just logic. It's
+automation and rules that are for
+example pull in um information from our
+vendors, right? We use Ubuntu, we use
+Red Hat. It pulls in this information,
+the Vex record they have to determine
+what the status is on specific CVE. But,
+it also has um rules where it um
+recognize the parent image. So, our
+internal builds are based on an internal
+parent image. It recognizes that, it
+applies um the set of Vexes that were
+applicable to this parent, it applies to
+the children. We have global Vex rules
+that allow us to kind of issue a Vex to
+a broader portfolio of products where we
+know, okay, the state for this CVE is
+the same for all of those, right? So, we
+have a lot of different rules and this
+is very uh very complex engine and every
+time there is stuff that actually
+somebody needs to review because those
+are cases, too. You need to figure out
+is this package used? Is the path
+exploitable? Um
+we do this with help of a Gentic
+workflow. So, our security analysts use
+Gentic workflows and then it comes all
+together and in the end we have a
+proposed Vex that needs to be approved
+and then it goes out and is published.
+So, we really, really got fast with
+that. Um and um
+yeah, we we kind of figured out a way to
+somewhat scale this.
+Um and Jessica's going to have a talk
+about this automation which we call Vex
+stream internally tomorrow where she's
+going to explain a little bit more what
+the rules are, what the logic is, and so
+on.
+So, all good, but somehow customers are
+still asking, "Hey,
+what's up with those 50 CVEs? Why when
+will they be patched? Why are they not
+patched? Are they exploitable, right?
+So, we've built all of this. We have
+like machine-readable VEX for all of our
+images. We
+we do an we do the exploitability
+assessment on them. We
+publish it to VEX. We give it to you in
+a machine-readable format. It's
+standardized.
+But still,
+you know, we still get those calls. So,
+what happened?
+Um the data is clearly there, but
+somewhere the workflow isn't working.
+It's somewhere broken.
+Um and
+turns out that
+I think our assumption was the person
+that pulls the container takes the VEX
+record with it. It is aware what VEX
+means. It is aware how to use it. It is
+aware what to look for in the VEX
+record.
+But that's not the case. There's
+somebody pulling it. They distribute it
+into their internal registries.
+Um it gets sometimes re-tagged, renamed,
+whatever, right? And then it gets
+scanned at some point, most preferably
+right before deployment when there's no
+time to do anything anymore.
+>> And then it's like, "Oh, NVIDIA, what's
+going on there?" And this is a
+disconnect that we kind of I don't think
+we have thought through that, but it's
+not necessarily the same person that
+runs the scan, looks at the scan results
+than the person pulling in the software
+into the organization. So, that's point
+one. And the second point is like even
+like we engage with customers, right? We
+tell them, "Hey, there's VEX." They like
+it. They think it's great, right? They
+really Once they know, they appreciate
+it. But even then, it's a custom
+engagement. They have to figure out how
+this fits into their
+internal processes. Like they have
+exception processes. How can they use
+our VEX? And I've seen like worst-case
+scenario, they take the JSON file, they
+translate it into a spreadsheet, and
+then it gets like added to their
+internal spreadsheet they use for
+tracking, right? So, this is
+not the ideal state. Something is
+broken, and it's not it doesn't give us
+the proactive, very visible um way of
+communicating the status of our VEX
+records.
+So, publishing isn't consumption. So,
+that's what we learned
+kind of the last couple of months.
+Um yeah, just to be a little bit more
+dramatic, this is how this usually shows
+up on my my desk. It's like customers
+are on a very short timeline. They're
+right before deployment. There's a
+deadline. This needs to be deployed
+tomorrow. We are ready. Everything is
+ready, but there's those five critical
+CVEs detected, and we can't go on. So,
+now either the personal at that company
+the personal at that company that has to
+review those needs to figure out what's
+going on, or they need to scramble and
+figure out how to reach NVIDIA and where
+to talk who to talk to and so on. And
+this makes me an endless an escalation.
+And like you can imagine how this might
+go, right? And this makes me very very
+sad because
+we already know what's going on. We have
+assessed those. Those are all resolved
+or not exploitable, right? But the
+customer didn't know.
+So, the data exists, but the workflow
+didn't. And Jessica's going to talk a
+little bit more about the details on
+that and how we propose how this could
+be solved.
+Um and hopefully there's some ideas in
+the community as well. Um we heard a
+little bit in the panel, which I think
+was a similar problem statement. But
+>> Yeah.
+Thank you.
+Okay.
+Okay, Christina already alluded to like
+the gap here, right? So, we have the NGC
+catalog. That's where we're publishing
+all of our container images, and that's
+like the supplier registry. Um and the
+VEX is added there, but it's not added
+in a way that easily moves along with
+the artifacts. So, that's a big gap. Um
+and then we're seeing that you know, the
+customer does customer adds that
+artifact to their repository before they
+deploy, and they're using scanners.
+And they're not seeing that VEX. So,
+yeah, they can go grab it then manually,
+or there could be some automated
+processes. They can still actually
+programmatically grab that VEX document,
+but a lot of the scanners today actually
+don't um enable filtering with the VEX
+document, and it just doesn't easily
+flow through the entire development life
+cycle.
+So, we're trying to figure out kind of
+the best way to tackle this. First of
+all, like um Art mentioned earlier, like
+there are multiple formats for how you
+can um write VEX, and so um we have
+decided on using CycloneDX.
+Um we are also looking at potentially
+publishing with OpenVEX as well, but
+there are multiple formats you can use
+here.
+And then um we are looking at actually
+using Cosign attestations so that the uh
+the VEX documents and the SBOM artifacts
+are attached to the artifact with these
+attestations. That way you get the the
+signing enabled as well as you're
+associating those VEX documents. And
+then the discovery with the with Cosign,
+you can actually enable um you know,
+discovery of those attestations, and
+then easily download those attestations.
+We're trying to kind of figure out how
+do we, you know, is there a better way
+to do this where maybe even when you use
+a Docker pull, you automatically get all
+these attestations, and they move along
+with that artifact. So, we're kind of
+trying to figure out like how do we
+enable all the ecosystem to work so that
+it's like one command in each in each
+place.
+Um so, I'll go through a demo of kind of
+how the tooling could enable this today.
+There are some gaps here that I'll point
+out. Um and then we'll talk a little bit
+about uh you know, how we could, you
+know, figure out better ways to do this
+as we move forward. But really the goal
+is we're producing VEX already, right?
+We're publishing VEX already, but is
+there a better way to publish this so
+that it is easily ingestible, easily
+consumable, so that users or the, you
+know, the the customers actually see
+what they're affected by and know what
+to take action on, and don't call us
+about the things that they're not
+affected by and there's no action to be
+taken there.
+Christina talked about how we are using
+agents and we're using automation to
+generate that VEX. So, I want to show a
+little bit more about exactly how NVIDIA
+is doing this today. Um, so we're using
+the agents and automation to generate
+VEX for all of these container images.
+And then we're using um, the OCI
+attestations to add the VEX documents
+and we're working on getting that done
+for SBOMs as well.
+And then the user, when they move the
+the artifacts over, they would still
+have to use that that cosign
+um, command to enable moving the
+documents at that time and to enable
+reading those. There are some scanners
+that there is a scanner in particular
+that has an ability to automatically
+detect if there is an attestation for
+VEX in the OCI uh, using the
+attestations with OCI. Um, so I'll show
+that, you know, there is a possibility
+here, but obviously we need to engage
+more of industry to get all um, you
+know, a better ecosystem here. Um, and
+then obviously the end goal is that
+security teams for the customers have a
+green light whenever they're ready to
+deploy and they understand exactly what
+is um, exploitable in their environment.
+Okay. So, the first slide, sorry for all
+of the text um,
+but the first slide here is kind of
+talking about showing how you could have
+a um, a script that would basically take
+whatever data you have, VEX data, and
+turn it into OpenVEX format. So, that's
+what that little script does. Uh, we
+actually have some uh, a reporting index
+where after the scan runs, um, all of
+the report data gets dumped into this
+index. And actually before that even,
+before it gets dumped to the index, the
+scan runs, it goes through the
+automation process where it overlays all
+of the vendor VEX data. I'll talk a
+little bit more about that tomorrow in
+the talk. And then the rules-based
+assessment of what VEX we want to
+publish to our customers based on the
+details that we got from the vendors.
+And then, it will update that into this
+reporting index that we can easily build
+dashboards out of for our leadership.
+That data then can be used to create the
+open vex documents.
+Um so, that's kind of how the flow works
+today. You can see in this case, we have
+um we do have affected vulnerabilities
+here. But, what we found is that there
+is no fix. So, upstream we found that
+there is no fix from the um
+the vendor that we are using for these
+uh packages. So, you see here we have
+121 of those, which is unfortunate.
+We're pushing on trying to get that
+better, too. There are some that are
+under investigation. Um some of those
+could be new vulnerabilities. We see new
+vulnerabilities every day and more and
+more every day now. Um and then we've
+got some that we know we're not affected
+by and we we've got some that we know
+are fixed because of patches that we're
+putting in or that we are consuming from
+some of the partners that we work with.
+Then we can use cosign to actually um
+attach that attestation as an open vex
+doc. And then we can verify that that
+attestation has been added.
+Then, on the customer side, right?
+They're going to pull that image and
+they have to actually do the cosign
+download attestation at the same time so
+that the attestation, you know, moves
+along with the document uh with the
+artifact. It'd be great if this was
+combined, but for now at least like it's
+two commands and it makes it so that
+like everything can move along together.
+They can add that to whatever OCI
+compliant registry they have and the vex
+will always be there then, which is
+great. And then we can verify the
+attestation, um which should always be
+done. And then you can see in this case
+we still have, you know, 186 vex
+statements. So, there are still 186
+vulnerabilities found in this image.
+Okay. So, for a um a standard Trivy scan
+or um you know, some sort of scanner
+would be able to actually run the scan
+on this and it's still going to output
+all this information, right? It's going
+to tell you that you've got 186
+vulnerabilities, which is going to make
+people really mad, and they're going to
+call us.
+So, that's kind of it's unfortunate you
+can't see the red down here behind the
+chairs, but without VEX documents,
+right? The we're causing red alerts
+everywhere we go. Um and so we need to
+figure out how do we not cause red
+alerts? How do we enable deployments to
+keep moving because we are providing
+that contextual analysis and enabling or
+and you know, telling everybody what
+information we have.
+Okay, so
+um there is a experimental option in
+Trivy today that allows you to consume
+the VEX automatically using these OCI
+attestations. So, we have tested with
+this a little bit. I did notice
+um recently that it is not up to date
+with the new OCI version, unfortunately.
+Um so, I think we need to kind of push
+on that a little bit. And like I said,
+it's experimental, and we're not seeing
+this across all the scanners. I mean,
+we're open to figuring out other ways to
+do this, and hoping we can talk to many
+of you here, you know, at the conference
+to see if there's other options, too.
+But this is as close as we've gotten so
+far as something that like would allow
+those VEX documents to travel with the
+artifact and enable scanner filtering so
+that everything shows up for the
+customer very easily. And then you can
+see at the bottom after um reviewing all
+of the vulnerabilities, the the the
+suppressed documents would show
+which ones are not affected, which ones
+um are fixed. This is a longer list than
+this.
+Um but then also, you would still see
+the the VEX documents for the ones that
+we found the vendor has like we have
+confirmed with the vendor there's no fix
+available yet. And then you'll get
+details from us in the VEX stating that
+we're working with the vendor and some
+analysis based on if the the CVSS score
+has a higher, you you severity than
+maybe the impact that the vendor is
+telling us that it is. So, a lot of that
+goes into play with the Vex rules that
+we'll talk a little bit more about
+tomorrow
+to enable us to to generate Vex
+documents in a way that we're
+comfortable with moving forward at this
+time.
+So, as I've kind of pointed out in
+multiple places like this isn't a
+working end-to-end flow yet and we
+really need to kind of figure out how
+can we do this as an ecosystem and all
+move together. I think you know, Arts
+panel was a really good example of of
+another option too and obviously this
+only works with OCI artifacts and so
+this isn't you know, the full picture
+for how we need to move forward but like
+we got to take a stab at something and
+see if we can we can do something in the
+meantime, right? So, that's what we're
+really trying to push for and it does
+enable that machine readable
+vulnerability analysis in the context of
+that container image which is really
+what you know, the Vex the Vex
+program was designed to do in the first
+place. But how do we I feel like what
+we're doing right now is like we are a
+phone
+phone switchboard, right? Where like
+there's a document coming in one place
+and it's stuck and we're having to
+manually like add that connection
+between the two places where the
+consumer needs to view it to use the
+scan data and then also where they're
+deploying, right? We want to be able to
+see this even in the deployment
+environment so that we can enable those
+types of scanners that are doing that
+runtime analysis to see that
+vulnerability data as well.
+All right, I think we are right on time.
+So, this is really like our wrap-up
+slide. Vex is the you know, we're trying
+to figure out like how do we enable Vex
+as an infrastructure
+and so it's really cool that we do have
+Vex documents for I think we figured out
+yesterday was it
+700,000 Vex documents published in the
+last 2 years
+that we are publishing. So, um, go check
+it out. [laughter]
+Um, but obviously that we need to
+automate that, right? Like nobody can
+consume that manually. Um, so all this
+has to flow better in a better way.
+All right. And I'm Jessica, this is
+Christina. Feel free to reach out on
+LinkedIn or email us. We really want to
+like keep this conversation going and
+figure out a good next step.
+Oh, yeah. And then Kajal, our colleague,
+um, is actually doing a talk at the same
+time, which is unfortunate. So, you
+won't be able to see that one. Um, but I
+am doing the talk about Vex Stream, the
+internal name of that tool, tomorrow
+called Taming the Scanner Storm. So,
+come check it out.
+All right.
+>> [applause]

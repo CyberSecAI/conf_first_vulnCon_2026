@@ -1,0 +1,1349 @@
+I am I'm a very excited to be able to be
+here and talk a little bit about this
+stuff. Also just happy to chat with
+everyone all week.
+Um
+but there's obviously been some small
+discussion of um artificial intelligence
+related topics this week. Has anyone
+noticed that?
+No?
+Okay, two chuckles, cool. Two of you are
+awake.
+I am
+I'm actually not going to talk about
+using AI to attack
+cyber
+systems, right? There's the different
+parts of how AI intersects with
+cybersecurity.
+This is about
+cybersecurity of AI software systems,
+not using AI to do our cybersecurity
+jobs, right? Those are super different.
+So, we'll talk about if you're trying to
+secure an AI system,
+all of the discussions that are going
+around how we do that within
+vulnerability management.
+So,
+I don't know if you know about this, but
+software systems have vulnerabilities.
+That's why we're like we have a whole
+conference about this. I don't think
+this should be a surprise.
+Um also,
+AI systems are software systems.
+Also big surprise. I think that most of
+you know this, but like I have gotten uh
+surprisingly
+large amount of
+awakened
+eye movement and gasps when I say this
+sentence in certain contexts. And people
+are like, "Oh, they are, aren't they?"
+Yes.
+Um and that means it has to also be
+secure by design. Cuz AI is not an
+exception to the fact that software must
+be secure by design for us to be able to
+use it effectively and to secure it
+effectively.
+So, all the secure by design stuff
+applies
+with some additional work obviously, cuz
+just like, you know, medical devices or
+OT systems or cloud systems have some of
+their own considerations, like so does
+AI. Especially AI systems on the cloud
+for OT systems for medical devices,
+which please no one do that.
+Um I don't want like a cloud-based
+AI-related pacemaker that I have to
+secure.
+but all software systems have
+vulnerabilities, so we're going to have
+to manage those in
+AI systems as well.
+I know that there is some talk about
+definitions here, and people, you know,
+would like the definition to be better
+or worse or whatever. Um
+within my scope
+as a federal employee, Congress has told
+me what the definition of a security
+vulnerability is.
+So, like, you can go fight with them if
+you want.
+But, like, maybe at your peril. Like, if
+you have a different jurisdiction that
+has given you a different definition,
+that's totally fine. We're going to have
+to obviously square those somehow. Um
+but don't come to me and just tell me
+you would like the definition to be a
+little bit different. Like, this is what
+security vulnerability is going to have
+to mean for the purposes of of this
+discussion, I think. Um which obviously
+is not exactly the same as the CVE
+program's definition or whatever. There
+is some productive ambiguity there, and
+that's okay. Obviously, CVE IDs, things
+that get CVE IDs are security
+vulnerabilities in this context.
+Um and because of that obviously, we're
+protecting
+um property
+and everything.
+a lot of cases here,
+despite maybe some
+protestations to the opposite, um a lot
+of these things apply.
+Right? So,
+we make policies
+that cover federal information systems.
+And since AI systems are information
+systems,
+there are some examples of things that I
+would expect would apply to AI systems.
+Like
+patch known exploited vulnerabilities.
+We tell you there's a KEV
+and your system happens to be an AI
+system, you don't get like a oh, I don't
+have to do that card.
+you probably should have a vulnerability
+disclosure policy.
+So that if you're running an AI system,
+you need it to be covered by a policy
+that lets people tell you when there is
+a problem in it.
+You need to set the scope of that
+appropriately to security
+vulnerabilities.
+So that you don't have a bunch of people
+telling you that it like gives you a
+factually incorrect answer unless you
+want factually incorrect answers to have
+cybersecurity impacts.
+Which they
+I don't know. I'm not going to say it
+could never happen.
+Uh if it's not getting security updates,
+take it off the internet, take it
+offline, decommission it. All right,
+this is a newer one for folks that may
+not have seen 2602
+just in January.
+CISA is now requiring
+um for folks that are in our scope
+that if a device is no longer receiving
+supported security updates, you
+decommission it.
+So, there's not going to be any more of
+this like oh, well, you know, I can't
+patch it because like it's not getting
+security updates anymore.
+if you want to deploy an AI system,
+how are you going to have that supported
+with security updates? You have to have
+a plan for that.
+Um and in general, although this is a
+recommendation and not a requirement,
+you should probably if you're
+purchasing, acquiring, buying,
+building,
+you need to demand
+systems that are secure by design.
+Which means that you need to put all of
+these things in your requirements when
+you're getting the system going.
+Cuz they won't happen for free and they
+won't happen by accident. They're extra
+work.
+Right? They're actually not extra work
+in the longest scheme of things, cuz if
+your system breaks and is compromised
+and then you have to fix it cuz
+someone's gotten through your whole
+network, that is more work afterwards.
+But it's more work up front, which
+people always want to put off.
+So, if we want to demand software that's
+secure by design, like what are the
+things you should be asking for? Right?
+Well,
+if you want to know about guidelines for
+AI system development, we've worked with
+the our UK partners, but also I think 21
+other international partners
+to sort of document what that means in
+addition. Of course, you've also got the
+NIST SSDF AI profile, right, which is
+very much on the same lines, just was a
+little bit later and, you know, maybe
+isn't um
+totally co-sealed by uh cybersecurity
+agency in your jurisdiction, but you
+know, same set of ideas.
+Um that's how you're going to build it.
+If you're going to deploy it,
+also,
+uh
+for those of you who are familiar with
+the cross-sector cybersecurity
+performance goals,
+CPGs that CISA puts out, um it turns out
+that this document is mostly a mapping
+between existing CPGs and just AI
+jargon.
+Cuz of course, the AI community uses
+justifiably different words for things.
+But that doesn't mean it's not the same
+security concept.
+Like, if the general concept is like
+protect against adversarial input
+getting to your sensitive system,
+and the AI people say prompt injection,
+you're like, okay, cool, yes, you're
+just both screening your system against
+bad inputs.
+Like, that's also a CPG, it's fine. You
+have to do it differently for an AI
+system, it's okay, but it's the same
+like risk management concept.
+If you're going to engage as a sort of
+policy for how your employees or staff
+are going to use AI systems,
+you need to engage with them securely,
+have good policies, usability policies,
+like what the expectations and standard
+of use is and everything. We have stuff
+for that. Um if you want to test,
+evaluate, validate, and verify your
+software,
+which does anyone want to have
+unvalidated, unverified, untested
+software?
+Right. Let the record show no one raised
+their hands.
+So, how are you going to test it, right?
+It turns out that TEV is an established
+software development process. I mean,
+that jargon is specific for some US
+government cases, but you all have a
+similar concept even if you don't use
+exactly that word.
+So, what is your testing, evaluation,
+validation, and verification plan?
+Mostly, that's going to be the same.
+Obviously, you're testing some slightly
+different properties of the software if
+it's AI software versus other software.
+But, I'm also testing different
+properties of my insulin pump that I'm
+testing of my web server. Like, it's
+normal that we test slightly different
+properties when we do TEV. That doesn't
+make it like an entirely new concept.
+there's been some discussion about
+identifiers this week.
+Just a little bit about CVE IDs.
+Um also yesterday, you know, I think
+that um Daniel was talking about using
+package URLs for
+identifying models.
+Yes. Turns out that is totally fine.
+You just need to name the thing,
+especially if you download it from a
+package manager,
+it should already sort of have a package
+URL.
+I know that we only got Pearls
+into the CVE record
+6 months ago, and it takes like 7 years
+for tooling to catch up.
+But, we could do it a little a little
+faster, that's okay. But, that's not
+like an AI problem.
+For people saying like, "Oh, I couldn't
+possibly identify where I got this
+machine learning library from."
+It's like, yeah, that you actually can't
+identify where you get any of your
+libraries from. That's not an AI
+problem.
+naming is hard,
+which I have said it already once on
+this stage like yesterday.
+it's hard in like predictable and
+reasonable ways that like we have to
+find sort of workarounds and best
+answers for and it's fine.
+Um I think we're a little ways off from
+using
+like signed records in the domain name
+system to delegate the naming of
+proprietary software products to the
+person who owns the domain name and
+making them sign it.
+But, I don't know, you know, there's
+probably a way to do that. Um but,
+whatever it is,
+AI doesn't have new problems in the
+naming space.
+Besides that, versioning is like a
+little bit weirder.
+Like,
+version two of an AI model is not like
+linearly
+an improvement or change on version one.
+but, I don't know how many of the
+software packages are using semantic
+versioning like perfectly already.
+So, I don't know if that's actually a
+huge change.
+all of these things mostly apply I think
+that CVSS sometimes is a little bit hard
+to apply to some AI-related topics.
+Um with the stakeholder-specific
+vulnerability categorization,
+if a question doesn't apply to your kind
+of system, that means you maybe need a
+new decision tree,
+but the whole thing is built for you to
+do that so that it can be
+stakeholder-specific.
+I don't see a huge problem there.
+CVSS has also just um
+I think a month ago we released um a
+FAQ item on like the relationship with
+software security problems versus
+software quality problems.
+Right, so a reminder,
+mostly because the AI community has done
+some
+conflating of software quality with
+software security. Like, this gives me
+the wrong answer and this allows a
+remote unauthenticated attacker to
+control the system.
+Have historically not been handled
+through the same pathways.
+Like, which of your PSIRTs handles the
+website is factually incorrect?
+You have a different team for that,
+right?
+Does anyone have that in their PSIRT?
+Okay, so why would you have that in the
+same team for an AI software system?
+Which is what people are doing.
+Separate them again.
+Just like make the AI team who runs the
+software product route the factually
+incorrect problems to the website
+management team or knowledge management
+team and route the someone can take over
+my system to the cyber cyber security
+team.
+Right, that's okay. You can do that.
+Um,
+part of the reason this is confusing,
+which is legitimate, is that the tools
+that can find some kinds of cyber
+security problems in AI models also are
+the same tools that can find the factual
+errors that they may produce.
+So, I understand why because the one
+team runs the tool, they want to triage
+all of their things.
+That's okay, but some of that triage is
+going to be routing to different
+conceptual teams.
+Um, asset management we also have to do.
+Um, I don't know if anyone feels like
+SBOMs are hard, but I feel like people
+keep telling me that software bills of
+materials are hard.
+Um, they haven't told me that AI
+software bills of materials are hard.
+They just tell me that they can't do
+S-bombs.
+This makes asset management hard. Also,
+asset management is hard.
+You have like hundreds of people
+deploying devices onto your network, and
+you want to be the only one in control
+of that and have like really strong
+asset access control on your network and
+make sure that like someone's not
+plugging in a random wireless access
+point. Um
+But, that's already been a little bit
+hard. So, of course, what software
+people download and run on their managed
+company machines is like a little bit
+hard. But, there are ways to manage
+that.
+I've mentioned this, I think, once
+before, but I was at FOSDEM, so the open
+source software um conference in
+Brussels in January.
+Um and the
+team from the German train
+company, Deutsche Bahn,
+gave a presentation, which is recorded
+and is online, about how they process
+500,000 S-bombs a day.
+Mounir can validate cuz he was also in
+the room.
+It's like
+from the PLCs on the rail lines up
+through the website taking ticket
+purchases,
+they can get S-bombs from all of those
+systems, internal developers, open
+source software, proprietary software,
+know everything that they're running,
+check the dependencies, check for the
+license management, check for
+Um and mostly with open source tools
+that you could also be using.
+So, I'm no longer taking um complaints
+that it is impossible to do S-bombs at
+scale.
+Proof of proof of existence.
+There's no particular reason why AI
+makes that harder or easier. It's just
+that it's hard overall.
+I know that the people who are very deep
+in the AI engineering world will think
+that this sentence is oversimplified,
+which to some extent is true.
+It's also useful.
+So, that's also fine.
+Models and data sets are just like
+libraries and configuration files.
+a model is an executable that you
+download from a package manager and
+include into your software to do a
+function.
+So, you can treat it like a library.
+Yes, it is a special kind of library
+that has maybe some weird properties
+where like you don't know where it came
+from or how anyone made it. It's like,
+"Okay, good choice on putting that in
+your software. That's fine."
+But, um
+it's not that different. You do want to
+track the data set that was used for the
+model, probably.
+I mean, configuration management is even
+harder than asset management.
+the AI system is bringing attention to
+the fact that you don't have asset and
+configuration management solved already.
+I think I think that's why people are
+finding it hard. It's like they didn't
+figure out configuration management in
+the first place, and then the AI system
+is forcing them to figure out
+configuration management, and they're
+like, "But, I didn't, so it's hard."
+Also, you were supposed to do this
+already.
+of course, just like medical devices and
+web servers have different requirements
+for how you manage their libraries and
+how you manage their configurations, AI
+has slightly different requirements.
+But, it's not conceptually like a
+different process in the risk management
+framework
+than other types of software.
+I actually didn't coordinate with Daniel
+about this that he had a whole talk
+yesterday about how you can use package
+URLs to treat the models like a
+dependency, but you can just go watch
+that recording if you don't believe me.
+of course, there's extra metadata.
+Yes. Like, we're going to have some
+additional stuff we need.
+I'm sort of putting that last here
+instead of first to emphasize that like
+this is like a 10% change, not a 90%
+change.
+So, it's not to say that the 10% isn't
+important. Of course, it's important.
+But, it fits into this broader
+management framework that everyone here
+I think mostly understands and the AI
+engineers don't know exists. Like, we
+don't have a lot of AI engineers in the
+room. So, this is a little bit preaching
+to the choir here, but this is also
+giving you the tools
+for your AI product team when they come
+to your P cert and they're like, "What
+do I do?" You're like, "Okay, actually
+you are writing software.
+I'm in charge of the product security
+for software.
+You're going to do my processes. Here
+they are. Here's the little
+modifications for you."
+Of course, we're going to have to
+develop the software. All right,
+especially if you're running a P cert,
+you might want to get the developers to
+do things better so you have less work.
+Good luck. I know that's been your job
+the whole time.
+but
+I mean, you can't say that there's not
+guidance.
+Right? But, also the community profile
+on the SSDF is like a 10% change on the
+90% of the SSDF.
+If you're already struggling to get your
+developers to follow some sort of secure
+software development framework, good
+CI/CD pipeline, whatever, you will
+probably struggle to get your AI
+engineers to magically now follow a good
+CI/CD pipeline when your regular
+engineers don't.
+If your regular engineers are writing
+way more code with AI and they already
+don't have a good CI/CD pipeline, you
+now have just introduced a vulnerability
+fountain.
+And that's not because the AI is
+introducing extra vulnerabilities over
+the humans, it's cuz you're just writing
+more code and not checking it.
+So, just like
+we actually have to do the things that
+we've been talking about cuz now the
+speed
+of introducing problems is increasing if
+we don't check for it properly.
+I just wanted to highlight some things
+out of the SSDF profile just as quotes
+because I just wanted to highlight that
+these are the same, right?
+Have software requirements, design it to
+meet them.
+Mitigate security risks.
+Yes, there's going to be a slightly
+different way that that happens.
+Like there are model specific things.
+But that's not like
+>> [sighs]
+>> Identify and confirm vulnerabilities.
+Yes, you will have to track those. AI
+engineers will have to track software
+vulnerabilities cuz they are writing
+software.
+I think this is a surprise to some of
+the AI engineers. I also remember when
+the medical device engineers were like,
+"What do you mean we're writing
+software?"
+And there was a point in time 10 or 15
+years ago where like
+the FDA required you to do an entire
+recertification process if you wanted to
+issue a security fix.
+And then it turned out that that was not
+meeting the needs of actually making
+software, which is what the medical
+devices were.
+So they changed the rules and now you
+can make security updates.
+So
+we're going to have to do that.
+Like the AI engineers are going to
+eventually have to learn that we are all
+software engineers and we're all
+special.
+But also we're all software engineers
+and we have to like sort of work
+together cuz at some point it's all
+running on a computer. They're not
+different computers really.
+I know that you all have the CVE
+numbering authority operational rules
+memorized, right? Has everyone been
+testing on those last That's what you're
+doing last night, right?
+So, which CNA assignment rule
+is relevant here? A vulnerability does
+not require a fix for a CVE to be
+issued. True or false?
+True? Does anyone remember what the
+number is? If you're really fast at
+typing in a web address, you can just go
+control F.
+You
+win the class.
+All right, so that's
+427.
+So it's not like this is
+oh my gosh, we've got to change the
+operational rules.
+This is
+probably
+we need to help the AI engineers learn
+how to interpret the operational rules
+and that they apply to them.
+Cuz they're not super
+reader-friendly.
+Like none of you had this memorized even
+in the room of people who work with this
+all the time.
+So, like how are we going to help the AI
+engineers understand where this applies
+to them and why this applies to them?
+Cuz I hear very often
+I can't possibly fix this problem with
+my AI model cuz I would have to retrain
+it and it would take 9 months, so I
+don't want to issue a CVE for it.
+Cool, I get that you don't want to.
+But that's not actually a reason not to.
+As rules as written and as we practice
+them.
+So, um
+I have a bunch of uh
+ways that my AI model just like makes a
+mistake in
+identifying what should or shouldn't be
+processed.
+do I have to assign a CVE ID?
+Like are there some large classes of
+exceptions in the CVE numbering
+authority rules for like kinds of things
+that don't get assigned CVEs?
+Yeah.
+Anyone have any examples off the top of
+their heads?
+Taking a hammer to a Yeah, physical
+access.
+Hitting it with a hammer. Thank you,
+Lisa. Not a Not a CVE assignable
+vulnerability. Will break your computer,
+though.
+So, there are a number of examples
+there. They're started under 4.1.5 and
+go on for a little while.
+I run this AI thing as a fully hosted
+software as a service offering that no
+one else has control over. Do I still
+have to issue a CVE if I mess up and 100
+million of my customers were exposed for
+4 days
+to a security issue?
+Do I still Am I still encouraged to
+issue a CVE?
+Yes, we did change those rules because
+it turns out software as a service is
+sort of a big deal.
+Um that's I In case you were wondering,
+rule 5.1.11.1.
+I'm sure you all had that memorized.
+I'm sure the AI engineers will also have
+it memorized and will also understand
+that they're doing software as a service
+cuz they know that they're running
+Or so, like how many of these problems
+are that your AI thing is running as a
+as a SaaS instance in a cloud somewhere
+and we already can't quite figure out
+how to do vulnerability management for
+SaaS.
+And how much of it is it that it's an AI
+system?
+I I've heard this one at least six times
+this week.
+Um does anyone know what um only what
+having a vulnerability that only works
+sometimes and sporadically and that is
+hard to reproduce
+is called in a normal software system?
+It's called a race condition.
+We have those, it turns out. Almost all
+of the earliest software bugs were race
+conditions.
+It's like the vacuum tubes, if they're
+timed a little bit weird, one of them
+will overload the other one and break.
+Like in the '50s.
+Those turned out to be really hard to
+reproduce cuz it's like random physical
+effects of the electrons in the chip
+like they're going to have weird
+interference effects if they're passing
+another electron at the wrong time.
+There's a bunch of other obviously like
+lock and semaphore, different race
+conditions. There's all kinds of
+different complicated race conditions.
+But like
+we have difficult to reproduce race
+conditions all the time. Like there's
+whole like metric values in the CVSS
+string about like if this is a race
+condition
+and it's
+hard or easy for the attacker to meet
+the race conditions, like change the
+score.
+Like it's not like this is a fringe
+thing. We have aspects that are like
+clearly well documented for this.
+So why is it confusing to people
+when
+a problem in an AI system
+is stochastic and hard to reproduce?
+Also when that's like an engineering
+choice? Like the LLMs are not
+non-deterministic by accident.
+The LLMs are non-deterministic because
+they put a pseudo-random number
+generator
+in the pipeline
+to make it seem more human and not
+robotic.
+And then they didn't expose the seed
+for the pseudo-random number generator,
+so you can't reproduce the same run
+every time.
+But if you just expose the seed
+you could reproduce that.
+So it's actually less bad than a race
+condition. It's just that you didn't
+engineer it so you can reproduce your
+own vulnerabilities.
+I'm sorry?
+That's not secure by design?
+So uh there have been some CVEs assigned
+to AI related software systems. Um here
+is one that like I was involved in, so I
+just know it a little bit better. Um it
+turns out that models are executable
+programs.
+And that um
+the lambda layer stuff in Keras
+sort of said that it was running in safe
+mode and in a sandbox and was not.
+So download random file the internet.
+Documentation says sort of don't do
+that, but this is also the only thing
+that the program is designed to do. So,
+like, it's not our fault if you do the
+thing that it's designed to do.
+I know that's a CVE. You can't just say
+don't do the thing you've designed the
+thing to do and call that not a CVE.
+Like, change the default settings to
+actually run in safe mode.
+So, you actually at least make someone
+understand they're changing a setting,
+which people will still all absolutely
+do. Like, you can't totally stop people
+from running random code on their
+computer. But, it's still a CVE if you
+like tell people that the default is
+safe and it's not.
+Right?
+default turns out actually
+surprise bonus CVE numbering authority
+assignment rule 4.1.4
+Insecure default configs should still be
+determined to be vulnerabilities.
+Um the Karis folks did not like this.
+But, obviously the CVE is assigned and
+it's fixed. So, this is an instance of
+the AI engineers maybe not necessarily
+understanding the norms of
+and needs of the security community.
+They're like, we need to document these
+things so we can manage the risks for
+the entire organization.
+I know that people don't always like to
+see CVEs assigned in their products.
+But, it's actually a sign of maturity
+that you're finding and fixing
+vulnerabilities, not a sign of weakness.
+So, like, you need to have some
+vulnerability and fix your
+Okay.
+The other one that, you know, often
+hear, right?
+My
+machine learning system makes a mistake.
+It says that this is a cat when it's a
+dog.
+Or whatever other impactful thing you'd
+like it to You know, obviously there's a
+lot more important ones, right? Not to
+make light of cats and dogs getting
+misclassified. They obviously have
+fights about that.
+But um
+there are some really important, you
+know, misclassifications that a
+important LLM might make.
+Do those all get CVEs?
+is that specific misclassification
+a cybersecurity problem?
+Or is that just a software quality
+problem?
+Like, would you like your software to
+have the quality of being factual all
+the time?
+If yes, cool. That's great.
+How is that a cybersecurity problem?
+Let's say it's a cybersecurity problem
+because it's like classifying whether or
+not something is malware.
+That's a factual thing that we also
+might
+actually have a cybersecurity issue for.
+so, like, you could call it an instance
+of a CWE, right? If
+Does anyone familiar with the fact that
+CWE 1039 has existed for like 7 years?
+And that's the CWE Yeah, Alec is aware.
+Thank you.
+Glad you're paying attention back there.
+Guy running the CWE program does know
+his own CWEs.
+Good.
+A bunch of other folks have asked me
+like,
+"Is the CWE program paying attention to
+the fact that AI exists?"
+Like, this is 8 years old.
+They're software systems. Most of the
+CWEs apply.
+If they have to make a couple of new
+ones, they have been.
+>> [snorts]
+>> Um
+if this is like a malware
+misclassification issue,
+um
+for your machine learning model that's
+doing a misclassification,
+uh is that
+is that a detection bypass?
+Does anyone know which CNE CNA
+assignment rule covers uh detection
+bypasses?
+Has anyone not put in the website yet?
+Come on.
+All right, 4.1. 7
+7
+Detection bypass should not get CVEs.
+why are we fighting about this?
+The intuition from the AI engineer is
+that their model misclassification
+should not get a CVE ID.
+Under what condition is a model
+misclassification a cybersecurity issue
+and not a detection bypass?
+This is This sounds rhetorical. I
+actually don't have an answer. Like,
+when would that Like, has anyone seen
+one
+where it's a misclassification issue but
+not a detection bypass?
+If you see one, cool, assign a CVE and
+tell us all. I haven't seen one yet.
+I think it should be fine.
+The intuitions align.
+Right? We don't want 100 billion CVEs
+for every single possible
+misclassification string.
+For every different LLM. That would be
+overwhelming.
+That is used as an argument for why the
+AI stuff can't possibly have the CVE
+numbering rules apply.
+Which is weird to me cuz if you applied
+the rules, those things wouldn't get
+CVEs. So, it should be fine. The rules
+apply.
+what about if the model itself just is
+malware?
+I think the open source malware folks
+were talking about this.
+do we assign CVEs to just libraries that
+happen to be malware?
+I mean, at some point in the history of
+the arc of
+you know, the growth of machine
+learning, I feel like
+some huge percentage of the stuff on the
+common model distribution platforms just
+were
+typo squatted or trojanized versions of
+existing good models.
+I know it was a problem that the like
+repositories were dealing with.
+as it's supply chain attack on a package
+manager.
+Has anyone heard of a supply chain
+attack on a package manager before?
+Some of you are giggling. I think that's
+a yes.
+If models are libraries and the model
+distribution platforms are package
+managers, why are we confused? Do those
+get CVEs?
+Sort of no.
+Like, if it's a general-purpose
+deliberately malicious
+package,
+that's just a thing you shouldn't be
+installing.
+But, if someone compromised a good
+got in there, changed the one you're
+supposed to be using, made a malicious
+commit, and turned that package into
+malware,
+that gets a CVE.
+So, it depends on exactly which kind of
+malicious package we're talking about.
+But, there's an answer.
+So, like, is it your actual genuine LLM
+from the accredited model provider that
+has been trojanized and turned into
+That should get a CVE.
+Did 17 million people make copies of
+your very common and popular model and
+turn that into malware and then post
+typo squatted names because the package
+manager doesn't have good
+trust management?
+Don't install those. Those are malware.
+But, they don't get CVEs.
+I've had some discussions about what
+integrity means.
+Which is funny because also there's like
+all these different uses of integrity,
+right? But that's sort of the whole
+thing is like, "Please use adjectives."
+Adjectives are the things that go in
+front of nouns to change what they mean.
+Right? So
+a vulnerability occurs when there's an
+integrity violation, right? We have that
+in some of the definitions. Uh not
+actually in the one that I have to use
+from Congress, it turns out. Um
+but system integrity
+is if you can
+mess with the system.
+Unauthorized change to the system
+behavior.
+Data integrity is an unauthorized change
+to the data, which could be in transit,
+could be in storage, right?
+Data sort of has a different level of
+specification and generality than
+system, so like we currently treat these
+differently, that's okay.
+Um you could imagine that changes to the
+data set
+that is used to train a model might
+matter, right? So we care about data
+integrity with AI stuff.
+We probably care about it to the extent
+that it changes the system integrity.
+But that's fine.
+I have yet to see a cybersecurity policy
+that hinges on correctness integrity.
+Which is
+that the information represented by the
+data is accurate and consistent.
+as an overall risk management posture,
+you probably care about that. But I
+don't think that's considered a
+cybersecurity violation. Like you might
+change the correctness by changing the
+data, in which case if it was meant to
+be signed and not changed, you've got a
+data integrity problem.
+That's okay. I pulled these definitions
+from RFC 4949 if anyone wants to take a
+look. Um this to help us distinguish
+between what kind of integrity we mean.
+Does anyone have a hypothesis or a guess
+as to which one of these three
+like the CVSS spec means when it says an
+integrity change none
+low high
+system data or correctness.
+I think system.
+Does the spec say that?
+No.
+It was sort of assumed.
+I've raised this.
+Like I think it means system, but like
+we should just be clear, right? And I
+think that will help going forward
+integrate the AI engineers into the
+community.
+Cuz I imagine that if you're doing just
+general purpose AI engineering, you care
+about sort of all three of these.
+And you might get confused if someone
+says there's an integrity problem, now
+you have to issue a CVE.
+That we need a way to point to like is
+there a system integrity problem?
+Or is there a correctness integrity
+System integrity means we might have a
+CVE on our hands given the other rules
+that may or may not apply, but
+correctness integrity probably doesn't.
+So overall,
+the AI engineers are lovely and they're
+producing a lot of value
+and they're innovating
+and they're moving really fast
+and they're going to probably need our
+help.
+And they don't really know that yet and
+that might be hard.
+But there have been a number of other
+new communities that have done a lot of
+other important innovation that have
+sped up various aspects of society that
+have also needed the cybersecurity
+community's help. And to that extent
+this is the same.
+They maybe are the newest and biggest
+and fastest entrants into that litany of
+new communities that have realized that
+they are writing software and now have
+to talk to us, but that's okay. We know
+how to deal with that.
+So um
+how are we going to integrate them
+into our cybersecurity community when
+like
+at best
+if they have taken a software
+engineering degree, which most of them
+have not
+that had one class on cybersecurity that
+was maybe an elective and was definitely
+separate.
+Right like
+when you train your engineers in your
+company, is software security integrated
+throughout the entire education process?
+Can they do anything without
+understanding the cybersecurity
+requirements you have? Or is it just
+like sort of the last course that they
+have to take and they're all tired
+already and they don't actually pay
+attention and they treat it as a hurdle.
+>> when we teach software engineering, we
+don't teach integrated cybersecurity.
+Known problem.
+We have not made this better with AI.
+So it's going to be worse.
+If you're having a bunch of engineers
+write code faster with AI, you're going
+to have to encode the security checks
+into the entire development pipeline
+because you're not going to teach them
+all how to do it on their own.
+This is in the same way that I think
+it's really unfair if you have your
+fishing training be hello every human in
+the world, please learn how to parse a
+URL string perfectly.
+Browsers can't parse URL strings
+perfectly. Why do you think all the
+humans are going to be able to do it?
+We can't expect all of the software
+engineers to be able to perfectly parse
+all of the possible security
+requirements. They need to be built into
+the development platforms, development
+pipelines.
+So that they just can't do it unless
+they're doing the cybersecurity things
+we need them to do.
+we need to find a constructive approach
+to this because just like going to their
+office and yelling at them will not
+They will just not like us and they will
+do less things for us.
+So like how do we constructively engage
+with them to make their lives easier?
+Right because they're going to make
+software that's going to have
+vulnerabilities and then they're going
+to have to fix it. Can we talk to them
+earlier be like, "Hey,
+ounce of prevention pound of cure." I
+don't know if that translates. Anyway,
+if you do stuff early, it you take less
+effort than if you do it afterwards.
+Right? How can we get into the door and
+convince them of that and make it easy
+for them? Because we have all of these
+things that actually apply to all of the
+things that they're doing and we're just
+using different words for the same
+things. It's making communication really
+hard and I think it's unfortunately
+going to be on us to go to them.
+It's like,
+if we're the product security team or
+the cybersecurity agency, like we're the
+ones in charge of making sure everyone
+does the security
+for better or worse.
+Like we're going to have to go and talk
+to them.
+Uh
+I I'm going to pause here for audience
+participation cuz I have 12 minutes and
+I can just wait. Um
+if you work or run a piece art, do you
+know the AI engineers in your company?
+Three head nods, a bunch of blank
+stares. That scares me.
+Okay, good.
+ROM is great.
+could you like figure out who they are
+in the next 10 minutes and write them an
+email and be like, "Hello, you need to
+talk to me."
+Like for all of you that didn't nod to
+me, like actually do that right now.
+Stop listening to me.
+And
+since they're software systems,
+you are in charge of them. Like the
+product security team is in charge of AI
+software cuz it's a software product and
+you're in charge of software products.
+If I'm in charge of software
+cybersecurity, I'm in charge of the
+cybersecurity of the AI systems.
+Cuz they're software systems.
+So like don't let them weasel out of
+that. We just have to translate for them
+and bring them into the community and
+like it'll be okay.
+It'll just take a little bit of
+translation work, which everyone knows
+is super well rewarded and very easy, so
+it'll be fine.
+thank you.
+I think we have some time for questions.
+Please go to the mic so that the folks
+that may or may not be listening online
+can hear you.
+I can't possibly have stunned both Todd
+and Bob into silence.
+Wow.
+And Art?
+Yeah, I mean, I I thought this was
+really impactful and I've of course
+talked to you many times about this and
+I'm still hearing more layers of of this
+depth. I guess the question is
+what advice
+would you give? So, I like the one call
+to action, which is to to go and
+actually meet the AI folks in your
+organization or the developers. I think
+that's one [clears throat] call to
+action. Do you have some other ideas for
+different parts of the organization or
+different stakeholders and things that
+they specifically could or should do to
+really bridge the gap between our
+current between the hype that we hear
+and actual the reality that I think
+you're proposing?
+Yeah. So, the development team needs a
+good CICD pipeline, right? Good
+engineering pipeline, right? Do they
+have that already?
+I think that there's
+because the different aspects of the AI
+news are like hitting all these
+different aspects of the organization,
+it's hard to answer that one way.
+there's also just some parts of the
+organization that maybe don't talk to
+the security teams yet.
+Right? So, like
+do we have everyone actually running
+through the CISO already? Like and if
+the answer is already no,
+then like this is just going to make
+that worse.
+and
+there may be some aspect of like see
+something, say something.
+There's also a cultural shift that maybe
+as things are more distributed, that
+needs to also
+be accepted that like raising issues is
+not like a
+is a helpful thing.
+Right? Which is hard sometimes. But
+rewarding people for raising issues that
+improve the quality of the software.
+Like we've talked about this in a number
+of different ways.
+And there's the whole like Toyota
+example. Right? Um back to cars.
+Which if you don't know is one of Bob's
+favorite metaphors.
+Um I
+think I may have asked you this before,
+but for the sake of
+larger larger discussion. And I missed
+the beginning, so hopefully I didn't
+just miss this part. I have this
+probably poorly informed theory that
+right the
+the model AI part is going out and
+grabbing a bunch of stuff and it's
+relatively untrusted and it's doing
+stuff with it. And it's not just I'm not
+I'm not just grabbing some JavaScript
+from the wrong place. I'm grabbing like
+natural language words and I'm doing
+with the word say and that's by design
+intentional, wanted, desired. Probably
+couldn't be called a CVE purely by
+itself. That's just how the thing works.
+There's no version of it not working
+that way. That's what we want, right?
+So, again this I have this theory that
+I have some software that has that part
+of it.
+Then it has the traditional non-AI part
+of the software that somehow is able to
+guard against weird behavior, right?
+That come that comes out.
+And I skimmed a paper that says that's
+not going to work, but is there some
+possibility or hope that I can have an
+AI coding agents where I really thought
+this might work, right? A coding agent
+goes out, it writes some code, it wants
+to run it for me.
+And before exec or system gets called,
+the old school part of the software
+says, "Hey, wait a minute. I'm going to
+Yeah, see if I think this is okay or
+not." Is there
+some hope in such a trivial
+architecture? So, the the metaphor that
+I think I've landed on is that's called
+a web browser.
+I'll get it to work good then. Yeah,
+like a web browser
+is designed and we talked about this,
+but a web browser is designed to go to
+any random untrusted location on the
+internet, maybe make sure that it
+doesn't get modified in transit, pull
+code down cuz JavaScript and HTML is
+code, and run it safely.
+Uh browsers are enormously complicated,
+and I believe that um what you just
+described as a coding agent that will do
+that and then run it on your system
+is called
+Internet Explorer 98.
+Like the original design as I understand
+it for Windows had IE as part of the
+kernel cuz it was File Explorer.
+So, if there was a problem in old old
+IE,
+um it just was also a kernel vault.
+Uh and it turns out that that was a
+relatively weak security architecture
+for accessing random code from the
+internet.
+So, if you all would like to design your
+AI coding agents that way,
+I can't stop you.
+I would recommend that we learn from the
+lessons of history that like we don't
+architect Internet Explorer that way
+anymore.
+And I think there are some reasons
+that were relatively painful.
+So, maybe
+sandbox it?
+And if your sandbox includes um
+all of the things that you need to make
+all of the transactions that are all of
+the things you use your computer for
+that are meaningful to you
+is not sandboxed.
+And if that's the risk you want to
+accept
+good luck.
+I think that's against the security
+policies at my organization.
+I I does that like is that match your
+understanding of what that would be?
+Yeah, I'm I mean, I'm still
+thinking about it, but yeah, I mean,
+we're we're we're intentionally
+parsing untrusted stuff. Yeah, which is
+a which fine.
+>> Just fine, but you you should probably
+put some guardrails and stuff around it
+and maybe we just haven't yet. Yeah.
+Thanks.
+Happy to take questions afterwards if
+folks we have like 5 more minutes or so.
+Also happy to let you go get more coffee
+if you are
+very stunned.
+Thank you for Yeah, go ahead.
+>> don't want to get up, but I wanted you
+to say again the you had mentioned an
+organization that was doing S-Bahn at
+scale. Oh, Deutsche Bahn, the Ger- so
+the organization doing S-Bahn at scale
+uh is the German train
+operator
+Deutsche Bahn.
+And the conference that they were
+talking about that is FOSDEM, f o s d e
+m. It was just in Brussels at the end of
+January. Thank you.
+You're welcome. I think it was a good
+good presentation, so would recommend.
+Thank you, Reggie.
+Anyone else?
+Open the mic to you and let you go.
+Oh, sweeten the deal.
+I'm looking. All right.
+Thank you all.
+Thank you everyone.
+>> [applause]

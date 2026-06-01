@@ -1,0 +1,795 @@
+Thanks everybody and thanks for the for
+the introduction.
+I know it's kind of late in the
+conference and it's get away day so I
+appreciate you all being here and
+sticking it out. I know I'm kind of the
+last thing between you all and lunch so
+maybe we'll
+see if we can get get you out a little
+bit earlier. But what I wanted to talk
+about today is
+and I know this is starting to become a
+trite thing right fragility of of the
+supply chain fragility of open source.
+But we're going to talk a little bit
+about sort of systematic issues that
+make it difficult and challenging for
+folks to you know really do their job
+which is understanding vulnerability
+understanding risk and prioritizing.
+Let's see this is There we go.
+So I'm going to share with you some
+research that we've done. If you're not
+familiar with NetRise this is not by the
+way a product talk so please don't take
+this that way. But we are software
+supply chain security vendor. We got our
+start in understanding or analyzing
+binary images started as firmware images
+do container images and so on. What I'm
+going to share with you is research that
+we've done from materials created over
+the last three years not created
+materials analyzed
+that help us understand you know these
+kind of patterns and and what hopefully
+can help you know make your lives and
+and make your jobs easier. And one of
+the big things you know that we see is I
+know prioritization is is a huge issue.
+And and it is prioritization how do you
+understand where the risk is how you
+manage that. But a big part of the
+challenge is the visibility problem it
+says input problem here but it's really
+you know what inputs what's available to
+you what are you not seeing day-to-day
+using the systems that we have and using
+the tools that we have in place
+that that make that challenging. So you
+know I was going to walk around the
+stage but then you won't be able to read
+the slides. So, I'll try and do this
+in kind of this way.
+And I was going to ask, you know, raise
+your hands if you're tired of all the
+vendors out there that say, "We're going
+to help you find the vulnerabilities
+that matter most." Uh yeah, I walk
+around Black Hat and I'm like, "Oh my
+god, like shoot me now." because they
+all mean different things. And it's got
+to be really confusing in your roles to
+figure out who do I talk to, what's
+going to help me do my job. And and how
+can I get the information that I need
+to do that really well. So, I am not
+going to ever use the words the
+vulnerabilities that matter most in this
+talk or probably for the rest of my
+life.
+But, the three things that I really want
+you guys to take away from this, we'll
+talk about what our research said. So,
+I'll show you the data that we have or
+the summarization of the data
+um that shows kind of where the
+challenges are on the inputs.
+Think about what the implications are
+for you and how you think about your
+exposure and how you prioritize that
+exposure.
+And then, what does good look like,
+right? So, so what do you need in order
+to do this well?
+And it's funny, I built this slide like
+2 weeks ago. And it says the next urgent
+supply chain event. And if you've heard
+Trivy and Light LLM and Axios in the 2
+weeks since I put that together,
+right? None of those are CV related
+events. All of those are compromises in
+the software supply chain.
+Um but they're not CVEs. So, how does
+that impact what you all are doing, you
+know, on a daily basis? How do you think
+about that?
+So, um
+I'm not going to read the slides, but
+we'll talk about that that more in a
+second. In terms of the research that
+we've done, I am going to walk around
+the stage.
+So, what we've looked at
+is um
+both firmware and container assets. So,
+there's two different data sets that
+we've used.
+Almost 19,000 assets on the firmware
+side across 380 plus organizations. Kind
+of the cool thing and related to the
+last talk, we found 467
+million vulnerabilities on all of those
+assets, but the unique vulnerabilities
+was just under 500,000.
+Right? And I know what you guys are not
+seeing all of that in the data that's
+available to you and in the tools that
+you're using in the systems that we've
+got set up. We've looked at containers
+as well. Uh you know, rather a smaller
+number, but the story is not that
+dissimilar uh when we're looking at
+container images.
+And so,
+I guess the slide says it's not
+anecdotal. I'm [snorts] actually going
+to skip around a little bit because this
+slide interrupted the talk track I had
+for the other two slides, but the point
+that I'm going to make is what I'm going
+to talk about on the firmware is that
+and this is going to be the key key
+thing.
+For containers, 25%
+of the components were only identifiable
+and identifiable through binary
+analysis.
+And so, we're going to talk about the
+difference between what we see when
+we're looking at the full package,
+whether it's the full container or the
+full binary image as opposed to what you
+see based on manifests, which is based
+on source code or the application layer,
+which gives you an incomplete picture.
+And that's really where this story kind
+of starts because you're getting an
+incomplete picture from the tools and
+even the systems, you know, that we're
+setting up. So, now let's go back and
+look at what we found in our research on
+the firmware components.
+So, the key data points here, um out of
+what we looked at, almost 60% had no
+manifest declared components at all.
+So, if you're looking and I'll tell a
+story about the NVD in a second, but if
+we're assuming that most of that is
+looking at what's in proprietary
+software and open source components that
+sit on the application layer, almost 2/3
+of the artifacts we've looked at don't
+have manifest declared components. That
+also is important for those of you who
+are responsible for legacy systems where
+you're, you know, when incidents occur,
+you're not going to get access to source
+code, you're not going to get access to
+an SBOM, and that's going to complicate
+your ability to manage and prioritize
+those incidents when they occur.
+And then, out of
+um
+uh what's actually shown on this chart
+here
+is 2/3 of the firmware components. So,
+2/3 of what we see, what we do is we
+unpack, reverse engineer the firmware,
+and identify basically all the
+components that are in that firmware. We
+recreate the file system. We'll see that
+talks a little bit more than CVEs, but
+I'll get to that in a minute. So, what
+you're seeing here
+is that 2/3 of the components that exist
+on the packages we analyze
+are invisible. They're not in the
+manifests.
+Then, we take it another step further.
+That yellow dot shows the
+vulnerabilities that came from the
+97, what is it? 98.7, almost 99% of the
+vulnerabilities
+are
+where I just told you
+we're not looking at and we don't see in
+the tools that we have. And that's got
+like huge, huge implications
+for how you identify where the risk is,
+then how you go and prioritize and
+manage that risk.
+So, this is the slide that I'm going to
+skip. I'm actually going to tell a
+little story first before I go. We'll
+stay on this slide for a second.
+There we go.
+So, um I know everybody's familiar with
+the NVD and I don't need to show you all
+screenshots of that, but when I do talk
+to other people, sometimes I do.
+But, um I can show examples of um
+we talked you know uh was it Scott, the
+last speaker, spoke like a lot about how
+the system worked, right? And the
+system's designed for certain outcomes.
+It's designed to allow vendors to report
+how to fix vulnerabilities when they
+found that there are
+vulnerabilities in their products. The
+system kind of works the way it's
+designed
+as far as the application layer is
+concerned. So, if I look up Cisco, Cisco
+has 35,000 CPEs, it says 6,500 CVEs, and
+there's not wrong There's nothing wrong
+with that. That's not a dig at Cisco.
+That's the system working the way it's
+meant to work. They find problems, they
+fix the problems, they report the
+problems, people patch their systems.
+That's how it works. It's And that's
+beautiful.
+However, and to the point of not calling
+anybody out,
+I you we can talk later about the names,
+but there are examples of companies who
+make Ethernet devices, other networking
+infrastructure devices
+that have no CPEs in the National
+Vulnerability Database.
+By definition, if you have no CPEs, you
+have no CVEs because the two go
+together, right? Because you need if you
+have a CVE, you got to have the CPE so
+people know what version of the product,
+right, that they need to patch.
+When we look at devices from that
+vendor,
+I will find 2.7 thousand CVEs sitting on
+that device.
+So, how is that possible?
+Well, that's the stuff that's not in the
+application layer.
+And the biggest
+contributor, I guess is the best word
+for that, is the Linux kernel on which
+most of these
+applications sit. We had to break the
+scale in this chart just to show as
+we're looking at the top 10 cuz the risk
+is concentrated. Right? What we're
+showing here, the top 10 components,
+Glib, I mean you can read this. I don't
+have to read all that for you. And if
+you can't, we'll get the slides later
+for you.
+Um the top 10 components represent 93%
+of the vulnerability exposure.
+And for the most part, this is not in
+the application layer. And and the Linux
+kernel, like I say, is the big
+contributor to that. I mean it's like
+orders of magnitude higher than what
+you're seeing in the others.
+So the issue, well, now here's what it
+means. Here's what it doesn't mean. I'll
+start what it doesn't mean.
+It doesn't mean that every CVE in every
+kernel is actionable. And this is a
+problem when when we talk to CISOs about
+this,
+there's normally two things that I hear
+people say. The first one, and this is
+not to meant to be, you know, a kind of
+a pejorative judgment on people, but I
+do hear this. The first one is I wish
+you didn't tell me that. I didn't need
+to know that, right? Cuz now I'm
+accountable for it.
+But the response to that is kind of
+straightforward. It's like, whether or
+not you know about it, you have the
+risk. Wouldn't you rather know about it,
+right? And then what we're talking about
+now is how we prioritize from that.
+So that's the first thing. And then the
+second thing is the prioritization
+question. What do I do about all this?
+How do I figure out what you know, what
+I need to do?
+And so and the reality, and I'm going to
+talk about this in a little bit, but
+there are ways to filter, to you know,
+figure out steps, right? In terms of
+prioritization, the lion's share of that
+2.7 thousand that I talked about in that
+other device,
+um are they're not false positives,
+they're noise maybe, but you can triage
+most of them out very very quickly and
+land with maybe four CVEs that are the
+ones you actually have to worry about.
+And so, that that's kind of the message
+there.
+Uh in terms of, you know, there there's
+actually more to the story, right?
+There's versioning, there's end of life,
+end of um
+What's EOS? I forget. Uh but what you're
+seeing here, and this is kind of
+interesting. What Among the things that
+we see on these devices in the Linux
+kernels, we'll see CVEs that start with
+the number 1999,
+right? So, raise your hand if you're
+concerned that there's components that
+still exist that were written 27 years
+ago.
+>> [snorts]
+>> Yeah, that worries me, too.
+And it makes me question like what's
+that stuff doing there, especially if
+it's not
+relevant. It's because people aren't
+looking. They're not looking to see what
+they're running stuff on.
+Now, this is important for prod sec
+teams uh as much as that's important for
+VM teams, you know, people who make the
+products and who put this stuff on the
+devices need to understand um and need
+to be looking for things that can cause
+risk.
+Um and those of you who are responsible
+for uh
+for managing that,
+I mean, clearly if people were looking
+at stuff that doesn't need to be there
+and removed it, that gives you less to
+worry about and makes your
+prioritization problem a lot easier.
+Right? So,
+versioning of kernels is important.
+Versioning of OpenSSL is important.
+Um
+and it's similar on the container side.
+You know, it's not just a Linux kernel
+on on firmware images.
+Uh did any of you happen to see the talk
+by uh Craig Heffner and Peter Eastman
+earlier this week?
+That's okay. I know there was a lot of
+talks and stuff, but they spoke about
+how
+things like uh I got to remember the
+terminology.
+in the build process, like static
+linking will allow, you know, a
+developer to say, "I'm putting this
+version of OpenSSL in."
+And static linking means they're getting
+a version of a vulnerable version of
+OpenSSL. So, even in the manifest, what
+the developer declares
+is not always what ends up, uh, in the
+compiled and built artifact. And I
+mentioned that cuz zlib is on this, you
+know, in the containerized version. They
+also spoke about, uh, instances where
+there were vendored versions of zlib
+that got in the build, not the one that
+was declared, but vulnerable versions of
+that library.
+So, it's it's a real issue,
+um, on on both sides, the software
+makers and the software buyers side,
+because the only time you're going to
+actually know what actually runs is when
+you're looking at what's in the binary
+image, because you are going to find
+things that were not I mean, the
+developers do their jobs well, and you
+still end up with risk
+at the end of the day.
+So, here we're just showing it's it's
+similar, you know, on on the container
+side.
+And that's just CVE risk. So, are you
+all like worried about non-CVE risk as
+well? Because when you unpack, again,
+the binary image, you rebuild the file
+system, you found you find some really,
+really funny stuff.
+And for me, my favorite jaw-dropping
+moment when I showed this to people
+is when I show misconfigurations that
+show user IDs with no passwords.
+People are like,
+right? We can show thousands of expired
+certificates.
+Now, whether or not those have immediate
+security concerns, they're an
+indication, as I said earlier,
+there's only one reason the thousands of
+expired certificates
+are there.
+Anyone want to guess what that reason
+is?
+It's cuz no one's looking.
+Cuz if they looked for them and they
+found them, they wouldn't be there.
+And that kind of begs the question, what
+else are people not looking at? And
+you've got a handful uh of
+examples here. The passwordless accounts
+is an interesting one. Another one that
+didn't make it onto this slide is I
+can't tell you how many times I see
+public and private key pairs on the same
+device.
+Right? So, let's pretend we had zero
+CVEs. That's like saying all the windows
+in my house are sealed, but I left the
+keys in the front door.
+So,
+real issues here. And then, you know, we
+talk about it it's not really a
+prioritization issue, right? Because
+you've got your workflows. Um we find
+that number of matches, people manually
+remediate. What we find is in what it
+says manual remediation, almost half of
+them are just saying it wasn't affected.
+They're not really fixes. Right? And
+that's part of the triaging of them out.
+and so, it's not just prioritization.
+Again, it's about visibility. It's about
+really having that understanding of of
+what's there. And this is kind of what I
+was talking about a moment ago.
+You know, we talk it's And it's also not
+just EPSS scores, right? That's not the
+only important thing when you're trying
+to understand where do we focus in
+prioritizing? Um
+we going to we want to look at, you
+know, again, what are So, they're
+important. They're an important
+component of that, but we can start to
+filter these down. What CVEs are
+accessible over the network?
+Again, because we can
+identify all of the components and
+identify all the file system, that
+allows us to look into things like cron
+jobs. We can look and see what's auto
+running at system startup. So, now let's
+take a look at the vulnerabilities that
+are Let's say they're critical. Let's
+say they're weaponized. Let's say
+they're on the CISA KEV list. They're
+accessible via the network, and they
+auto run at startup.
+Again, you can see how I've taken that
+2.7 thousand down to a couple, which are
+the ones you actually really I'm not
+going to say it, they're the ones that
+matter most, right?
+>> [laughter]
+>> But they are, right?
+I can't believe I said that. But this
+is, you know, where this starts to
+starts to take us.
+So
+I think the key takeaway is that it's an
+inventory problem
+before it's actually a prioritization
+problem. Does that make sense?
+Cool.
+I had that word here, too. What is
+present comes before what matters most.
+And
+again, it's not just about severity.
+Interestingly, I was at a talk at RSA a
+year ago.
+I think it was the Verizon guys. They
+were talking about the data breach
+investigation report last year. One of
+the things that they noted in that
+report was an increased incidence of
+exploits against
+medium-level
+CVEs because everybody focuses on the
+high and critical severity CVEs.
+So it just gives you more stuff to think
+about. It's not just severity that's
+important in terms of when you're doing
+prioritization. And kudos to those guys,
+they do they do a great report.
+So that's kind of on the research side
+of what we've done with respect to sort
+of unpacking the binaries.
+But it's more than that. And I I talked
+about you know, I referenced the Light
+LLM, the Trevi, the Axios incidents of
+the last couple of weeks. It's more than
+just a problem of what is in the
+software. It's more than a problem of
+the inventory. It's a trust problem,
+too.
+Um and
+I've got some personal views on what
+this is going to mean for open source
+cuz I can see I'm going to come to the
+conclusion now. Tell me if you think I'm
+full of it, but I can see a world where
+large corporations create their own
+forks and they bring open source in
+house and make it proprietary because
+the way open source is set up right now,
+anybody can get in, anyone can make
+commits and this causes real problems
+for all of us.
+And so the challenge
+is understanding not only
+where the CVEs are
+in open source projects or where the
+compromises are in in repositories and
+packages, the problem becomes how do we
+understand the impact, let's call that
+the blast radius, and the effect of
+these compromises as we move across.
+SCA packages, when you're looking at
+what do I pull in to a um
+you know, into a build, they're looking
+at the downstream dependencies. All
+right, what they're not looking at is
+the upstream dependencies.
+So if we have a malicious contributor in
+a package, but we're pulling in
+three levels up from that that's
+invisible.
+And so the biggest challenge, now
+imagine again, we get the things that
+happened over the last couple of weeks
+even if those compromises are closed
+down in a 4-hour window
+well, if you're running automated builds
+overnight and they happen to occur
+during that 4-hour window, you're likely
+to have included those compromised
+packages without knowing it and without
+it appearing in your manifest or
+anything.
+And so it's really crucial to be able to
+understand the blast radius when these
+incidents occur and to be able to have
+policies and procedures that allow you
+to prevent them from being included.
+Now, if you're on the other side, you
+know, you're you've bought and you're
+maintaining products that have been
+bought for your company, it's also
+important to know cuz you need to be
+able to find out from your vendor, are
+we potentially compromised by that? And
+your vendor very likely doesn't know.
+And if they do, anyone I don't want to
+trigger anybody, but y'all remember
+Log4j,
+right? How long did it take you to know
+your full exposure to Log4j?
+Part of that was cuz everyone's asking
+their vendors what's going on and it
+took them months to figure out what was
+going on.
+So, there's a real need for you to have
+tooling that allows you to
+do that and help your vendor and that
+allows you to, you know, to kind of
+prioritize things. So, this blast radius
+thing is really, really important.
+There's a couple of reports. I'm just
+going to be mindful of time. I'm not
+going to go through these like in huge
+detail,
+but when
+when Anthropic came up, I'm not going to
+get into politics either. Um
+but the issue when the DOW said, "We
+need to divest everything from
+Anthropic." Um our CTO said, "Well,
+let's see what that means
+and what that would take." And I have to
+look this up on my phone cuz I wrote it
+down. It's not on the slide. So, I
+apologize for that.
+But we found 476
+Anthropic package names,
+3,434
+package versions in seven ecosystems
+that led to 127,000
+direct or transitive package versions.
+Um six affected container repositories
+in the public cohorts that we analyzed.
+And here's the kicker, 202 million
+Docker Hub pulls.
+So, try to remove
+an Anthropic from your environment.
+But knowing
+at least helps you get that that that
+story started.
+Um and you can you can link through if
+you're interested in reading the report
+more.
+It it's it's worth reading, I think.
+On the other side, so Anthropic is is
+is, you know, is one part of the story
+and then there's the maintainer trust
+part of the story. So, understanding the
+provenance of your open source
+libraries, your dependencies,
+is also a function of, again, if you're
+working for the federal government in
+the US or if you're selling stuff to the
+federal government, there are rules
+around who can be contributing to the
+software, right? That you're building
+and including.
+Um so, there's nation state actors, you
+want to understand that. You want to
+understand
+and and you know, the bad actors, right?
+They're the best at hiding who they are
+and hiding where they're from, right?
+They spoof everything.
+But, what we're able to do in the
+analysis that we do of we've analyzed
+like over 100 million packages.
+I'm sorry.
+100 million repositories. It's tens of
+thousands of packages on GitHub.
+And so, we can understand not only where
+do people say they're from, but by
+looking at things like their working
+hours, their holiday hours, for example.
+So, if you're familiar with the Beef
+Project, which is an open source pen
+testing project, we found a malicious
+contribution back in January. We're able
+to report on this. We found that the
+person was based in Russia based on
+characteristics of their work patterns,
+not just whatever IP addresses and stuff
+they said they were coming from. But,
+this allows us to know it's more than
+what's the blast radius. It's a
+combination of that, but also where a
+contribution's coming from and then how
+can we address that and get them fixed?
+And so, we reported that to the owner of
+that project and and that's been
+addressed, but this just gives you kind
+of another example.
+So then, you know, what does that mean
+for you, right? In terms of what this
+what this good start to look like.
+Um I wish this was a logarithmic chart
+cuz it doesn't really show this this
+kind of funnel, but what we're seeing
+here is this is the 2.7 thousand CVEs I
+was talking about. 414 have an EPS
+score, I think over is it 50?
+37 are weaponized, 10 are on the CISA
+Kev list. You can see we can start to
+prioritize that and help you focus on
+those that can have the biggest impact
+on you. That's a better way than saying
+the ones that matter most.
+this is showing the misconfigurations,
+right? My favorite one here, multiple
+users with ID zero, users with no
+password set.
+You probably wouldn't be surprised this
+group probably wouldn't be surprised at
+how often we see that um
+in devices. And it And it goes to more
+than that.
+this is showing, you know, the ability
+to find the blast radius.
+All right, so we need to understand when
+we see compromised repos, when we see
+compromised packages and projects,
+both upstream and downstream, where is
+the impact of that because that allows
+us to focus on what do we need to do to
+manage and mitigate and and remediate
+that risk.
+Um and this is an example of a CLI tool
+that we built as a policy engine. So,
+this can be inserted into the build
+so that and and you can set your own
+policies. This could be I don't want to
+have people from certain nation-states.
+I don't want to have G 10 or you know,
+whatever the famous names are and stuff.
+However you want to set the policy, fail
+a build on a non-zero result.
+And this allows people to get ahead of
+this. And this is the kind of thing when
+I was talking about you may have that
+window of vulnerabilities and you've got
+automated builds running. Well, if
+running these kinds of policy engines on
+that, that will help keep those
+um those compromised dependencies out of
+those automated builds.
+And so, that's really kind of, you know,
+the summary. We're really talking about
+I And I guess that's the big thing. The
+the fragility of the supply chain, it's
+it's more than CVEs.
+Um it's about contributors, it's about
+open source dependencies, it's about all
+of the non-CVE risk that to a large
+extent is simply hidden.
+Um and it's it's you know, to the point
+you're talking about the systems, right?
+And it's in the NVD, the NVD runs the
+way it's meant to run,
+but it still gives you an incomplete
+picture
+of what's there.
+So, you need to think about it in
+different terms. We use the term
+software reality. I don't like those
+that language. I think that's too kind
+of marketing kind of talk. But
+it's really about understanding a
+complete and comprehensive inventory
+of what you have.
+and then
+the better inventory, the broader
+context, the trust intelligence, that's
+what allows you to make better decisions
+and better actions.
+So, any questions? I'm happy to answer
+any questions that y'all have.
+And I know that's the hunger pangs that
+are keeping you from asking them right
+now, so.
+Well, I'm going to say thanks very much
+then. I did have one question. Oh. What
+is your
+Let me grab you a mic.
+What is your definition of firmware?
+Of firmware? Yeah.
+Does it have to have Linux in it?
+No, it's I
+It doesn't have to have Linux. I know we
+analyze other real-time operating
+systems. It doesn't need to be Linux.
+It's the binary package. I would have I
+would
+I might not be the best person to define
+it, but I would define it as the
+software package that gets installed on
+our hardware device.
+And so, what we look at, a lot of those
+do sit on Linux. A lot of those are
+going to sit on on other OSs as well, is
+my understanding.
+Okay. Thanks. Sure.
+You know if you have a question, 10
+other people in the room have the same
+question. So,
+ask it for them if not for yourself.
+And I'll sweeten the deal if I bring the
+mic to you.
+You don't have to come up.
+All right. Well, I hope that was
+helpful. Uh thank you very much
+everybody.
+>> [applause]

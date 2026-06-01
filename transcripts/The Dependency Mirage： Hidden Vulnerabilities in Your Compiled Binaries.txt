@@ -1,0 +1,994 @@
+[music]
+>> Hello everyone. Thank you for joining us
+today. Good afternoon. Uh welcome to
+this talk, The Dependency Mirage, Hidden
+Vulnerabilities in Your Compiled
+Binaries. I am Khushali Dalal. I'm the
+speaker moderator for this session
+today, and it is my pleasure to welcome
+our speakers, Craig Heffner and Peter
+Esmond from Net Stri Net Rise.
+Well, before we begin, there are a few
+announcements that I would like to make.
+Uh we have a feedback form that we
+really appreciate if you could fill out
+after the session. You can find it on
+our first events conference application
+on your mobile phones, and there is a
+session survey that you can fill up for
+this session.
+And as a courtesy to our speakers and
+audience, please silence your phone
+during the session. And this is a TLP
+clear session, so it will be live
+streamed online for the those who are
+joining us live, and it it is it is okay
+to take pictures and record because it
+is a TLP clear session. Our speakers
+would like to take the questions at the
+end of the session, so there is a
+microphone at the center. Once the
+session is done, please go ahead and you
+know, ask your questions
+uh near the microphone, so also the ones
+who are online can hear your question
+and answers. Thank you. Please welcome
+Greg and Pete.
+Good afternoon, Scottsdale.
+Uh as mentioned, my name is Peter
+Esmond. I'm joined by my esteemed
+colleague here, uh
+Craig Heffner.
+Um
+If anyone in the audience has ever used
+Binwalk before, you can thank Craig. He
+created Binwalk.
+Um and we're going to be talking to you
+today about um
+you know, why the
+software supply chain in compiled
+binaries is
+frankly so so more to kind of wrangle,
+right?
+Um [snorts]
+just a show of hands real quick. Um
+anyone in the audience ever
+use S-bombs generate S-bombs or work
+with S-bombs? Excellent. I think you're
+you're going to find today's talk uh of
+use.
+And so the you know, if you're ever out
+at like the the the grocery store,
+right? You want to know
+you know, what is in the in the food
+you're buying and you're eating and
+you're consuming.
+And
+just like that problem where
+you know, food is maintained by a fairly
+complex supply chain, right? From the
+farmers to the store, right? A lot of
+different hands touch
+the food we eat every day.
+And in the in in the same problem exists
+and it may even be more exacerbated
+in the sort of binary uh software
+dependency game, right?
+And so we're going to dig a little bit
+deeper into that problem and hopefully
+highlight some you know, some of the
+fundamental issues, right? And also try
+to discuss
+what some potential solutions might be,
+And so the the the team behind us at
+NetRise, right? We've been you know, me
+and Craig
+and Terry have been doing this for
+Too long. probably a dozen years at this
+point, right? And so you know, it
+started with
+you know, trying to understand what's
+inside firmware, right? And that it has
+naturally evolved over time into you
+know, what's lurking inside these binary
+blobs that we deal with every day,
+And so the uh you know, we have also
+Michael Scott, you know, former Marine
+uh other you know, offensive use cases
+for for various cyber operations and uh
+Anthony Federson of you know, he's not
+here today, but he's a has a very um
+very uh illustrious career in in
+engineering, so.
+And so, let's let's tell a story, right?
+So, so we had a customer that was um
+using our software.
+And they had upload what we called an
+asset, right? And so, an asset for this
+talk, right, is any sort of binary blob,
+right? So, we take firmware, we take
+executables, and we take um
+uh disk images or like ISOs, right? And
+we we take them apart and and to better
+understand what's inside.
+And so, they they they had uploaded an
+asset and they came back to us uh and we
+were
+we were reporting that, "Hey, you're
+running this vulnerable version of
+OpenSSL, right?"
+you know, they opened up a ticket and
+they said, "Hey, you're reporting
+that we have OpenSSL 3.0.0, right? But,
+you know, we ran
+our RPM utility on the system that we
+uploaded and it's saying 3.0.7, and it
+shouldn't be vulnerable, right?"
+And so, you know,
+we we we dug a little deeper.
+And as it turned out, right,
+we're
+we were eventually correct, right? But,
+the the
+as we usually are. Um
+and the uh you know, we what we
+discovered was that the the version of
+OpenSSL that we were reporting was
+getting reported as part of a
+uh a statically linked library, a
+statically linked library um that was
+bundled into the the Python shared
+object, the main Python shared object,
+you know, that that was a sort of
+light bulb moment for that customer,
+right? Because
+traditionally, they had been relying on
+you know, what packages are installed on
+the system as a means to dictate what
+vulnerabilities they might be exposed
+to.
+Right? And so they they were completely
+unaware that they were pulling in
+versions of OpenSSL that
+they previously had no idea they were
+being exposed to.
+>> [snorts]
+>> And so, digging even a little deeper,
+right? It wasn't just that one shared
+object on the system that was
+potentially affected.
+We had
+all these different shared objects,
+And they all in one way, shape, or form
+had a vulnerable version of OpenSSL
+linked into and linked inside them,
+this is scary,
+but not that scary, right? We can we can
+this is a problem that we can solve, you
+know, as you'll see later.
+The other the other same customer,
+right? Same asset.
+They um
+similar story,
+right? They were like, "Hey,
+you're telling us we have a vulnerable
+version of zlib."
+And this time they were like, "Well,
+yeah, like I don't know if you guys can
+see this, right? But this is sort of a
+screenshot of our
+our product.
+if you look at this associated files
+entry here right at the bottom,
+um we're reporting zlib as part of a
+binary called rsync, right? And rsync is
+a very, you know, common Unix utility
+used for, you know, remotely syncing
+files between machines.
+And again, we're like, "Okay, well,
+they they zlib is in there somewhere,
+right?"
+And so, if you if you dig into that
+problem a little bit more, right? RPM is
+reporting
+similar to the other asset, right?
+A version that I can't read because I'm
+colorblind read out one dot three dot
+one dot one. And uh
+and um
+you uh when you if you dig dig into the
+rsync source code
+um
+it turns out, you know, way back in the
+past
+the rsync authors decided to just
+blindly, you know, copy the zlib source
+code into their own source tree.
+by default
+you know, there's an option to tell
+rsync, "Hey, use the system zlib."
+Right?
+But um
+by default it doesn't. Right? And so
+same problem, right? You're running a,
+you know, any vulnerabilities that might
+be present in zlib
+will then sort of live potentially
+inside of rsync, you know, in in
+perpetuity, right?
+>> And so what, you know, it's a
+you know the the the the Venn diagram of
+of uh potential
+you know, tainting of the binaries that
+that can be
+introduced into our system, right?
+We we can have
+statically linked libraries where
+you know, we're pulling down that code,
+compiling it up, and then taking the
+compiled code and putting it into our
+binary, right?
+We have vendor dependencies, which is
+sort of
+a catch-all category for
+hey, we're
+Sorry.
+Where where um
+we're taking either like open source
+code and copying it into our own
+repository
+or potentially, you know, closed source
+components that are just part of that
+source code repo that are being linked
+in, right?
+And then we have our build environment,
+right? Just because
+you know, you compile a binary on system
+A does not necessarily dictate that
+you're going to get the same result
+compiling it in system B, right? And
+that's due a multitude of different
+things, right? Mostly having to do with
+you know, if you're on a on a Debian
+system and you install, you know,
+lib-ssl-dev,
+right? You may get version A and on Red
+Hat you may get version B and they might
+have different patches, etc., etc.,
+right? And so
+um it it's it's not just
+long story short, just looking at like
+the source code, right? And the things
+that you would call from like a GitHub
+repo doesn't tell you the whole story.
+There's a very complex series of events
+that happens
+that will
+that can dictate
+potential vulnerabilities being
+introduced into the final form.
+>> And so, you know, you can kind of break
+these down into like four
+four major sort of like decision points,
+right? When you're building binary
+software, right? You have
+you know, what what library version do I
+want to use, right? So, folks familiar
+with
+um you know, like npm or pip or
+um Conan, right? Like you can say, "Hey,
+I want to take a dependency on this
+library, right?" Uh and I could say,
+"Hey, I want this major version or I
+just want the latest version, the major
+or minor bug fix version or this
+particular Git hash, right?" There's
+lots of different ways to bring that
+code into the into the project.
+And so, again, there's I don't want to
+make an argument for what the best
+practice should be, right? But clearly
+that decision point is going to have an
+effect downstream, right?
+And do you want to do static or dynamic
+linking, right? So,
+again, static linking is when you're
+taking
+a version of a a component or a library,
+right? And taking that compiled form
+and for lack of a better term, sort of
+copying and pasting it into your final
+binary so that that code then lives in
+your binary forever.
+Or you could do dynamic linking, which
+is like, you know, on Windows and and
+Linux systems like a DLL or a shared
+object, right?
+And that that's where you're going to be
+actually running the the code that's in
+that's installed system-wide, right? So
+that that, you know, that RPM package or
+Debian package will actually be used and
+that's the version that you can rely on.
+And so there again, not not trying to
+argue
+whether static linking shouldn't be
+allowed or should be allowed, right? But
+there's there's there's a decision point
+a developer makes saying, "Well, okay, I
+can't rely on the system version being a
+certain way or maybe I need to make a
+certain patch to it. So I have to
+statically link and that's a decision
+that you make, but it has downstream
+effects, right?"
+Again, what optimization flags or
+compiler flags, like especially like
+configure option flags for like a
+makefile environment, right?
+You can like we did mention in the
+OpenSSL case for Python, right? I'm sure
+there's an option to Python to say don't
+statically link SSL into into Python.
+Let me pass it a flag to only use the
+system one. I'm sure there's an there's
+an option there. Same with the rsync,
+right? There's an option for rsync to
+not statically link this this like
+archive piece of zlib code, right? We
+should probably be using that.
+But that might not fit fit every
+scenario, right? So
+we need to be flexible in
+in how we deliver these binaries in the
+software, but we also need to understand
+the downstream effects of that, right?
+And then build caches, right? So, you
+know, you have as I mentioned before
+like NPM, pip, uh Conan, all these
+different ways which are which give you
+that that visibility into the software
+you're bringing into your build
+environment, right?
+But that doesn't necessarily mean that
+those caches aren't being, you know,
+updated regularly, right? So um again,
+it's
+any any component in this in this um
+this sort of
+series of events, right, can introduce
+introduce problems, right?
+And so, let's kind of go back to the the
+customer use case here, right? So, in
+that customer use case,
+we had
+um we identified 47 separate components
+with hidden dependencies. That's that's,
+you know, under the categories that we
+discussed before.
+14 cases of statically linked libraries,
+three vendored libraries,
+and 30 instances of
+build time injection of code that you
+wouldn't necessarily know unless you're
+looking for it, right?
+And normal SCA tools found none of these
+issues.
+So, now that I gave you all the doom and
+gloom,
+I'm going to pass it over to Craig for
+the uh the light.
+Well, maybe a little flashlight. We'll
+see. Um so, if you're taking a look at
+some piece of software, maybe something
+you're in charge of,
+um maybe it's something that you got
+from some other vendor and you're like,
+I want to know what's inside this thing
+and figure out kind of, you know, is
+there anything in here I need to be
+concerned about? Um I mean, there's
+there's a handful of things you can do
+and most of them, at least, you know,
+the basic things are are pretty
+easy to do, standard stuff. Um if you're
+dealing with something that's not just a
+single binary, like if you just have an
+executable, um typically, this step is
+not required, but if you have a more
+complex system,
+um like a container, uh a large image,
+something that's, you know, uh
+has many components inside of it,
+archives, that kind of thing, you'll
+want to extract all that into their
+individual components. Um
+sometimes, if it's just a zip file, you
+just unzip it. Um sometimes, it's some
+weird binary blob format cuz you got it
+from somewhere else and you have no idea
+what's in it or how how structured. Uh
+you might have to use tools like binwalk
+or unblob or things like that to try to
+scan these files, find what's in them,
+and and pull those things out.
+Once you kind of have everything
+deconstructed down to their most basic
+format in terms of a file,
+um you can kind of start taking a look
+at those files and say, "Hey, let me
+just run strings on this."
+Um there are situations where you're not
+going to have strings.
+Um they're fairly few and far between in
+my experience. Typically, if you're
+dealing with something that's super
+low-level, um maybe like some like bare
+metal code for very specific embedded
+system,
+um you may not have many or any like
+human-readable ASCII strings simply
+because its use case doesn't dictate
+that it needs those. Um but for most
+modern systems, um there's going to be
+some sort of human readable strings in
+there, whether they be function names or
+library names or debug messages, that
+kind of thing. Um so you can just look
+at strings, right? And say, "Hey, I want
+to know if there's OpenSSL in here."
+Well, run strings and grep for the
+string OpenSSL, right? Um if OpenSSL was
+compiled into that binary, it's probably
+going to pop something up. Um
+Now, this does come with a caveat that
+you kind of have to have some idea of
+what you're looking for, right? Um
+otherwise, you have to run strings and
+look at all the strings that pop out,
+which can be quite a few depending on
+the size of the binary. Um so that can
+be a bit tedious, right? But it is an it
+is an option, it is a way to do it.
+if it's a known binary format,
+like an ELF for example, you can use
+standard tools to just inspect the ELF
+headers.
+Um take a look at what libraries is it
+importing? What functions is it
+importing? Um what symbols is it using?
+Um and that can tell you a lot about the
+binary. Um
+I mean, simply just in terms of what it
+does
+and, you know, what its potential
+dependencies are. Now, typically, um
+anything that gets imported, um it's
+going to be a runtime dependency, right?
+So, it's not going to So, if you see
+like OpenSSL being pulled in, um, at
+run-time, OpenSSL is probably not
+compiled into that specific binary. It's
+going to be looking for OpenSSL
+you know, sitting on disk somewhere else
+at run-time.
+Um, but it at least tells you that it's
+using OpenSSL. And if you have access to
+the rest of the components of that
+system, you can then say, "Okay, where
+is this OpenSSL library on the system? I
+can now go look at that, and I know that
+this particular component is going to be
+using OpenSSL, and maybe whatever
+happens to be there is an older version
+of OpenSSL. So, now, that means if
+whoever's using this binary could
+potentially be at risk on the system if
+there's a vulnerability there.
+Um,
+obviously,
+>> [clears throat]
+>> you can look for vendor names, right?
+Uh, either in the file names or the the
+contents of the files. A lot of times
+vendors will
+either put some version of their name or
+a abbreviation of their name into
+function names, debug messages, file
+paths, things like that.
+Um, so, if you say, "Hey,
+I know that we use stuff from vendor
+Foobar,
+I want to find where all the stuff
+from vendor Foobar is on my system." You
+can start looking around for references
+to Foobar.
+and so, this is probably super obvious.
+most people don't do it.
+Right? It's It's not something that even
+crosses a lot of people people's mind to
+do.
+and
+part of the reason for that is it's
+tedious.
+If you're looking at one very simple
+binary,
+um, it's maybe not so bad.
+Uh, but in most cases, we're not dealing
+with one single binary that runs all on
+its own and doesn't do anything else
+with any
+anything else, right? You're typically
+looking at a larger system, right?
+You've got some embedded device that's
+running like some full-blown Linux
+operating system. God knows what's on
+there,
+you know, or where it came from, or what
+the vendor did before they shipped it,
+or what their Q&A process was. You don't
+know anything about it. And their
+vendor, unless you have some sort of
+contractual obligation with them,
+they're not going to tell you.
+Um cuz, you know, they're just not. Um
+but
+if you can
+automate this in some way,
+um even simple things like this can go a
+long way to kind of like uncovering the
+obvious issues and identifying the
+obvious things that might be
+uh lurking there in your software.
+>> So, if you're looking to do this at
+scale,
+you need to assemble some teams, and you
+need to coordinate at different levels.
+So, the lowest level is going to be your
+actual security team. These are the
+people who are going to be actually
+looking at the software, right? You're
+going to say, "Hey,
+here's some binaries.
+Tell me what's in them. Tell me if
+there's a problem, right? Those are the
+biggest two biggest questions you're
+looking to have them answer. Um
+this is probably going to take some time
+to ramp up,
+especially if you're building a new team
+from scratch, right? You're like, "Hey,
+we need some internal team to do this
+for us. This is a process we want to
+do." Just bear in mind, they're going to
+have to get some sort of a baseline,
+right? If you say, "Hey, this is our
+product. We want you to look at it
+before we ship it to customers." They're
+going to have to start creating a
+baseline for that product, right?
+Because you can tell them what you think
+is in it. You can tell them what should
+be in it, but they still have to go
+through and verify that A, those things
+are in there, and B, other things
+aren't.
+Um the latter, which is much more
+difficult to determine. Um it's harder
+to prove a negative or disprove a
+negative. Um
+so, it's going to take a a of time.
+Um and they're going have to, you know,
+figure out, okay, we found this or we
+think we found this. Is it a true
+positive? Is it a false positive? Um,
+you know, they're going to have to go
+through and verify that and that's
+usually going to involve some sort of
+manual verification. It's going to be a
+manual process.
+but if they do it right and they
+document the process and they document
+their findings and they document how
+they found them and you start setting up
+this baseline.
+and you set up a database of things that
+you found, right? And database of
+correlations even, right? Hey, every
+time we see rsync
+we find Zealand in that rsync binary,
+right? That's the pattern you want to
+keep in mind for future. Um,
+so
+these are things that you have to kind
+of build up. They'll probably start
+building their own tools or finding
+tools to help automate a lot of this.
+Um, but in the in the beginning
+a lot of it has to be manually verified
+just so you can know for sure that what
+you're finding is this ground truth.
+Um, for development teams, right? If
+you're
+the people actually building the
+software that then is going to get
+analyzed and verified before it goes out
+to customers.
+Um, there's a few things you can do
+before it even gets to that state,
+right? Um,
+so for example, if you know
+that you're using code from a particular
+vendor, it might be useful to just look
+through the source code
+for references to that vendor. It might
+pop up in places you don't expect or
+that you just weren't aware of.
+Um, same thing with actual compiled
+binaries, right? Once you go through
+your build process, do the same thing
+with those, right? Be like, hey, I
+didn't even know we were using this
+library from vendor X on this binary. I
+thought it was only over here. Um, and
+so you can find these things pretty
+easily and
+you know, that's something you can fix
+before it even gets down the pipeline.
+Um, same thing with, you know, knowing
+your build process. And and this is this
+can be very difficult, especially on a
+complex system. You might be pulling in
+source code from all over, right?
+Whether it be open source, closed
+source, all this stuff. Um, some of
+those projects may in themselves be very
+complicated.
+Um, but you need to make sure you
+understand the build process for those.
+What are their compile flags? What are
+their features? What do they do? What's
+in them? Right? Um, and and document
+that, right? Say, "Hey,
+we use these compile flags because XYZ."
+Or we can't use these compile flags
+because XYZ. Um, and you know, that way
+you kind of have some idea of what
+options are available and what aren't
+available, and what the implications of
+using them or not using them are.
+when you're patching, let's say, "Hey,
+there's been some some breach or some
+vulnerability in some library that we
+depend on. We need to upgrade to the
+latest version that's been patched."
+Don't just upgrade
+in one place and assume you found all of
+the instances where that library is
+used, right? Um,
+as Peter pointed out, you may have
+dependencies on that library elsewhere
+in your software that you're not aware
+of,
+right? Um, so it's useful to
+double-check, make sure,
+um, do a full rebuild instead of just
+kind of rebuilding one one piece, or at
+the very least you need to have a very
+well-documented um,
+list of of what where your dependencies
+are in the source code.
+Um, at the leadership level,
+this becomes very important. Uh,
+your teams aren't going to do very well
+if if you don't provide them with proper
+guidance as to what they need to be
+doing, and allow them to do it. Um, and
+this becomes a a difficult question,
+right? Because you have to say, "What
+are our What are our risks, and what is
+the cost?" Because this will be costly,
+right? Both in time and money. You if
+you especially if you're starting from
+scratch, you are going to have to build
+new teams and new processes.
+Um it's not going to be easy. Uh, Um so
+you just have to keep that in mind. Um I
+think
+>> uh anybody who's been in the security
+industry knows that most companies do
+not value this very much. They would
+rather spend money on new products and
+new features that they can actually sell
+and make a profit off of. I don't blame
+them. They're a company. That's
+literally their job. But
+this is important, too, right? And it's
+increasingly
+obvious, I think, to most people that
+this this is something that has to be a
+priority if you're going to be in this
+industry.
+Um so you have to make sure that you're
+ready for the investment that's required
+to build binary analysis capabilities in
+your team, right? Um
+to have people who
+are experienced enough
+to investigate
+these findings that might come up,
+right? Um cuz some things are going to
+seem like, you know, people are going to
+say, "No, that's wrong. You didn't find
+that. You can't possibly have found
+that." And maybe they're right, but
+maybe they just
+are naive or they don't know.
+Um so you need someone who can who can
+triage that.
+Um you probably need some sort of
+continuous monitoring solution, right?
+Your software's not going to be static.
+You're going to be changing it. You're
+going to be adding features. You're
+going to be patching bugs, right? And so
+as your software or your product
+evolves, um you need to be able to go
+back and make sure that you have not
+regressed. You have not introduced new
+vulnerabilities. You have not introduced
+um new dependencies that are not
+documented, that you're not aware of,
+etc.
+>> Um you may need to set requirements for
+your SBOM, as well.
+Um you may need to say, "Hey, moving
+forward,
+in addition to what we're already
+putting in our SBOMs, we need to
+highlight anything that would any
+external vendors that we depend on,
+especially closed source vendors, right?
+That's a big thing a a of times. So,
+hey, anything
+that's some external vendor that we're
+This is a dependency. We need to have
+that highlighted in some way, right?
+we need to maybe in addition to SBOM, we
+need to have a list of documented build
+flags and compile options, right? Why
+are these important? Why do we have
+them? Why are we using them versus not
+using them, etc.
+Um and what are the implications? So
+that, you know, we know if we change
+decide to use this or not use it in the
+future, how is that going to affect
+everything downstream? Um
+same thing with with decisions, you
+know, you know, Peter mentioned this
+earlier. You Your developers are going
+to have to make decis- decisions
+sometimes as to static or dynamic
+linking. Um
+things like that. Like when you make
+this decision, that needs to be well
+documented, right? And that And that can
+just be something like, "Hey, when you
+do this, we need to know why." Right?
+And we need because otherwise
+we could have risk that we don't need or
+later on, we could introduce risk that
+we didn't know we were introducing when
+we change things. Um so, those are very
+important.
+Um so, couple of key takeaways. Um when
+you're dealing with manifest files,
+SBOMs from third parties,
+um anything like that,
+I'm not saying they're wrong, but
+they're probably wrong.
+A- And I don't mean that in the sense
+that they're being even uh
+neglectful or malicious, they're
+probably just incomplete, right? The
+SBOM that you have, if it says you have
+libfoo version 123, yeah, you probably
+have libfoo version 123,
+but you may also have libfoo version
+120,
+And it's just not in the SBOM. That's
+the most common thing that we see. Um
+so, with manifest files, third-party
+SBOMs, even SBOMs that you've generated
+internally, um it's very much a trust
+but verify type of situation, right? Um
+Um, not saying they're useless, you
+should definitely have them, you should
+definitely use them, but you need to
+verify that they are accurate and
+comprehensive.
+every compiled binary contains potential
+hidden dependencies.
+this is
+even potentially more
+of an issue with some of the more
+popular
+modern languages like Go and Rust. Um,
+yeah, I I really like Rust. Most of the
+guys that work like Go, I have a little
+experience with both of them.
+They both like to compile things in
+statically. That's kind of their what
+they do. Um, that's how they're built. I
+I think everything except like lib C for
+both of them gets by default built into
+your final binary statically. So,
+every module that you've added, every
+dependency that you've you require is in
+that binary. So, whatever version
+that it was built against, that's the
+version that's running in it. And if
+that version 6 months from now
+suddenly someone finds a vulnerability
+in it, you've got to rebuild recompile
+your software.
+Um, now that
+is a problem for a couple of reasons.
+Um, you know, Peter kind of touched on a
+few of them, but the biggest problem is
+if you go into say a Rust project,
+there's a cargo.toml file that says
+these are all the dependencies. Let's
+say I have a small project and I have
+five dependencies. When I compile it, I
+do cargo build,
+it's going to pull down more than five
+things. It's probably going to pull down
+10, 15, 20 different modules because
+those five modules have dependencies on
+modules which have dependencies on
+modules. And you keep going down this
+road. So,
+just because you have this file that
+lists all your dependencies doesn't mean
+those are all your dependencies.
+Um, and you have to be careful about
+>> Um,
+so,
+we really can't ignore the binary
+portion of things anymore.
+I think everybody is well aware that you
+know, you need to be looking at your
+source code for this kind of thing. Most
+people have some sort of source code
+analysis tool built in to the
+development process, CI/CD pipelines,
+that kind of thing.
+but things just sneak in.
+Um either unintentionally or sometimes
+just maliciously.
+Um you know, supply chain attacks.
+you know, NPM
+modules that have been compromised.
+It could be any number of things.
+Uh and so you really need to be checking
+the actual compiled binaries because
+that's really the ground truth.
+Right? What runs on a computer is not
+your source code.
+Computers don't know what source code
+is.
+But they understand the binary and
+that's really what's the truth. So you
+need to be looking at that. Um and I'm
+not saying don't use source code
+analysis. Um
+this needs to be something that's done
+in addition.
+Right? Um
+they're two sides of the same coin.
+Uh you just can't ignore one side and
+and just look at the other. It's
+important to have a comprehensive view
+of things.
+and the reality is you probably have
+hidden dependencies right now in your
+software.
+Or your product. Um
+I mean, I I know I do. I work on open
+source projects. I have no idea what the
+hell's in that code.
+>> [laughter]
+>> I mean, I have some idea, but I I
+certainly couldn't tell you what
+everything is in there and what version
+number it is and everything, right? Um
+and they're not even even for a small
+project. It's uh it's very, very
+difficult cuz it's it's it's complex,
+right? This isn't the 1970s anymore
+where you know, you have a punch card
+with a bunch of holes in it and that's
+what runs on
+your computer. Right? You have a very
+complex ecosystem of of software and
+dependencies and
+uh Lord knows where it came from in most
+cases.
+So
+this is uh where the sales pitch comes
+in.
+Uh this is our kind of our bread and
+butter. Um
+right, we
+we do this uh at scale.
+Uh we have some very some very very
+smart people who have found some very
+interesting and um
+unique ways of tackling a lot of these
+problems. Um
+uh a lot more than just running strings
+on binaries. [snorts]
+so, if this is something that you're
+interested in, you think it might help
+help you, um
+our booth is um the very first booth in
+the vendor area. Come by and talk to us.
+We'd love to chat. Um
+but right now, I'd like to open it up to
+any questions anyone has on
+binary analysis, S-bombs, anything.
+No questions? Someone's got a question.
+I think we did it perfectly. Well, you
+must have. Covered everything.
+All right. Well, hey, if if no one has
+any questions, um that's all we've got.
+Um feel free to come talk to us
+afterwards if you if you want to chat.
+>> Wait, where do we go? We got to go. Oh,
+hey. Yeah. Check it out.
+Is that not on?
+That's not helpful.
+>> It's all right. Um
+Yeah, go ahead.
+So, firstly, I just a little bit at the
+top. You just walk in. Okay. But, I was
+curious
+uh cuz dependency
+analysis, I guess SCA, or you're you're
+building S-bombs from
+the the packages that are accessible in
+the
+package manager, right? And finding
+dependencies.
+Uh but, what about for for binary
+analysis, like
+what what's like the the primary way
+that you're able to map
+binary back to
+original assets? Are you still
+leveraging the
+package manager sources, like that that
+sort of stuff, or is there some other
+way like you're transferring it? Yeah,
+yeah. So, um
+for anyone watching, the question was um
+are we using manifests and package
+managers
+uh in addition to the binary analysis to
+to try to map um you know, what's in the
+binary back to an actual component and
+version. Uh yes, we use a combination.
+we we tend to devalue uh things like uh
+manifests and RPMs and that kind of
+thing uh versus what's actually in the
+binary, but we do take that into account
+uh to try to to make a best match. Yeah.
+Yeah.
+Any other more brave souls
+for the microphone?
+That doesn't work.
+>> No? All right, well, thank you very
+much. Appreciate it.
+>> [applause]

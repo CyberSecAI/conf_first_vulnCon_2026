@@ -1,0 +1,790 @@
+So, I'm Scott Moore. I am
+I have a problem with collecting data
+and hoarding data.
+So, that led me down the path to this
+this type of work. Um
+So, if you came here to hear about that
+vulnerabilities are actually not rising,
+then I have bad news for you.
+Because they're they're still it's still
+going to be bad. Um so, I grew up in Oak
+Ridge, Tennessee, which is a town that
+was created in the '50s to build the
+atomic bomb
+for the United States government. It's
+just like it's out in the middle of
+nowhere. Uh they kicked all the farmers
+off the land and built uh four
+laboratories to create the bomb. And so,
+my dad when I grew up, my dad was
+working there as a IBM
+He didn't work for IBM. He worked for
+the
+government, but he had a
+job as a backup technician for backing
+up these mainframes, and he used a small
+forklift to move the drives back and
+forth between the machines.
+Um
+So,
+that means we had a computer in the
+house from an early age. It was a
+compact lugg- It was the first laptop.
+It was 30 lb and had a screen about this
+big and no hard drive. So, that's uh
+that's where I got my start in the
+computer industry
+uh
+at 12-ish. So,
+I had a knack for collecting things as I
+was growing up. Actually, not yet. I had
+a knack for collecting things, and like
+every teenager, I collected baseball
+cards.
+and a lot of people in the '80s, '90s
+did that. Uh just baseball, not hockey
+or football. And instead of collecting
+them like other people,
+I used uh it was either Lotus 1-2-3 or
+PlanPerfect to inventory uh the card
+numbers, brand, series, and historical
+prices,
+and made graphs and charts
+uh of the baseball card collection.
+Um and that's uh
+I guess that eventually led into
+vulnerability data,
+but
+um this was
+80s and 90s, by the way, is during the
+great baseball card and comic book crash
+because uh suppliers thought that this
+was
+going to be as big as
+they're going to be able to sell as many
+as they produce. That's all the baseball
+cards, if you're my age,
+uh you they're and they're they're
+worthless.
+So, you can unless they're from the 50s.
+Um but that is relevant to our interest.
+and if you're my age, uh I graduated
+high school in 1992, so basically
+started college at the infancy of
+where the the internet basically
+started. You know, web came right right
+around then, with the early web, the one
+without pictures, called Gopher.
+so, I enjoyed computers. I had no idea
+what I wanted to do with my life.
+but I know it
+needed to be in front of a computer, cuz
+that's where I spent all my time. Um so,
+I did major in computer science.
+computer science then was
+fairly early. I'm not sure how many
+computer science degrees there were in
+the early 90s.
+Um but they taught us Pascal and IBM 360
+assembler.
+Um I was not interested in software
+development.
+I I hated homework. Uh I did not last
+through college.
+Um but I was interested in computer
+security. I was interested in making
+computers do things that they weren't
+designed to do.
+Um so, about that time, in 1993, I
+started collecting exploits.
+Uh so, 93 94 I had a collection of
+exploits, and when the World Wide Web
+became a little popular,
+I
+put them on a website, you know, HTML 1.
+Um there was no search engines back
+then, so you had to submit your website
+to
+the what Yahoo was wasn't a search
+engine, it was just like a
+curated list of of sites. So, I got mine
+listed there
+and it became a little popular.
+Um popular enough that in 1997, Internet
+Security Systems hired me to start
+um
+what was called then the X-Force
+database. So, X-Force vulnerability
+database, which was one of the four
+databases that was used to create CV.
+Uh basically,
+bunch of vulnerability databases, nobody
+knew which vulnerabilities were the same
+in across them, so CVE used our database
+and three others uh to start CVE. I was
+not in on the Purdue meetings where they
+started it because I was a 20-year-old
+punk-ass kid and they had to send a
+grown-up.
+Otherwise,
+I I I really wish I had gone back then,
+but I was also 20 and I
+we all know how we were in our 20s.
+Uh so, for this talk, I'm only going to
+talk about CVE identifiers
+because
+vulnerability vulnerability database I
+created, we collected all
+vulnerabilities, we didn't care if they
+had a CV or not. So, we had you know, CV
+was a subset of what we had and there's
+there's only there might be only one or
+two databases like that around that even
+exists.
+And there's plenty behind paywalls, but
+uh X-Force database kind of
+went away last year.
+That was a the a low point in my uh
+professional life, by the way.
+So, let's start with the first chart
+we can see where we are now. Just hit
+play.
+There we go. This is where we are now.
+there's a couple of ups and downs here
+and I I can tell you why in a second,
+but the end of the graph
+this is what we're all seeing right now,
+right? We're getting tons of reports,
+tons of vulnerabilities.
+and this is a lot of work for us and
+and our executives don't understand that
+we have to keep track of all this and we
+don't do we can't do it with less
+resources.
+Um so, this chart I the next one I have
+some circles.
+So, there's four key events here.
+This one in right before 2005
+vulnerabilities went up from
+this is like 1600.
+I mean down here we had like couple
+hundred a year. 1600 here and 4600 here.
+So, it went up by
+uh I have the actual number. No, 6300.
+16 to 6300. So, we went up 5000
+vulnerabilities in 1 year and that is
+a computer hacker by the name of stroke
+started a website him and a hacking
+group called Milworm started a exploit
+database
+publicly
+and had all these vulnerabilities in it.
+MITRE MITRE had to issue them all CVEs.
+It was like a thousand cross-site
+scripting vulnerabilities
+and 700 sequel injections, but that's
+why the rise is there in that chart. Um
+and I'm going to talk a little bit about
+trend reports next, but when trend
+reports used to come out here, they were
+like the sky is falling.
+Cuz this is just going to continue
+straight up.
+let's see. The next date
+Oh, this is when the first the first
+three CNAs were created right here. Red
+Hat uh CERTCC
+uh Who's the other one? I don't know.
+Microsoft.
+Uh 2014, this is this is only a a small
+rise, but this could have been about
+here if we had let it.
+So, Will Dormann he wrote a uh a tool
+that takes Android applications
+and finds SSL vulnerabilities in it. Uh
+and he he wrote a piece of hardware that
+they ran against 1 million Android
+applications.
+Um they found they issued 1,420 CVEs.
+But that was only about
+8% of what they found. So, this number
+could have been
+60,000 basically.
+Um MITRE told them to stop.
+They issued 1,400, MITRE said stop.
+And they had stopped.
+So, there's some trend reports that show
+this way up and the sky's falling.
+Um so, then
+the number after uh 2015, that's when
+they added 25 CNAs. So, that's when the
+IBMs and the the ZDI's, no not ZDI, the
+IBMs, the you know
+HPs, that's when everybody started to
+become a CNA
+um and started issuing their own CVEs
+because MITRE couldn't keep up anymore.
+So, they needed help.
+I have it red because I feel like that's
+a bad thing, but it
+I think it's a good thing actually.
+Um I probably had a story behind the
+red.
+Um and then
+in 2021 all hell breaks loose.
+And this is because they started
+allowing research CNAs
+assign CVEs. And these are research CNAs
+that aren't finding their own
+vulnerabilities, they're just getting
+reported to them and they're issuing
+CVEs for them. Um and I'm I'm part of
+that problem.
+Uh it's not a problem, but I'm part of
+it.
+Let's see next.
+So every year now there's like 125
+and I apologize if there's names on
+them. I tried to take names off so I
+wouldn't
+wouldn't call out anybody but I will I
+left the IBM one on because I worked
+there.
+So everybody puts out these 125 reports
+a year. They all have these upward
+trends. They all say the sky is falling
+and they all say that it's it's about to
+get really bad
+if we don't we don't do something about
+this.
+Let me see there's
+I think I have a couple in here. Yeah,
+and there's there's like people put out
+this stuff.
+None of these things really have
+anything to do with the
+line going up
+but they they felt like they needed to
+point that out anyway. Oh, this is the
+one I this is the one I sent. So this is
+IBM's X-Force report and
+we we said that year there's probably
+30,000 vulnerabilities in these Android
+SSL things.
+Ended up being 60,000 but I don't I
+don't know why they they decided to
+print that.
+More numbers going up.
+This is my favorite chart. So
+this is also from IBM X-Force. This is
+after I left the team so I didn't get to
+tell them that they were wrong.
+Somehow
+see this is this is
+total vulnerabilities.
+This is exploits. Apparently exploits
+did not go up between 2023 and 2024
+and they also said this is my favorite
+part and this is only published last
+year
+that the MITRE Corporation maintains a
+public list of a catalog of CVEs and the
+CVE S list feeds the national
+vulnerability database which quickly
+enriches
+once each CVE has been published.
+And that was after they said they were
+40,000 behind.
+You
+You can have people like Jericho write
+about this, and he did.
+Um but what I found in in this industry
+is that there's such a short-term memory
+that nobody even remembers this next
+week. So, nobody ever nobody ever gets
+called out on their bad data except by
+Jericho.
+Um this
+This is what the very first chart would
+look like
+had we not started giving research
+organizations that have vulnerabilities
+reported to them
+CVEs.
+This is all the CNAs that
+you know, were traditionally assigning
+CVEs the way that we expect them to be.
+The line is going up, but it's going up
+at a kind of a rate that
+is is expected to go up, right?
+Until we introduce these CNAs that are
+causing problems.
+The operational rules say that if a
+multiple products are affected by the
+same independently fixable
+vulnerability, this is important,
+independently fixable,
+then the CNA must not assign more than
+one CVE.
+So, one CVE
+for one piece of code.
+If they share the same code, one CVE.
+This one says that you can't
+deliberately make a vulnerability in
+your product.
+Um I have yet to
+prove this, but I'm working on it.
+Uh CNAs should publicly disclose a CVE
+ID if it has the potential to cause
+significant
+harm
+or two requires action or risk
+assessment by parties other than the CNA
+or the supplier.
+Uh I feel like these are probably
+ignored a lot of the time. So, if I
+write a tool
+uh in my organization
+just for me to use.
+And I find a vulnerability, it does
+that's not a CVE.
+Uh, if I've written a tool for my
+co-workers to use
+it doesn't get a CVE either unless it's
+out in the public.
+Uh, but if it's a tool that I open
+source and like Vulnagram and a lot of
+people use it cuz it's great then
+I I issued a CVE for that last week
+because I found a vulnerability in it.
+Um,
+let's see.
+My notes are not going the same way as
+the slides.
+So, here is the problem.
+Um, we have
+some products that are getting CVEs
+that shouldn't be.
+Um, in 2022 we began flooding the market
+with free source code. And I'm not
+talking about software that's available
+for users to use under a license and
+modify just distribute code. I'm talking
+about these source code repositories
+that exist entirely to generate ad
+revenue.
+Um, most of these websites are just a
+bunch of PHP code
+uh, and I can guarantee you almost
+without certainty that nobody uses these
+in any sort of environment other than a
+school project.
+Uh, they are
+Source Codester, Code Projects, PGP
+Gurukul, ItSource, Code Canyon, Project
+Words uh, PHP Jabbers
+those things are all
+uh, university student projects in big
+collections for other people to use. And
+in fact, PHP Jabber uh,
+PHP Gurukul
+advertises that they sell the package
+with the presentation you can give in
+your class
+and the source code and notes on how to
+present it as your your work.
+Uh, these have more ads than the Super
+Bowl.
+Uh, and you have to be careful
+of your browsing history because some of
+the ads are extremely strange including
+the pint of blood there at the top for
+$12,000.
+Um, let's see. So,
+I So, I was out of the vulnerability
+game cuz I moved on to P cert. So, I
+wasn't watching what was happening
+between 2021 and 2025.
+Uh,
+that's when all those started coming out
+or started getting CVEs.
+so
+these projects have some very comical
+sometimes names.
+There is salon management system,
+hospital management system, bank bank
+management system, pris- prison
+management system,
+zoo management system, blood bank
+management,
+uh, old age management. There's even
+some Jehovah's Witness uh,
+things in there and there's some escort
+management ones and that may mean
+something in a different language that
+I'm used to.
+but but I I didn't put that here cuz I
+didn't know if it was a
+But they these are all the exact same
+code.
+They're all
+all the hospital like the hospital, the
+resource management, student records,
+hostel management. They're all using the
+exact same code that gets copied once,
+reprinted
+in a different thing with the name
+changed. Uh, it's just re-skinned and
+then it's released again for free
+download.
+Uh, and I don't know who the target
+audience is for this, but I think we get
+we
+I suspect these are all just student
+assignments done in university for to
+learn software development. Uh, they're
+all designed just to run on on a local
+HTTP server,
+you know, in Python.
+or PHP.
+And they sell homework with PowerPoint
+presentations, bundled report for $12.
+so once I saw that, I did go down the
+rabbit hole and I have a tendency, you
+know, collect baseball cards and put
+them in charts and graphs.
+I have a tendency to get in pretty deep
+to things that I find interesting
+uh and
+usually nobody else would find
+interesting.
+So I did go down the rabbit hole. I
+downloaded 10 of these projects
+uh locally. I downloaded
+four from Source Code Source Source
+Codestar
+and two from from the other one
+the other ones.
+And across every project, where is my
+next slide? They had the
+They had the
+exact same code in every login.php,
+which was select star from table where
+user equals input
+and password equals input.
+Uh every single one of them was
+vulnerable to SQL injection.
+Uh
+this is uh in Source Codestar Human
+Resources. That's one of the ones I
+downloaded. I did go through the code to
+look for these vulnerabilities.
+And I found How's my time?
+we're going too fast.
+I found that all 19 of these
+uh were reported in other projects with
+the same code, the same vulnerable code.
+Um just, you know, they're just named
+different things. Um and these ones that
+I have an X on
+uh that one has it says leave parameter.
+There is no leave parameter in that.
+Uh this one with an X it says uh oh
+oh shoot, you can tell who wrote these
+by uh by their names.
+Um this one
+uh says that
+it has a SQL injection in a option
+that's not there.
+A a parameter that's not there.
+And the last one says that you can
+upload files to to your human resource
+management software and it can be
+launched remotely and you can upload
+these through viewing employees and
+there is no code in the entire thing
+where you can upload anything.
+which is it's fine.
+So there my my slides are out of order
+here. The rules. So I did find that
+every single vulnerability that gets
+reported through this CNA or through a
+CNA
+uh can be
+you can get another CV for it if you run
+it on a different one and you can get
+another CVE for it in a different
+project and there every single SQL query
+in all of these projects is not
+concatenated.
+You can put whatever you want in them.
+They're all SQL injectable to your local
+Maria database.
+so the time is getting a little quick
+here. So I found that SourceCodester not
+only is it a CVE factory
+uh that hosts 369 different vulnerable
+applications
+but it's a it's because it hosts one
+template 369 times.
+and that I don't know if I put the
+comments on here.
+Let's see. Let's go to the next one.
+Uh these were all the same vulnerability
+in checkavailability.php.
+I'm going to have to go through a little
+bit quicker. Oh,
+I think I have the comments. Some of the
+comments on these are somebody put an
+entire SQL injection exploit in the
+comments and then asked for a CVE for it
+for a day later and they got one.
+Um next. So here is your playbook. If
+you want to get your own CVE that you
+discovered is you download one of these
+projects
+you you look for the get any get and any
+post
+in the PHP, they don't it is not the
+variables concatenated into the SQL
+queries. You can file for a CVE and each
+parameter
+and profit.
+Well, you're not profiting, but
+there's a lot of CVEs out there. And you
+know, when I try to explain to my wife
+and my sister and family what I do for a
+living,
+uh it's much much like all of you,
+nobody even understands what we're
+talking about. So, I try to I try to
+compare it to the um
+National Highway Transportation Safety
+Administration. You know, if you have a
+car, uh they have an identifier, well,
+your car has a VIN,
+you know, the the safety recall has an
+identifier, so they can tell all these
+cars are vulnerable to this recall, they
+all need to be recalled. That's how I
+explain it to my
+friends and neighbors.
+it looks like this, and this is us
+assigning a CVE to check availability
+recall.
+So, it's uh it's it's like a cardboard
+box getting a CVE compared to an
+automobile.
+so, let me see. All right.
+This this top chart is how many CVEs we
+have for the Code Surfer projects.
+There's 369 projects, 1,700 CVEs. I I
+did a full scan of these and found that
+only 16% of them have been reported yet.
+So, there's a lot left. Uh and if you
+average this out,
+it's about a 25%
+accuracy in CVEs that have been
+reported. There's about 75% more that
+can be.
+So, just this this is just the projects
+that have a CVE. There's 15,243
+CVEs ready to be assigned right away.
+Should you want to do this, you don't
+come to me for a a CVE cuz I'm not going
+to give it to you.
+Uh but the thing is is that these are
+only the projects that have a CVE
+already.
+The total projects
+for Source Code Easter is 1,700.
+Code projects has a lot, too.
+PHP Google it doesn't have much because
+they have to charge admission to get
+this code. And its source code has a
+bunch. So, the coverage is this 22%
+isn't the CVE coverage, it's the uh the
+amount of products that have a CVE
+already. So, there's this many untouched
+projects that are sitting there waiting
+for you to find a CVE in it.
+And I can estimate, if you want me to,
+I can assign 81,000 CVEs tomorrow
+for this code.
+But this is just all noise and we need
+to stop doing it.
+Uh I I don't think it
+matches the rules. I think it's against
+the rules to do this. It's all the same
+code,
+just with a different name.
+Um somebody like Todd with the rules
+guy. Uh by the way, we have a similar
+problem with home routers.
+TP-Link and TOTOLINK and all these. The
+same researcher is finding the exact
+same vulnerability in all these.
+so,
+when Opus came out,
+Opus came out in February on February
+5th or February 3rd.
+So, being
+that I like to go down rabbit holes, I
+did inst Uh and by the way, I think
+WordPress plugins should get CVEs.
+WordPress is used by a billion people
+across the world.
+I installed
+WordPress, PHP, uh my local MariaDB,
+uh 15 plugins,
+and
+gave gave Claude a prompt that says,
+"Look,
+my executives think we have to ship this
+on Saturday.
+And we need to prove now
+that they cannot possibly do this and
+ask it to write
+I mean we've all seen AI slop reported
+to us but I said do not
+make sure you can exploit every single
+one
+write the exploit and then write a demo
+that I can present to the executive team
+for each vulnerability and show them
+exactly why it's vulnerable and why we
+can't ship this now.
+found in 15 plugins on a Saturday for in
+2 hours
+and I'm not a programmer and I hate
+programming by the way.
+I well I found 203
+CVE-able things in these plugins. I
+sent them to Wade.
+I sent some of them to Wade so he can I
+I don't do CBD because
+I need instant
+gratification and I didn't I'm not
+waiting back and forth between people so
+I don't I don't deal with that. These
+I did send these to the developers
+extremely thankful.
+They released fixed version
+2 weeks later
+that's all and
+those are the ones that are public now.
+There's still 175 waiting but this just
+shows how easy it is to find real
+vulnerabilities but we need to be
+getting rid of the
+fake ones
+cuz it's just noise and it's just going
+to pollute
+our environment even more.
+I think that's all I have.
+How's our time?
+Oh that's perfect.
+There was probably a lot more I didn't
+get to everything but
+let me see if there's anything important
+to say here.
+Okay that that is all I have. Thank you.
+>> [applause]
+>> Questions?
+Do we do we think that these should get
+a CVE?
+No, WordPress, yes. I I 100% they
+should.
+The other ones.
+The the student projects that exist as a
+cell phone work.
+How many downloads does it have?
+Uh most of them had between 50 and
+100,000 downloads.
+The comments are hysterical, by the way.
+Most of them can't get it to work.
+Any other questions?
+Uh I'll wait for the Jericho blog then
+to see you how wrong I was.
+But I I appreciate you coming.
+Anyone have a question? I'll bring the
+mic.
+No? Last minute?
+Oh.
+As a community, what can we do to
+prevent these CVEs from polluting
+the list?
+>> I don't think the community can do
+anything about it.
+I think that
+>> like a CNA's publishing is going through
+this and publishing these
+vulnerabilities. And so I I would
+if I was
+in charge, I don't know who is in
+charge. I mean, I if the CVE Secretariat
+told this
+these people to stop,
+I would hope they would stop.
+I don't know if that's happened or it
+may have happened, I don't know. That
+that same CNA, by the way, advertises
+their product in the CVE description in
+the JSON.
+>> [clears throat]
+>> And one thing about that,
+they advertise for their product in the
+CVE description
+and delete it 13 hours later.
+Uh and I have a hunch that is to pollute
+large language models that are scanning
+vulnerab- scanning everything, seeing
+the vulnerability, seeing this
+advertisement for their product,
+and then it gets removed, but it's
+always going to be in the LLMs. LLMs
+had.
+All right. Quick question here. All
+right, so
+this this raises a interesting point,
+which is uh ecosystems or marketplaces,
+right?
+how does governance or how should
+governance be done here, right? Cuz
+there may be uh I mean most of them are
+moving to the cloud now, so
+you know, fixes get out pretty much
+immediately to customers, so you'll see
+less noise from this in the future. Um
+but for now, for things that are like on
+premises, like WordPress,
+where do you think the call it
+responsibility should lie to keep these
+housed within an ecosystem similar to
+how like GitHub and other
+uh places do it, right? So, you have
+like one advisory source for
+WordPress [clears throat] with
+everything on there.
+>> Well, well, like WordPress, I don't have
+a problem with. That's real software
+that people use. That should go through
+the same process as we all go through.
+The other one, the code hasn't been
+updated. It's it the code has been
+sitting there since the the mid '90s.
+No, not mid '90s. Mid mid 2000s.
+So, there's all these projects sitting
+there that are vulnerable to these
+things. Uh
+the people who operate those sites don't
+care
+if they're in an ecosystem or not.
+They're just trying to get ad clicks.
+Um but
+I don't know what to do about it. I just
+like pointing it out.
+All right, thank you.
+That's time. Thank you, Scott, for Thank
+you.
+>> presenting here.

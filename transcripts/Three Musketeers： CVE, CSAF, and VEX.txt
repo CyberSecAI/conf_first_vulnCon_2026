@@ -1,0 +1,1205 @@
+Hello everybody. Mike's working, all
+right. I'm Owen.
+This is Tyler and Jono, of course.
+>> Jono.
+Um
+Yeah. Welcome to our talk. I know it's
+the end of the day. We're going to keep
+the energy up. Uh I want to bring the
+energy way down. Well, yeah, okay. Let's
+start with that then. Yeah.
+Um okay.
+So, we're going to talk about how you
+actually do some of these things that
+we've been talking about doing all week.
+Um because you need to, you know, have
+tool support in order to do any of this.
+In order to do tool support, you need
+standards that are interoperable. Um
+data formats.
+Right. We can go back to philosophy if
+you want later.
+So,
+I want to just connect this a little
+bit.
+Right. So, CISA,
+our responsibility here is to lead the
+national effort
+to manage risks in the cyber and
+physical infrastructure that Americans
+rely on.
+Okay.
+That's super broad. That is the mission
+on our website. But, how does that
+relate to cybersecurity? Right, how do
+we bring this down? How do we make this
+practical? How do we actually do
+manage risk management, right?
+we need the software that we all use to
+be relatively secure by design. Like,
+nothing is perfect. That's okay.
+Because nothing is perfect, you have to
+be able to find and fix problems.
+Which means you have to be able to
+distribute fixes.
+Right. So, CVD uh CVD is part actually
+of secure by design. And having a
+vulnerability disclosure policy is part
+of secure by design. For those of you
+that, you know, have signed the secure
+by design pledge or interested in that,
+like, whatever aspect of secure by
+design you want to be part of,
+providing good information about your
+CVEs is part of secure by design. And
+that's because we have an acceptance
+that nothing is going to be absolutely
+perfect when it ships.
+Right. There's always going to be more
+vulnerabilities, and that has to to part
+of our acceptance.
+So, if we're going to manage risk at a
+national level and make sure that things
+work, we have to be able to find and fix
+things efficiently and quickly.
+And so,
+the
+vulnerability disclosure policy is like
+explicitly part of the Secure by Design
+pledge,
+right?
+Um so, you have to have one, right? If
+you were a federal agency, we already
+have told you that in binding
+operational directive 20-01,
+but like you should all probably do one.
+If you want to know what a VDP is and
+you want to Google BOD 20-01, you will
+find a great example of what one should
+look like. But, you can also go to like
+securitytext.org or whatever and find
+different ways of of finding these. You
+don't have to listen to us.
+if you have a CVE within 1 year of
+signing the pledge,
+right? You have to actually be providing
+this. This is like part of moving into
+the quality era, right? This is also
+part of federating this out.
+There's a But, if we're going to
+federate it out, we need to be able to
+interoperate at a minimum level so that
+we can get the semantic agreement. Cuz
+if we can't get basic transactional
+agreement, we're not going to get
+semantic agreement. So, we want to try
+to encourage everyone to be doing this.
+Getting these things, and this is, you
+know, where we're going to drill into
+like what actually brass tacks, you
+know, the stuff that Owen and Tyler
+actually do every day, how this supports
+this whole like national mission that
+CISA is supporting.
+You have to be able to collect the
+information for CVD, you have to be able
+to analyze it, you have to be able to
+coordinate mitigations.
+Obviously, the KEV catalog is one of the
+ways that we coordinate mitigations,
+right? If we're going to put something
+on the KEV,
+you probably want to fix that.
+like if if they're if they're hitting
+somebody else, they have the capability,
+access, and intent to also
+hit your systems.
+It's like they're the demonstrated
+capability to do it. You want to be
+careful with those.
+Of course, the mitigations need to get
+applied, right? Just Just a vendor or a
+supplier publishes a patch, doesn't mean
+the patch is applied.
+So, a big part of CVD is also making
+sure that people who need to apply the
+patches know about them and get them
+applied. This is part of asset
+management, vulnerability management,
+like all of this. But, CVD is part of
+that amplification when CISA publishes
+an alert,
+maybe a cybersecurity alert in a
+framework, or an advisory.
+Right?
+We We need people to apply that patch
+because the work has been done in the
+first part of coordination to get that
+patch available and published, but then
+you need to be applied. And then, the
+last thing,
+and that sort of brings this together,
+is disclosure.
+Right? If people don't know about it,
+they can't fix it. So, we took the time
+to actually
+quote the whole disclosure description
+here cuz that's what the whole rest of
+the talk is really about is the
+information structures and sources
+to do the disclosure piece
+and how we get there. Cuz you have to
+build it from the beginning so you can
+get there at the end. Cuz if you don't
+have it, you know, as you're going
+through the CVD process, you're not
+going to magically just have it at the
+end.
+Um and of course, this whole CVD mission
+is like to protect against threats
+to
+all of your stuff.
+And because software systems are
+everywhere,
+to protect like the human safety aspects
+that are operated on
+like the critical infrastructure that
+runs on software.
+So.
+Awesome. This is where we jump in.
+Tyler and I support public disclosure.
+how we do that
+uh involves answering a lot of important
+questions about this process. Um
+what information do we actually need in
+the first place, right? We need all the
+ID, we need the info, uh we need, you
+know, problem type, CWE, root cause
+mapping, uh the any metrics we can get.
+Really, as much as we can get here. Um
+Take a step back. And importantly, what
+of that information is provided by the
+CVD process, right? What can we actually
+get from the from the report? What can
+we actually get by asking the vendor?
+Um and what can we figure out ourselves,
+maybe reproducing or or investigating
+things? Um
+how does this happen? In what formats
+are we given this information? Uh it's
+just a lot of times it's just text. A
+lot of times it's just a big PDF that
+somebody wrote up. Um
+but again, the formats are going to be a
+big discussion
+>> [clears throat]
+>> point today. CVEs and CSAF are the ones
+that we uh work with most frequently and
+utilize for this. So, um
+how do we tell if a record is good?
+It's a big question. Data quality,
+record quality has been a
+there's been a lot of conversations and
+talks about that this this week. Um very
+excellent, extremely large conversation
+to have there, but something we have to
+think about. Um
+and uh how do we support automation? How
+do we make this scalable? Obviously,
+another massive uh point this week. Um
+but our answer ultimately is to use CVE
+and CSAF X basically. Um it's it's
+standardized, it's evolving, it's
+relatively widely used, and it's machine
+readable, which is which is pretty
+great. So, we need to have
+um
+we need to be able to support automation
+for efficiency purposes.
+Now,
+CISA
+landed on CVE and CSAF. Um
+CISA is a CNA. Uh we publish CVEs. We
+are CISA CG, civilian government, and we
+can we have
+uh
+publishing authority. That's
+That's us right there. You may also be
+familiar with the uh the the CISA
+top-level root CNA, um the ICS
+uh CNA L R as well. Um
+ICS uh yeah, also a CNA. They have a a
+slightly different process than ours.
+We're going to talk about IT advisories
+as opposed to OT advisories, but it's a
+similar thing.
+Um ultimately, we
+CISA, me speaking on behalf of CISA,
+CISA landed on CSAF. Um
+it's
+require it it
+fulfills the public reference
+requirement of a CVE record. So, when we
+want to publish a CVE record, um
+sometimes there's there is no public
+reference existing. Uh we can we can
+generate a CSAF document, make that
+publicly available, and then link the
+CVE record directly to that, thereby
+fulfilling
+CNA rules 5.3.1.
+There's a lot to that, but yes. And
+again, machine readable, well-defined,
+and evolving standard.
+we used to do some other stuff. Uh we
+previously spent a lot of time on
+Vulnogram, generating CVE JSON.
+it
+is a wonderful tool. It has its own
+limitations. Um and it's, you know, sort
+of isolated to uh the
+CVE production specifically. Um we used
+to use Sec Vizigram. Uh this is a
+wonderful JSON um
+CSAF JSON validator and editor.
+Uh
+Again, it's CSAF is a large
+specification. Uh there's a lot of
+complicated parts to this. Um this was
+this was time-consuming. Um
+I mean, we even use Notepad, right? We
+are we are bouncing between tools. We
+are trying to marry these formats and
+and harmonize things. Um you know, maybe
+we use Nano or or Vim depending on the
+day. Um but
+again, you could imagine how some detail
+might get lost in here, some efficiency
+might get lost between
+all these different tools and and and
+ideas, right? So, the end goal is to
+integrate all these formats that that
+are otherwise sort of fragmented and and
+have some overlap, but aren't the same
+thing, obviously. Um and we want to be
+able to do this all at once,
+efficiently. Something human readable,
+something machine readable.
+Um something that's automatable and
+scalable. And most importantly,
+something that's reliably good
+information.
+We landed on there is nothing existing
+for this. So, we have to we had to we
+had to develop our own custom solution,
+basically. Uh we have a we have a
+a platform that's being cooked up. Um
+but it's it's again, constantly evolving
+and uh
+you know, we're able to
+use that to harmonize the harmonize the
+formats.
+there's there's lots of well, lots.
+There's a handful of other uh very
+mature vulnerability disclosure programs
+out there that are doing similar things.
+Big shout out to everybody who is at at
+that level or or higher. Um you know,
+Microsoft, Red Hat, Cisco.
+Very mature programs.
+So, if we want to make a good record,
+it's going to have some requirements.
+I'll let Tyler describe
+what goes into a a quality record,
+All right. So, for every vulnerability
+record that we produce, we have certain
+requirements that we would like
+ourselves to meet.
+Um we try to make a complete record. And
+every field that we look at, we fill it
+in. And if we don't have enough info, we
+put some variation of not enough info or
+I don't know. But we fill it in so that
+we sit signal to downstream consumers
+that we looked at it and we weren't able
+to come to a better conclusion.
+And in each vulnerability, we add the
+normal stuff. Um title, description,
+problem type, and references.
+Uh we score each vulnerability. We do
+three different versions of scoring. We
+do CVSS uh 3.1, 4.0, and SSVC 2.0.
+And then, status.
+Status is one of the most important
+parts of the record, if not the most
+important part. Um, it gives you an
+actionable thing to do with the record.
+It tells you what's affected and
+possibly tells you what's fixed, and it
+gives you something to do with the
+record. Without status,
+um, the record is not as strong.
+In our CSAF documents, we also are able
+to produce VEX statements, uh, which are
+just a product of vulnerability and a
+status.
+We do this using the CSAF VEX profile,
+and the main reason that we like using
+the CSAF VEX profile is that it has all
+of the base CSAF requirements, as well
+as explicit, uh, product statuses, such
+as fixed, known affected, known not
+affected, and under investigation.
+It also has, um, an impact statement for
+all known not affected statuses, but we
+mainly like it for the fixed and the
+known affected product statuses.
+So, in order to, uh, map between the two
+formats, um,
+each format has different words.
+CVE is affected, unknown, and
+unaffected. It doesn't have an explicit
+this is a fixed version. Um, so what we
+do is
+we assign a fixed value to the
+unaffected field, and then in the CSAF
+document, it has
+fixed, known affected,
+known not affected, and under
+investigation. And then when we create a
+CVE record, we map the unaffected values
+to the fixed value.
+And then we also map unaffected to known
+not affected if we know that it is not
+affected. And then the affected and the
+unknown map pretty cleanly, straight
+across.
+And then, uh one of the things that we
+like doing in our CVE records, um is
+that we explicitly like stating the
+fixed version. So, for in this example,
+the affected range is um there's no
+lower bound in this case, and then it's
+3.1.5.
+But, the affected range doesn't exactly
+state that it was fixed in that upper
+value. It just says that these are the
+known values that are affected. So, in
+each CVE record, we also explicitly
+state which one was fixed.
+In the CSAF document, uh we have a
+product tree and statuses for each
+vulnerability. We use VERS and VERS-like
+VLS,
+and they um
+populate as a
+CSAF PID for each status, and then in
+the vulnerability, in the uh product
+status section,
+they um
+pop the CSAF PID value is in the known
+affected or the fixed field.
+yeah.
+Status. Status. Back to status. Um
+knowing what
+product, what thing, what version, what
+instance of said version is actually
+affected is uh a really big deal. Tyler
+told you about this already, but you
+know, we know.
+>> [sighs]
+>> Uh
+status
+has a lot of complications. Uh getting
+it right is is really difficult. Um and
+and product naming is I mean, that the
+naming problem in general is something
+you are probably
+familiar with after having been to some
+talks this week. Um
+but it's a big thing, obviously, in in
+in everything. Now,
+I'll use an example uh that's not
+cybersecurity related. Um this and this
+I think this works. Uh
+Now, there's some representatives here
+from the United Kingdom as well. Um
+and if, for example, I and them were
+talking about a 3 Musketeers bar,
+we might think that we were talking
+about the same thing.
+Of course, we'd be wrong.
+If I was talking about a a Milky Way
+bar, maybe I wanted to go buy one in the
+in the United Kingdom. I'm on vacation.
+I am I said, "I'm going to get a Milky
+Way bar."
+That's not what I was asking for,
+actually. It's It's totally a different
+thing somehow. Uh
+a United States Milky Way bar is
+actually
+the United Kingdom's Mars bar
+by some by some weird circumstance. And
+and a 3 Musketeers bar here,
+light, fluffy, just chocolate on the
+inside, um
+actually is the same thing as a Milky
+Way bar in the United Kingdom.
+And you might think, "Wait, I remember a
+Mars bar. I'm American. I
+You I I'd tell you you have a great
+memory. They were discontinued 2002 and
+rebranded a Snickers Almond.
+Why not?
+You might be feeling a little bit like
+this this little boy right now. This is
+this is seems like a maybe an
+intractable problem with candy bars.
+Definitely an intractable problem with
+much more complicated software naming,
+hardware naming, any kind of, you know,
+technology situation here. Gets even
+more complicated. Um and that's not even
+to discuss the versioning con-
+conventions that uh
+vary very very widely. Um
+you get
+all sorts of different, you know,
+verticals, systems. You've got semantic
+versioning. You've got, you know, your
+own sort of custom thing. Um you've got
+versionless stuff. Um but they're
+they're all out there. And, you know,
+you can imagine when you've got a a
+a big list of vulnerabilities that
+affect a big list of products that are
+all at different stages. Um
+Maybe some of the vulnerabilities only
+apply to small ranges of the products
+and
+you could imagine how the matrix gets
+very large very fast. So when we're
+coordinating a case, you know, this is
+this is something we have to pay close
+attention to. And you get you get some
+of everything, right? You have you have
+versionless things that are just a date.
+You have you have all kinds of weird,
+scary, you know, unique
+unique
+version identifiers as well that, you
+know, we have to we have to make all of
+that fit into both CSAF and CVE.
+And doing that requires some custom
+solutioning, right? We we
+realized there was no choice but to
+automatically map those things to to one
+another. So we we we
+dove into the schema and our tool helps
+a lot with that. Um
+Now, the CVE description is a
+yet another complicated and nuanced part
+of this that I don't want to explain. So
+Tyler will.
+>> [laughter]
+>> Writing a good description. Um a really
+good CVE description we like to balance
+conciseness with completeness. And we
+try to make it as small but actionable
+as possible. And we
+uh try to balance just legibility and
+hey, like what am I supposed to do after
+reading this description?
+So um the way that we write descriptions
+currently is a little bit labor
+intensive. We kind of do CVE or we do
+mapping, but um it's not like automatic.
+So uh we have like a Mad Lib template
+that we use to write CVE descriptions.
+We start with a vendor's name.
+And then we follow it up with the
+product. And then the affected versions
+or range of versions.
+Um the attack vector and privileges
+required to pull off the vulnerability.
+The impact of the vulnerability. And
+then at the very end, again, we hit home
+the explicit like what versions it's
+fixed in. So, that's another um
+another time that the explicit fixed
+value shows up in the description. You
+can even see kind of hidden under the
+arrow the uh the problem type basically,
+right? Client-side enforcement of
+server-side security in this case. But,
+yeah, sorry.
+Then, scoring.
+It's a trip.
+we, as we mentioned before, we do CVSS.
+Uh we do SSVC as well. Um
+CVSS uh is very widely used, so, you
+know, CISA is all on board with that. Um
+And uh it's, you know,
+this is influenced by the information
+available at the time of analysis. Um
+so, you know, it's it's relevant what
+kind of information you can get from the
+coordination process before you go
+trying to apply uh a CVSS vector. Oh,
+thank you, by the way.
+there's
+there's there's a lot of things at play
+here, right? The CVE schema
+naturally drives the CSAF schema,
+naturally driving the CVSS schema,
+and of course,
+in reverse as well, right? CVSS 4 has to
+be compatible with the CVE rules, the
+current CVE rules version, which is
+again a an evolving document.
+CSAF 2.0 has to work with that.
+The forthcoming CSAF 2.1 uh has to be,
+you know, updated in synchronization
+with that. And we, as, you know, the
+practitioners of this have to keep up
+and keep on top of the updates, right?
+We have to update our our tool and and
+uh our own schema to to account for all
+this. Um
+>> [snorts]
+>> Now,
+the further we can automate this, the
+more we can uh you know, pass this
+confusion and complication onto our our
+tooling, uh the more time we have for
+worrying about other confusing and
+complicated CVD decision points, right?
+Just an example here of a of a
+you know, a a discussion being started.
+We've got the uh
+uh CVSS JSON in this case potentially
+causing problems for the upcoming CSAF
+release. Um
+In this case, it all worked out great
+and a big shout out to Nick. I don't
+know, maybe he's here for for beginning
+this conversation.
+Um CVSS it it
+it works for some things, doesn't work
+for others. Um CVSS 3.1 the established
+and and more widely used one, of course,
+happily plays well with CVE,
+uh current CSAF, and forthcoming CSAF,
+right? So, when we produce a uh CVE JSON
+and assign uh CVSS vector to a CVE, it
+gets put into all of our outputs, right?
+It gets put into the put into the CVE
+output and into the CSAF document that
+gets created. Now, CVSS 4
+obviously, it's a little different.
+There's some additions to this. There
+are some some evolutions, some updates.
+That works happily with the current CVE
+schema. It does not work happily with uh
+the current CSAF schema. So,
+um our
+CSAF documents do not get output with
+CVSS 4, right? The the
+the platform maps this automatically for
+us. We don't have to bother, you know,
+with the going and editing any kind of
+JSON anymore.
+Um it saves us saves us some more time,
+right? And the more of these uh more of
+these sort of
+uh inconsistencies or or interdependency
+issues that we can solve, again, via via
+tooling, the more time we can worry
+about
+more important stuff.
+All right. In addition to CVSS, we also
+score using SSVC, the stakeholder
+specific vulnerability categorization.
+And
+we use the CISA coordinator decision
+tree with these five decision points:
+exploitation, automatable, technical
+impact, mission prevalence, and public
+well-being impact.
+Uh whenever we output the SSVC score to
+the uh CVE record, we only add the top
+three decision points.
+The mission prevalence and public
+well-being impact are stakeholder
+specific. What is prevalent to your
+mission might not be prevalent to
+someone else's mission. So, we let the
+downstream consumer uh decide for
+themselves what the last two decision
+points should be. Or use a different
+tree, right? Yes, exactly. Cuz actually
+you might not have that kind of question
+at all, cuz it's stakeholder specific.
+Exactly. Yep.
+And then um SSVC is not currently
+supported in CSAF 2.0, but it is coming
+in 2.1. So, in order to get around this,
+we add the SSVC string as a
+vulnerability note in the CSAF document,
+and it shows up like so, similar to a
+CVSS string.
+Uh SSVC is supported in CVE right now.
+Um it is it doesn't render on cve.org,
+but it is in the JSON file. Um it does
+actually render in the CISA ADP
+on the cve.org website. So, if you
+scroll down and somebody vulnriched the
+CVE, which we usually do, always do, and
+um you will see that there is a SSVC
+score rendered.
+Uh problem type, uh you have to put
+something, it's required. Uh they
+recommend CWE.
+Uh whenever we decide what CV CWE to
+use, we prefer the bases or variant
+CWEs, and um try not to pick a pillar or
+a class.
+Um whenever we are analyzing a
+vulnerability and we aren't able to come
+to a reasonable conclusion what the CWE
+should be,
+we um, have to
+choose something such as CWE no info.
+So, for example, uh, this is a CVE that
+we assigned and at the time of
+assessment we did not know what the
+vulnerability was and this is what we
+had to go off of. So, for the problem
+type we input CWE no info.
+>> References.
+Um, every CVE requires a public
+reference. CSAF requires a
+self-reference.
+And in order to meet this requirement we
+have the CVE and the CSAF reference each
+other. So, at a minimum, um,
+in our CVE record we have the CVE
+reference within the CVE record and then
+we have the CSAF reference as well. And
+the reason that we do that in a kind of
+goofy way, uh, where we have the CVE
+reference itself, is that if you are
+viewing the CSAF document, you aren't
+able to go back to the CVE record unless
+if you have that reference embedded in
+the CSAF document.
+And then, uh, you know, if possible, uh,
+vendor advisory or a researcher
+publication is nice to have, but um, if
+you're doing CVD and neither the
+researcher or the vendor want to put
+anything out publicly, um, our CSAF
+advisory is the way that we fulfill the
+public reference requirement.
+>> Um, after we complete the record, we
+have to publish the CSAF and the CVE.
+So, there's uh, many different roles
+within the CSAF ecosystem.
+CISA is what's known as a trusted
+provider. And in order to be a trusted
+provider, you have to meet the publisher
+requirements, which is basically valid
+JSON, a nice file name um on a website
+with TLS, and um being freely accessible
+if it's TLP white, which all of our
+public disclosures end up being.
+And then you also have to meet the
+provider requirements, which are the
+publisher requirements and this long
+laundry list of things uh such as, you
+know, uh updating the ROLIE feed,
+updating a changes file, uh um having
+provider metadata hosted on the CISA
+website.
+And then in order to be a trusted
+provider, we have to meet those other
+requirements as well as
+having a signature, um a hash file, and
+a uh public open PGP key.
+So, uh we do all this
+by using a shell script that uh once we
+are done uh drafting the CSAF, we output
+it to a shared Linux box. Uh we run a
+couple git commands, and then we send a
+pull request to GitHub, and it ends up
+there, and whenever it's accepted, it
+looks like this.
+You can see all all three files
+generated basically per single CSAF
+document. You got the actual document,
+and then of course the
+the signatures. signatures referenced,
+yep. And then not in the picture, the uh
+changes and the ROLIE feed are also
+updated. Yeah.
+That's a file.
+Uh our internal tool also supports uh
+CVE services. Um it works for our use
+case. We are able to publish, sync, edit
+CVEs. Um we don't have any issues with
+that. Uh it's nice to have.
+>> Yeah, now I'm going to have Alan talk
+about quality. Oh, yeah. Uh in case
+there wasn't enough quality quality
+record conversation yet.
+We obviously in outputting
+outputting C V and C sub we want to make
+it good. We want to set very good
+example. We want to provide this as a as
+a public service. We want to actually be
+useful, right? Is there anyone here who
+would really like low quality
+vulnerability information?
+>> I don't believe you.
+>> you raise your hand?
+Right. Okay, just checking. Thank you
+John. That was worth asking.
+I think um
+I think everybody can appreciate the
+need for that, right?
+Uh in our mind in an extremely
+simplified highly conceptual way, right?
+The quality records have to be
+consistent. They have to be accurate.
+And if they're both of those things
+then they're they're probably be
+actionable, right? If they're
+useful records, they're going to be
+actionable. Um
+We
+Yeah, again, we really want to be a
+reliable provider, right? That people
+can count on and look to as an example
+for good records.
+And any anybody reading a quality record
+will know what the issue is and whether
+or not they're effective, basically,
+when it when it boils down to it.
+just because your JSON meets the
+specifications to be a valid C sub or C
+V document does not mean that the data
+is actually good, right? There's
+data quality issues abound in our world.
+Those can be addressed in a lot of
+different ways that we don't have to
+discuss entirely right now.
+But the the coordination process for us
+is is a is a massive part of this,
+right? Getting
+quality information means digging into
+all of these things, right? Figuring out
+what the actual attack vectors are.
+Figuring out what the real impacts are.
+Figuring out where in what component the
+vulnerability is really in. Um again,
+the important takeaway here is that the
+formats alone do not solve the data
+quality problems. The formats You can't
+engineer a solution to
+a philosophical problem. You might have
+You might have caught that talk.
+the more we can automate, the more we
+can have our tooling uh
+sort of do these these nitty-gritty
+parts for us, um the more we can spend
+time on the confusing parts, on the
+nuance, on the coordination,
+banging down vendors' doors to get an
+answer, or really getting the reporter
+asking the reporter the right questions
+to to figure out the nature of the
+reported vulnerability.
+Huh.
+>> It's a lot, right? There's There's lots
+of room for improvement here. Um there's
+There's lots more of this that we're
+going to be doing. We all expect maybe a
+a tsunami of vulnerability reporting to
+come in.
+Knowing what's next is going to be a big
+deal, right? Uh and and
+what we really want to to engage with
+all of you on are the the hard parts of
+this and the potential for improvement,
+right? Uh and and what that really looks
+like. Um so, I'll I'll let Jono
+elaborate on this a little bit, but I
+can click through for you if you want or
+So, I guess you might want these things
+to actually work easily and across all
+of your different pieces. And of course
+they work easily, but the CSAF
+actual publication process
+like has its own little race condition
+in it. Like that doesn't seem like
+that's the the optimal way for that half
+to work that you need to like set up a
+race condition for yourself that you
+have to somehow win to get the self
+reference to work.
+Which we do, so I guess it's fine.
+>> Yeah, sort of, yeah. It's fine after
+like 3 hours usually.
+>> Yeah, so that's probably good enough,
+right? 3 hours never matters in our
+industry.
+Yeah, so it's it's like it's not
+I guess it is a race condition. Well, I
+mean it is.
+>> It is. It is. When when we publish the
+when we when we push a record to GitHub,
+right? Rather than publishing a CVE
+first with a with a
+Uh actually, sorry. We publish the CVE
+first and we accept that the link to the
+the GitHub CSAF is
+temporarily broken. It it is a pull
+request for a little bit and then once
+it's merged, that that link actually
+works. Um
+but yeah, the the we do that rather than
+going with a uh
+reserved but public situation, which is
+a big no-no in the CV world, so
+So, there seems like there should be a
+better way to resolve that, but we're
+not totally clear what that would be
+yet.
+the field mapping,
+right? So, for the status, the field map
+is sort of fine. There is the one like
+sort of overloading in the CVE field,
+but
+like CVSS version four, some of the
+um extra fields mapped as SVC fields
+like exactly right now. Do those need to
+be
+documented in both ways?
+there's also just like
+this is a semantic mapping problem.
+Whereas, you can do the syntax,
+but just cuz you have the syntax in
+there correctly, like what does the
+meaning mean? How do we want these
+things to map between different
+specifications or formats? Is not a
+super obvious question.
+And of course, like
+CSAF is great for machine-to-machine
+communication, except for the machines
+don't automatically understand the
+semantics. So, someone's going to have
+to look at it eventually.
+But you don't want to just be shipping
+PDFs around, cuz then the machines can't
+really read them.
+And you want to be able to generate
+HTMLs, but there's not really I mean,
+you can do JSON to HTML, but like it's
+not super fun. Ben's shaking his head,
+cuz he's like, "Nah, it doesn't work."
+But like it I don't know. If we're going
+to stop in markdown somewhere along the
+way, like yes, but like
+do we need to standardize that?
+Or at least make sure we're all using
+the same flavor of markdown, so we're
+not Someone's not using GitHub-flavored
+markdown and someone's not using other
+flavor of markdown and use the wrong
+flavor and it doesn't work anymore and
+whatever.
+and as these things change, they have to
+change together, but they're all run by
+different organizations that don't have
+to change together. And right now we
+just sort of all are trying to be nice
+to each other
+cuz we all want it to work.
+But like
+that doesn't seem optimal.
+I mean, this is like a a technical like
+I guess I don't know.
+If Owen and Tyler both look at the same
+text and let's pretend that we've
+somehow controlled that they're looking
+at all of the same information and
+they're trying to like agree on what the
+value of a CWE should be.
+Let's control the information and like
+ignore the fact that they might just
+learn different things. But they're
+doing different cases
+or they're doing the same case but
+differently, right? We need to make sure
+that they agree as raters on the CWE.
+And that's like sort of a thing about
+the CWE spec. Sure. Cuz if two people
+with the same training and the same
+information and the same case
+assign a different identifier
+like there's nothing we're going to do
+about that in the
+system or the automation
+that's going to fix that problem.
+And it's not a training problem for our
+beautiful analysts over here.
+Right? It's a problem with the
+identifier system that it doesn't allow
+for good inter-rater agreement. Which is
+probably a thing that we should be
+asking the standards to measure when
+they're making their standards.
+Like how would the world be different if
+we asked the CWE folks
+to measure inter-rater agreement before
+they published a new version and try to
+optimize on it?
+Like at least we would know ahead of
+time
+what the pain points were,
+Um and of course you can do that if you
+have control over your identifiers or
+the things you're assigning.
+So like if you're writing your own SSVC
+questions, you should probably test for
+this amongst your analysts.
+But if it's something that you don't
+have direct control over, then that's
+harder for you to test.
+we'll take some questions. My icebreaker
+is what does the E in CWE stand for?
+Enumeration, yes. What does the E in CVE
+stand for?
+Exposures.
+Why?
+>> Yeah.
+He's giving his own great talk.
+I'll ask him after. So that was my
+question. Now you guys get to ask
+questions.
+Or or offer us suggestions or tell us
+that some part of this looks completely
+insane. It might be. Or like if you want
+to collaborate or you make use of
+whatever or have your own pain points to
+share as we've gone through this. Like
+have we have reinvented some wheel that
+we didn't know that you had already
+made? Yeah, is anybody else doing a
+similar workflow to produce CVE and
+CSAF? The coordinators out there? Yeah.
+Can we have your wheel? Yeah.
+Our wheel is still kind of
+square.
+Uh okay.
+Okay. So at least we're all working on
+it together. Yeah.
+For advisories, are you considering CSAF
+advisory format?
+CSAF?
+It has an advisory format as well. You
+were talking about like standardizing
+the advisories. Oh.
+Can you repeat the question for Mike?
+Oh sure. The question was are we are we
+considering CSAF advisory format? Or
+like the
+like CSAF security advisory format I
+think is the different profile. Like
+sharing the advisories and in
+it. Mhm. Yeah, so I I mean
+currently we share our CSAF's via the
+the cisagov GitHub basically um and
+they're
+rendered on another sort of app site
+CSAFer we call it, but um
+we
+the the actually getting them to
+consumers is is kind of the challenge,
+right? There's there's
+and again, I think that's the thing
+where the the the format the advisory
+format isn't going to solve the the
+you know, sort of in more interpersonal
+uh you know But we do publish CSAF when
+we publish the other things. At least we
+like are trying to publish the
+structured data format. Mhm.
+>> We didn't do that good of a job. Someone
+else ask a question.
+Yeah, please.
+Anyone know when CSAF 2.1
+will be out
+with this, you know, to help support
+this work, but other other things as
+well?
+I know I don't think our I don't think
+Thomas is here. Justin wasn't able to
+make it.
+>> Justin was not make it.
+Who?
+Me?
+Vivek, do you know?
+Soon?
+Well
+>> I'm partly complaining. Yeah, there it's
+on it's out it's public
+It's public preview, right?
+Yeah.
+So CSAF 2.1 will fix at least some of
+these
+big red X's that were on our slides.
+So real soon now.
+You can keep that hat on, Ben.
+Getting annoyed with it anyway.
+So, this is maybe
+beyond your opinion, but given that
+you've integrated these things or beyond
+like your ability to
+resolve this conflict.
+Why do we have two things for
+communicating information about
+vulnerabilities?
+So, CVE is also a large structured JSON
+data that has some overlapping
+information with this with CSAF, right?
+And [snorts] so, you've built something
+that we can translate between the two
+and we can
+include VEX.
+Um so, I I it feels like we need to Is
+there a path where we separate the two
+and we say CSAF is about the advisory,
+it's about what software is affected,
+it's about these things. We shouldn't be
+doing that in CVE, so let's not.
+So, like
+in your opinion, if you were to start
+over, would you like to not have to
+integrate these things because we did it
+differently?
+That That sounds easier, certainly.
+Um yeah, I think there's there's
+probably more than just the two that we
+use, too. You know what I mean? I And
+And these are
+we land on these because they're they're
+in use, right? They're There's a
+There's a community of practice for
+these things and people actually read
+them, so that's what we want to do.
+>> I I practically absolutely like I want
+my machine readable CSAF or I want Well,
+I want a machine readable CVE, but they
+have different purposes, but it seems
+like they're so overlapped that I'm just
+wondering did we take a misstep however
+many decades ago?
+But I mean, they're boundary objects,
+right? And so, they're providing for
+communication and anytime you have
+boundary objects, they're going to have
+overlapping trading zones where they're
+useful.
+And that means there's going to have to
+be some overlapping fields cuz otherwise
+you can't correlate them. Right. So, it
+could be
+a name.
+>> Or maybe it's a canonicalized name that
+was well defined and shared between the
+two formats.
+If we solve the naming problem pretty
+pretty easily.
+like
+and then there's actually
+right cuz it's part the things that
+you're talking about that they overlap
+with are other independent things that
+both of them want to include.
+it's a little bit unfair I think
+to indicate that the only problem is
+that they have they've redefined
+like they're both importing like oh are
+you mad that your library also imports
+another library that someone else also
+imports? Like usually not right?
+But what I'm saying is like to MC's
+point if if they're working they they F5
+issues their advisories in CSAF format
+and it includes products that are
+affected why are we populating CPE
+fields in the CPE?
+Good
+question cuz we got to we are cuz people
+get them from different places. No,
+exactly and I think it's more than
+anything in the interest of
+oh no no I'm like really curious about
+like what we're doing two things. It's a
+I think it's a it's a like CVE etymology
+question really like how we even came to
+this point and it's that's that's before
+me entirely maybe not.
+There's some
+so
+if you're just asking like a historical
+question right? Well, I know like
+historically Yes. Yeah. I think a lot of
+it was parallel evolution.
+Cuz CSAF came from CVRF and it's
+probably CVRF too
+and when CVRF [snorts]
+was only created CVE didn't have as much
+data fields that does and so there was a
+there was
+driver from different communities we
+wanted to add more information we want
+more here more here and
+parallel evolution happened everything
+started to fall apart.
+Yeah, we've characterized our
+>> vulnerability formats.
+We might have lost them.
+And you have translation between the
+two. Exactly. Exactly. No, I I think
+that Yeah, convergent evolution is a is
+a great way to put
+Absolutely. It has historically been
+dangerous if you have one ring to rule
+them all. Right. So maybe we don't
+historical fictionally [laughter]
+There's literature on the matter. I
+believe it's high fantasy, so it's not
+really
+It's actually cuz Tolkien thinks it's
+the history of
+England before So actually it is
+>> Absolutely. Yeah, there are there are
+circumstances where where somebody might
+want to push uh you might want to have
+an advisory, but the the subject is not
+actually qualified for a CVE also, so
+yeah. Yeah.
+Cuz not not all vulnerabilities get CVE
+IDs justifiably and on purpose.
+But John Dun said it's fine is the other
+answer.
+Cool. Anybody else take a shot? Or you
+can get us outside, that's fine, too.
+If not, then we'll thank you all for not
+falling asleep and for attending.
+[applause]
+>> Thank you everyone.

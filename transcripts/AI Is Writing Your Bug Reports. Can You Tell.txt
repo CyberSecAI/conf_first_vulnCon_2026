@@ -1,0 +1,531 @@
+Hello everyone. Welcome.
+Good morning. I am Khushali Dalal. I am
+a senior vulnerability analyst at One
+Identity and I do a lot of CV farming,
+coordinated vulnerability disclosures,
+and like most of you, I have seen this
+increase, the potential increase in, you
+know, the gap
+by of la- from a couple of last months
+to la- late last year, watching the
+intake side of the vulnerability
+programs change faster as compared to
+the triage side. And that's something
+that I've talked to many of you here and
+I've seen that it is top of the mind.
+It's the elephant in the room. And that
+is the gap that we are going to talk
+about in the next 30 minutes.
+Now, I want to make it clear. This is
+not a talk about banning AI. This is not
+about whether AI is good or bad or, you
+know, the AI dance. It is
+all about whether you can see. I want to
+train your eyes to see through the
+polished data, to see through whether
+this is something where which which has
+evidence, which can be treated, and, you
+know, which is something whether legit
+or it is just something that AI is
+manipulating us.
+Now, let me paint you a picture. It's
+Monday morning. You open up your inbox
+and you see there are 12 new reports in
+your inbox. And those reports are all
+well polished. They have CVSS score
+marked. There is 3.1 score, 4.0 score.
+They have CWE map to it. And everything
+everything looks legit and credible at
+the first look.
+Now, here's the problem. The report that
+reads credible vulnerability is not
+actually a report that is a critical
+vulnerability.
+Well written does not mean well
+substantiated.
+Now, let me step back a little bit.
+Things shifted in late 2025, early 2026,
+when we saw three things that came up
+and which, you know, was made this issue
+urgent issue. Number one, the volume.
+What happened is we saw more reports
+more often as well as more polished.
+The second is fluency. The reports came
+in as if it is a senior researcher who
+has been doing this for years is
+writing. They speak our vocabulary. It
+is exactly what a human being would
+write.
+And the third thing is the bias.
+When something sounds confident, when
+something sounds urgent, humans are tend
+to think that it is important. It's just
+human psychology. So, that is what has,
+you know, created this issue to be an
+urgent issue this days.
+And to to me, honestly, the risk isn't
+about slow triage. Of course, it is, but
+most of the time it is fast triage, but
+a wrong triage. That is where we are
+spending our cycle.
+And the proof is in the pudding. I've
+quoted some of the examples here. These
+are not hypothetical examples. These are
+all real examples in the industry. Curl
+decided to shut down their bug bounty
+program as of January 31st, 2026.
+A tool that is used by billions of
+devices.
+And no more public bounty
+because the signal to noise ratio
+literally collapsed.
+And GitHub medicine, who who is also
+part of the conference here, she
+reported that there was a 224%
+increase
+in the volume that they were receiving
+over 90 single 90-day period of window
+and she flagged that the quality of AI
+report AI-generated reports that they
+were receiving was a major operational
+issue.
+Now, the pattern across all three
+reports that we see here
+are more polished at intake, more burden
+on triage, and we need more to delay to
+trust until you find a real artifact in
+what is happening in the report.
+Now, it this this is already happening
+in all three of these companies and many
+more to whom I have talked here in the
+past few days, and I'm sure it is top of
+your mind, too.
+Now,
+All right. So, here's how it's going to
+work. Uh this is going to be fun, I
+promise.
+In the next 20 minutes or so, what we
+are going to do is I'm going to share
+three use cases with you, real-world use
+cases, where I will ask you to vote and
+tell me what do you think? Is that
+report AI-generated? Is that report
+human-written? Or it is a combination of
+human plus AI-assisted?
+So,
+there will be few things that you will
+look at and uh you will know what what
+I would I would really appreciate if you
+look at it and your first instinct, what
+it tells you what what it is, how it is
+generated. If you vote that way, they
+will know exactly how it works in
+real-world triage system.
+Now, the goal here is not to turn you
+into an AI detector. That is not I would
+what I would like to do because
+detection is completely losing the game.
+Models are improving every single day.
+So, detection is not going to help us.
+What is the goal is and what is going to
+help us is to build a habit, a triage
+habit, that we can score on
+confidence rather than the fluency of
+the text. And we want to score and, you
+know, look at the evidence and not the
+packaging that is around it.
+Now, before I show you the example, one
+thing,
+um
+you know, I want to arm you with the
+lenses that when you look at the report
+across the three reports that I'm going
+to share, you will see patterns that
+look credible on first read, but then
+eventually when you go through it at
+validation, it just falls apart.
+Now, here's one suggestion. Do not focus
+on the writing quality. Rather, if you
+support If you look at the claims, you
+look at the validation, it will help
+help you analyze where and how these
+reports are coming from.
+All right. Are you ready? Case one.
+Um I would really appreciate if you
+could pull off your phones and scan the
+QR code. Trust me, it is not a trick.
+Uh completely legit. And I will go ahead
+and activate the question from my end.
+So, you could see the very first case.
+Give you a minute to read through the
+example on the screen. This is a
+description
+with this information, critical
+unauthenticated RCE in Acme controller
+GraphQL API. We have the CVSS score
+which says 9.8.
+You have all versions are affected.
+And then it's internet exploitable.
+Going through the description, going
+through the reported impact, what do you
+feel whether it is AI generated, whether
+it is a human who wrote this report,
+or it is a combination of both?
+And I do not have the ability to share
+my or facility to share my screen here
+to show you the results, but I do have
+on my phone to see what inputs you are
+putting in. So, as soon as you guys have
+done it, I will share the result.
+Okay, I see the inputs coming in.
+And if you're worried I can see your
+name or IP address, I cannot. You can be
+completely anonymous. You can be Tom and
+Jerry, Pokémon, whatever name you want
+to put in.
+All right.
+Interesting. So, I have
+it's still coming in, but I see
+between 40 to 45% of you think it's an
+AI generated.
+22% of you think it's a human written.
+And 30 to 35% it says both human plus AI
+assisted.
+Well, here's I Let's see if this
+thing works. Yes. So, one thing that I
+want to point out here is if you read
+this sentence, this issue is exploitable
+without authentication.
+And then in the same sentence if I come
+little bit down here, it says
+in my POC
+attached, successful exploitation
+required admin only privileges.
+So, in the same statement it's
+contradicting itself. At one point it's
+telling me that no no authentication is
+required. At the same time it is giving
+me privileges are required as admin
+level.
+So, that's some signal there.
+Um and with that, let me show you the
+verdict.
+This is mostly AI generated. And why do
+I say this? It has a very smooth
+narrative here. Uh it has a weak
+validation beneath. There was a CVE ID
+attached to it, which does look after
+doing some research did turn out to be a
+hallucinated one.
+And if a human researcher would have
+found this and reported, there would not
+be a contradictory information going on
+or there would be a clarification on the
+contradiction which was there on the
+description itself.
+Now, with this information in mind, my
+suggestions are, let's say you got this
+report and what are the next steps that
+you would want to do? Ask questions. Ask
+follow up and I'm sure you would be
+doing it. Ask for raw data. Ask for POC.
+Get back to the report, you know, and
+ask whether what versions were tested
+even though if it says all versions,
+ask whether, you know, the remote
+diagnostics that was enabled is it on by
+default? And that's why it has to be
+turned on or not. And this follow-ups
+will, you know, give you a bit of an
+idea
+whether it is a report that you want to
+spend resources on or not.
+And you know what? If it is something
+that
+it will prove itself or it will collapse
+if if you don't get the response back on
+time or even if you will the response
+sometimes also is very hallucinated if
+there is no valid claim underneath.
+All right, case two.
+Let me make sure the case two is active.
+You might still see case one.
+And
+there we go.
+So, it's This is a privilege escalation
+via support bundle upload. Already
+different from case one. One thing, you
+see the title, notice it is specific. It
+Oops.
+It took away the fun.
+Um
+Okay.
+So, where is it? Okay. It already says
+it is tested on a specific version as a
+low privilege. There is a role which is
+attached to it. Give you a minute to
+read through the description and then
+vote. And assume you didn't see the next
+slide.
+All right. I love it. Already majority
+of you think this is not AI written.
+Great.
+So, 6% AI generated, 72% of you think
+it's human written, and 22% of you think
+it's human plus AI generated. Now, as I
+already pointed out few things that
+those are signal, the claim impact is
+massive here. You see admin compromise,
+there is a full environment takeover,
+and sensitive data access. Now, if this
+impact that I see here, there is no much
+description to it
+to to prove whether this claim is valid
+or not. Though they have description,
+but it doesn't resonate with what the
+full blast radius is talking about.
+So, that could be real, that could not
+be
+but based on the data that we have, this
+is human found and AI packaged it.
+So, this is the most common pattern that
+we are seeing, and honestly, this is the
+most dangerous one. Because if we
+oversee it, we are going to miss on a
+real security vulnerability.
+Because this is a real vulnerability
+here, a triager who dismisses
+it because just the language feels
+inflated or even, you know, we feel that
+there is not enough information, there
+are good chances, as I said, that we are
+going to miss a genuine bug. So, here's
+I would do. We would separate
+information which is confirmed bug from
+a claimed blast radius. What is exactly
+given to us? What information we have in
+hand? What the the researcher actually
+observed? They
+modified the manifest and influenced
+admin interface.
+Uh you saw in the description, that's
+confirmed the findings. They scored that
+and not the full environment takeover
+story wrapped around it. That wasn't
+anywhere explained properly.
+So, preserve the evidence that you have
+in hand.
+Trim the narrative and score only the
+information that is verified and
+validated at this point.
+And with that, I want to go over to the
+next and the last example. This is my
+personal favorite.
+Let me go ahead and activate that one.
+All right. Maybe
+maybe authentication bypass export issue
+in API V2 reports download.
+Take 30 seconds, grasp it, ingest it,
+read through the description, and notice
+how it feels different compared to case
+one and case two that we saw.
+Okay, so before I share the scoring, uh
+the votes that I see here, I want to
+read uh you something from the report.
+It says, "I was logged in as a
+viewer-only user and downloaded a report
+from reports page. I copied the request
+from the browser network tab and
+replayed it after changing the ID
+parameter to another report ID. The
+application returned this this this."
+So, now here, what's different is I
+don't see a CVSS score attached.
+I don't see a full environment takeover
+impact mentioned.
+Just here's what it what I did, it the
+reporter or whoever wrote it says,
+"Here's what happened and here's how you
+can replicate it." There's exact steps
+given for you to check and validate by
+yourself how this happened.
+Now, does that feel a little less
+impressive than the case one that we
+saw? It had good language in there, it
+was fluent enough, but very different.
+It starts with maybe. I mean
+the report itself. So,
+it doesn't feel as impressive. Yes, I
+agree.
+But, the question is which report
+actually helps you to triage? What helps
+you to go through the next steps faster?
+And the results are
+only 6% of you think this is
+AI-generated. 71%
+says human-written.
+And 24% thinks it is human plus
+AI-assisted. And majority of you got it
+right. It is mostly human-written.
+And why do I say this? It is low polish
+and high signal.
+Why it is high signal? There are few
+things that we saw in there. The
+specific endpoints and product versions
+were mentioned.
+Concrete rolled and observed behavior
+was mentioned in the data.
+No inflated certainty, no fancy wording,
+and you know, no borrowed severity
+language, whether it's this score, that
+score, or assumptions, anything.
+Now, this is the type of report you want
+to see. These are some of the things
+that, you know, we want more and more.
+So, not because it's written
+beautifully, and it isn't. It just
+literally started with maybe.
+because it would take you less than or
+maybe 10-15 minutes to replicate from
+the steps that were mentioned,
+that specific endpoint, that specific
+details, exact steps, observed behavior
+document. Those are stronger facts.
+Those are the ones that will help you
+to, you know, do the faster triage
+system. So, that strong facts always is
+going to beat stronger writing
+that we saw in case one.
+Now, I do want to point out some of the
+things here that you see on the
+right-hand side of the screen, the
+concrete triage habits to carry forward.
+What I would do with this data is rerun
+the exact request against the second
+report ID that it was mentioned in the
+report. Test the same request as a
+different low privilege role to confirm
+the scope. Verify for other versions
+before assigning severity. This is very
+crucial. When we get a report, we are
+tend to or we, you know, incline on
+getting the score out and thinking about
+how would it impact or not, but if we
+actually look at what hand and score it
+at that level and then readjust the
+scoring eventually when we get to more
+details.
+And if the behavior holds, source the
+verified truth. So, rule of thumb, as I
+already said, stronger facts is always
+going to beat the stronger writing these
+days.
+So, three different cases, we went
+through three different scenarios,
+different signals.
+Now, let's talk little bit about what do
+we do with this. I did touch on it while
+during going through the cases,
+but some things that are going to be
+helpful and our future recommendations
+here.
+You can all do this on Monday morning.
+At intake, require more data. Require
+for details like tell me the version,
+tell me what environment setup this
+works, or give me authentication states
+that is going to be implemented. Make it
+a part of your submission report. I'm
+sure it would be at this point.
+Make it a template that you need this
+information in order to triage it
+further. And ask for expected versus
+actual behavior.
+And in the follow-up, let's say you
+already got the received the report and
+you are doing the follow-ups with the,
+you know, researcher, so-called. Ask one
+or two domain-specific questions.
+A
+a shallow model, that's what I've seen
+and, you know, looked in the research. A
+shadow model
+shallow model won't bluff and, you know,
+it will not come through if you ask very
+specific question about the report.
+A researcher who actually reproduced it
+will get back to you right away. They
+want to make sure that it is, you know,
+taken care of. So, a padded report won't
+survive the follow-up is what will help
+you while during the triage.
+And always, we saw as well, separate the
+confirmed bug from the claimed brass
+blast radius. Score the verified truth
+and not the imagined worst-case scenario
+that it could be this or that or full
+compromise of the system.
+And with that, I want to give you a
+mnemonic to take home, and it's called
+pause.
+Now, I do not mean pause in literal
+sense because we should not and we
+cannot pause at this point.
+But, pause in the sense like slow not
+slowing down unnecessarily.
+As in take a minute or two intentional
+investment when you receive the report,
+before you commit to scoring, before you
+commit to, you know, getting into the
+nitty-gritty, and that drives the
+remediation priority, parse the claim,
+reduce the report
+to one testable statement.
+Ask for artifacts. We already saw if you
+have a proof of concept, if you have
+screenshot, if you have logs, that's
+that's what is going to help you to
+evaluate further.
+Understand the precondition. What's the
+version? What are the features that I
+need to enable in order to make sure
+this works? And then score confirmed
+impact, not imagination, evidence that
+is in hand and has been validated.
+Scoring on that basis.
+And last but not least, evolve the
+workflow. Add checkpoints, metrics, and
+feedback loops. That is what is going to
+help PSIRT teams and vulnerability
+management teams to score as well as to,
+you know, triage through this difficult
+scenario where we want to see whether it
+is a legit report or not.
+And with that, the examples and
+indicators that we covered today are in
+point um you know, snapshots and AI
+capabilities are evolving faster than
+any rule set any one of us can think
+about. So, the goal isn't to memorize a
+checklist here.
+That is to build a habit of, you know,
+going to the evidence first every single
+time.
+Now, with that,
+I am right on time. We have five more
+minutes. I'm happy to take on questions,
+and I want to understand how your teams,
+uh you know, are handling AI-assisted
+submission volume, or uh what signals
+are you actually seeing um in in your
+queue? How how do you build the triage
+intake template to surface the right
+pre-conditions.
+Any questions?
+Thank you very much. Uh, if we don't
+have any questions, we will start our
+next talk in here in uh, 10 minutes.
+Thank you very, very much for the great
+presentation.
+>> [applause]
+>> Thank you.

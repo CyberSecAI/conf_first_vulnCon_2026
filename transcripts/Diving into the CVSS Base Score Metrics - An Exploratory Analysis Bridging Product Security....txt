@@ -1,0 +1,659 @@
+Thank you for the introduction.
+Let's start our presentation in this
+title.
+This is today's agenda.
+I'm Kohe Taguchi from Panasonic Holdings
+Corporation.
+This is my first time presenting at an
+event like this.
+So, please go easy on me.
+And he is he is Yuji Kikuchi, also from
+Panasonic Holdings Corporation.
+First, I talk about background.
+Panasonic has been learning project
+Astrea since 2017 using threat
+intelligence to fight against IoT
+threats.
+The main goal is to protect Panasonic
+products and our customers from cyber
+As a product manufacturer, we receive
+vulnerability reports from inside and
+outside the company.
+And when a vulnerability is found, we
+must consider how and if to fix it
+depending on
+status of the product.
+This makes it difficult to make correct
+decision
+at the time of response.
+In this study, we will try to present a
+method to approach vulnerability
+response.
+First, I will explain the outline and
+purpose of our study.
+As mentioned earlier,
+uh we want to choose the best
+countermeasures for our products. So, we
+came up with this theory.
+Many responders often use the CVSS base
+score to decide whether they needed to
+take action.
+However, this score doesn't consider the
+development environment or the user
+environment of each product.
+We thought that
+some of the metrics in the CVSS basic
+score might contain useful information
+for prioritizing vulnerability response
+in products.
+By analyzing CVSS metrics in more
+detail,
+we may be able to create a response
+rules that match the usage environment
+of each product.
+In this study, our first goal was to
+identify common aspects of
+vulnerabilities with a published basic
+score of medium in IoT products.
+Why we focused on medium vulnerabilities
+will be explained on the next slide.
+Traditionally, developers and the users
+of products are respond quickly to
+vulnerabilities with a CVSS basic score
+of high or above.
+On the other hand, vulnerabilities with
+a basic score below high are often given
+lower priority.
+However, even medium-rated
+vulnerabilities can sometimes be
+exploited in the early stages of an
+attack chain.
+As an example, let me introduce
+CVE-2024-45842
+and CVE-2024-47005.
+is a fast validation bypass
+vulnerability in a multi-function
+printer with a CVSS basic score of 5.3.
+Because the device improperly handles
+HTTP PUT requests, attacker can access
+the internal files.
+These files may contain authentication
+information or configuration data.
+CVE-2024-47005
+is an access control issue where
+configuration APIs intended only for
+administrators are not restricted
+properly.
+As a result, attacker with only general
+user privileges uh can
+execute admin APIs.
+In other words, to exploit this
+vulnerability,
+the attacker must at least be logged in
+as a general user.
+A possible attack scenario may result in
+attacker obtaining information uh to log
+in and run admin-only APIs.
+This example shows that
+uh leaving
+leaving medium-level vulnerabilities uh
+unaddressed can create a risk of devices
+falling under attacker's control.
+Therefore, in this study, our goal was
+to identify common aspects uh among
+medium-rated vulnerabilities that can
+lead to serious situations when combined
+with other factors.
+The target of our study is to find
+high-risk vulnerabilities among the IoT
+product vulnerabilities
+that are classified as medium by the
+CVSS base score.
+To do this, we collected vulnerability
+information from various types of
+uh various types of IoT products and
+analyzed it using metrics such as CVSS
+and CWE.
+First, I will explain our research
+method.
+In this study, we selected
+vulnerabilities published in 2023 and
+2024
+that met two conditions.
+The published CVSS base score is medium.
+And the affected product is an IoT
+device.
+As a result, we extracted 424
+vulnerabilities that match these
+conditions.
+And this became the data set for our
+analysis.
+In addition, for this study,
+we also used information collected by
+the IoT honeypot,
+which is part of Astera project.
+We used Panasonic home appliances as
+honeypots to observe attacks from around
+the world in real time.
+In this research, we analyzed the attack
+data captured by this honeypot
+and used it to support our study.
+Next,
+I will explain the data analysis phase.
+As metrics for reviewing trends in IoT
+product vulnerabilities, we used CVSS
+We obtained information uh related to
+these indicators using the REST API
+provided by the NVD.
+Also, there are several versions of
+CVSS.
+Uh we focused on CVSS version 3.1.
+In this study, we focused on the base
+metric group.
+From here, I will talk about the
+analysis results.
+This table shows the number of
+vulnerabilities in our data set, grouped
+and ranked by the combinations of their
+base score metrics.
+From this result, we can see that most
+of the top-ranked vulnerabilities are
+those that can be exploited over network
+connection.
+This is not surprising because our study
+focused on IoT devices.
+In the following sections, we will focus
+on metric combinations that appear most
+frequently
+and explain what kinds of aspects of
+vulnerabilities
+uh in each combination have.
+First, I will share the results for the
+metric combination that has the largest
+number of vulnerabilities.
+Looking at the product categories,
+OT devices were the most common, making
+up about 42%.
+Uh followed by routers in second place.
+From the CWE perspective, we found that
+many vulnerabilities were classified as
+improper control of resources and
+improper access control.
+We also checked whether any attacks
+targeting this metric combination were
+observed by the honeypot we operate.
+As a result, we detected attacks that
+attempted to exploit CVE-2020-14181.
+This vulnerability is classified as
+CWE-200,
+uh information exposure,
+and attackers were trying trying to
+check whether specific users existed on
+the device.
+Based on these results, we can predict
+that
+vulnerabilities belonging to this metric
+combination uh are likely to be
+exploited in the initial phase of attack
+chain,
+such as initial access to the device.
+If this type of vulnerabilities is left
+unpatched,
+it may lead to
+uh later stages of attack, such as
+privilege escalation or complete device
+takeover.
+Furthermore, because we actually
+observed attacks in our honeypot,
+we can confirm that
+real attackers are attempting to exploit
+such vulnerabilities.
+This indicates that such vulnerabilities
+should be addressed as soon as possible.
+we explored the aspects of
+vulnerabilities that can be exploited
+over network connection and that affects
+availability.
+we found that smart home devices were
+the most common,
+which is a notable result.
+From the severity analysis, CWE-787,
+out-of-bounds write, appeared most
+frequently,
+accounting for about half of all cases.
+Because vulnerabilities in this metric
+combination affect availability, they
+can become very high risk in
+environments such as OT sites,
+where those attack could cause
+production line stoppages or similar
+operational impacts.
+Through this study, we realized that
+even vulnerabilities classified as
+medium should not be reviewed only by
+their CVSS base score,
+but also by considering what kind of
+benefits an attacker can gain by
+exploiting them.
+This viewpoint is important for
+understanding the real risk of the of
+each vulnerability.
+There are two possible reasons why our
+honeypot observed only one related
+attack case.
+The CVE samples uh used in this study
+mainly targeted individual devices,
+and we limited our analysis to only the
+top 10 metric combinations, which
+reduced the variety of samples.
+Because we selected samples based on IoT
+vendor's viewpoint,
+the scope of our analysis was narrowed
+at the early stage
+and didn't examine wider range of
+patterns.
+In addition, creating the data samples
+required considerable amount of work, so
+we couldn't perform more extensive
+testing this time.
+However, at our first attempt, we were
+able to build a basic process that can
+be reused in future analysis
+and we consider this a significant
+achievement.
+Here, I will summarize the results
+focusing on this specific metric
+combination.
+In this combination, the attack
+condition shows that the vulnerability
+is very easy for attackers to exploit
+because it requires no privileges and no
+user interaction and can be attacked
+over network.
+However, because the impact is limited,
+confidentiality equals low.
+The base score was classified as medium.
+In our honeypot, we also observed
+attacks targeting vulnerabilities
+which belongs to this metric
+If an attacker obtains leaked data
+through such vulnerabilities,
+they may use that information as a
+foothold to access the internal system
+and exploit other vulnerabilities in a
+chained attack.
+As a result,
+the impact may expand beyond the
+original scope
+potentially affecting integrity or
+availability
+even though
+these were not included in the original
+base score.
+Considering that
+these medium-rated vulnerabilities can
+still serve
+uh as the starting point of an attack
+chain. We believe that vulnerabilities
+in this metallic combination should have
+patch released and applied as quickly as
+possible.
+In terms of vulnerability response at
+Panasonic, we need to consider both the
+developer and the user viewpoints.
+From the viewpoint of product
+developers,
+this analysis result can help decide
+which vulnerabilities should have should
+receive priority for patch release.
+For products used by general consumer,
+such as IP cameras or DVRs,
+developers need to consider the
+possibility that the vulnerability might
+be used for device takeover, uh, in
+later stages of an attack.
+On the other hand, for IoT products in
+factory environments,
+the impact on availability is especially
+important
+because a DOS attack could stop a
+production line.
+Therefore, the priority for fixing
+vulnerabilities should reflect the usage
+From the viewpoint of users of IoT
+products,
+not limited to Panasonic products,
+this analysis can help determine the
+right counter measures
+based on their development status and
+the usage environment.
+In particular, for products used to at
+factory sites,
+closer attention must, uh, be paid to
+impacts on availability.
+If the vulnerability requires general
+user privileges to exploit,
+another effective measure is to
+strengthen weak passwords, uh, such as
+those that are the same as the username
+or simple passwords like 1 2 3 4 5 6 7
+8.
+In this way,
+for manufacturers like us who have both
+the developer and the user roles,
+it is extremely important to respond to
+each vulnerability flexibly and
+appropriately from the appropriate
+perspective.
+In the next part, Yuichi will present
+another analysis using real-world data
+from a different viewpoint.
+I'm Yuichi again.
+So far, we have examined the
+vulnerability trend of CVSS base score
+median based on public CV data.
+However, public data alone does not
+reveal the relationship with issue
+occurring in the development environment
+where actual attack trends.
+Next, we will compare two data sources
+using CWE as a common language, product
+security testing results, and attackers
+observed through IoT honeypot.
+From the IoT honeypot, we extracted
+vulnerabilities observed by the IoT
+honeypot over the 2-year period from
+2022 to 2024.
+This include both CVSS high and low
+vulnerabilities.
+Here are the cluster results of CWEs
+assigned to CVs observed in the IoT
+honeypot.
+The most frequently observed were
+injection type vulnerabilities with OS
+command injection at the top,
+followed by SQL injection and others
+ranking high.
+The next most common were
+vulnerabilities that do not require
+authentication,
+path traversal CWE-22, and
+vulnerabilities that allow manipulation
+of critical functions without
+authentication were frequently observed.
+>> [snorts]
+>> From these results, we can see that
+attackers are firstly targeting
+vulnerabilities that allow them to
+obtain information or take over device
+privileges without requiring
+authentication.
+>> We will organize and classify these CVEs
+not by individual IDs, but by pillar
+categories.
+Looking at the overview by pillar,
+we can see that many are focusing in
+pillar 707 in proper neutralization.
+On the other hand,
+authentication-related weaknesses
+classified under pillar 284 account for
+only about 12% of the total,
+which is not particularly high.
+Authentication-related weaknesses
+classified
+Oh, sorry. Which is not particularly
+high.
+From these results, we can consider that
+attackers may tend to gain access by
+exploiting issue in input processing
+rather than directly bypassing
+authentication itself.
+Security testing at the Panasonic
+Product Center mainly targets Panasonic
+products prior to shipment.
+The aim is to identify and address as
+many issues as possible to prevent
+security incidents.
+>> Next, I will explain the results of IoT
+security testing.
+The cluster condition are as shown on
+the slide.
+The target period covers there 3 years
+from 2022 to 2024.
+And we extracted and clustered only the
+testing results for IoT devices from the
+testing conducted during this period.
+As a result, around 2,000 issues were
+discovered in total.
+A total of 80 types of CWIDs were
+identified.
+Since the root cause is sometimes
+unknown at the time of submitting the
+testing report,
+CWEs classified as discouraged, such as
+CWE 20 and CWE 200, are also included.
+Looking at the ranking, CWE 200,
+information exposure, is in first place,
+indicating that issues where information
+is unintentionally exposed through logs,
+responses, and configuration information
+are relatively common testing results.
+Additionally, CWE 1395, dependency on
+vulnerable third-party components, are
+also ranked high.
+This is firstly assigned when the use of
+software components with known CVEs is
+detected.
+Since final product manufacturers depend
+on many OSs and middleware components,
+this typically ranks high.
+From these results, IoT product testing
+revealed many weaknesses stemming from
+design and configuration issues,
+such as information management, initial
+settings, and dependency component
+management, not just implementation
+bugs.
+We also analyzed the testing results by
+mapping them into the CWE 1000
+structure.
+As a result, we found that CWE 64,
+improper control of a resource through
+its lifetime, accounts for a large
+proportion.
+In IoT product testing, weaknesses in
+design layer, such as authentication,
+communication, and information
+management, may be the primary risks
+rather than input processing issues.
+These results may also be because many
+products, such as client and certain
+devices,
+do not accept input in the first place.
+Furthermore, from these results, we
+observe the tendency for weaknesses in
+IoT products to manifest as deficiencies
+in overall system design and control
+rather than as single implementation
+This is a comparison between the
+Panasonic IoT honeypot top 25 and the
+Panasonic testing top 25.
+>> Study configuration weaknesses found in
+security testing, CWE-1188,
+CWE-319,
+provide attackers with an entry point
+for intruding and ultimately affects the
+magnitude of damage.
+And the dynamic attack techniques
+observed in honeypot, CWE-78, CWE-22, as
+execution process,
+itself that connects intruder to
+information theft.
+In other words, honeypots show what
+attackers do, while testing provide data
+showing how fast those attackers can
+succeed and what happens.
+>> Since threat change depending on the
+product life cycle phase and usage
+environment, wouldn't relying on just
+one perspective be insufficient?
+We should view vulnerabilities not as
+individual points,
+but as a line in the form of attack
+scenarios.
+>> Thinking about at which stage on the
+attack chain does each security issue
+play a role and what kind of role does
+it play should lead to effective
+prioritization of countermeasures.
+When comparing the security testing
+results with the IoT honeypot results,
+at first glance,
+there appear to be many differences.
+>> In security testing, many weaknesses
+coming from security design and
+implementation were identified during
+product development.
+On the other hand, in IoT honeypots,
+many attacks were observed that directly
+targeted functions without
+authentication or areas with
+insufficient input validation and access
+control.
+These differences can be attributed to
+the difference in perspective.
+Security testing focusing on identifying
+weaknesses that serve as the starting
+point of vulnerabilities root cause.
+Meanwhile, attackers tend to prioritize
+searching for vulnerabilities at the end
+point, technical impact, that ultimately
+lead to intro or code execution.
+In [snorts] this study, by using CWE as
+a common language, we compared
+vulnerabilities exploited in attack
+attacks with weaknesses discovered in
+They were organizing the relationship
+between the starting point and end point
+of vulnerabilities.
+Going forward, by organizing trending
+CWE that are likely to develop into
+vulnerabilities, we believe this could
+lead to more practical security response
+guidelines.
+By analyzing and providing both sets of
+data, security personnel should be able
+to address vulnerability more
+effectively.
+>> Rank issue.
+First, we could only analyze two years
+of public information, which resulted in
+data bias.
+Since these are many cases where the
+some products receive CVEs,
+there may be bias in product type and
+vulnerability categories.
+By analyzing data over longer period, we
+may be able to make new discoveries and
+eliminated chronological bias.
+>> Additionally, when we conduct various
+analysis on security testing results,
+including trend analysis or comparison
+with public information is insufficient.
+We use our own in-house metrics to for
+review, but we need to verify whether
+these metrics align with public
+information.
+Therefore, we believe it is necessary to
+continue improving our data analysis and
+testing methodologies.
+>> Regarding future work, in this study, we
+only classify public information as a
+product type level.
+Going forward, we would like to expand
+our exploration to include OSS and
+methods in IoT devices in our
+classification.
+Furthermore, we want to analyze whether
+these are issues unique to Panasonic or
+problems faced by the manufacturing
+industry, and what kind of challenge
+manufacturers like yourself are
+experiencing.
+We would like to identify possible CVSS
+metrics patterns for IoT products and
+examine specific vulnerabilities
+and response indicators.
+By organizing security issues that occur
+uh and uh discovered throughout the
+entire product life cycle from
+development to disposal, we want to
+explore whether we can respond to
+security issue more effectively.
+>> In this study, we conducted comparative
+analysis using public data, honeypot
+data, testing results, CVSS, and CVE.
+With only public data information, it's
+unclear how much impact it has on us,
+even when focusing on attack activities.
+It's difficult to understand what causes
+to potential for attacks, and even when
+focusing on root causes,
+it's hard to imagine what kind of
+attacks they ultimately lead to.
+Therefore, we believe it's necessary to
+communicate without relying on the
+single review axis,
+connecting issues between during the
+development stage the possibility of
+them manifesting after shipment and how
+vulnerabilities occur throughout the
+product life cycle.
+Within that context we want to
+distribute more information such as
+prioritize certain aspects during the
+development stage and prioritizing
+different aspects when incidents occur.
+As a manufacturer
+we need to continue showing security
+personnel how to encourage fixes and
+demonstrating what impact those
+vulnerability have on society.
+Thank you very much.
+>> [applause]
+>> We have time for one question.
+As I was looking at the data you
+provided one question that came to mind
+is since the security testing likely
+they would fix if they identified a
+vulnerability was that also a factor in
+your model that the security testing
+would be fixed that the vulnerabilities
+found in security testing would be fixed
+before the honeypot experiment would
+actually be collecting data and are
+there any ways you thought of
+abstracting that to understand the
+differences between what can be analyzed
+in security testing versus the IoT
+honeypot?
+No.
+No. Okay.
+Thank you.
+[snorts]
+>> I had a question. I saw that you wanted
+to
+potentially for a future ongoing efforts
+utilize this
+for the next year or whatever utilize
+CVS 4. How are you going to compare the
+results from 3.1 to 4 because while the
+thresholds are the same the components
+of the scales are different?
+>> Okay.
+Sorry. No, no worries.
+Let's thank the speaker again. And yeah,
+we'll be coming back in 5 minutes. Thank
+you.
+>> [cheering]
+[applause]

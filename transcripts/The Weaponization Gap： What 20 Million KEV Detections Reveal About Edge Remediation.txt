@@ -1,0 +1,1191 @@
+Hi everyone. Thank you so much for
+joining this call and uh
+I think
+I hope everything is all right. Okay, um
+thanks so much. It is the last day. We
+appreciate uh you spent time
+being here. Uh my name is Saeed Abbasi.
+Uh I'm a senior manager of uh security
+research
+at Qualys uh threat research unit and
+uh our company is uh vulnerability
+management, risk management uh and
+uh
+our team at Qualys threat research unit
+doing much of a stuff. Couple of them
+are
+uh finding new zero-day vulnerabilities,
+building new detection for any
+vulnerability that uh
+it's uh
+dropped every day
+uh and also we do research and we
+publish those. This particular talk that
+we put together
+uh is in regard to
+the edge devices and we are seeing that
+a lot of activity and a lot of uh
+vulnerabilities in that nature being
+weaponized very often and we thought
+that okay, uh we have all these threat
+intelligence plus
+we we know how long does it take for
+every single one of them to get fixed
+and we decided to partner with our uh
+data science team to uh start looking at
+the uh remediation of how long does it
+take normally uh this type of
+vulnerability get fixed across our
+customer which they are over 10,000
+globally and uh this uh
+data uh it's for 20 million
+vulnerabilities in past 4 years and
+these are all known vulnerabilities.
+They are uh known exploited
+vulnerability by
+that added by CISA to their uh KEV list.
+And before I jump into, uh, the details,
+I want to first, uh, thank our data
+science team. Uh, the talk initially
+planned, uh, by doing a joint talk with
+them, but unfortunately they can't, uh,
+make it. Uh, but, uh, I want to thank
+them, especially Sheryus, uh, Salvi. Uh,
+she helped a lot, uh, from our data
+science team.
+Perfect. Let's, uh, start. Maybe a quick
+background of we are saying edge devices
+and what are those? These edge devices
+are operating between our trusted
+networks and also the internal corporate
+data that, uh, we have. Normally, uh,
+they are internet-facing and, uh,
+they do a lot of important things for
+any corporation. They control the flow
+of data, traffic, control the security,
+and also, uh, they are, uh,
+mostly internet-facing. And, uh, these
+are very important, uh, set of, uh, uh,
+assets in any organization. And it's
+very important to have a good visibility
+on them. And later on, we have some of
+some assets that, uh, going to surprise
+you guys. But, uh, the these are at the
+same time very important devices. And
+more importantly, they are, uh, the
+front front door for your
+infrastructure. So, they are called as a
+crown jewels and they are very important
+for both the organization at the at the
+same time,
+uh, the threat actors. So, uh, let's,
+uh, jump in with the a little detail
+about, uh, the methods that we use
+for this particular, uh, research. Uh,
+the total vulnerability that we
+collected, uh,
+from 2022 all the way to 2025, it was
+18.6 million vulnerabilities.
+And, uh, we chose, uh, 2022 to 2025
+because that is the time that CISA
+started putting these uh, KEV
+vulnerabilities to their uh their list.
+And they're all anonymized, so there's
+no customer
+details here. And
+the the other thing was
+the list of CVEs that we target here, it
+was 197
+KEV vulnerability during this time.
+Initially, we had started keeping 2021,
+but it was a partial year, and then uh
+we uh threw them away. And uh
+couple of things, when we had started
+looking at the data, we noticed that out
+of these 18 million vulnerabilities, 13
+million belonged to uh nine uh CVE that
+it was a Cisco CVE. It was 2017
+CVE.
+And it was across 460,000 assets, and
+CISA added to their KEV on 2022.
+And we had a huge number of that. So,
+uh we removed it from this data set
+because uh
+it it didn't add much value, plus we
+needed to see the actual data. And
+another thing that we noticed
+when we had started working on this, it
+was
+um
+we had around a million vulnerabilities
+for Fortinet. Uh
+uh FortiWeb, which is a web application
+firewall, that we had to remove that for
+some of the analysis. Uh
+uh but we kept that for some others that
+I'm going to talk about it that is it
+make it very interesting uh to see. Uh
+but because it inflated the whole number
+and skewed our graphs,
+uh and we wanted to see the actual data,
+we removed them from here. So,
+uh let's uh
+let's start by
+the first graph that we put together for
+these
+5.5 million vulnerabilities
+across the multiple years. And this is a
+survival chart. And
+we used a Kaplan-Meier technique. And
+what it does is basically it is a
+the way that it works is
+if you're not familiar with the survival
+curve, the way that it works is
+you can imagine you have
+100 people with a flat tire. And then
+over time you want to look at look at
+them to see how many of them fixing on
+day one, day zero,
+from day zero all the way to day 100,
+for example. And then you want to see
+how the curve look like.
+And this is much different than just an
+average or mean time to remediate
+because
+first of all, it include every single
+open cases.
+The whole difference between this and
+average is that we include every single
+one of them. And then a drop happen, it
+means that people are fixing over time.
+And we take every single one of these
+vulnerabilities across
+past four years and we draw this chart.
+And as you can see
+it doesn't look good.
+Right? It is the H devices. And
+you are seeing that all the way from day
+end of the year we have
+in multiple years 60% are still open,
+right?
+It is
+not what you want to see, right? And
+but if you look at the
+the colors, right? The blue one is 2023,
+the orange one is 2022. If you can see,
+there are improvement. In 2024,
+the magenta one,
+it is getting better. Even this year,
+2020 last year 2025 is much better.
+Because
+we probably not get much better in
+fixing this vulnerability, but we had a
+lot more high-visibility
+weaponized
+edge devices. Cisco had a lot of them.
+It was a lot of noise,
+and
+it was good to see all of them.
+Before I go to other details, the chart
+here is was inspired by Jay Jacobs. Uh
+He put together a very good document.
+And anyone who is interested to do this
+type of graph or know more about it, I
+put a link
+to his work. We are really
+thankful for his
+work, analysis, and all the insights
+that he's uh
+providing us. One interesting thing, I
+mentioned we had a million
+uh 40 web vulnerability.
+And we said, "Okay, let's take a look
+what will happen if we include that 1
+million
+uh data point to our 2025."
+And we are seeing amazing amazing
+results. This is fantastic. If you look
+at the day
+zero to day seven, you're seeing a huge
+like the shape of the graph is very
+important because
+it's telling us that people are fixing
+this. And
+we said, "Okay, what happened? Like
+is it suddenly very important
+vulnerability happen?
+Uh or
+what was the data behind it?" And we
+noticed that, "Oh, 40 web has uh
+auto update."
+So, nobody need to go and do a lot of
+manual work.
+So, they can
+use that. So, this is
+uh we are seeing that
+that much difference because of the
+human speed is limited, plus
+it require a lot for edge devices,
+firewalls, VPN. There's a lot a lot
+things going on to just apply the
+patches. And it proved that the
+the vendor engineering
+choices is much more effective than
+any sort of mandate or policy because it
+can help
+much more than just a normal approach
+for any
+uh uh
+patching of this type of devices.
+Here is the same
+chart, but I want to show you the
+changes over year. And as you can see
+here, we are getting a lot better. And
+it is interesting. This is not the case
+for the total number of vulnerability in
+the world. This is getting better for
+edge devices because there's a lot of
+high-profile edge vulnerabilities
+getting
+weaponized. And
+the team and the organization start
+treat them differently. And if you look
+at it from
+2022
+to 2025, we are seeing a huge
+improvement that things getting better
+even
+on 90 days, 57% are open. It's not
+ideal, but it's better than 83%.
+And if you can see, a lot of them are
+around that
+80 75 to 80%, but because in 2025, we
+have a lot of high-profile CVs, a lot of
+agency, and uh
+that was difference which this is what
+we want to hear and see. And hopefully
+next year if we draw this and we publish
+it, the 2025 six should be much better
+than this because
+first of all, we have about 2602
+targeting edge devices, a new mandate,
+and hopefully all of that is going to
+help.
+This is
+also another important chart. We take a
+look at how does it look like the
+average and medium median here for these
+four years. And if you look at it like
+just a a small background on these two,
+average and median. Uh the difference is
+a lot and the typical uh
+fix rate should be based on the median
+is like everybody fixing based on that.
+And
+the difference between these two uh
+Imagine right now
+suddenly Elon Musk walk in here. What
+will happen to the
+average net worth of all these
+individuals here? Everybody going to be
+billionaire because he has a huge
+net worth. So, that is the problem with
+the average. But the median is
+different. They're going to put
+everybody from the one with the less
+money all the way to the highest money
+and we're going to take the mid middle,
+right? And that is the difference. And
+it is very important. That's why we
+don't like mean time to remedy it
+because it hide and it lie
+to us. And this is the data that we are
+seeing that a lot of improvement
+happening, almost nine x faster in 2025.
+But still there is almost double the
+in 2025 the average is double. It means
+there is a a lot of long tail. It means
+that the customers are fixing things
+fast. Those assets are very important,
+but they stop doing it. And we have all
+these long tail that end up being uh
+something like that. And
+normally what we are seeing that a lot
+of uh
+easy fix happen quickly and then
+suddenly everything stops, which is
+the business
+takeaway here is that you cannot solve
+your
+age devices security by telling IT to
+patch faster. This doesn't happen
+there is a lot of manual process
+involved and you need to put the right
+policy in order to help them here.
+Couple of key things here.
+A lot of manual work need to go for
+these devices, but a lot of work pending
+approval for all these
+process need to be improved because the
+IT can execute quickly, but if they need
+to wait for 9 months, so things getting
+open and we have more data to show it.
+plus we always recommend that you put
+the pre-approval different patch
+policies for these age devices, so
+things can get fixed faster and we are
+seeing it.
+And we have the evidence to show it
+here.
+Quickly
+I want to touch on this as a background
+and then I'm going to go to a very
+interesting point. We take a look at the
+CISA Kev over past five four years and
+2023, 2024, 2025 and this year.
+Almost half of the vulnerabilities that
+is being added to CISA Kev are older
+vulnerabilities. And anything
+that is new like imagine 2 days ago,
+right? 2 days ago it was a patch
+Tuesday, it was a SharePoint
+vulnerability, Microsoft already had
+telling tell that it's being weaponized
+in the wild, so CISA added at the same
+time. So it goes to this list. But on a
+daily basis, monthly basis they add
+older vulnerabilities.
+Have this background and now
+I'm going to show you something very
+interesting because we went and take a
+look at the data to see
+if KEV add a new if this add a new CVE
+to their list
+how is it uh from our customer point of
+view?
+Uh how fast they are fixing things.
+And the result was very interesting
+because we noticed that
+only 15% of those customers already
+aware of that CVE to begin with.
+85% of them
+KEV work as a discovery for them.
+It means they didn't even have any clue
+that they have this uh device or if they
+had that device it never uh scanned
+before.
+The way that we look at it was
+uh how we come up with this it was we
+take a look at every single
+vulnerability event. When it was
+detected and when it was patched and all
+the data regard and we noticed that the
+first uh scan date
+was fall right after the KEV date. And
+suddenly we are saying that the KEV
+doesn't act as a prioritization it act
+as a discovery for a lot of customer.
+It means that you need to have a really
+good visibility to your
+uh edge devices otherwise
+I'm going to show you
+otherwise.
+Okay.
+We said okay, 14% they are already aware
+they are doing a good job. Let's take a
+look how long does it take for them to
+fix one of those?
+41 days, the median.
+How about those 75%?
+Uh 85%?
+319 days.
+The halfway.
+It means that they they had no idea
+suddenly they find out so they cannot
+patch it. First they have to find
+this asset belong to which department,
+where is it, who manage it, and then a
+lot going on to just patch that.
+So,
+having a good visibility on all your
+assets internally, externally, is
+priceless because we are seeing that
+things get
+fixed super fast or it can
+stay here for a year.
+this is also
+interesting because a lot of time
+customers ask, "How is
+our response time for our asset? This
+asset, that asset, this vendor." And so
+okay, let's take a look at it to see how
+does it look like.
+And it's surprising, right? You are
+seeing some of the vendors and some of
+the vulnerability for those vendor, they
+are falling to weeks.
+And from here all the way
+QRadar, Palo Alto Networks, Cisco,
+Juniper, Citrix, F5, it goes to
+month club, which
+there's no middle ground. Like either in
+weeks or and and even the things are
+getting more interesting when when you
+look at again the median and the
+average. Even this, some customers are
+doing a really good job. They are fixing
+things super quickly.
+That's why you are seeing that the
+median is 10 days.
+But there are cases that it takes six
+times that amount.
+The same thing for QRadar, Sophos, and
+the rest. And
+again here is also
+like we have this a split, right?
+It shows that for first two vendor,
+four vendor,
+they can do something about us.
+So, if they decide to go and fix it
+fast, they can.
+But, in case of Juniper and Cisco,
+the bottleneck is not the organization.
+It doesn't matter how fast you push
+them.
+They they cannot do it because
+the way that the update happen.
+Sometimes they require manual update,
+firmware upgrade, uh reboots, and a lot
+more, right? So, that's why you are
+saying that
+uh Juniper and Cisco
+uh has just almost 2 weeks, and you are
+saying both of them doesn't look very
+interesting. And uh
+survival chart, again.
+We said, "Okay, let's take a look at how
+these vendor actually
+look like fixing uh vulnerability on
+those vendor." And it showed a really
+good interesting picture here because
+you see all these cliffs. Uh this is, I
+believe, Juniper.
+All these cliff here,
+here,
+these are maintenance window.
+It means that you have to wait for
+200 plus days
+to for that maintenance window to
+arrive. And some of these are very easy
+to explain our team. Some of them are
+here. Billing is played on a daily basis
+for this. It's not something that uh is
+like a rocket science, and most of them
+already available. So, and the same
+thing for Fortinet. And if you look at
+it, some of them, like F5, it get to 5%,
+which is great. That's exactly what we
+want to see. But, not
+after a year, right? Uh
+some cases are
+quite interesting, like Citrix.
+Nobody want to touch those bugs.
+By end of the year,
+only 54% are fixed. So,
+you have to have this type of awareness
+that like you cannot wait for such a
+important vulnerabilities that is
+third actors already using them in the
+wild
+uh and waiting for 6 to 9 months. The IT
+going to go fix it if you give them the
+the way put the policy, put the
+pre-approval, have the right set of
+things uh in place. And all of these is
+for the cases that the customer are
+aware of it. Or you can just see it in
+your dashboard.
+we take a look at the first 7 days,
+day zero to day seven.
+that is the most important part.
+But you can see
+the percentage doesn't change much. 1 2%
+bunch of them are 80 to 94. And suddenly
+you have 40 minutes a start 50 emails.
+And it's interesting, right?
+You don't see 100%. The chart doesn't
+begin from 100%. It means that there are
+organization
+that they
+find this vulnerability
+on the same day that they discover and
+they fix it on the same day.
+It means they use the investment that
+they already had by their third-party
+partner,
+uh VM partner, or however they are doing
+the vulnerability management and fixing,
+and they have all these things in place.
+That's why you are seeing that a lot of
+these fixes happening uh and it doesn't
+even show up in our chart because they
+already fixed it on the day that they
+find it.
+Uh
+I feel really guilty
+telling all these bad news. That's why I
+thought that, "Okay, we need something
+to help here after all of that. And that
+was uh
+uh interesting point because we take a
+look at the vulnerabilities, the edge
+device vulnerability, to see if uh
+someone fixed it, then it's going to be
+a relapse or not. Because in case of uh
+endpoint OS, browsers, things like that,
+because some sometimes uh the IT go and
+put the uh the golden image or whatever
+they have, and then we are seeing the
+same vulnerability being found again
+a couple of months later. But in case of
+edge devices, if you fix them, they are
+permanent. One in 1,000
+uh fix just get uh reverted back those
+uh vulnerable estate. And it means that
+the investment that your team is doing
+for uh patching these devices, the ROI
+is there, and uh you can leverage that
+for getting any sort of uh policy change
+because the investment is
+uh permanent.
+This is the data for the same one in
+1,000
+uh vulnerability that it get uh
+uh reverted back to vulnerable estate.
+And if you look at it, again, 154.
+This is maintenance window. Exactly
+after 5 months, IT goes and change
+everything back to the vulnerable
+estate. And the median is there. Uh 5
+months. And we saw this 5 months uh uh
+in that uh survival curve in the chart
+as well.
+The other thing that we look at,
+what will happen after
+the full year?
+How many of those devices are unpatched?
+Which vendor is
+the one that have
+the most unpatched after a full year?
+And we are seeing that Mikrotik it seems
+those are forgotten or something. And
+things are as I showed earlier, Citrix
+almost half of it.
+Fortinet and F5 are like in very small
+couple of percentage.
+the this uh
+leave a massive and permanent uh attack
+surface because if things doesn't
+doesn't fix in first 90 days so it is
+like a graveyard. You're not going to
+get fixed. And uh
+that's why uh you keep hearing from a
+C-level vendor if you talk to any of
+them in past couple of days, they keep
+talking about the mitigation first
+because they already aware that you
+cannot fix all of this. You have to have
+a backup plan.
+If you cannot fix it, your IT team
+cannot fix it, you cannot change the
+policy and get the pre-approval. Okay,
+so
+what is the next best option? We cannot
+leave them open, so the mitigation come
+to picture.
+I tried to keep this session vendor
+neutral, right? But I have to talk about
+the the coverage of Kev because all of
+these are stories that we are telling is
+for the vulnerabilities that we already
+have a coverage.
+Today we have 99% coverage for any Kev
+that is in
+any any CV that is in the Kev. It means
+that we already have a team and they are
+looking for these vulnerabilities. We do
+testing and build the detection and put
+it out for our customer. And imagine
+your VM vendor do not have the coverage
+for
+20% 30%
+the CISA Kev
+uh and in our study there's around 20%
+of Kev is a H devices. So, it means that
+you have to demand, no matter who is
+your vendor for vulnerability
+management, you have to demand that at
+least cover all the CISA Kev and have
+ongoing support for all of them.
+Otherwise, you are blind. You cannot
+even see those vulnerabilities. Yes, you
+might have a asset uh management that
+show you the vulnerability, but uh
+if you cannot check to see if it's
+vulnerable or not, so you are uh
+uh vulnerable to that.
+The other thing that I thought maybe it
+would be interesting for the audience,
+uh it was
+how does it look like for these H
+devices
+across different industries?
+And how they do the fix.
+The The fix rate
+uh is showing is the percentage of the
+vulnerabilities
+that it was remediated.
+Uh basically the patched ones.
+And this is the median.
+That line in the middle is the 28 days
+that the about 22 old 01 is talking
+about. And the good part,
+look at the government. Perfect. It is
+80 something percent fixed and exactly
+on time.
+And the rest of industries also follow,
+but
+you really don't want to be in these two
+part two core because
+it means that they are slow. They cannot
+fix everything.
+And uh some of the industries are here
+that
+you really don't want to uh the the this
+uh data is based on 26 industry that we
+had data across 3,300
+uh organization. And if this is a 1.1
+million uh uh
+uh vulnerabilities that uh we put this
+together and anything in top two uh is
+perfect. It means you are fixing and uh
+the time, as you can see, around 28 days
+are quite crowded, which is really good
+to to hear.
+like uh in case of retail, they are
+fixing in 14 days.
+But if you look at the the patch rate
+are not good enough.
+It means that some of them are fixing
+very fast, but there is a long tail. So,
+you need to have this visibility for
+your industry to see to compare how does
+it look like.
+this is a crowded uh
+uh chart, but I thought it is important
+to see it. Uh what we did on was this is
+a 91 vulnerability part of the same uh
+uh curve uh list and we take a look at
+them to see how long and these are the
+91 that we already had full uh
+weaponization timeline, that when it get
+weaponized.
+And anything on the left side, all these
+CVEs that they are in the left side, it
+means it was weaponized prior to being
+disclosed.
+The time to
+exploit of these vulnerability was
+negative.
+It means by the time that we are aware
+of these vulnerability, the
+vulnerability disclosure happened and
+the world knows there are third actors
+that they are already taking advantage
+of these vulnerabilities.
+And if you look at the
+the median for fixing that,
+sometimes goes to all the way to 400
+days. There are cases that it is
+weaponized in day 60 or something and it
+took us 400 days to fix it.
+the the other thing is
+this break even line.
+It means that anything is here,
+it means we were faster in fixing them.
+The vulnerability drop and we fix. But
+you are saying sometimes we had a head
+start. All these vulnerabilities here
+are in day means
+it got weaponized after being disclosed
+still we are losing because these
+vulnerabilities are weaponized after,
+but we are still couldn't keep up.
+And uh
+for this type of vulnerability is very
+important to
+keep in mind that you need to have a set
+of policies and guidelines for your team
+to
+to go and fix them and
+you really don't want those
+vulnerability to be open for 400 days.
+And to to give you
+better understanding of how actually
+happened, this is one example by Ivanti.
+And if you look at it, it was weaponized
+25 days prior to disclosure.
+And this is the chart how it got fixed
+by
+day 90, 61%
+are still open. It means that
+they are already aware, they already
+know, but we are not acting fast.
+Which is uh
+you are saying that the 50% and all the
+way
+it took us a while to patch this because
+of the process because the
+remediation is manual.
+And if you look at the top
+top part is median 35 days, it means
+it's good.
+Although the total window is 25 day plus
+35 day, but teams are fixing it. The
+average is 68 days.
+this is two vulnerability that
+it it was all weaponized prior to
+disclosure.
+And you have to consider the whole
+window as a
+exposure as a window of
+average window of exposure. It means
+that you you cannot tell that, "Okay, I
+fixed five of them very fast, but you
+know, we we're going to skip some of
+them." You have to see the whole
+end-to-end to find out that, "Okay, you
+were already behind." The race already
+has started here on day
+70. And then we just have started. So,
+I put all of these together that to to
+help you from operational point of view
+that you know, the patching is really
+necessary, but it is inefficient. And
+you have to uh
+follow certain process in order to do
+it. And I put couple of
+strategies here. Uh first of all,
+these devices and these vulnerabilities
+getting weaponized,
+we cannot treat them that, "Okay, this
+is zero day. We're going to patch
+faster." No, you have to assume that it
+was already breached because we had no
+idea.
+Right? And from that point, you have to
+start looking into see if there's any
+post exploitation happening. You have to
+take a look to see if your firmware was
+already good. Micro segmentation, zero
+trust, and all of that is going to help
+with the
+blast radius. And also
+you have to go and do some threat
+hunting in order to make sure that you
+already
+good. And
+also there There some best practices for
+these type of devices, edge devices,
+VPNs, and
+firewalls.
+What we are saying that, okay, patch and
+patch promptly is very, very important.
+And you have to prioritize anything that
+I did is part of care of or is getting
+some
+some data and telling it to come that it
+is already exploited in the wild. And
+you have to have always the latest
+firmware. And the configuration change
+is very important because sometimes you
+are seeing the advisory by Cisco, by
+Palo Alto Networks, by others, and they
+are saying that
+you are vulnerable on this version if
+you have this and that.
+And that's why
+we are saying that, okay, restrict all
+these management access because a lot of
+these vulnerabilities are in the web UI
+that is already available. If you don't
+need it, put it behind firewall or
+something. And also
+having the multi-factor authentication,
+rotating your certificates, all of this
+is very
+important. And again, if there are
+services that you don't really need
+them,
+stop them or disable them. And
+because we have to assume that a breach
+happened,
+we have to
+make sure that we have a good
+centralized log, and in case you can
+use some uh
+some of the IPS, IDS, laugh
+to protect your environment, so you need
+to do it. Uh
+We are almost getting to the end of
+discussion, then we can have
+question and answer.
+a research that we done uh
+recently, and we went back and take a
+look at all
+past 4 years. And this is the
+the chart here is uh for last year.
+It was 48,172
+vulnerability dropped last year.
+And these are 48,000
+dots.
+And what you are seeing at the top, that
+red dots, these are the only one that
+they are weaponized and they are
+remotely accessible.
+The point here and this is consistent
+across past couple of years is they're
+all under 1%.
+The point here is that
+the list of the one that you need to
+really prioritize and make sure that it
+is getting fixed, there is a small a
+small list that you need to be very
+agile and make sure that uh
+you fix them quickly. Even if you look
+at the total number of vulnerabilities
+which is uh
+a little over 300,000 and compare that
+with the CISA K which is 1,500, it still
+goes under 1%. or half a percent in this
+particular case. So, you need to
+prioritize these vulnerabilities. And to
+2 years ago,
+uh it was a ransomware group uh Black
+Basta, some of their internal chats uh
+got leaked. Uh they had some
+disagreement. Some of them uh uh posted
+those online and we went and take a look
+at those 18 months of conversation that
+got leaked.
+the total number of it was it was uh
+across 600 different people and multiple
+chat group. Imagine uh a team uh team's
+chat, all the channels, everything,
+right? And out of all those 18 months of
+conversation, all they were talking
+about was 62 vulnerability.
+The whole discussion for 18 months was
+about six 62 vulnerability. It means
+that they are not going to go and
+uh start leveraging new vulnerabilities,
+zero-day burning new zero-day every
+single day. They are using those
+vulnerabilities already open and
+they know it's hard to patch. So, the
+list is very small. And the the other
+thing that
+it would be very helpful, all the pen
+testing that you can do from external
+facing.
+Recently, Qualys released a
+capability called TrueConfirm.
+It do the vulnerability management, but
+the way that it do is basically we are
+exploiting those vulnerabilities
+remotely without any approval.
+Sorry, without any whitelisting with
+approval and
+but in a safe manner. It means that the
+exploit mechanism is the same, the
+method is the same, but the way that we
+exploit that vulnerability is in a
+survey that it doesn't harm the machine.
+Initially, it was very hard to get
+anyone to take a look at it. But later
+on, we start getting a lot of traction
+because they are saying it's better us
+on a controlled environment attack our
+own environment because the moment that
+one of these vulnerabilities are showing
+as exploited
+by that TrueConfirm method, it means
+that it already bypass your firewall,
+your endpoint, your laugh, every single
+one of them.
+So, the list is not too much, but you
+need to pay attention to it and
+act very
+quickly. And
+this is
+the
+the key takeaways of all these things
+that we just discussed.
+Um
+Your edge device, they are slow.
+Everybody probably know. Uh you cannot
+see all of your
+edge devices.
+And if you can,
+that's perfect, but the point here is is
+you need to go have a really good asset
+inventory and make sure that you are
+seeing all the asset and it is important
+to have a good uh
+integration with your vulnerability
+management. Because if there's two
+different team look at your assets and
+one say, "Okay, I I'm seeing this
+firewall here." And
+someone need to go do vulnerability
+management. So, it it has to talk to
+each other and it has to be integrated.
+And uh the other things is very
+important if your vulnerability
+management have a good threat intel
+uh baked into all the finding. When you
+see a finding on your
+uh dashboard, it tell you
+who are the threat actor, how long does
+it take, what is the history, and all
+those uh full details. That that is very
+helpful. If you don't have that, so you
+can uh sign up for a threat intel
+separately and then do a lot of manual
+work, but avoid it. Uh
+the other thing is uh some of these are
+uh we are seeing that things getting
+fixed very quickly
+on certain assets, but some of them are
+uh staying open for
+uh very long time, which
+this doesn't fit into uh good uh risk
+management perspective and uh risk
+reduction.
+The vendor.
+You really need to pay attention to that
+uh you know your team cannot fix all of
+them manually. It is hard. And if they
+are equipped with uh
+auto update or other features that help
+you, so it is important.
+And then uh we are seeing a lot of like
+the case that I mentioned 13 million
+Cisco routers initially.
+Those are all forgotten. The
+vulnerability was 2017.
+And 2022 added and then
+we are seeing a lot of them are still
+open.
+Fixes are
+a stay fix, it doesn't change, is good
+news. And
+the architecture is very important, how
+the systems work, does it require reboot
+or not. This is a quick takeaway.
+We done a study for all the C-sharp caps
+across 4 years. Uh
+It was a big record, and we published
+this
+report.
+There's a lot of information,
+interesting,
+regard to remediation, manual patching,
+and things like that. If you guys are
+interested, you can go and
+take a look at it.
+that's it. This is my contact, in case
+you have any question
+or any comment, any of these data point
+help, you can always reach out. We are
+planning to release release a report for
+edge devices, and
+a lot of this information will be in
+that uh
+please have any questions, you
+Okay. So, I'm Chandan, and I was in
+charge of Palo Alto Networks for most of
+the period that you showed in the study,
+and it's very interesting to see the the
+insight from the other side of the
+fence. I was monitoring the same charts
+on the on from the vendor inside.
+And I just want to clarify that you're
+not factoring in other factors that
+reduce the exposure, right?
+For us, when we get a zero-day,
+the first priority is not to develop a
+patch. First priority is to develop a
+IPS or IDS signature that you can just
+deploy, and almost cover most of your
+customers, or look into the exact
+configurations that needed to be
+to be exposed. And so our charts were
+like what's what's the real exposure of
+our customers and we were able to
+monitor similar that. And that was a
+different chart than
+if you just see the patching.
+Right?
+Other perspective I want to add is that
+to [clears throat] remember most of the
+time there was pandemic.
+Many of the
+organizations people were working
+remote. And people were reluctant to
+change the remote access or VPNs.
+Because they could lose their job if you
+know the 80,000 employees cannot log in
+and do their job, right? And so a lot of
+people were
+reluctant to patch but they were you
+know doing other things that they could
+work around. And that might have been
+the reason why you know in 2022 have
+different curves than than now.
+Just wanted to add my perspective there.
+Yeah, 100% 100% and I agree with you
+that there are IPS ideas. I used to work
+at Palo Alto Networks and I was writing
+IPS signatures. And I'm fully aware that
+they can be a use. That's why I
+mentioned that a lot of C time solution
+are right now talking about mitigation,
+right? But it doesn't solve the problem
+and they have to still go and patch it
+because even from a compliance point of
+view
+you might be safe but you're not
+compliant. And this is a view from a
+patching perspective. Obviously there
+are a lot of
+mitigation in place that it could or it
+could not
+stop those threats. That's why I
+mentioned about True confirm that we
+actually show you if those mitigations
+working or not because we try to exploit
+those from outside without white listing
+to see yes, it stopped because of a
+firewall or what. But uh
+that's correct. This is a patch view and
+obviously there are
+other aspect to it like mitigation.
+Thank you.
+Uh on your chart where you were showing
+the remediation stats, was there any
+normalization done on those vendors?
+Like F5, that's great that that they did
+95%, but F5 is a super specific for
+hyperscalers and in data centers. So,
+we're only 10 vendors there and 1,000
+people had Citrix or is the data just
+raw?
+The data is a strong and if you follow
+the news, you know that uh everybody
+were
+very busy patching all those uh F5
+because of all the drama around it. And
+we are seeing that at the end of uh the
+uh year, it is 5% uh still remaining,
+but the curve it doesn't uh suddenly uh
+drop. It means that it wasn't any sudden
+fix. Uh it was uh slowly getting the
+same thing with Palo Alto Networks. You
+are seeing that a steady decline, which
+means that over time it get fixed, but
+it is not a cliff. We had other cases
+that it was a cliff that
+you see that something happened.
+A mandate or a policy change or a news
+that they go and quickly change it and
+you see a big drop.
+I see. Thank you. I really like your
+talk. Um I'm I'm wondering if you
+think that the the improvement in terms
+of remediation time over the years for
+the KEV list
+might also be partly due to expanding
+awareness of the KEV list, right?
+Because in in 2021 when it came out, it
+was the sort of thing that I was taking
+to my manager and saying, "Hey, look at
+the KEV list." By 2024, 2025, I think
+managers were coming to operators and
+saying, "Did Did you see this KEV list?
+We have to work on this, right?" So, do
+you do you think that it it is
+it is shifted from being sort of a a
+secret leading edge thing to kind of the
+industry standard and that might
+in other words, I would it would be
+interesting to see if the difference
+between remediation of KEVs and non-KEVs
+is growing over time because of that. Do
+you see what I'm saying? 100%.
+There is 100% correlation with the C
+second. And we are seeing it across our
+customers globally.
+C size part of DHS US, but everybody
+around the world following the Alice.
+And we are very thankful for all their
+help and service and everything because
+it help there's a authority there and
+checking and say that okay, we are
+seeing the active exploitation.
+But at the same time you need to know
+that they are it's very hard for them to
+add everything. Yeah. They have bought
+2201 that they follow this guideline and
+based on that they added. And
+it means that there are other
+vulnerabilities that is exploited, but
+it doesn't fall into that category. But
+the we are seeing 100%
+help for C second doing this and people
+are listening and everything about
+they're coming. The 2602 which is
+regarding the edge devices that we are
+seeing a lot of people are start trying
+to build the advisory build the asset
+inventory around that looking into end
+of life. So the answer is yes, 100% help
+and in the state that we're going to
+release regarding to edge devices, we
+have a comparison comparison between the
+non-KEV and KEV and you are seeing the
+difference. Great. Thank you. Of course.
+Hi. I'm curious as part of your research
+if you ever considered
+looking at the CWE mappings for the C
+second CVEs that you used and that might
+help inform
+just some awareness around the root
+causes that are actually leading to
+these exploited vulnerabilities and
+maybe inform like scanners and
+like developer education. Yeah. Very
+good point. Yeah, thanks. We will we
+will consider it and we will review it
+to see how we can have an impactful
+research on that, but thanks for your
+question.
+Okay, I think we are almost done and
+thanks everyone for
+listening to a lot of
+Some of it wasn't that pleasing, but we
+need to talk about this
+and help with our posture and hopefully
+you guys have a good rest of the week.
+Enjoy lunch. Thank you.
+>> [applause]

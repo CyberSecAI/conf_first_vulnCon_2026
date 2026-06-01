@@ -1,0 +1,1312 @@
+Morning.
+[music]
+Can you hear me? Okay.
+>> Yeah. All right. Let me grab my clicker.
+I'm a wanderer. Um
+yeah, thank you for that great
+introduction. Uh as he said, my name is
+Jen Guile. Uh I'm with open
+sourcemalware.com.
+Uh we're not actually here to talk about
+that today, but we are here to talk
+about malware. I was really excited when
+this talk got accepted uh coming to a
+vulnerability conference and getting to
+talk about malware. And so we're going
+to talk a bit about how uh we see
+malware as distinct from your uh
+run-of-the-mill like more average
+vulnerability risk. Um I would encourage
+you like I don't mind uh photos. I don't
+mind questions throughout. I don't want
+to stand up here and spew at you for
+like 45 minutes. So if you have a
+question like just come up to the mic.
+It doesn't bother me. Um normally when I
+give this talk I ask like how many
+software developers are in the room. I
+know we're at a very specific kind of
+conference. So I have a suspicion we
+don't have any devs in the room but are
+there any devs?
+One. Welcome.
+I thought you said you weren't a
+developer.
+>> Today you're identifying as one. Uh so
+we're going to be talking about npm.
+We're going to be talking about
+JavaScript malware. I know there's a lot
+of people here from GitHub. Uh, thank
+you for coming from GitHub. I'm not here
+to trash talk GitHub. We love what you
+do. Um,
+yeah. So, I put this talk together kind
+of after living through the rounds of
+attacks that happened in 2025.
+And as spring was approaching, I was
+thinking, is this still going to be top
+of mind for people? Is this still going
+to be relevant? things have been quiet
+and then like what a month ago I went to
+Bides SF and RSA and does anybody
+remember what happened that week?
+There's a little group called Team PCP
+that attack aqua check marks light LLM
+and then the following week Axios was
+attacked and so unfortunately this is
+still top of mind. It is still a
+problem. It is still relevant. Um, so
+just a little bit about me. Um, like he
+said, I'm co-founder of
+opensourcemalware.com,
+which is, uh, threat intelligence for
+malicious open-source packages,
+uh, domains, repositories, uh, crypto,
+all kinds of things that are needed to
+deliver malicious open source. I'm an
+adviser at Endor Labs. I'm really
+involved with B-side Seattle and I'm
+also an avid cyclist. I'm on the board
+uh, for a community cycling center in
+Tacoma. So, enough about me. We're going
+to kind of start uh very level setting.
+And this is probably review for a lot of
+you, but I find that this is a really
+helpful place to start. I'm going to
+move to the side so that you can see it
+without me blocking. I realize I'm
+really tall and you might not see around
+me. Um, so I want to differentiate
+between accidental vulnerabilities and
+intentionally malicious packages. uh an
+accidental vulnerability as you're very
+familiar with is created uh by the
+package maintainer by the developer uh
+through an accident. It's a flaw that
+has the potential to be exploited. Um
+typically it's going to be app focused.
+It's going to be exploited anywhere that
+a third-party library is running. And
+this is where CVEes come in. I noticed
+there's a panel tomorrow that's going to
+be talking about whether malware should
+be uh assigned CVEes. Unfortunately, I
+have to skip out and I'll miss it, but
+my opinion in case it matters is no,
+don't do it. Uh so you can tell them
+that. Um on the other side, we have
+intentionally malicious. So these are
+packages that were engineered to do
+harm. Uh there is no hypothetical about
+it.
+um they typically are targeting
+developers and their build systems. This
+is a little bit new in the world of
+malware. Uh historically when people
+think about malware, they think about,
+you know, clickbait in an email. They
+think about fishing scams. You know,
+whoever gets that email is the target of
+the malware. It could be anyone. With
+malicious packages, malicious open
+source, the um patient zero is often the
+developer. Sometimes it's your CI
+systems. Um, and the reason for that is
+because developers have access to all
+kinds of juicy information and really
+have the opportunity to um, you know, if
+you're able to compromise them, uh,
+scrape their local environment for
+credentials, which then allow you to
+steal and pivot throughout an
+organization. Another thing that's
+notable is that while um your
+accidentally vulnerable packages, those
+are accidentally vulnerable forever.
+Those packages last forever. They will
+always be available for someone to
+download and you know mistakenly use. I
+think we saw that in many of the talks
+yesterday where people were discovering
+vulnerabilities for packages that have
+been around for a long time. Uh the
+difference with intentionally malicious
+is most of the time this is a time game.
+Uh often they have a really short
+lifespan on public registries. Uh once
+they get reported uh the registry uh
+owner in many cases takes them down. We
+see it go anywhere from hours. Axios was
+only um up for I think less than three
+hours. Uh it in the past has been a
+couple of days. Now, we do still see
+malware that's been on registries for
+years. Um, and that can sometimes, you
+know, be a debate about whether it's
+malicious or not, but usually it's a
+time game. So, those are some useful
+ways to think about how they're
+different.
+Now because they have these differences
+and because we um create our
+vulnerability management programs around
+this first category, many of the things
+we do for the first category make us
+more susceptible to the second category.
+And the one that I would call out for
+the first category is when you find a
+CVE, what do you do? You upgrade. You
+want to try to get it to a latest
+version. And often for software
+engineers, they want to aspire to latest
+versions. Well, with malware, often
+upgrading to latest is what can make you
+susceptible to the malware. That's how
+they get you. So, kind of keep those
+things in mind is things that we do for
+CVEEs can actually create problems for
+malware.
+So, I did some research earlier this
+year with the Endor Labs team and um a
+couple of things that we found which uh
+is publicly available data. This is
+actually a really wonderful website. I'm
+happy to send this um to anybody after
+the uh event. Uh it comes from open SSF.
+This is a malicious package stats on
+OSV. And what you'll see uh the purple
+line here is npm and uh it stays, you
+know, relatively flat. We start to tick
+up what is this 2024ish a little bit
+more. 2025 starts to go up and then uh
+2025 really gets bad in the second half.
+So what's going on here? Uh what we see
+in this data is that npm malware
+advisories went up by 20 times last
+year, which is crazy. Many of that is
+due to a single campaign called
+Indonesian Foods. Um but what's a little
+bit hidden in this data is what's called
+an account takeover that went up by 12
+times last year. So an account takeover
+is when a threat actor is able to gain
+access to a genuine package, for
+example, Axios. They take it over, they
+lock out the maintainer, they publish
+malware. That went up 12 times uh last
+year. And that's concerning. Even though
+that category of malware is relatively
+small compared to kind of these born bad
+packages, uh trust is the vector here.
+They're taking over packages that have
+millions, sometimes billions of
+downloads, and they're uh relying on
+your trust or your developers trust
+that's already been gained through using
+this package for many, you know, months
+or years in order to make you the target
+of their malware. And that's why ATO's,
+while less common, are more of a threat
+than other types of malware. So what I'm
+going to be talking about for the rest
+of the session is why npm why is npm uh
+such a a target for bad actors. Um I'm
+going to take a look at some of the 2025
+malware campaigns and as a bonus I'm
+going to talk a little bit about what we
+saw with team PCP and Axios and then um
+I'm going to talk about some tips that
+your organizations can use in order to
+more safely consume open source.
+So starting with the why why and PM
+there's broadly three reasons and um the
+reason for these reasons uh has a lot to
+do with when you create a product you
+want to reduce the friction for using
+the product you want to make it as easy
+as possible for people to you know use
+npm for example and so uh that kind of a
+philosophy is often how things start but
+what's easy for us is also easy for
+thread actors and so there's three
+things that thread actors are taken
+advantage of within PM. The first I'll
+move over here so you can see this side.
+The first is um install scripts run by
+default unless you actively deactivate
+them. There's life cycle strips um like
+post install that are going to run
+automatically during installation. And
+what that means is from the moment of
+downloading a package, you become uh
+susceptible to the malware. It's not
+like um a dependency that you've decided
+to use in your application and then you
+just don't use it and it's not
+reachable. Doesn't matter if the package
+is reachable or not. It doesn't matter
+if it's going into production. These
+post install scripts make it trigger
+when you download it. The second is
+provenence is not mandatory in npm and
+in fact there's not really super easy
+ways for consumers to validate
+providence. it's not like a a muscle or
+a habit that we've developed. And so,
+um, we'll talk about exceptions later,
+but in general, um, it's easy, uh, to
+bypass these or they just don't exist at
+all. And then the third reason, and
+again, we're going to talk about this
+one later as well, is tokens. uh npm for
+many years has had longived access
+tokens and the risk with a longive token
+is the longer it exists the more likely
+somebody can get their hands on it and
+the more likely they can use it
+nefariously.
+Now outside of npm specifically the
+other reason thread actors like npm is
+because of the language that's there.
+It's JavaScript. And JavaScript uh is
+notorious for being uh it likes to bring
+its friends. So, you know, you install
+one package and it's like, "Oh, I need
+10 more to run." And those 10 more are
+like, "Oh, I need 10 more to run." And
+the next thing you know, you have 2,000
+packages when all you wanted was one.
+And so it's very easy for a thread actor
+uh in the JavaScript ecosystem to
+compromise a package that could be a
+transitive dependency for you and you're
+not even thinking about it when you're
+downloading it. So a transitive being it
+is the uh dependency of the dependency
+that you chose. So we kind of have a
+little bit of a perfect storm here. Um
+now this is not to say that other
+ecosystems aren't targeted. Also, we're
+seeing an increase in pi being targeted
+and VS code actually is becoming a real
+problem. VS Code has many of the same
+issues and in fact the life cycle script
+problem is an issue there.
+So that's where I'm going to stop on why
+npm is a target and we're going to focus
+on five campaigns. I think this is uh
+probably the most interesting part of
+the talk because you can really
+understand how these happened and um
+what happened when these CA campaigns
+occurred. So I'm going to be starting in
+July of 2025 and going through November
+of 2025.
+And uh I'll pause here and I'll ask was
+anybody responsible uh and hopefully
+you're willing to raise your hand for
+doing any kind of response to any of
+these incidents.
+Yeah. How many of you had to deal with
+shy hallude? I'm sorry it's not fun. Um
+so we're going to start with uh slink
+config prettier and we're going to end
+with shy hallude.
+Um I should say I've published a lot on
+this so happy to share more resources
+afterwards.
+So, this first package, uh, it was
+compromised on July 18th. And what I've
+put here just to kind of start to show
+blast radius. I don't think I have, do I
+have a laser? Oh, there it is. It's kind
+of small. Uh, so this has 38.1 million
+weekly downloads. So, think about what
+the blast radius for this can be if
+people have it um set to be
+automatically pulled into pipelines when
+updated. Right? So what happened is the
+maintainer um received this email and
+this email says, "We're reaching out to
+all users. As part of our regular
+account maintenance to ensure your
+account remains secure and fully
+functional, we kindly ask that you
+verify your email address. Please log in
+here to verify your email." Um something
+something you're receiving this email
+because we doubt that you still have
+access to the email provided and there's
+some time constraints on this. So, a lot
+of us probably remember uh some security
+training that we've had that says, "Look
+for typos. Look for, you know, bad
+grammar." Does this look like typos and
+bad grammar?
+No. It's really nice. Um, it's got the,
+you know, npm logo. It's formatted
+nicely. You know, it's coming from the
+support team. Well, unfortunately, this
+link here is a spoof, uh, sorry, a typo
+squatted domain. So, instead of npm,
+it's npm.js.
+JS. And what happened when the
+maintainer clicked this because oh my
+gosh, I'm going to lose access to my
+account. I can't do that. I have 38
+million weekly downloads. Token scraped.
+That's how they got access to the
+account.
+You'll find social engineering is the
+way that account takeovers happen a high
+percentage of the time. And we all think
+we're smart, but these are smart people.
+Honestly, don't uh don't think that
+you're immune to this.
+So, what they did once they had access
+is they uploaded four compromised
+packages with a malicious uh install
+script. So, we talked about those
+scripts. Uh this was install.js and it
+dropped and ran a malicious DL during
+npm install. So, taking advantage of
+that life cycle, um they were able to
+get rce on Windows uh developer machines
+or CI hosts. It was actually a very um
+narrow set of people who were really
+susceptible to this. And so we can
+suppose, you know, there's a possibility
+that they just weren't very good at
+making malware or maybe they were
+testing something because literally one
+day later
+we see a second attack. So this attack
+has a smaller package. It's 2.8 million
+weekly downloads, which is still more
+downloads than anything I've ever made.
+Uh, and this is the is package. And so
+the is package maintainer was
+compromised in a slightly different but
+very creative way. Uh, he got um a
+message an npm support email. It was
+spoofed that said, "Hey, uh, one of your
+maintainers, I'm sorry. We accidentally
+revoked their access. Our bad. Can you
+like approve them to get their access
+back?" Uh he even posted about this on X
+and uh like he said that the old owner,
+you know, supposedly was somehow removed
+from the MPM package emailed to be
+readded. Everything seemed normal. So I
+obliged parenthesis irritated MPM would
+remove an owner without notifying the
+other owners and the next morning
+malware was published. So again kind of
+a like smart social engineering
+technique here.
+uh they published two malicious
+versions. Uh this was a bit more
+sophisticated. So what it did is it um
+included again that install.js script
+that dropped a DL payload which is why
+like okay similar to what we saw a day
+before. Uh this one was an RC also but
+it had uh much more capability of
+operating on different types of
+machines. It excelrated npm tokens. It
+scan scanned for crypto wallets and
+cloud credentials, which you'll find is
+a very common malware tactic. Uh, as a
+aside, North Korea was able to steal
+$2.2 billion dollars of crypto last
+year. It's effectively their GDP now.
+So, this has become a very common attack
+technique. Um, we know that thousands of
+individual developer environments and
+CI/CD pipelines were exposed.
+So, July was fun.
+We get a little break and then about a
+month later in August, NX happens.
+Anybody familiar with NX?
+Little bit. Um, so this was a very
+different type of compromise. Rather
+than leveraging social media, they
+leveraged a vulnerability in a GitHub
+action. So coming back to our
+vulnerability world, uh, they found a
+undiscovered vulnerability in this
+GitHub action that allowed them to steal
+the npm maintainers publishing token. So
+now we have a little bit of like a
+crossover of vulnerabilities with uh
+these longive tokens.
+They were able to use that to publish
+eight packages with a post install
+script. Again, it triggered telemetry
+j.js. Uh I don't know if you're supposed
+to have favorite malware. Probably not.
+Uh this is my favorite because it was
+really creative and this really starts
+to speak to the overlap with AI. So what
+this telemetry.js JS file did is it
+searched the local environment for a
+locally installed um AI tools. It looked
+specifically for Claude, Gemini, and
+Amazon Q and then it uh overrode them
+with um things like force YOLO or uh
+dangerously skip permissions or trust
+all tools. So it got these AI agents to
+become collaborators for the malware.
+And once they tricked the AI into
+helping out, those AI tools again,
+scraped the local environment,
+exfiltrated secrets. Um, NX has done a
+really excellent uh post-mortem on this
+and they've talked about what they've
+done to tighten up their security. If
+you're interested, I suggest taking uh
+checking it out. Um, happy to share the
+link to that. It's really interesting.
+So what happened is in less than eight
+hours uh they uh created public GitHub
+repositories and we know where they were
+because they were all uh sometimes this
+is called the singularity attack. So
+they start with singularity repository.
+In eight hours 370 companies were
+affected and again we know this because
+they were public repos. Um
+oh but wait it gets worse. uh from these
+370 affected companies. Even though the
+malware was taken down within eight
+hours, two days later they were able to
+do a second wave where they flipped an
+additional 6,700
+repos public. And uh from what we know,
+they excfiltrated over 20,000 files. And
+so the thing that we start to see here
+is okay, these companies surely knew
+that they were compromised. And what did
+they not do? They didn't rotate their
+secrets.
+So we start to see other uh application
+security best practices kind of falling
+down here.
+Last one before we talk about shy
+hallude we have uh the quicks
+compromise. Quicks is a maintainer. Uh
+his package
+it was slightly bigger 2.6 billion
+weekly downloads. Um he was again uh
+burned by a very smart uh social
+engineering email. He got this email
+that says, "Yep, uh, as part of our
+ongoing commitment to security, uh, you
+have to update your 2FA." I mean, this
+makes sense, right? He probably knew
+that there had been a bunch of attacks
+and updating 2FA is necessary and, you
+know, got to do the security stuff. Uh,
+and they threatened with uh, temporarily
+locking down his account. Well, I've got
+26
+billion weekly downloads. I don't want
+my account locked. You know, click. and
+he later said, "Yeah, uh, I was tired. I
+was busy. I thought I had a few minutes
+between tasks. I'll take care of this
+right now." And this is kind of the
+recurring thing that's happening with
+open source maintainers is they're often
+overworked, probably not paid, right?
+And they fall um victim to these types
+of very simple attacks. So with quicks
+um they uh got 28 packages. This
+includes the chalk and debug packages.
+is it went really wide. Um, and again,
+it did something kind of interesting.
+This was a cryptocurrency stealer. Now,
+what's um a little bit bizarre about
+this is despite the size of the blast
+radius, uh, they only stole $1,000.
+What were they really after?
+Maybe we'll never know.
+Okay, I know you've been waiting for
+this one, right? So uh as you may be
+aware, npm had a or sorry uh the
+original maintainer uh received again a
+fake support email. It enabled attackers
+to reset their 2FA and lock them out.
+They were able to gain access to 187
+packages through this tactic. Um they
+did something smart again kind of that
+like maybe it's your favorite malware is
+they had a color library in there uh
+that um hid a malicious bundle.js and
+installed truffle hog. Anybody familiar
+with truffle hog? It's a very popular
+secret scanner. You know this is one of
+those it's free. It's out there. It
+helps people uh you know defend their
+environments. Well they weaponized
+truffle hog to uh find secrets in these
+environments. anybody who downloaded uh
+this package these shy hol compromised
+packages it would automatically hijack
+and republish the um infected packages.
+So this is where the worm component of
+shy hallude comes in is if you
+downloaded it you automatically had your
+poison packaged and republished and then
+anyone who downloaded yours and so on
+and so on. And so doing this they were
+able to convert 528 repos to public. Uh
+they exfiltrated a lot of secrets. Uh
+they used a web hook service to send
+those to uh eventually the usage quotas
+were exceeded because malware threat
+actors don't like to pay for things. Uh
+that's kind of the the thing to
+understand is free is their mo.
+Um as we know there was a second wave
+and again going back to that secret
+rotation issue those people in the first
+wave enough of them didn't rotate their
+secrets that they were able to use
+secrets from the first wave to
+compromise an additional 100 plus
+maintainers. So that's what enabled the
+second wave that came about in November.
+They did it right before an npm security
+improvement, which a lot of people think
+was intentional.
+And this allowed them to hijack an
+additional 492 packages. They did a very
+similar thing uh this time of using bun
+uh in order to download truffle hog
+scrape for secrets, but it had like a
+particularly nasty twist. uh if it was
+um detected, if there was an O failure
+detected, it would wipe the home
+directory.
+Thanks for that. Um so they were able to
+expose uh credentials from 26,000 repos
+including big names like Postman and
+Zapier. Again, we know this because they
+pushed these repos public.
+Um, I got this research from a company
+called Entro and what they looked at was
+of those 30,000 packages compromised in
+2.0,
+how many of them rotated their secrets?
+And so they looked at it over a 72-hour
+period. It was nearly 2,000
+organizations impacted in this 30,000
+packages. Only about a little over half
+were tech companies, which I think is
+really interesting. A lot of people uh
+think, oh, I work in healthcare or I
+work in wherever. Maybe I'm safe from
+malware. Uh we see a really big variety
+here from real estate to media to
+insurance. Uh and what they found was
+that these companies had valid
+credentials up to 72 hours after
+disclosure. So again, it's kind of
+coming back to that um poor hygiene is
+leaving people open to further damage.
+Okay, before I talk a little bit about
+some of the remedies for this that can
+help keep maintainers safe, uh in brief,
+um the two attacks that happened in
+March, Team PCP and Axios, uh featured
+very similar strategies. Team PCP was
+able to get access to Trivy because they
+were able to find a longived personal
+access token. Uh held on to it for a
+couple of weeks, were able to poison
+Trivy and then as a result uh places
+that consumed Trivy were poisoned and
+they themselves started publishing
+malware. So they compromised a bunch of
+security providers and uh a little
+company called Light LLM. I'll say I
+think late LLM did the best uh public
+coms about the compromise. They've
+written a really fantastic uh
+retrospective about it. A lot of the
+other companies were very quiet about
+it. They didn't make announcements on
+social media. Uh but Light LLM was kind
+of along the whole way saying, "Hey,
+this is what's going you know, here's
+what we're doing. We're working really
+hard to fix this." So, I really um
+appreciate the way they handled it.
+Axios was an extremely sophisticated
+social engineering campaign to get
+access to the maintainer. Um they the
+threat actors um spoofed a legitimate
+company and people. They set up a Slack
+um instance for this you know legitimate
+company outside it and they reached out
+to the maintainer and they said hey you
+know love what you're doing would love
+to collaborate. They invited him into
+Slack. They had interactions. the Slack
+was populated with fake messages that
+made it look like it was legit. And so
+he started to get some confidence that
+this was a real like really the company
+and not you know some rando. Well, they
+eventually invite him to a team's call
+and during the team's call there's a
+popup that says oh you know there's
+something um you know out of date with
+your system in order for teams to work
+you need to do this security update.
+They know where this is going.
+Uh it's not definitely clickfix, but it
+sounds a lot like clickfix. Uh so
+essentially as soon as he clicked to
+make this upgrade, he downloaded malware
+which scraped for secrets and that's
+ultimately how they got access to Axios.
+Um that attack can be traced back to
+North Korean threat actors. Team PCP,
+the previous one. They're not state
+affiliated, but um they are maturing
+quickly and showing signs of um
+potential uh geopolitical motivators.
+Okay, so
+this has been a lot, right? And uh
+you're asking, all right, we're all
+going to fall victim to social
+engineering at some point where there
+will be a vulnerability that threat
+actors can take advantage of. What can
+we do as maintainers? What can
+maintainers do? So there's three uh
+major things that maintainers can do in
+npm and I'm sure there's many more um
+but I'm going to focus on three. So the
+first one is um hardware keys. So you
+know UB key whatever. This has been uh
+available since 2015 and this is going
+to uh protect the human uh
+authentication path. So it's going to
+refuse to sign if the browser's origin
+doesn't match the registered domain. So
+this is a really really good way to
+protect yourselves. And in fact, I
+believe it was Axios, the maintainer
+said immediately, this is one of the
+things that he was going to implement.
+So that even if they get access to
+something, if they don't have this, they
+can't get in. Um, now your CI/CD
+pipeline tokens are still exposed, but
+from what we've seen from these ATOS,
+like if the maintainer is the target,
+this is going to be a really um useful
+tactic. Now, I think we can see that in
+many cases, these are not being used,
+right? If we look at these big attos,
+they were not being used in these cases.
+The second is trusted publishing. Who's
+heard of trusted publishing?
+Good. Um, so GitHub uh offered trusted
+publishing as of July 31st, which is
+kind of right after those first two
+attacks that I talked about. What it's
+going to do is kind of like flip these
+two things. So if the um hardware key
+doesn't protect your CI/CD pipeline,
+well that's what trusted publishing is
+for is it's going to protect the machine
+path. It's only going to accept versions
+published through a specific GitHub
+actions uh runner with an OIDC token. Um
+the challenge here is there's some
+friction in adopting this. Um I've done
+some research on this. Uh a friend
+actually just shared some research her
+company did. Um the adoption rates are
+really low for this. I'll talk about it
+in a little bit. There can be a lot of
+reasons for low adoption rates. It could
+be because people didn't know that it
+existed. Um, a lot of people have a
+perception that setting up trusted
+publishing is difficult. Um, and in
+cases where it's a maintainer who
+doesn't have the skills to do it, it may
+actually be a major barrier. Um, it also
+does have some limits on ecosystem
+support.
+And then the third thing, the change
+that I alluded to that happened right
+after shy hallude wave two. This was
+sessionbased author O words. Um so this
+happened in early December and what this
+did was it got rid of those really
+really longived tokens that are um
+available in npm. So it's going to limit
+the exposure window. Um now because it
+takes time to make changes they weren't
+able to reduce the length of those
+tokens to like a really short period um
+they're still fishable and uh what I
+found when I created this and it may
+have changed is that um 90-day tokens
+were still possible. So if we think
+through the attacks that I talked about
+if you didn't rotate your secrets you
+still would have been potentially um
+open to exploitability.
+However, what I'll say is if you adopt
+all three of this, you're probably going
+to be in pretty good shape. So, this
+would be something if your organization
+is writing open source, if you're using
+npm, this is available in pi, pmppm,
+many ecosystems do this. Um, try to
+implement all three of these. These are
+really going to help.
+Okay, so I said I have some data. Uh
+what we did is we looked at uh in npm
+all previous atto victims so packages
+that had been taken over at some point
+previously. We found that about 13% are
+using trusted publishing. So the reason
+we looked at this subset specifically is
+we said okay this is going to be the
+group that will be most aware of the
+consequences of an account takeover. So
+I think it's notable that the adoption
+rate is only 13%.
+We also looked specifically at the
+victims of um shy hallude because we
+said okay this is really recent uh it
+was painful it was high profile in the
+news surely that number will be bigger.
+What do you think was it bigger?
+No it was not. Uh as of when we pulled
+this data it was at about 10.8 eight and
+again this is very large companies were
+exposed here. This is not small shops. I
+mean yes small shops were also exposed
+but there are some large companies when
+we looked through the data that we were
+like they probably have the resources to
+turn this on. Um the other thing that's
+notable in npm is uh there are some
+configuration settings with trusted
+publishing where even if you turn it on
+there's an additional setting you have
+to turn on to block any other method of
+publication. So, you have to know that
+that's um a restriction there.
+Okay, taking a breath. How are we doing
+on time? It's 11:05. Um I'm going to
+walk through some tips for consumers of
+open source because I think uh the point
+that I've made up till now is uh open
+source projects will continue to get
+taken over. We're not seeing the level
+of adoption of security measures that
+will prevent it. And in reality, until
+we as a industry and as companies start
+paying open source maintainers and
+helping them out, they're going to be
+susceptible to social engineering
+attacks. So these will continue to
+happen. So we as consumers do need to
+work on what we can do to uh prevent our
+own consumption of malware. So what I'm
+going to say is it's a team sport. Um, I
+see kind of two different models as I
+talk to people in the community. And I'm
+going to say no one model is wrong or
+right. No, that's probably not true.
+Lots of models can be wrong. [laughter]
+Some models can be right. Um, but what I
+tend to see is when people again think
+about malware, they think about things
+that tend to be owned more on the like
+incident response threat hunting side.
+But what's unique about open source
+malware is this is on the code side,
+right? And so you've got your
+developers, your product security people
+and then cloud security has been largely
+insulated from this. So what I would
+advocate for is to start looking at, you
+know, call it a malware task force,
+whatever you want. Doesn't matter who
+owns it, but you're going to need
+roughly four different types of teams
+engaged. So I'm going to walk through a
+couple of tips for each team to be
+doing. This is by no means exhaustive
+and um
+uh obligatory disclaimer. You can still
+do all of these things and still get
+popped, but it will definitely reduce
+your uh exposure. So, I'm going to start
+with developers. Um these are practices
+that have been talked about in the
+industry for a long time and are already
+considered engineering best practices,
+but the probability that they're getting
+used honestly is not super high. So uh
+with a developer their mission is going
+to be all about safe dependency
+consumption. Um the question that they
+need to ask themselves is can they put
+up with just like a little bit of
+friction in order to prevent like the
+worst day of their lives. Most people
+hopefully will say yes to that
+especially if they talk to one of these
+people who have experienced it. So the
+two um techniques first is going to be
+um lock files and having some controls
+around auto upgrades. So what's this
+going to do? um you know when you're
+pinning versions and when you're um you
+know being intentional about upgrading,
+you can start to avoid the um
+the weakness that thread actors take
+advantage of with account takeovers
+where you know they want to get you as
+soon as the new version pushes out.
+Well, if you're being intentional about
+choosing when to upgrade, that's really
+going to make a big difference. Again,
+if they're taking these down quickly,
+you're probably not going to consume it.
+Now, do keep in mind just because it's
+been pulled down from npm or pi doesn't
+mean it does not exist on the internet.
+Uh you may have already pulled it down
+into your own repository. There's
+mirrors all around the world. But this
+will help a lot. Now, what do I not mean
+by this? I want to be really clear. Uh I
+don't mean never upgrade. [laughter]
+You should you should upgrade your
+dependencies, but just be thoughtful. Um
+the other is beware of life cycle
+scripts. uh I might go as far to say as
+disable life cycle scripts. So that is
+intentional. So when I talk about
+friction, this is what I'm talking
+about. Those life cycle scripts will
+help your dependencies auto install. So
+it makes it easier for you, but it also
+autoinstalls malware. So if you disable
+life cycle scripts and it's almost like
+you know you think about when you're
+using claude or um you know co-pilot to
+code you can go on full yolo mode and
+like trust that it's going to make good
+choices and not look at it or you can go
+manual and have some control over the
+decisions that get made. So watch out
+for the life cycle scripts. Again this
+is not just in npm. We see this in VS
+Code too.
+Now I want to talk about product
+security and that's probably where we
+have the most representation in the
+room, right? Are most of you prod kind
+of focused I would assume at a
+conference like this. Yeah. Um so as you
+know you're going to be more focused on
+uh hardening pipelines, enforcing guard
+rails going back to the developer side
+you're going to be advocating for those
+kinds of practices. Um but you're going
+to be thinking about um how automatic
+are your guard rails? Do they depend on
+somebody remembering to do the right
+thing? Uh I think we we intuitively know
+relying on remembering to do the right
+thing usually doesn't end up that way.
+So the first category I want to talk
+about here is dependency hygiene. uh
+what I've seen is a very very strong
+correlation between uh if an
+organization is actively removing unused
+dependencies or underused dependencies.
+They are much less likely to consume
+malware because there's fewer
+dependencies but also because you have
+fewer dependencies your um incident
+response efforts will be much faster.
+There's a ma massive correlation between
+those two things. So if you can go
+through and either remove things that
+are not getting used or you know work
+with engineering for that or if you find
+um a dependency being used that's you
+know small not complicated you could
+vibe code your own version of it. If
+you're prepared to support that then
+consider doing that. Um and I want to be
+clear I'm not advocating for not using
+open source. I'm a big lover of open
+source. I used to work for Engine X. Uh
+you should use open source but not
+always. And then on the other side, um
+this may seem obvious, but you want to
+be scanning for malware, uh both in CI,
+which is more common, uh but also
+consider, uh tools that will let you do
+it within your AI IDE. So if it can
+inform claude or co-pilot like upfront
+and prevent your developer from ever
+pulling down the malware, that is the
+best case scenario because if you're
+scanning in CI, you've already
+downloaded it. it's, you know, do not
+pass go, go straight to incident
+response instead of jail. Maybe jail
+also. Um, so if you can integrate it,
+you know, via um hooks or agents or an
+MCP server within your AI IDE, do that.
+That's going to be really important.
+Okay, so uh cloud people. Do we have any
+cloud people here? Hi.
+Um, so you're of course about blast
+containment here and credential defense.
+There are a lot of things that cloud
+needs to be doing to kind of prevent
+once malware has been consumed, it um
+all the stages doing the fun things that
+they do. I'm going to focus here on keys
+because most of what we're seeing in
+these attacks is keys being stolen. Um,
+you know, think about if your AWS keys
+were stolen from a developer laptop,
+would you know? Do you have something
+set up to trigger that you're aware of
+that? Do you have a process in place to
+rotate and scope your crowd cloud red oh
+cloud credentials quickly? So I'm going
+to highlight here about 13% of what was
+stolen in Shy Hallude were cloud keys.
+And while this seems very obvious, I'm
+going to get a shirt that says rotate
+your secrets. Um we're just seeing it
+not happen. So, make sure that that's um
+well established. And then, of course,
+monitor for anomalous credential use. Is
+it coming from a time zone, you know,
+location that you're not expecting it to
+come from? That kind of thing. And then
+last but not least is your incident
+response and and threat hunters. Do we
+have anybody in that category here?
+Couple down here. Um so, this is Oops.
+Sure. Safe dependency consumption.
+That's a typo. I forgot to fix that. Um,
+so you're more about looking proactively
+out into the threat landscape and then
+looking internally to see how quickly
+can we recover? Um, are you ready for a
+software supply chain attack or is your
+incident response playbook built for
+something else? Um, a lot of the people
+I've spoken to who went through Shy
+Hallude did not have a playbook ready
+for it. I know one particular person,
+and I know I told the story to a couple
+people, so this probably isn't new. Uh,
+they worked somewhere that they did not
+have the ability to lock down what could
+be consumed from npm. And so they had to
+block the usage of npm for six weeks. So
+think about how much that slows down
+your software development if you don't
+have your playbook in place to deal with
+a major incident like this. So the first
+thing is uh somewhat again obvious is
+you need open-source software specific
+threat intelligence. Um open source
+malware is free. You can get free intel
+from us. You can get free intel from
+OSV. Um there's lots of vendors that
+publish things like start to curate your
+own threat intelligence that's specific
+to this topic. Malicious open source is
+a different animal from other malware.
+Um, and also keep in mind that it's
+going to play by different rules. Uh,
+typically they're written in JavaScript
+or Python. They're not usually compiled
+languages. And so the way that you hunt
+for them is different. And then again,
+create a supply chain specific incident
+response playbook. Um, you know, run
+tabletops in your organization. Start to
+get people ready for this because the
+unfortunate promise is this is going to
+continue happening.
+And with that, um, I think we have about
+15 minutes for Q&A. Does that sound
+right? Okay, cool. U, so you can connect
+with me for slides, for links, to talk
+whatever. Um, and yeah, thank you.
+[applause]
+All right. Can you hear me?
+>> Yeah.
+>> Okay, perfect. Uh, yeah, great talk. Um,
+so quick some quick follow-up questions.
+Um, you mentioned implementing
+uh some form of gating, right, in these
+package managers. Um,
+how could how could how would you
+approach that? Would you work with like
+a team like somebody like let's say
+corporate security or like where they
+manage assets like developer machines
+and configure it as like a
+I'm not sure I'm not very familiar with
+npm because I know you could do this
+with git right you could do like a
+pre-receive hook or a
+>> yeah there's several ways you could do
+this um the way that a lot of people
+will kind of start is by having an
+internal repository so you know approved
+pre-scanned
+uh versions. Uh if you do this right,
+there's little friction for developers,
+but it can be challenging to implement
+it. I talked to a lot of security
+leaders that are like, "Yes, I would
+love to implement one this year, but I
+have to get engineering on board." Um
+but let's talk all options. So that's
+definitely one that you should look at.
+Um you can build your own. There's
+several on the market. The other thing
+is with your um application security
+scanners. uh hopefully you're using one
+that has policy management built into
+it. So that if um if it detects
+the existence of a package that is
+either already known to be malicious or
+showing malicious behavior that you have
+a blocking mechanism so that they can't
+bring it in. So yes, unfortunately they
+may have already downloaded it. But if
+you like think from left to right, what
+would I do? I would say package
+repository. Then next you're scanning in
+your AI system and blocking at that
+point, right? And then you're scanning
+in CI and blocking at that point. So
+hopefully you have multiple checkpoints
+where you can either completely prevent
+it or at least identify that it's there.
+>> Interesting. Okay. So for for like a
+large enterprise, right, if you have
+like endpoint protection, right, on the
+on the laptops and then you have
+centralized package management, right?
+some some vendor that's where you manage
+all your packages. You would do the
+gating at the package management level
+there because
+>> potentially. So something interesting
+that you can do uh we track early signs
+that malware is coming and one of the
+signs because you have to spin up
+various bits of infrastructure to
+deliver malware is a poisoned GitHub
+repository. And so for example, if your
+team knows repository X is bad, then
+rather than focusing on blocking package
+Y, you just block anything that comes
+from that repository.
+>> Got it. Okay, cool. Thank you.
+>> Yeah, you're welcome. Thanks for the
+questions.
+>> Hey, Jen. Um, thank you for the talk. It
+was awesome. Um, one of the things that
+you mentioned, uh, sort of harping back
+on that, but a prior step is the, uh,
+the sort of you didn't say this, but the
+It's implicit that there's a trade-off
+between the speed in which you upgrade
+packages versus, you know, considering
+the
+>> Yeah. Somehow I neglected to talk about
+cool down periods explicitly. You want
+to talk about those?
+>> So, like I I'm I like that, you know,
+just sort of triggered uh my brain
+because it's there's there's obviously a
+trade-off between um sort of like supply
+chain risk versus vulnerability risk um
+that were sort of that you sort of are
+implying. Um, and I'm just curious like,
+you know, how does that play out in your
+head? Um, and what does that look like
+in practice? Because the way that I sort
+of think about this is, oh, we may not
+want to do upgrading fast because of
+this risk, but we also have to have a
+trade-off between
+>> exploits and and all that. And so, it's
+a very like you sort of wrap that right
+back into, you know, the whole topic of
+the conference. I just would be curious
+like how you would how do you think
+about that and how like what are the
+things that you would think about
+between those two as you're making that
+trade-off and I know that's not an easy
+question so happy to
+>> it's kind of an easy question actually I
+think it's a little bit easy uh easy for
+me to say yeah sure
+>> um so what I neglected to talk about in
+application security is uh cool down
+periods is anyone familiar with
+cooldowns
+>> so what it means is uh Before you're
+permitted to consume a package, a
+certain amount of time must have
+elapsed.
+>> Um, it can be minutes, it can be hours,
+it can be days. I would recommend
+somewhere in the 2 to three day range.
+And the reason for that is in looking at
+account takeovers, most of the malicious
+versions have been taken down within
+that time frame. Not all, but most. And
+so if you're able to wait two to three
+days before upgrading,
+you will greatly reduce your risk. Now,
+will thread actors at some point be able
+to engineer stuff that can hide for two
+to three days and then boom,
+>> absolutely. But, you know, better than
+nothing. So, the trade-off there that
+you're talking about is right, but what
+if there's a critical CVE in one of
+those packages? Right.
+>> Right.
+Um, you need to have a really strong
+exceptions policy for your cool down
+period. Yeah. So, you need to be able to
+circumvent it. You need to have a both a
+literal technical ability to circumvent
+it, but also like going back to that
+kind of IR playbook, an internal
+agreement on in order to circumvent this
+policy, what has to happen? You know,
+does it need to be approved by a
+manager?
+You you decide how you want to approve
+that. Now what I'll say is
+I have not seen a lot of circumstances
+where a patch is released for let's say
+a critical
+>> and everyone is actually able to perform
+the upgrade within 24 hours or 3 days
+like
+>> yes it's usually it's a theoretical
+>> it's theoretical and so it's kind of a
+like yeah this could totally happen like
+you may need to patch something
+>> you know the next log for shell right
+comes out now the probability ility that
+log for shell also contains malware is
+probably low. That could be fun.
+>> It's something to Yeah, that's where my
+head goes.
+>> Is this recorded? Yeah.
+>> Uh don't do that. But yeah, like
+[laughter]
+have a really good exceptions policy
+like not just technically but like
+>> internally like how do we handle this
+because it's going to come up. But
+that's definitely when I've seen people
+turn this on uh when they're able to
+answer that question for engineering the
+objection goes away.
+>> Sure. Because people if you explain to
+them like this is to prevent you from
+downloading malware, they're like cool,
+I'm I don't want to do that either.
+>> Yeah, cool. Thank you.
+>> Yeah, you're welcome. Good question. I
+should say uh the other option would be
+to have like an N minus one N minus two.
+So rather than a cool down, you just say
+we never go to latest unless it's
+intentional.
+>> All right, go ahead.
+>> Hi, just a small clarification. Um you
+mentioned earlier in a slide that maybe
+uh 800 repos or companies were uh
+compromised and maybe like 10% or 13%
+had um trusted publisher turned on.
+I just wanted to make sure I understood
+that correctly. So they were uh they
+were compromised and they still had a
+trusted publishing turned on.
+>> A good clarificate good clarification.
+So a small subset of this 88 had trusted
+publishing turned on already. But as of
+when I pulled the data like a month ago,
+so after shy hallude current, only about
+10.8% have it turned on.
+>> Oh, got it. Thank you.
+>> So very good clarification. Yeah.
+>> Yeah. Just to follow up on that, like
+any idea why is that? Like is there any
+technical
+blocking that because you you won't
+expect that like they've been burned so
+they should turn it on but is there like
+any anything technical that is blocking
+them from turning the the song on?
+>> I don't know if there's anyone from
+GitHub here who wants to talk about it.
+Um I I have nothing but theories. I
+can't say explicitly why those you know
+88 don't all have it turned on. Um part
+of it is going to be ecosystem support.
+So, uh, you know, if they're using
+Bitbucket, let's say, uh, or if they
+have like multiple, um, SCMs, the
+support doesn't exist for that. So, it
+might be that they can only turn it on
+for some, but not all. Um, it may be
+around just the challenge of configuring
+it, uh, their priorities. If they're
+volunteers, they don't have time. Um, I
+think there's a lot of security
+controls. You know, we can ask, why
+doesn't everybody have MFA turned on?
+And sometimes it's like it's easier to
+click skip than turn it on. Like there's
+um a fear of like the unknown with
+humans. And so opting into something
+like taking on new work in itself can be
+a psychological barrier for people.
+I don't have a better answer for you.
+Sorry.
+All right. Well, uh, we have a few
+minutes left, so we'll go ahead and wrap
+up now, and I'll be around for anyone
+who wants to talk afterwards.
+>> Thank you, Jim.
+>> Thank [applause] you,

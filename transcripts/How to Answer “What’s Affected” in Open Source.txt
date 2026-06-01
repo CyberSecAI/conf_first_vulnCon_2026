@@ -1,0 +1,713 @@
+Hello. Um, thanks for joining us. Uh,
+I'm Jess and this is Rex. We're software
+engineers on the Google open source
+security team. Uh, we work on the open
+source vulnerability sets of tools uh,
+and projects and we are based in Sydney,
+Australia.
+Um, we're very excited to be here
+despite a category two cyclone and
+multiple international flights almost
+making it otherwise.
+But enough about us.
+The CVE program was founded uh, was
+formed in 1999 so that researchers,
+security experts, and the like could
+talk about a vulnerability and know that
+they're both talking about the same
+thing.
+That was 27 years ago.
+That's pre-me and most importantly
+pre-AI bomb apocalypse.
+In 1999 uh, 321 records were published
+and now we're getting I think it's 10
+records a day or 10 rec- a record per 10
+minutes.
+Um, for some large companies uh, it may
+once have been manageable to read every
+single record, blog post, postmortem,
+and
+uh, patch these vulnerabilities as they
+were published, but for the average
+company or open source project, there's
+simply not enough manpower to do that.
+And that's also assuming that the
+average developer cares. The truth is
+uh, the average developer doesn't want
+to know about every vulnerability that
+exists.
+They care about delivering features
+first, but they also have to care about
+compliance.
+And for most organizations, compliance
+means reducing the number of
+vulnerabilities returned by scanners.
+But this creates a massive problem.
+When vulnerability scanners return junk
+vulnerabilities that don't actually
+affect the product,
+um,
+then without actually securing the
+product uh, developers are forced to
+waste hours of their day addressing the
+vulnerabilities without actually
+securing the product at all.
+They only want to see what's actually
+affecting their project, resolve those
+specific issues, and go back to
+delivering on features.
+As such, most people operate on this
+alert-on-artifact workflow, where they
+might receive an automated notification
+when a specific artifact, be it package,
+binary, or commit, is found to be
+vulnerable.
+So, making this alerting happen sounds a
+lot simpler than it is.
+Um we would know. Uh while there have
+been a lot of changes in the CVE schema
+over the past 27 years,
+um there's a lot of CVE records that
+still uh include largely unstructured
+text.
+Um so, if you want to make this data
+matchable on artifacts, you first need
+to know which product or project is
+actually affected, which versions are
+affected, and sometimes which ecosystem
+it exists in.
+Uh and as you can see here, it's
+sometimes a bit difficult to determine
+that when there is very little
+information that is possible.
+Um yeah, it the CVE schema leaves it
+very open to interpretation, uh and it's
+very difficult to automate matching.
+Uh even when you use NVD data that's a
+little bit more um structured,
+uh the slow down of CPE strings has also
+made it necessary to be looking at CVE
+data.
+And uh in an ideal world,
+um
+we would have machine-readable version
+data that's resolute, describes where a
+vulnerability was introduced and where
+it was fixed in a single easy-to-parse
+way, and we could automate this all so
+much easier.
+Um but because we don't live in a super
+ideal world just yet, and uh we ran into
+our own issues making this work with um
+open source,
+we created our own schema, as you do.
+Um so, yeah, the open source
+vulnerability schema was created to
+describe known vulnerabilities in open
+source packages in a machine-readable
+way.
+Uh it's very minimal schema. This is the
+entire thing.
+Um and
+we're not going to go through this
+entire thing. We're just going to look
+at this uh version information and how
+we construct it here.
+Um in OSV, we have the concept of
+introduced, last affected, and fixed
+events.
+Um
+Yeah, a small fun fact here, OSV was
+actually one of the reasons that we have
+uh version ranges in CV 5
+schema, so.
+we use the schema ourselves uh through
+OSV dev.
+And similarly to CNAs, uh we have our
+own data providers.
+But they usually represent specific
+ecosystems and package managers that
+describe how a package is bundled and
+actually dependent on.
+Uh different ecosystems have entirely
+different rules for what a version
+means.
+Rust uses SemVer, Python uses PEP 40 or
+40, and Ubuntu uses Debian's complex
+versioning scheme.
+When a vulnerability is reported in an
+ecosystem, the OSV record includes
+ecosystem field,
+be it NPM, Go, PyPI.
+Uh and these ecosystems can express
+their versions using the introduced,
+fixed, and last affected values for us
+to interpret based on their versioning
+system.
+And while the idea seems pretty
+straightforward, I'll let Rex tell you
+about the problems we've run on into
+using the system.
+Cool. Um hey folks. Uh while using a
+simple introduced and fixed label sounds
+pretty good,
+um we quickly realized that it could be
+a lot more complicated than it looks on
+the surface. For example, if you own a
+project um
+that you're trying to publish a
+vulnerability for, you want to say that
+there's a vulnerability from the very
+first 1.0 release all the way to, let's
+say, 3.0.5.
+Um naively, it could look something like
+this.
+It's easy to think that these are
+numeric versions are linear. Fixed in
+3.0.5 means everything between version 1
+and version 3.0.5 is affected, right?
+But what if some of these middle
+versions you want to backport affects
+into? Because, for example, they're LTS
+versions that you promised support for.
+And then, the record might look
+something like this.
+Um we've added uh
+couple of more new fixed labels, but if
+it's fixed in 1.12 and let's say 1.14
+and 2.0.0, they are definitely higher
+versions. So, shouldn't they also be
+fixed?
+But, of course, we know 2.0 is not It's
+fixing 2.2.8. So, we need to start
+putting more introduced labels.
+We've now added uh introduced at 1.14
+and 3.0.
+Um as they are diverging after the LTS
+branch happens.
+Um if we don't have these additional
+introduced tags on the record itself,
+it's difficult to tell which versions
+are after LTS patch and which versions
+are before.
+Now, the record is starting to look a
+bit messy.
+and fixed in 2.2.8 and then reintroduced
+again in 3.0 also doesn't actually make
+much sense if you interpret introduced
+as like the version that actually
+introduced uh actually caused the issue
+to appear.
+Um version three didn't have someone
+sneaking and write like a bug into the
+code that caused the vulnerability. Um
+it was something that was already in
+code from way back in version one and no
+one has fixed it yet in version three.
+Um but, of course, this line is simply
+not correct if we change our perspective
+slightly.
+This is the underlying Git
+representation.
+And as you can see with the graph, it's
+now quite clear why a fix on the 2.0
+branch does not necessarily mean version
+3.0 is fixed.
+Um and this is a pretty common
+development pattern in your source
+control to have a main branch where your
+latest release happens and then have a
+few LTS branches where you cherry-pick
+the fix into.
+Um so, now rather than spacing line the
+ranges using versions, we can utilize
+the original Git commits um on the
+original Git graph of the project and
+apply our fixed labels directly to the
+exact commit that actually wrote the
+fix.
+Removing the need for these phantom
+introduced labels on V3 and V1.14.
+In fact, Git actually has a nice feature
+where you can get something called a
+patch ID
+um by hashing the diff of the commit,
+allowing us to automatically identify
+all the commits that you cherry-pick to
+fix
+uh to from just the original fix commit.
+Um this gets us back to the original
+vision of having a clean record with
+only one introduced and one fixed label.
+Also, as a side note, another benefit we
+found with Git records is that it has
+intrinsic ordering. So, we no longer
+have to rely on a specific ecosystem
+being well-defined.
+So, we found these properties of putting
+introduced and fixed labels directly
+onto Git commits to be pretty neat. So,
+we set out to put this into the schema.
+Um but when you're defining something in
+a public schema that's designed for
+everyone to use, you can't just define
+the common cases and leave the rest. You
+have to make sure every edge case is
+covered because you know someone's going
+to come along and define something that
+you did not expect.
+So, for any given set of introduced and
+fixed commits, we need to
+deterministically be able to tell you
+um what commits are actually affected.
+We quickly found that while early
+examples are pretty simple, uh Git graph
+introduces a few unintuitive edge cases
+that we need to consider. So, let's go
+through some of them.
+So, first, you have a vulnerability
+record with a Git range. This means each
+commit can be in two states. It's either
+affected by a vulnerability or it's not
+affected. We'll mark the affected
+commits in blue, um affected commits in
+red, and unaffected commits in blue.
+The basics are pretty easy. You
+introduce a bug, um the following
+commits are affected including the bug
+that has the introduced label on it. You
+fix it, the following commits are
+unaffected including a commit that has
+the fixed one.
+When you branch, the branch inherits the
+state of the parent.
+And merging branches of the same status
+is also straightforward. If both are
+affected, the merge result is also
+affected, and vice versa.
+But, what happens when you have to merge
+two different status commits?
+Uh let's do a quick um show of hands
+here. Raise your hand if you think um
+this purple merge commit should be
+affected.
+All right.
+I I I think that seems pretty
+reasonable. Um if you have a branch code
+that's affected by a vulnerability,
+something unrelated being merged in
+doesn't seem to change that.
+However, if you just show that the if we
+show how the branch is made in the first
+place,
+looking at this, I think now most people
+can agree that the merge commit should
+be safe.
+Since there's a pretty standard
+workflow, you make a separate branch to
+like make a fix for the vulnerability
+and you merge it back in
+um to your main branch once you have
+implemented the fix.
+So, the answer when merging a blue and a
+red branch is that the merge commit is
+not vulnerable, right?
+Well, also not necessarily. What if the
+history looked something like this?
+Because the branch is made before the
+vulnerability is introduced and merged
+backing afterwards, I think everyone
+agrees that this case it's still
+affected since something com- completely
+unrelated to the vulnerability has been
+merged in.
+The difference here shows us that we
+cannot just look at the merge commit
+itself. We have to see the history
+beforehand uh when determining whether a
+merge is fixed or vulnerable.
+This gets even worse when fix to
+introduce occur on separate branches
+simultaneously and then gets merged in.
+There are actually three cases here
+where this would result in a fixed
+commit and a vulnerable commit merging
+into one.
+Uh if there's two parallel introduced,
+but only one of the branches is fixed
+before merging,
+an introduced tag on an already
+vulnerable commit,
+and a fixed tag on already safe commit.
+Let's look at the first case.
+So, this resulting merge commit be fixed
+or not?
+Let's see if we can map this back to a
+real-world example. Imagine a developer
+creates a feature branch, but they
+cherry-pick a commit from main that,
+unknown to them, introduces a
+vulnerability. Meanwhile, main gets a
+Unfortunately, there's no perfect answer
+to what whether this commit should be
+fixed or not.
+But, we prefer to lean towards it being
+Our reasoning is that
+uh in this case, it will likely result
+in in a merge conflict when the merge
+when the other branch gets merged into
+main.
+Um and to resolve it, the developer has
+to choose the merge uh the fixed code to
+actually merging. And since the fix is
+not automatic, uh for it to be
+considered fixed, you'll have to
+manually label that commit as a manually
+label that commit as a fixed commit for
+it to be considered fixed.
+This is thankfully a pretty rare case,
+but if we're building a robust rule set,
+we'll need to be hand be able to handle
+these cases.
+The idea we're intuitively selecting all
+these examples is that a fix can be
+applied to a vulnerability
+can only be applied to a vulnerability
+after the vulnerability has been
+introduced. If the fix is anywhere else,
+um it's likely fixing a separate
+instance of this vulnerability. So, we
+shouldn't count it as fixing the
+original vulnerability. We formalize it
+into the following rule.
+Um a commit is only affected if there's
+a path from an introduced commit to the
+current commit that does not pass
+through a fixed commit,
+which is a mouthful, so let's just have
+a look at how this applies to our
+previous examples.
+Um for branching before it's introduced,
+uh from the merge commit, there's only
+one direct path back to the introduced,
+um and there's definitely no fixed
+commit there, so it's clearly
+When
+uh for the case where we branch to fix
+the vulnerability,
+uh there's a path from the merge commit
+to the introduced commit, so this is
+fixed.
+And for the parallel merge example, um
+it also follows our heuristic of
+generally marking vulnerabilities as
+vulnerable um um, when they're ambiguous
+cases.
+Um, for these ones I ran out of time to
+actually animate these, so
+you'll have to trust me that these will
+resolve to vulnerable commits.
+Uh, because the rule is a graph rule, it
+returns pretty sensible results for
+scenarios that we haven't even covered
+yet, like these double introduced or
+octopus merges. Here's an example of a
+overly complicated graph.
+Um, with the above rule, we can easily
+resolve what the last, uh, commit should
+be.
+Because we can find at least one path
+through a fixed commit, uh, to the
+introduced, we can safely say that it is
+There is one caveat to this though, that
+this rule works pretty well when we have
+a clear starting point, like an
+introduced version or commit.
+However, this is commonly not the case
+for many vulnerability reports. When
+creating a vulnerability report, um,
+it's generally a lot of work to go back
+through years of, um, project's history
+to find the commit that first introduced
+the vulnerability.
+Um, especially when many people probably
+won't find it all that helpful, um,
+since they would want to update to the
+latest version anyway.
+So, in OSV, we have a special introduced
+called introduced zero to say this
+vulnerability can be considered to exist
+from the very first version of this
+package.
+This works pretty well for linear
+versions generally.
+Though, there are weird cases even
+there.
+But, for Git graphs, it's a bit more
+complicated.
+While it's common to have a single root
+commit, it's not unheard of to have
+multiple different root commits, or even
+a completely disjoint tree in one
+repository.
+Um, one common case of this is if you
+use Git subtrees to vendoring some
+third-party code.
+Um, if we say introduced zero means
+every commit without a parent,
+um, we might inadvertently be marking
+commits as vulnerable when they
+definitely, uh, when they're unrelated
+and definitely should be considered
+unaffected. This could even result in
+commit after a fix has been merged in
+being marked as vulnerable, as that's
+when other roots are merged in.
+So, when you need to enforce another
+rule, the zero can only apply to the
+specific tree root um that the
+vulnerability report actually references
+and also can be reached when searching
+backwards from the fixed commit. So,
+this removes this unrelated tree down
+here
+and also this vendor root.
+As it's merging further downstream of
+the fixed commit, leaving only the
+commits that actually unaffected uh
+leaving only the commits that actually
+Well, that's a lot of technical detail
+and we have definitely broken the
+geometric bounds of our whiteboard.
+Um anyway, that covers how we resolve
+graphs once we can get it introduced and
+fixed, but where do we get this data
+from in the first place?
+I'll hand it back to Jess to go over
+this in more detail.
+All right. Well, the large majority of
+the data we have on OSV is aggregated
+from distri- distributed advisory
+databases. Most of these are ecosystem
+specific. Uh some of these are their own
+kind of aggregators.
+for example,
+here is an example of a crates.io
+uh record, which is Rust. So, crates is
+a SemVer-based ecosystem um and as they
+are able to establish a clear link
+between the package ecosystem, the
+package, and the version ordering,
+we're able to
+Actually,
+uh they can easily just provide versions
+and we can interpret them
+um when
+the data and when the data comes
+directly from the ecosystem itself, um
+we're actually able to get a lot more uh
+information like affected function
+information so that users might uh be
+able to further reduce the the scanning
+and reachability and like use that for
+reachability analysis.
+Uh and then we of course we have our
+aggregators. I'm not sure that's the
+perfect term to use for that, but uh
+GitHub security advisory also provides
+uh a lot of uh all of their data is in
+the OSV format. Um and
+through the GHSA, we were able to get uh
+faster and more accurate vulnerability
+information about ecosystems like Maven
+and NPM that don't have their own public
+databases, on top of some of the ones
+that we already
+uh ingest.
+And then there are other projects that
+aren't tied to any ecosystem and instead
+supply the git ranges directly to us
+like curl and Python interpreter.
+When these ranges are supplied directly,
+they are usually a lot more precise on
+an artifact level, showing exactly what
+was changed and affected
+um, because the commit is pointing at
+what actually fixed it and what changes
+were made.
+Um, these sorts of data that we get are
+the best cases as yeah, users are able
+to utilize better reachability methods
+to determine if they're affected.
+Um, and like most people, we also look
+to the CVE list and NVD for
+vulnerability information.
+Um, in the last couple of years, there's
+been a few key players step into the CVE
+publishing ring. GitHub, which also
+publishes GHSA,
+but uh the Linux kernel.
+And if you've ever looked at a Linux
+kernel record, uh you might have noticed
+that they provide their version data in
+three different places.
+They provide it as git commits,
+as SemVer versions, even though they
+aren't SemVer,
+and as CPEs.
+Um, as a pre-SemVer project that has uh
+changes their versions when they feel
+like it, they also agree that git
+commits are the most relevant way to
+interpret their vulnerability data.
+So, we ingest that as well.
+Unfortunately, um they're one of the
+very few CNAs that provide git hashes,
+or at least full git hashes, um in their
+CVE records. And from the typical CVE
+record, we also aren't actually able to
+assume any sort of ecosystem, which we
+require for more actual um matching.
+Um, and we can't interpret this at scale
+easily, either. So, in a last ditch
+effort, we attempt to convert it
+ourselves. And
+as I just said, we need an ecosystem and
+we can't get one. So, how do we do that?
+Well, Git does have intrinsic ordering.
+And if we are um and
+yeah, we can use it Git as the
+ecosystem.
+Because
+but whoop
+if we can find versions in our
+repository on an NVD or CVE record, we
+can normalize the versions and compare
+them to the Git tags on a repository.
+As uh Git tags are essentially a
+bookmark labeling a commit, we can get
+the commit attached to that tag or
+release.
+So, we have versions, we have a
+repository. We can get that information.
+Oh, no.
+Okay. If we do that for all versions, uh
+we're able to assume a range uh of
+introduced and fixed events of what is
+affected. Um this is usually uh
+unfortunately not as nice than when the
+data is just provided to us as we're
+usually resolving the release commit
+rather than the fixed commit leading to
+cherry-pick detection being somewhat
+useless. But, we've found we would
+rather have coverage of this data than
+not have it at all.
+Um and now whether or not we have had
+this data provided to us directly or
+derived them ourselves, we can enumerate
+all the commits in between the two
+ranges or two uh data points
+and then have all of the commits in
+between that are affected.
+And then we can uh actually retrieve the
+list
+of tags that are associated in that
+range. And then we also have an
+enumerated list of versions on the
+record as well.
+Um and with all of these, we have
+multiple methods to figure out um the
+version ranges automatically so that
+users are able to quickly query our API
+and kind of answer whether or not
+they're affected.
+Um, standardizing how version ranges are
+represented across this ecosystem
+means that the API can abstract away a
+lot of this ecosystem specific logic for
+version comparison.
+Which brings us to tooling. Um,
+because what use is data without
+actionable tooling?
+Um, vulnerable vulnerability scanners
+can then use our API or our data to
+correlate the dependency versions stated
+in log files to narrow down whether the
+software project is affected.
+After we've narrowed down what ranges
+are affected, we're able to use tools
+like VEX, reachability, and static
+analysis to even further trim down uh
+what system what your system is actually
+affected by.
+And as we probably all know, we are
+currently experiencing a massive jump in
+the volume of reported vulnerabilities.
+The voln-pocalypse is upon us and all
+that. But for maintainers and security
+engineers, simply being told your
+dependency has a vulnerability is almost
+pure noise.
+Uh, you already know that most of these
+are almost certainly not exploitable in
+your in the context of your specific
+project. This either results in a loss
+of wasted work or real vulnerabilities
+getting lost in the noise.
+So, we want to stop chasing ghosts, and
+an important part of that is having good
+vulnerability reports.
+Precision as well allows maintainers to
+effectively patch or update for real
+threats while still having time to ship
+actual features.
+Um,
+by using specific unambiguous format uh
+using or in using Git commit hashes, we
+can make it easier for library
+maintainers and security researchers to
+write accurate reports and fundamentally
+easier for consumers to automate their
+security and stay up-to-date.
+So, if you're a CNA who operates
+anywhere near the open source and
+are able to publish Git commits,
+please talk to us.
+>> [laughter]
+>> Um, otherwise, thank you very much for
+listening.
+Um, and we'll wait for questions.
+>> [applause]
+>> So, I might be wrong about this. Is it
+possible that you have a
+commit that would otherwise be fixed
+I overwrite because they poorly the
+merge was poor and they overwrote the
+actual vulnerable code or
+because sometimes it's not just quite as
+simple as we fixed it in the branch and
+then we merged it and it was fine. It
+may be when the merge happened, the
+merge didn't happen correctly or they
+added a feature, they fixed the bulb and
+but when we merge the feature and the
+broken branch, they were unaffected. So,
+I I think your heuristic probably works
+like 99% of the time, but do you have a
+sense of when it doesn't? Um yeah,
+that's definitely possible. The Okay.
+solu- the solution there is to
+um as the bomb publisher, you should be
+adding introduced again since Okay. you
+when you merge it back and you
+reintroduced the vulnerability.
+we don't have like any hard numbers on
+how often this happens. Um we can just
+find them as we go along or when people
+report them to us. Sure. Um yeah, if
+that answers your question.
+Cool.
+Thank you very much.
+>> I hope you guys enjoyed our
+over-engineered slide deck.

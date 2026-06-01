@@ -1,0 +1,1200 @@
+Hi, good afternoon.
+Okay, so as Tracy mentioned, we're here
+today to talk about JSON declarative and
+how to interpret S-bombs and make them
+actionable.
+Okay,
+so yes, I'm Zardie Alden,
+manager within supply chain security,
+focused on safe use of open source of
+course IBM. And I've just done over 30
+years at IBM and as Tracy said, based in
+the UK in Winchester office.
+Great and thank you Tracy for the
+introduction. I just um
+So yes, with our role Zardie and I, we
+deal with S-bombs every day. That's sort
+of the world we're living in. Um
+In particular, I'm dealing with both a
+lot of incoming S-bombs, looking at our
+suppliers and our vendors and what they
+send to us.
+And the reason I'm giving that context,
+it's very much the real world, right?
+It's like the wild west. So we've had
+some S-bomb talks that are super
+advanced and we're going to talk about
+the reason we did these tools
+because some of these are are
+it's we think simplicity is important.
+Anyhow, yeah, I've been with IBM for 28
+years, which makes me feel really old to
+say that.
+I'm and I'm from Boston. It's a pleasure
+to be here where it's sunny and warm and
+beautiful.
+So
+take it away.
+Okay, so as with any talks we do on
+behalf of IBM, a little disclaimer on
+that the information provided is as is
+and IBM cannot be held responsible or
+liable.
+Okay, let's jump into
+the agenda.
+Okay, so
+ever received an S-bomb and thought
+great, now what to do?
+Then this will be the talk for you
+today. So S-bombs are currently
+technically correct, but operationally
+we'd say under leveraged.
+We're going to talk about our use of AI
+to interpret S-bombs and that make them
+And then some of the tools we built with
+the use of AI. So, we have five here to
+share with you today. S-bomb quality,
+component relationship analyzer, CV age
+tracker,
+license analysis, and then version
+drift. And then finally, we'll talk
+about best practices and then closing.
+Okay. So,
+why do we
+see S-bombs still not usable enough
+today? So, we see the screenshot here.
+Um, it's a flat JSON file. Um, pretty
+ugly to interpret. Um, so as I say,
+they're technically dense and
+operationally they're under leveraged.
+They widely um, they vary widely in
+structure and quality. We often see
+relationships and dependencies. Um,
+relationships are often absent from the
+S-bombs that we receive. And then even
+today, um, we're still seeing missing
+NTIA elements.
+And then also, the versions very rarely
+do we see them mapped to release dates.
+So, we can't see how old the versions
+are that are in use in the S-bomb.
+Okay. So, I'm going to hand over to John
+now to talk about our use of AI.
+Great.
+And um,
+keep in mind um,
+so everything that we're going to show,
+we're going to ultimately go through
+five simple tools that we use and we use
+AI to build the tools, but they're all
+about simplicity.
+Um,
+so let's say, I'm sure everyone in this
+room now with with AI uh, has certainly
+probably thrown an S-bomb in an LLM and
+gotten a summary back. That's certainly
+the easy part.
+Um, anyone in this room can do it.
+And using AI to write these tools also
+proved to be incredibly easy and really
+fun.
+so inside of IBM most recently, we've
+been using We have a tool that we've
+developed and just recently
+commercialized called Bob. It's
+um sort of a collaboration between IBM
+using a lot of the IBM LLM models and
+some of the Anthropic and Claude models.
+Um but certainly for anyone
+we're not trying to promote one public
+model over another, but we have found
+a lot of our early work with Claude
+Claude was especially strong in
+developing these really simple targeted
+web apps. We were just absolutely amazed
+at how
+we're not really technical people. I
+mean, we get the business issues. We're
+we're technical enough to understand
+what we want to see out of an S-bomb,
+but we're not coders, we're not
+developers, and that's what what the fun
+was like, "Oh my god, look at what we're
+able to surface."
+Um so, by no means
+was the technology the difficult part.
+What turned out to be the hard part
+really was deciding what actually
+matters from a business, a risk, and a
+governance perspective.
+Um so, while AI lowers the bar to
+building the tooling
+it really doesn't solve the
+interpretation. Um and I think I heard
+this even maybe in the beginning opening
+session, it makes it really easy to
+generate output that looks really
+useful, but you have no idea if it's
+trustworthy or actionable.
+So, that's why we did these tools
+designed deliberately for non-technical
+roles.
+Um potentially say legal, procurement,
+people looking at vendor risk. Those who
+don't need JSON files, they certainly
+won't understand them if they open up
+raw JSON files um or scanner output, but
+what they do need is the clarity.
+Um and the key insight we landed on is
+really the value isn't in generating
+more intelligence, but it's at least
+exposing what's already in the S-bomb
+you've received.
+And it's structured, especially once
+it's structured and normalized.
+Um
+So, we're going to get started looking
+at some of these tools. So, we've got
+five tools that we're going to show.
+We've Everything we'll show a link at
+the end. It's all They're all available
+on GitHub as open source, and soon we'll
+be opening that up also for other
+contribution. Um a lot of our tools we
+at least inside of IBM, and this is a
+bit different than Red Hat. We focus
+primarily on CycloneDX as the standard.
+cuz we're really interested in initially
+the vulnerability management piece of
+it. So, a lot of this initially was sort
+of CycloneDX driven.
+Um So, the first tool we're going to
+look at it's focused on
+initially we received an SBOM. Let's
+look at the overall quality.
+Um because remember, if the SBOM itself
+is weak,
+every downstream decision that we make
+is going to be weaker as a result,
+right? If the data foundation isn't
+solid, the risk analysis, the
+vulnerability matching, the supplier
+conversations, they're all pretty much
+built on guesswork.
+So, before we ask, "What is the risk
+inside?" Let's first ask, "Is the SBOM
+even credible enough to use?" And that's
+what this first tool is all about.
+So,
+a couple of things you're going to see
+sort of key
+super simple interface. Uh we made early
+on the decision that everything we were
+going to build and show, it's just a
+front-end tool, right? It's an HTML
+tool web app that has all the code
+inside of it. Yes, you can get more
+complex. Yes, you can add a back end. We
+didn't want to do that intentionally
+because it's so easy to share with other
+team members when it's just an HTML
+file. It's like, "Oh, here, check this
+out. Oh, you've got an SBOM and you're
+looking to understand. Here you go." So,
+Ziad and I would would develop these and
+share these with several of our team
+members. Super easy.
+And that's kind of a consistent theme
+that you're you're to see. So, in this
+case, Well, not not that consistent
+because you you went for
+John went for a white UI and you'll see
+who developed which tools or created
+which tools cuz mine's mine's the black
+and the dark UI. She's right. The one
+common theme there was we did say,
+"Okay, bring this into what we call the
+IBM carbon UI theme, right?" And you can
+choose black or white. She She we chose
+differently there.
+Um but in this case, so you know, this
+idea you just literally take your S-BOM,
+CycloneDX or SPDX, you drag and drop or
+choose the file, and the analysis
+begins.
+So, what we're first going to surface
+um
+is really the key metadata. Your format,
+your version, your timestamps, your
+identifiers, the basics that you're
+going to need to at least decide if the
+S-BOM is even usable.
+Now, we'll look at the different tabs
+across in a moment, but some of the
+things we immediately highlight here,
+for example, the component statistics,
+looking at if we deduplicate, and this
+is obviously a very simple
+example with only, you know, just over
+100 components. Um what would it be the
+total when you include the duplicates?
+And then right out away we want to show
+um some of the issues that might be
+immediately want to make visible with a
+component identifiers. For example, if
+there any um
+Pearls that have generic as the
+ecosystem. We'll talk more about this in
+a moment, but that's certainly going to
+impact the ability to map to CVEs. Same
+with as GitHub, if that's the
+the namespace of the ecosystem in the
+Pearl, um and there's no CPE, that's
+going to prevent us from mapping. Uh
+there's no CPE that's going to map us to
+preventing to CVEs. Um and then how many
+do have in addition to Pearls maybe uh
+unique
+CPE identifiers. So, these are all
+things right away that we'd show.
+And then if we look across
+the different tabs,
+um so we begin with the components tab.
+This gives a visual summary of what's
+inside, how many components there are,
+who who suppliers are, the licenses, if
+there's a pearl.
+and it replaces initially the need for
+anybody looking at an S-bomb file, it
+replaces that need to open the raw JSON.
+And answer the very question
+that like, okay, I've gotten this and
+what am I looking at?
+Um and again, one of the key drivers
+we're convinced. So, all these
+regulations, right? You got to send us
+an S-bomb of your product. Great.
+I I would guess that 99% of those
+S-bombs are received. People have no
+idea what to do with it. They check a
+box, we got it, we're compliant.
+It's gone. So, that's what we want to
+like try to show people. It's not hard
+with some basic tools to start drilling
+in and really understand it.
+so again, now the goal here is not deep
+analysis, it's just to establish a
+baseline of credibility before we start
+making downstream decisions.
+Then once we understand what's at least
+inside that JSON file, let's start
+shifting to the quality signals.
+Um and and help really determine how
+much trust are we going to place in it.
+So, looking at this analysis tab,
+um one of the first things we want to
+flag is missing NTIA minimum elements.
+We're not treating these as simple
+formatting errors,
+but really supplier governance signals.
+Um so, most frequently we almost always
+see that the supplier information is
+missing
+and
+pretty frequently all dependency
+relationship is not present. Those are
+the two
+almost across the board everything we
+get.
+Um so, when that author data,
+identifiers, or dependency relationships
+are not there, it really points to
+immaturity in the supplier's S-bomb
+process and they're you know, that that
+generation is really questionable. And I
+think what you were showing before with
+the
+contextual S-bombs is
+super advanced and and you all at Red
+Hat are
+super impressive at this. Most of the
+suppliers that we see responses from it
+is the absolute opposite end of the
+spectrum.
+Um so we check for those structural
+issues.
+They could affect also downstream
+tooling. Things like are there
+duplicate bomb refs? Um
+are there other dependency information
+that are missing? And that stuff can
+cause scanners to simply fail.
+Um so we want to know that right up
+front.
+Um then we look at identification
+strength of the pearls that we have. Now
+we talked a little bit about if I've got
+generic pearls, I can't really map those
+easily without a CPE to a
+to a CVE
+um or GitHub only. So I just want to
+know how much of this S-BOM may have
+that. And that's going to immediately
+tell me, okay, what can I really
+infer from this? Now sometimes that can
+be completely the legitimate, right? If
+an open source component may not be from
+a a known ecosystem or an IBM like some
+of the old really old mainframe stuff
+there wasn't even an open source
+ecosystem when some of this was being
+used.
+But sometimes this could be a red flag.
+I I feel like somebody could manipulate
+that pearl to put generic or GitHub and
+then we're not going to find it when
+even it is actually maybe an open source
+a legitimate open source package that
+should be associated with an ecosystem.
+and for everything the user can drill
+down and understand kind of see okay,
+we've got certain
+pearls that may be only generic. We can
+certainly drill down and see that the
+the different uh
+you know, the different levels in in
+more detail. So remember the takeaway
+here it's that if the structure is weak,
+every risk decision downstream is going
+to really be weaker and impacted. Now
+all of this data that we show can
+certainly easily be exported to a CSV or
+an Excel. I know that's not the goal,
+but when you're sharing it with other
+team members who aren't
+S bomb experts.
+And they may just want to filter and and
+do things in Excel or look at it and and
+and do it what at least we're giving
+them structured and we feel
+interpreted structured data.
+Right? So that we just always want to
+give that ability because that's at the
+end of the day what we often get is oh,
+can't you give it to me in Excel or CSV?
+So that's a quick view of what we call
+initial S bomb quality insights tool.
+That was
+a pretty basic one, but we do that stuff
+all the time. Like almost every S bomb
+we get we we run it quickly through
+that. Easy.
+The next one we're going to look at is
+tool number two, the S bomb dependency
+analyzer. And this came comes directly
+from a question that we get from
+internal development teams all the time.
+Wait, how can there be a vulnerability?
+We don't even use that library.
+Right. I mean, as all of you probably
+know and understand,
+you may not be using it directly, but
+one of your dependencies is and you may
+not be aware of it. So that's what this
+tool is all about. It's trying to make
+that hidden relationship visible. So
+let's take a look.
+Again, super simple
+front end UI interface, just drag and
+drop.
+Um once an S bomb is loaded, now the
+tool is starting to focus on the
+relationships, not just the inventory.
+So the view that comes up immediately,
+it's going to answer the first question
+about how that vulnerability can be
+coming in from a library.
+it's it's immediately telling me of all
+my components, how many direct
+dependencies do I have and how many
+transitive dependencies do I have.
+Um I've also got them tabs along the
+bottom which we'll kind of walk through
+and give us more detail. Now keep in
+mind this it's really about trying to
+surface the transitive components in
+many cases here.
+Um we often find this is where the
+vulnerabilities or outdated code or
+license issues they may quietly enter a
+build and people aren't the development
+teams may not even be aware that these
+are being called.
+So, as we look at the different tabs, um
+the first sort of the analysis we're
+just trying to to determine if the
+S-bomb represents a structured
+dependency graph or a flat inventory.
+Now, in this case, of course, I'm using
+an example where the dependency I I will
+say we get so many that are just a flat
+file.
+So, you have no idea. And everything
+lists out as a transitive, which is not
+accurate.
+but again, this is where the
+vulnerability analysis becomes if if
+you've just got that and you don't have
+the dependent build, you know, without
+those relationships,
+the reachability and the vulnerability
+analysis, it really becomes less
+reliable.
+so, again, the the end result here is
+arguing whether or not a vulnerability
+is even relevant. At least now we can
+clearly show how it's introduced and why
+it matters.
+So, in this tool,
+if we look first, we've got these
+different tabs. So, we start kind of
+with the all dependencies tab, and you
+can see then visually right away with
+each component we we immediately show if
+it's direct or transitive.
+And then you can go ahead and click on
+any given component. So, let's drill
+down. The first one here is the chalk
+component.
+So, if we click on that, um it expands
+to a different level of detail.
+And what we can see here is we we show
+kind of
+some key attributes. So, over on the
+left, we can see why, you know, what is
+what is the the the kind of the
+highlights of the dependency, but most
+importantly,
+what does that direct dependency bring
+in is a transitive. So, we can see that
+it is bringing in
+the dependency has,
+you know, toast toast ring tag.
+The risk assessment here is for this
+dependency because it's a direct top
+level considered low. And again, we're
+showing the NTI compliance for each
+component that we're drilling down on.
+Now, if we keep going,
+I think then we go over, for example, we
+look at the transitive only. This is
+what I think is so helpful.
+So, in this case, we can see we're just
+in this case, for the sake of easy
+example, we're just showing the inverse
+of the of what the direct dependency was
+bringing in. So, here we are on the
+transitive, and you can see here how
+this was introduced.
+Um you can see now that the risk
+assessment
+is a bit higher. It's considered more
+medium because it's
+it's it's not necessarily as known. It's
+a little deeper. Um and what's
+interesting is when you look at the NTI
+compliance attributes, in this case,
+it's bringing in a transitive dependency
+and the license is unknown. So, that's
+from a legal license perspective,
+something we
+we weren't aware of, but we'd want to
+know and address.
+Um so, this is the visibility that can
+be extremely helpful for developers.
+So, that's the second tool. That's our
+dependency analysis tool.
+Now, the next example, this is a really
+small internal tab, um a little tool
+that we have called the CVE Age Tracker.
+Super simple.
+We tend to put a lot of emphasis on the
+age of CVEs. It's not
+um we're not trying to replace CVSS
+exploit data or reachability here. It's
+just about understanding how long
+vulnerabilities have been out there in
+the code base.
+So, what this tool shows is
+we're going to show, you know, from a
+public disclosure date and calculate how
+old it is as of today.
+So, this is again, a super simple
+interface. You don't even need to load
+the S-bomb. You just
+literally copy and paste from whatever
+source your whole list of CVEs right
+there.
+Um and it's going to just calculate how
+long they've been
+publicly known.
+Um so, in this case, what we're showing
+here
+is we got 50 total, you know,
+deduplicated CVEs, seven of which are
+greater than six months old.
+we don't six months is not a magic
+number,
+but we're using it. We find it kind of
+an interesting
+uh metric. And And this could be
+reprogrammed to whatever is a is a
+proper timeline for
+any organization.
+But if it's been out there for six
+months, it's a signal
+that a vulnerability has survived
+certainly
+probably multiple release or remediation
+cycles.
+Um and it immediately tells us,
+you know, which findings are new and
+which ones represent the longer-standing
+exposure.
+So, we can also scroll down
+and and then just see kind of from a
+visual perspective,
+you know, sort of clustering, okay, most
+of our CVEs,
+maybe they're older than than than six
+months, but but you can see kind of
+where they where they fall.
+And
+again,
+just keep in mind, age itself it's not a
+risk score.
+It's just a signal,
+um a supporting signal. It helps us
+understand prioritization, process
+health
+uh within an organization that's
+generating them.
+Or in our own, like, what is the
+development team doing? Are they
+focusing on the right
+CVEs? Um
+And older vulnerabilities are more
+likely to have reliable exploit code.
+They often indicate that remediation has
+stalled.
+Maybe ownership is unclear or fixes are
+being deferred release after release.
+Um so again, the real value here is
+visibility and this tool helps teams
+quickly figure out
+um you know, where cleanup may be
+overdue.
+So those are the first three tools. Um
+you know, as you scroll down and further
+in in this was just you know, you can
+without having to go out to this
+to NVD or cve.org we're just pulling in
+the data, the details, the more
+explicit in the in the severity of the
+the information. We're pulling all this
+from
+NVD and cve.org.
+Um all right, Zadia. So those are the
+first three. I'm going to turn it back
+over to you.
+>> Thank you. Thank you, John. Oh, I I will
+get back us back on time because I'm a
+fast talker and I only have two tools
+to show you. Um I have one ask though
+before we lose everybody. If you could
+complete the survey, um one because it
+would be good to get your feedback and
+two we need to reassure our boss that we
+didn't get a paid vacation and that
+hopefully it was a valuable talk today.
+Okay, so let me dive into what I want to
+share with you.
+Okay, so license analysis. Um so why
+does it matter? So an S-BOM isn't just a
+security artifact. It has a lot of
+valuable information about legal and
+commercial risk of what we ship.
+Um so the core question is can we
+legally use this this package? Can we
+sell it? Can we distribute this as part
+of our product?
+Okay, so similar to John's although the
+black theme. So by all means add into
+the survey if you prefer the the white
+or the or the dark theme and then maybe
+we can become more uniform. Um so simple
+drag and drop or upload the file from
+your local directory.
+Okay, and then what it's done here with
+the S-BOM data is it's
+populated a high visual dashboard on the
+total number of packages and then it's
+categorized the licenses into high risk,
+caution, permissive, non-commercial,
+um third party, and then proprietary if
+you can determine that, and then
+unknown.
+Okay, so if we drill down a little bit a
+little bit further, so down the bottom
+here you can see there's a key index on
+how we what criteria we've used for the
+risk category, so high risk being strong
+copyleft, you know, GPL, LGPL,
+um and then caution, um the weak
+copyleft, permissive, the benign MIT
+Apache licenses, and then unknown,
+obviously that's a concern, we need to
+know the license if we're distributing
+that in our product to make sure that
+we're allowed to do so.
+And then more concerning is hopefully we
+don't see too much non-commercial use.
+So the example here is EPP plus and it's
+the Polyform non-commercial use. So we'd
+hope to not see that in any of our
+commercial or vendor products.
+Okay, so I've drilled down here, I've
+moved to the tab of unknown, so you can
+move to each of the tabs to um to drill
+down. So the unknown gives us an option
+to inspect, um and then what happens
+here is it will give you some
+information about why it hasn't been
+able to determine the license, so it
+might be that the it wasn't populated in
+the SBOM itself, it might be that it's
+not a standard SPDX ID, and then it will
+give you some hints and tips on how to
+go and retrieve the um the license.
+Okay, and then rather than doing them
+all manually, um retrieve and then uh
+fetch and then apply it, there is a
+retrieve um all option on the top right
+hand, so you can go and try and populate
+all of the unknown licenses in one in
+one simple click.
+version drift analysis, so this is the
+final tool tool we want to share. So
+this talks about how old the libraries
+are that we're using, so this is a
+security exposure. So, older versions
+often contain known exploitable
+vulnerabilities.
+Um end-of-life libraries are unlikely to
+get any security patches. So, this then
+creates a compliance and an audit risk.
+Um unsupported um software is, you know,
+frequently flagged in audits and such.
+Um and then we have the hidden
+transitive risk. So, most aging
+libraries enter our um products
+indirectly through um dependencies.
+So, let me dive into that tool.
+Okay. So, similar um dashboard view
+here.
+>> [clears throat]
+>> Um what you'll see here at the moment is
+it's it's pretty empty. It's just taken
+the S-BOM data. So, you can see down the
+bottom here we've got the package and
+then in brackets we have the
+um the pearl and the version, the
+ecosystem. And so, what this tool is
+going to do is it's going to go and use
+the fetch all ages um at the top and
+then it's going to populate these
+columns here. So, let me show you what
+that looks like.
+Okay.
+So, we've done the fetch all and then
+it's added it to the um categories um
+above and it's a nice visual dashboard.
+And again, you can tailor perhaps the
+criteria to what suits you. So, we've
+got, you know, fresh is anything less
+than a year old. Um aging one to two. Um
+but if we move to the more concerning,
+so critical anything that's over three
+years. So, dormant, so this is it might
+be the latest release, but actually it
+hasn't been touched. The project isn't
+actively maintained and it's over three
+years old.
+Um and then more concerning is
+end-of-life. So, libraries that um are
+now archived on on GitHub.
+Okay, then I've drilled down here onto
+the end-of-life ones here. So, then you
+can see what it's done. It's it's
+it fetches the um the release date of
+the version that's in use, the age, and
+that's calculated from the latest
+version that's available um with the
+latest release date and then what is
+also retrieved here in this example is
+the fact that the GitHub is archived
+itself.
+So what it's doing again just to
+summarize it's taking your release date
+of the library that's in the S-bomb
+based on the version you're using and
+then it goes and fetches the latest
+version available and that release date
+and then it gives us that age gap.
+And then puts that in that visual
+dashboard.
+just to finalize before I hand back over
+to John. So
+best practices and how to act on the
+data. So one it's about understanding
+the data. So going back to John's
+overall S-bomb quality tool. So don't
+trust completeness. Make sure the S-bomb
+is of of good quality.
+Look at the dependencies transitive and
+direct dependencies and then look at the
+age signals. So if we see dormant or
+end-of-life libraries in some of our
+vendor S-bombs that are being provided
+that's a concern.
+And then acting. So use those findings
+to guide the vendor questions and then
+flag any missing metadata with those
+suppliers.
+And then again that talks around you
+know S-bomb quality and maturity of that
+supplier.
+And developing your own tools. So I
+won't lie John kept pinging me and
+saying hey I've created this web app
+using AI. Take a look. Take a look. And
+I eventually got round to it.
+And and had a play and I got hooked. I
+literally I was there for a couple of
+hours and I got hooked.
+So I would definitely encourage you.
+It's really really simple. I'm not a
+programmer.
+I'm you know operation side of the
+house.
+But I found it really really really good
+fun playing around with AI and building
+these simple web apps that can bring
+that data to life.
+Okay, and then back to you John for
+takeaway.
+>> our key takeaway here, right, is that
+the goal is not more S-bombs necessarily
+or more intelligence, it's just
+understanding and surfacing the data
+that's there. And that's what these are
+intended to be a first set of just
+really simple tools. You don't need to
+be technical to use them right away. Um
+even to develop them using this.
+but we want to help people understand
+the data that's there and make better
+decisions. Um and these are available in
+open source and we'll
+I don't think we've opened it up yet.
+People can download them and try them.
+Uh we're going to make it, you know,
+open to con- contribution as well and
+we'll continue to improve upon that.
+so
+with that, thank you all. Appreciate it.
+So I know it's the last session.
+>> [applause]
+>> and if there I mean we're here for
+questions or if people would like to
+to address us afterwards.
+Thank you for the talk. So those
+transitive dependencies, were they
+supposed to be in the S-bomb in the
+first place or
+would they good to know
+if It We're just surfacing that they
+were there. I don't
+I To be honest, I don't even know. That
+was sort of an example, right? Totally
+sample data. But
+Yeah, it's the assumption is that data
+is already in the S-bomb.
+>> Yeah, yeah. And then John's tool is
+visualizing that and showing what
+primary package is pulling in that
+dependency and where the relationship
+exists.
+>> Because so frequently we're finding
+development teams have no idea Mhm.
+that those dependencies that they are
+working with primarily, right, the
+directs that they are actually pulling
+in other transitive dependencies.
+Um so Got you. Okay. Thank you. Yeah.
+>> So, now you did this review and you
+might go back to the vendor and ask for
+more information or better S-bombs,
+right? What happens then? Like, once
+you're done that, the S-bomb looks all
+good, that's it's at a state you want
+it. What do you do with it? Like, does
+it go into your overall application
+S-bomb? Do you feed it into I
+What happens to it?
+I mean, in our case, right? So, if we're
+taking in incoming a lot of vendor
+S-bombs,
+we're running through a lot of this to
+then determine It It factors in. We've
+got bigger systems that help then
+qualify certain vendors and give them
+kind of a rating. Mhm. We also then are
+are feeding all of these into a
+continuous monitoring tool.
+Um so that then we have the component
+data so that if there is ever
+you know, a new security issue that's
+coming forth,
+uh we're we're doing monitoring and we
+would know not only
+if there are any internal IBM tools that
+are impacted, but we could alert the
+vendor immediately. So,
+a lot of this started because we were
+taking in all these S-bombs and to get
+them onto this continuing monitoring
+platform, we had to understand more
+of the quality because a lot of them
+were initially being rejected. So,
+that's where some of this initiative
+started for us. So, this means this is
+not just a compliance check that happens
+once. That's something that has to
+continuously be provided.
+>> Okay. I would
+say that so many recipients of S-bombs
+are asking because of executive orders,
+because of CRA, and they're not doing
+anything with the information, right?
+They
+I think
+I think many of them don't know either
+what to do with it or I
+don't know if I mean, because I feel
+like for us this is often times like a
+one-time thing we do, right? But like,
+we are continuously delivering software,
+but like they ask for the S-bomb once.
+So, that's kind of interesting. Yeah.
+Yeah.
+Okay, thank you. Great, yeah. I think
+there was another question.
+Okay, great presentation. Uh
+I have three questions.
+Sorry.
+First tool you are presenting that you
+also include um information about
+dependencies, the transitive
+dependencies, and you have uh
+column that you associated uh risk to
+those dependencies.
+What is behind logic? Is it only purely
+based on the relationship, or there is
+more like you also include source code
+and how those dependencies are executed
+in the application stack? I I think
+first in this case it's it's looking
+really at the at the relationship, and
+so it's highing it if it's transitive
+and maybe less known, it's giving it a
+higher one. And and then it's
+considering something called blast
+radius. But that was not
+And and I we could certainly go back and
+say, you know, give it more, but but
+that the intent there was not really to
+go deep on the risk analysis piece of
+that. I just wanted to highlight um
+I think it's showing that Probably worth
+saying as well with all of these tools,
+you can change the criteria. Obviously
+we've used criteria that suits
+ourselves, but it's all
+Yeah, but that was not cuz then what
+we'll do is then load these SBOMs. Once
+we've determined like, okay, we we have
+a much clearer understanding what we
+have, then we'll load it into a lot of
+other analysis scanners, and that's
+where we then really get into the more
+detailed risk analysis, right? And the
+CVE analysis.
+I mean, at a first level dependency
+track because it's open source, it's so
+easy, but then [clears throat] IBM has a
+whole set of
+what we consider our approved, you know,
+much more capable industry standard
+tooling for both source code level SBOM
+analysis as well as container image
+scanning. Yeah, you know, this
+relationship is very important and I ask
+this question only because I was
+thinking about the same thing, but I
+wanted to add also
+source code verification. So, I know
+that there's a transitive dependency. I
+know why it's there based on this
+relationship and now I can find out
+based on the source code if it's really
+executed somewhere or this is just
+dependency because
+it's required, but no one even tried to
+use it because that will be
+really valuable
+thing for the risk assessment.
+>> Interesting. Yeah.
+Great. Uh second question. Um
+life cycle uh tool.
+There was uh information that you also
+take a look at the end-of-life things.
+what is the source of information for
+this? Because there are two uh
+I wouldn't call competitive competitive
+uh projects in industry, OpenUX and CLA,
+uh that, you know, the life cycle of
+components, software components, is a
+one big problem.
+Uh you know, a lot of maintainers do not
+declare how long something will be
+maintained.
+>> Mhm.
+Um there's huge amount of forks and and
+and copies of the same content, you
+know, across different Git repositories.
+So, it's really difficult to find out
+how long something is uh
+maintained or how long it will be
+maintained. Then, when it comes to the
+software vendors,
+only because I decided to use
+five different packages that are already
+end-of-life on the upstream side,
+maybe I already made a copy of the
+source code and I maintain them
+internally in my Git repository.
+Uh
+and still this software that I produce
+and give it to you is still maintain it.
+So, the open source information that
+something is end of life doesn't mean
+anything here. So, what is the source
+information for your end of life? Yeah,
+so if ours is going out to get up to to
+look for the dormant ones, when was the
+last release, how old it is, and if it
+and if for the end of life it's looking
+at GitHub to see if that repository has
+actually been archived.
+That's the source.
+Okay, that's the case. Okay.
+>> Okay. Using the pearl. The pearl is the
+magic of the key. And I think what are
+the APIs right of the ecosystems. And
+there were some that were supported.
+But I will agree this is a super
+challenging problem, right? That you're
+probably right in the middle of, and
+we're always trying to figure. I think
+this and the provenance are the two
+hardest Yep. uh, things.
+I guess I guess I wonder how your um,
+source code analysis scan would detect
+that and what the pearl would be given
+in the S-bomb. So, if you generated an
+S-bomb yourself, I guess
+is it would it be detected as third
+party even?
+Cuz the SHA-1 would not be a match for
+some of the vendor tools available.
+>> Yeah, in such cases I think that in the
+S-bomb for such component there will be
+information that there is specific PyPI
+package, but the repository URL is not
+the upstream one, it's their own
+internal one. So, they know that it's
+not the same package like the upstream
+one. Yeah.
+Well, it'd be interesting to try maybe
+when you do your next S-bomb generation
+you can
+plug it into the tool and and see what
+it shows. Um, hey, I mean the fun by
+open sourcing this stuff is that
+hopefully people will say, "Okay, this
+is an interesting idea, but I'm going to
+enhance the heck out of it, right?"
+So.
+Hi. Uh, hey, uh one of the things as you
+talked, you have a bunch of different
+tools and I know one of the main claims
+you made was not build that one
+platform, which makes sense cuz I've
+been in the same state. But I'm curious,
+uh have you thought about a framework to
+incorporate these together because as I
+watched this presentation, they do seem
+to kind of dovetail into each other.
+Um but yeah, that was my
+That That was a really good question
+probably for anyone who's uh watching
+virtually. Um it was about not building
+one big platform, but have we considered
+uh um bringing these tools together into
+one analysis um view? And yes, we have.
+I think we went off a little bit
+independently. Like I say, John was
+first to the party. I was a little bit
+late. Um so I came in what I was looking
+for um to get out of an S-BOM. But
+you're right, the the first one to do is
+the S-BOM quality and then you you dive
+into the others. So we could probably
+converge them and then have a tab for
+each of the analysis sections. I I think
+part of the thing we were learning,
+right? So at first it's really you get
+so enthusiastic, right? These AI tools,
+oh my god, they can build this
+incredible stuff and look how easy it
+is.
+And then when you start to test it,
+it needs a lot of testing because there
+are a lot of issues.
+So that was when we sort of stepped back
+cuz I watched Sadia do this, right? She
+started with the license analysis, then
+we did drift analyzer, and then she was
+bringing in thinking of all these other
+cool things.
+And then it's like, oh my gosh, and it's
+super hard to
+to then test and unravel
+when you're sort of just vibe coding it
+through natural language, right? That
+where we both stepped away and said if
+these things are small and they're
+modular and they're easy, then they're
+quick. To validate.
+>> quick and you can fix them and you can
+feel like they're more reliable. That
+was
+at least for what And remember, we
+wanted like one of the good driving
+goals was let's keep everything a
+front-end web app, right? Then it's
+super easy to share with people. And as
+soon as you kind of cross this level of
+complexity and it's like oh, I'll make a
+node js back end for you. It's like no,
+no, no, no, no, no, no, I don't want
+that.
+So that
+we have internally some we've gone into
+some of that frame like a framework no,
+but but trying to bring them all
+together and those were challenges. So
+that's
+a little bit of our initial takeaway for
+us people that are kind of venturing
+into this. And maybe all of you've done
+this, right? I don't know. We were just
+really
+impressed with how easy it was and how
+much fun it is to surface this
+information and fight this idea that
+Fun. everyone just gets an S-bomb and it
+goes on the shelf and it's never to be
+seen again.
+So, I have spoken to a lot of people
+about S-bombs over the course of the
+last year and one of the biggest
+complaints is they're not accurate.
+Um it sounds like IBM and Red Hat should
+get together and talk about
+>> [laughter]
+>> improving the quality
+of S-bombs. I mean you I think you're
+exposing some of the problems, right?
+Mhm. So, if the S-bombs aren't accurate,
+then we're not going to be able to
+respond very well to CVEs.
+Right. So, I I I think that your tools
+are showing us the problems that we have
+we need to fix. Yeah, I'm John and I
+were actually we had attended your
+session. It was very good. Thank you.
+And I definitely can't pronounce your
+name, Rogue.
+>> Um and we've taken the action actually
+to try and set up a call with you to
+hear more about um
+your talk. So, hopefully we can do that.
+and it's always it's it's one of we were
+at this conference last year in Raleigh
+and it's just amazing because you know,
+it's rare that you come together with so
+many people that really understand this
+stuff and are really on the leading
+edge. And I was always struggling with
+like well, wait, the real world is like
+there's this huge gap between those of
+us that get it
+and 99% of the other people that are
+trying to consume the data or have no
+idea how to consume it. But
+I think it was super interesting road to
+hear like you are really advanced and
+all of you in Red Hat I think what
+you're doing we we have much to learn
+from from you. I think the way we're
+internally generating things.
+Maybe.
+>> Right.
+Right.
+Today I think that
+my personal opinion
+is that if we improve this as bomb stuff
+that
+there won't be no more guessing or just
+you know compliance check boxing or but
+there will be big value and there will
+be precision in if all this data.
+Then
+consuming that in a more human friendly
+way today it's much easier. We can you
+guys you can store all of those
+good as bombs in one place. You can put
+MCP server on top of it and then
+and then every single user without
+deep technical knowledge will be able to
+use agent and hey tell me
+what I supposed to do with this.
+If we don't have this data from the very
+beginning then yeah good luck.
+Thank you. Thank you all very much
+especially so late in the day. I feel
+honored that with beautiful sunshine and
+Yes. poolside waiting.
+But thank you very much. Yeah.

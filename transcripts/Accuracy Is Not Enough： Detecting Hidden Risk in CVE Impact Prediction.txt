@@ -1,0 +1,708 @@
+Okay. Um, welcome to the session. Sorry
+I goofed up. I thought that we are
+starting at 1:30 but apparently it's
+1:15. Uh, but yeah, I was just in a
+involved in a very interesting
+conversation. So anyway uh so we'll lose
+a little bit but uh we'll be we'll be
+quick. So the quick introduction is uh
+there's like you have seen that there's
+a survey that you can take at the uh at
+the app or using the app. Uh there's
+also uh like turn down your cell phone
+and uh please refrain from taking photos
+unless you are asked to. And uh this
+talk is TLP clear. So at the end of the
+talk we'll take questions. Uh there's a
+microphone here which will turn on and
+then you can come and ask questions. So
+I welcome uh Kit Tana Purusham uh she is
+with Amazon and also here affiliated
+with it e uh she'll be talking about
+accuracy is not enough detecting hidden
+risk in CVE impact prediction. Thank
+you.
+Um so I originally well to start off um
+the history of this presentation was
+literally just me during uh some time
+off and I really wanted to write a
+substack article because a lot of this
+math is stuff that sounds kind of
+um it sounds like intense AI or
+something like that but if you studied
+AI in school it's just or like in
+college it's just basic data science
+about like how you assess test a model's
+accuracy. So you don't necessarily need
+to have a machine learning model to
+predict something, right? All of
+security that we have today is uh some
+form of prediction because security
+changes with day-to-day like even a
+single CV ID when released um it could
+have a specific CV uh severity score XY
+Z and with time a CVE could change. It's
+like a an organic um uh instance of a
+vulnerability, right? So as we find out
+more about the bug, we change what we
+understand about it and its impact and
+stuff like that. So
+if you want to like open up the article
+like I hope it works with your phones
+and stuff if you want. Yeah. Um but like
+I think the presentation slides should
+have this elsewhere. If you find me on
+LinkedIn or GitHub, it's all there. Um
+so in essence accuracy is just here like
+um with vulnerability management when a
+bug comes in we classify it as either
+impacting or not impacting based on your
+specific user configurations. So at
+Amazon Linux, we had our own um Linux
+distribution. Um and we used to uh
+evaluate CVE impact for all of our
+packages the way we had them. Um and we
+would also look through all the other
+sources and see how like say Red Hat
+evaluated their CV for the same CVE. see
+see how Debian did it, see how Nest did
+it and like we would run the P on our
+systems on our different distributions
+and decide for our customer use cases
+what these severity um metrics would
+look like. We would fill the whole CVs
+vector um based on our configurations
+that we were setting in. So similarly,
+this could apply to everybody that's got
+their like services and you're running
+your vulnerability impact checking for
+your services based on those configs,
+right? It depends on whether you've got
+um certain um plugins enabled. It
+depends on whether you've got a certain
+amount of sandboxing put in. It depends
+on where you're connected to the network
+and who is connected to you in the
+network. And this changes for every
+person. So if say Red Hat were to
+announce like a a kernel CVE at 9.8 8.
+Um, the way NIST would do it would be
+different. The way Souza would rate it
+would be different. And you would want
+to check if you actually have the
+vulnerable lines of code. Now, very
+often we have cases where um upstream
+will stop supporting certain versions of
+a package, but because you your
+customers still depend on this and
+you're supposed to uh uphold compliance
+for like this old version of a package,
+you're still supposed to find out if
+you're impacted right now. upstream
+might not contain the information
+related to whether you're impacted or
+not uh anymore if they don't support
+that version anymore upstream. But if
+you still have like an old version, you
+still have to go through the code
+yourself and stuff like that. So we have
+a lot of tools in like modern day with
+especially with all the AI stuff coming
+in. And I am not going to talk to you
+about like how you should prioritize
+what is important to you. I am only
+going to talk to you about how we can
+all communicate what is correct across
+our different definitions of vulnerable
+and not vulnerable and XY Z. So um
+before I get into like the actual like
+takeaway with what I was getting to, let
+me get into like the basics, right?
+Accuracy as we know would be like the
+the truly like the correctly assessed
+predictive values like in terms of all
+the bugs that came in. you're going to
+predict if it's affecting you or not
+based on whatever configurations you've
+got, right? You have to know in terms of
+like what you've got running. You can't
+just assume that you've got a certain
+config running. Assuming that you know
+the right configurations and stuff like
+that, you've got it in a metric uh
+metricizable like schema format. you can
+run this against you know either the CVE
+schema format or the OSV or whatever
+automatable format you've got running
+and check if um you've got like the
+right kind of predictions or not. So
+what this looks like is um in in
+security uh vulnerability like
+prediction at least the four cases being
+like if you get a true positive or a
+true negative it means you're doing a
+right job. you're correctly impa
+assessing and impacting CVE as impacting
+and you're not missing it. Um, that
+sounds like a mouthful and I I feel like
+there's a better way to say that
+sentence, but yeah. Um, if it's a true
+positive, it means you've got an
+impacting bug, you detected it
+correctly, so good job to you. H you've
+got it. If you've got a true negative,
+it means it's not impacting you and you
+detected that it's not impacting you
+correctly. But now the false cases here
+are like if let me start with the false
+positive. False positive here is where
+something isn't impacting you but like
+you're going to alert saying that it
+might be impacting you and we want to
+check this anyway. So this is like a
+wasted amount of effort in terms of
+checking something that isn't impacting
+you anyway. Um this is like when people
+air on the side of caution and you know
+kind of want to not miss anything. So
+like we're okay with going overboard in
+terms of what we're flagging as affected
+and what we're spending resources
+fixing. Yeah. And false negatives is the
+kind of case where like um you're
+actually affected uh by the
+vulnerability but then your automation
+falsely detects it as not affecting um
+probably because of version mismatches
+or uh because like the initial um
+vendor like uh declared it as like
+either not affected or affected and
+later there was a dispute or like later
+there were there was more evidence that
+came up regarding the bug. and therefore
+like these kind of statuses change. So
+in that case you've got a false negative
+or there are also cases where like your
+automation um could get like simple
+things wrong like the package that it's
+identifying um like if you had like a
+Python 3 request versus like a Python
+request and like just like your package
+name match was not accurate you might be
+missing like impacting CVES and stuff
+like that. So
+false positives and false negatives
+affect more than just vulnerability
+management, right? Like if I had to like
+just for us to be able to relate to all
+of these mathematical terms, like if you
+see even in like um let's say content mo
+uh moderation or like space operations,
+you've got the you've got a lot of
+predictive problem like prediction
+problems in all these domains. And all
+of these places require that you you um
+maintain or prove some amount of
+correctness in your predictions because
+there's got there's a different uh cost
+related to getting a false positive or
+like a false negative. We want all our
+positives to be truly correct but in
+reality it's impossible to be uh truly
+correct all the time. So we have to be
+able to visualize how incorrect we are
+or if we make a slight change whether we
+are remaining on like the correct
+footpath whether we're getting better or
+whether we're losing accuracy and we
+need to be able to visualize this
+because we like the distribution of
+vulnerabilities that we have are not
+uniform um in the sense that like how do
+I say this? Yeah, like like in a given
+day, we're not going to have the same
+number of CVEes come in for every
+package. We're going to have uh you
+know, for instance, when the kernel CVS
+came in, we had like hundreds of kernel
+CVs come in per day versus like you had
+10 other CVS for like all the other
+packages, stuff like that. So, how do
+you make sure you're doing a right job
+for all the packages like individually
+versus like this list of like you know
+100 CVS that you're getting in per day.
+So in essence um oh yeah so yeah the
+false negatives is like the missed
+vulnerabilities where you're like um you
+know zero days undetected sepsis like
+it's this is the kind of stuff that
+gives you um big losses because your
+customers are going to be exposed to
+vulnerabilities that you didn't catch
+that you were saying that you did you
+caught you didn't catch um versus false
+positives which is the case where you're
+just spending more time looking through
+bugs that aren't affecting you. So if
+you were to compare both the cases,
+there's one case where like the risk is
+much higher where like your customers
+are actually impacted versus the other
+case is um false positives is just you
+doing a lot more work and that's about
+how how much resource you can afford to
+expend on like you know covering ground
+right so in vulnerability management you
+can say that false negatives have like a
+higher risk impact than false positives
+whereas in like say like you know u you
+know content moderation
+moderation or like space operations you
+might say that false positives and false
+negatives are equally risky for example
+because like there are co different
+kinds of costs that come in in those
+domains. So in uh vulnerability
+management if we were to focus on false
+negatives like all of that was just to
+say why false negatives and why not
+false positives right um so I uh wrote
+this I hope my handwriting isn't too bad
+um but like I this is like a
+hypothetical case study right it's a
+very simple situation uh assume you have
+10 CVE that came in in like the last 24
+hours right and like there's um let me
+figure this out oh yes okay so this is
+the example and like assuming you have
+one open SSL CVE it's like a critical
+that's come in and um you're supposed to
+be affected these are the true values um
+assuming we knew the outcome this is the
+you know this is a assume this is a
+scientific experiment right we know what
+the correct values are supposed to be
+but and then we have like our prediction
+model whatever that is whatever you've
+got running in terms of your automation
+so
+whatever be your metric I'm not going to
+judge what what metric you've got
+because that's going to be, you know,
+your customer dependent, your domain
+dependent, all of that stuff. But
+assuming you get, you know, you
+correctly identify all the affected
+CVEs, you've got 100% accuracy. You're
+doing a good job. That's great. Um, case
+two is where, you know, you've got an
+originally non-affecting kernel CVE,
+right? And then you act you say that
+it's affected even though it's not
+affected. So in this case, you're
+putting in the extra effort to evaluate
+a non-affecting kernel CVE compared to
+everything else. So the outcome is that
+you're wasting some resource and time
+perhaps, but there is no security impact
+because like your customers aren't going
+to be affected negatively by you
+thinking that like a non-affecting CVE
+should be checked again, right? So
+versus in the next case, um I kept that
+example the same. So like this is that
+critical open SSL CCV right in case
+three assume that it's not uh you mark
+this as not affected even though it's
+actually affecting you right so here
+like again the accuracy is still 90%
+just like in this case where like the
+accuracy was 90 but you had zero impact
+um whereas here the accuracy is 90 but
+your impact is 100%. Because you've got
+a 9.8 OpenSSL CV that's just going a
+miss. So like it's a very simple
+mathematical problem and like I didn't
+want to put in like too too many
+examples in this case just to show you
+that like you can have the same accuracy
+but like your impact can be you know one
+and zero very different. So
+uh coming into this like you know like I
+obviously used AI to generate some of
+those u but like the false negatives is
+like pretty obvious in terms of like all
+the like as I explained before in terms
+of the risk of like your customers being
+exposed to something that you don't
+realize they're being exposed to you
+it's like you're being blind to
+something that you should be able to see
+right um even if you were to identify
+later that like you know say the ADP uh
+said that this is actually impacting
+them or something but your initial uh
+assession was to like say it's not
+affecting you. You can have this
+information but if you're not
+visualizing the false negatives that
+you're collecting over time then you're
+still missing these CVEes right even if
+you have the actual data. So in the
+world where like you know these metrics
+where you have sources like ADP um
+verification or you have like
+exploitability metrics that are released
+over time in terms of exploit
+exploitation reports. Yeah. And you use
+those kinds of metrics to keep track of
+how like how accurate your information
+is with respect to time. Yeah. And like
+as time changes the accuracy can change.
+So you want to be able to visualize that
+through a dashboard of some kind. Right.
+Because like the constant question I see
+with at least with all my employment and
+like all the work we've seen before is
+like with these weighted data samples
+where you have like a few numbers of one
+kind of bug and like a lot of numbers of
+the other kind of bug, how do you know
+that you're giving each package the
+right amount of focus, right? Like and
+how do you know that you're not like
+spending too much focus on like just the
+currency release? Because in this prior
+case like you would have still thought
+like you know what my accuracy is 90%.
+I'm doing such a good job but you
+wouldn't have realized that even though
+the accuracy was same in this case and
+this case like you know one was uh over
+the other and you would just be
+completely content with that 90%. So,
+and same with false positives here. It's
+like overfling safe packages. There's an
+erosion of trust because if you've got
+all these engineers that are like, you
+know, running those PCs and checking um
+and like you've got downstream customers
+that have to like reboot their systems
+to update like all these packages,
+right? Every time you reboot a system,
+there's a certain downtime and like
+you're losing um you know, energy
+whatever uptime. Um so every time you
+reboot a system that's an actual loss.
+So you do not want to like um announce
+too many false positives. That's those
+are the kind of costs that you is that
+10 minute marker? Yeah. Okay. Um those
+are the kind of costs that you um
+accumulate from like having too many
+false positives in your um prediction
+system. Yeah.
+Yeah. So this is kind of like the the
+slide that I want to pick in terms of
+like explaining that timeline in and how
+like uh a CVE um entry changes with
+respect to time. So like in the first
+session like first thing is like as soon
+as the CV is announced, CV ID is um
+assigned. Uh you've got like you know it
+says like it's not very impacted. Um
+there's no urgent fix needed. you
+release the CV on your like advisory
+page whatever like we're not impacted no
+need for update and your customers have
+moved on right but then later you um you
+know you get like uh you know uh some
+information from downstream the ADP or
+like exploitation reports there's
+multiple sources of like when you get
+actual information on like how it might
+have been otherwise exploited and in
+this world of AI and stuff like all
+these new bugs coming in and like your
+AI able to like um run PC's on its own.
+You want to know if it's actually uh
+giving you the same results on multiple
+configurations or stuff like that. And
+if you're automating all of this, you
+want to be able to visualize if the
+correctness is changing or staying the
+same or like you know whatever. So in
+that middle time where like you're
+getting like these new um inputs,
+this is like that I guess like uh it
+would be like the zone where like you
+have a miss for some time, right? where
+like you have this contradicting
+information coming in and for a short
+while your information versus the actual
+correct information is not the same. So
+once you're able to identify that there
+is an a contradiction out there in the
+world again it fully relies on the fact
+that you know what a contradiction looks
+like to your uh assessment of a bug and
+it it implies that you're keeping your
+eyes open in terms of who is reporting
+exploitations. You can't assume that
+it's going to like there is no failsafe
+source but like if you are keeping track
+of all the other sources. This is a way
+to help you visualize and make sure that
+you're not missing anything and help you
+build patterns for the future that you
+can kind of trust and like know for a
+fact that like and prove through time
+that like this is the same metric that I
+used for all these EVE. Um and I'll get
+to the why a bit later. This was the
+actual table that like I put out on my
+like article. So there's like um a bunch
+of like um like formula that like you
+can come up with right it starts with
+accuracy and then you go on to like
+positive precision recall sens
+specificity and all I'm not going to get
+into the math here like you can go to my
+actual article for this stuff. Um you
+can even just ask like any AI model at
+this point to like generate confusion
+metrics uh for like false positive,
+false negative for whatever prediction
+pro problem use case that you're like uh
+dealing with. This is like an Oops. This
+is like an example of like I've got like
+an interpretation an example that you
+might be able to like if you wanted like
+more info on like what this looks like.
+And here is like an expected trend for
+the vulnerability use case where you're
+um biased towards reducing false
+negatives because as we said the impact
+is on your customer and you're missing
+something that you should know. So for
+that expected trend like um if this were
+a dashboard this would be the trend you
+should expect if for you to be getting
+better. I have more uh in terms of
+visualizing those like for I'll get to
+this. So this is like um in general
+instead of just jumping to accuracy
+which all of us are you know what we're
+familiar with like I would say we start
+with these core counts and we ensure
+that we're the goal is to reduce like
+false negatives um and to maximize like
+I mean increase the true values right um
+false positives are like still a cost
+but like they're not directly impacting
+in terms of security um same with okay
+and then you can go on with recalls
+specity and these are like mathematical
+values that like if you follow this kind
+of expected trend it means you're
+getting better if it's going against
+this it means you're getting worse um
+and like
+there are three values in this that I
+like to think summarizes a lot of the
+critical like dashboard uh takeaways
+that you would expect anyway uh which is
+let's look at this example here, right?
+Like, so this is what CVE uh 2023 48022.
+Um, so this was basically this is just
+like a rough example to show you how
+like you can have like a disputed CVE
+that's coming in. Um, originally this
+was like not affected. I mean sorry like
+the CNA said not affected and then ADP
+said this is affected and then they
+changed it to this is going to be
+disputed now because like you know
+there's multiple opinions on the same
+CVE. So what does that look like in
+terms of your accuracy when you're like
+automating this against like sever
+several hundred CVES right so in the
+beginning the moment like say um where's
+your ADP um sorry your ADP says this is
+affected and this status changes to
+disputed right if uh there's five
+minutes left or okay oh wait so question
+and answers this includes question
+answers okay okay so okay cool I'm
+almost done though so anyway this um
+disputed status like the moment you
+could if you could automate on this
+disputed status this would look like you
+know you having a miss and a miss and
+the moment you automated to like detect
+this disputed it would look like a catch
+um this miss is like starting from the
+day that you announced the CVE at all so
+starting from the day you said it wasn't
+affected wasn't affected then you got
+this information that it's disputed so
+you call that a catch right so this is
+what it would look like with just
+accuracy just slight little dip and like
+you know across like thousands of CVE
+this isn't going to this isn't even
+going to look like a dip it's going to
+look like a flat line but once you start
+talking about false negatives and like
+the negative likelihood ratio it's like
+for every uh false negative that you get
+it's it's fully weighted against
+everything else um to like you know it
+kind of like goes on a binary versus
+like um
+how do I tell you Um
+the math for false negatives is like
+yeah see false negatives over the total
+uh posit the true positives and the uh
+total false negatives in the sense that
+like false negatives are like
+accidentally declared as positives right
+um
+yeah any so yeah sorry so like in that
+case just having um one of those
+exploited vulnerabilities as opposed to
+like all your like false positives and
+everything else. Having it highlighted
+com or contrasted against all these
+other less relevant false values is
+going to start looking like you know
+this peak here. And why this matters is
+because this Matthews correlation co
+coefficient which is like a function of
+these values um you can have this you
+know be on a 7-day rolling basis or you
+pick a time time width window across
+which you're going to evaluate trust
+right in terms of like this is going to
+essentially be your trust score. So
+every 3 days you can evaluate trust like
+give it an actual metric number and like
+see whether your trust score is
+improving or decreasing AC every three
+days or every week. So if this was to be
+every week, this looks like you have um
+you know misses and this is going like
+you know on an average it's staying the
+same and it's or it's increasing as we
+collect more CVEes. But then the moment
+you get like a false negative the trust
+goes down and that's what I indicated
+with these blue arrows and like the
+moment you catch something the trust has
+gone down for those three days because
+we had a false negative. Um, and once
+you get more correct ones, it increases.
+And therefore, if you were to expand
+this over thousands of CVEes, you're you
+have an actual trust metric that can go
+up and down. Um, yeah. And this is just
+like a a better visualization of that
+like in terms of this is how like your
+false negatives would look and your like
+your MCC your trust score would like you
+know decrease like this as we have more
+and more um, you know, information come
+in. This is a better I think uh image
+that shows you how that dashboard might
+look like. So and you can do this for
+like every package. You can do this for
+every like sig or like groups of
+packages to see you know based on like
+the kind of prediction metric you had.
+Um yep that's the drift zone. Like this
+is the injection. The drift zone is
+where you have like something that's not
+the same as the outside. And your
+conflict time is when you like identify
+that like there's a difference. And
+that's when you're like that's when you
+can change your automations or like
+decide what kind of uh predictive
+changes you're going to like tell your
+AI to make to make sure it doesn't make
+any more mistakes. That was a mouthful.
+I hope I Yeah, I hope that wasn't
+confusing. Um but yeah like same thing
+like you know like in the schema if you
+were to look at the fields this is like
+you have your default status for
+unaffected and you have like you know
+your ADP related fields that you can
+filter against and using that you could
+you know very easily calculate the FNR
+NLR MCC with the schema values that we
+already have with very simple
+automations and we could like build a
+lot of these dashboards. In fact, I
+really wanted to do it like build an
+open source version of this already. I I
+will in a few days. Follow me on GitHub.
+Uh but yeah, uh this is where I'm at for
+now. And I think if yeah, you you can
+all just feed this to your AI and it can
+do it for you too. Um yeah, I'm like
+this is a simple thing reconciliation
+logic and this is a flowchart for like
+what a lot of what I already said. Um,
+same thing but on the slide like
+questions and like answers like no I
+said a lot of words if you have
+questions anybody
+>> question
+>> yeah uh so I'm a practitioner and I'm
+looking at this and I love how you've
+explained this as far as accuracy versus
+actual data. Um I guess the biggest
+question that comes to mind is how am I
+actually going to apply this in my
+day-to-day? Is this intended for people
+who are releasing uh CNA information or
+is it intended for people who are
+ingesting? And I just that's the one
+part that I'm still trying to figure out
+is that application.
+>> No, thank you for asking. Um this is
+actually a really flexible concept. This
+is for both sides in terms of like
+anyone that's looking to evaluate trust
+on their prediction or like their
+classification. If you're classifying
+something and you know you have you want
+to measure if you're doing a good job
+with your classification, this is a
+metric that you can apply there.
+Anywhere where like you want to evaluate
+trust or like you have customers where
+you have to like communicate how good a
+job you're doing in terms of security
+assessment, then those kind of metrics
+always have like a correct or not
+correct value, right? Like it's a binary
+value and those will always fit into
+like these true positives and false
+negatives if you're predicting. So hence
+having these um dashboards what it would
+uh expect you do to do is like know
+whether you want to be specific in terms
+of the sig or be specific in terms of
+the package and how how specific you
+want to get deep down into like uh the
+configs I guess actually find me outside
+the meeting and I'll speak to you more
+about this but yes um
+I hope that answered the question kind
+of at least
+Um yeah, thank you so
+>> [applause]

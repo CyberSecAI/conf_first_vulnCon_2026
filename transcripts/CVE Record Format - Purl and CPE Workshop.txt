@@ -1,0 +1,1262 @@
+All right. Well, I didn't get know that
+I'd get an introduction. Um so, you can
+skip that part of my introduction.
+Um but, hello all. I'm Chris Coffin from
+MITRE
+MZ.
+Megazone from F5.
+Um
+couple of things that I do
+specifically these days is the I'm a CVE
+board member and
+I'm a co-chair of the quality working
+group along with with Megazone.
+Um and we spend a lot of our time
+dealing with CVE record format issues.
+So, today we're going to be talking
+about the CVE record format and
+specifically about the addition of Pearl
+and CPE.
+Um so, really I think what we're aiming
+for today is to kind of give you guys a
+an overview of what those are and how
+they are used in the CVE record format.
+so,
+if this works.
+Are we really going to have to do that
+or is it frozen?
+There we go.
+I don't know if this is working anymore.
+But, um
+all right, overview. Um
+what we'll cover is what the record
+format is.
+Talk a little bit about Pearl and what
+that is.
+That's our newest addition to the CVE
+record format.
+Examples of Pearl within the the CVE
+record format. Um
+and why we might include that. What's
+CPE?
+We added CPE a little while before.
+Why we include it in the record format.
+How it gets included with CPE
+applicability statements. And examples
+of CPE within a CVE record, which is
+a fairly large topic. That's
+quite a few items there. Um
+all right, so what is the CVE record
+format?
+The record format is the JSON schema
+um that's submitted by CNAs and
+authorized data publishers to describe
+the CVE record.
+Um it can be used by third-party tools
+to display and digest CVE records and
+sometimes it can be used to read and be
+interpreted by us nerdy folks
+um directly. Um the current version of
+the record format is 5.2.0
+and that is where we added the
+um the Pearl identifiers
+um along with a couple of other other
+things. Um and then we also have
+included CPE data in the past which was
+our update 5.1.1.
+Um and this allows basically together
+um two new formats that can be used for
+software identification. Um and
+just
+say it up front, we're not officially
+recognizing just CPE and just Pearl.
+Um we'll extend it and include other
+software identifiers in the future if
+need be um and we'll extend our support
+of Pearl possibly in the future. Right
+now we're not supporting like verse, I
+think it is.
+>> Right.
+Um but but that could come later as the
+quality working group looks at the
+issues around that and understands how
+it works
+and whether it is a good fit.
+It was working then. It's still not
+working.
+Is it not at all?
+It was working before.
+Yeah.
+All right. Oh, there we go. Oh, is it
+working now?
+Yep. I think you had to put the
+hit the hit the laser pointer but it
+woke it up or something. I don't know.
+Maybe.
+Um all right. So, Pearl. Um it's a
+standard URL-based syntax
+for identification of software packages
+independent from the ecosystem or
+distribution channel uh channel. Um
+PURL aims to solve
+um the
+challenge of, you know, removing
+ambiguity in package identification
+across diverse naming conventions used
+across different ecosystems. Um
+identifying software packages reliably
+has been hard.
+Um and it's a challenge that PURL
+attempts to eliminate by uh by creating
+a universal a universal identifier with
+a predictable structure. Um of note is
+that PURL 1.0.0 was recently adopted by
+ECMA,
+um the European Computer Manufacturers
+Association, in December of last year.
+And um they have revved PURL actually to
+1.0.02
+recently. I think that was like 3 weeks
+ago.
+Very recently. Yep.
+Um so the naming format. Um
+it is
+composed of seven parts. And as you can
+see, if my laser pointer works, it is
+this here. Um not all the components are
+required. Um they're separated by a
+specific character in each case. And
+sometimes these things don't exist, so
+the PURL can look very small, depending
+on what is provided as part of the
+identifier. Um
+they're designed in such a way that as
+you move from left to right,
+it becomes less significant. So
+obviously the the the type, the name
+space, and then the name are pretty
+significant, followed by version,
+qualifiers, and then a subpath if
+needed.
+That must be when I pointed at it.
+Um all right. So again on the naming
+format, um the different seven different
+parts that we talked about, um you've
+got a type, which is uh required, which
+is the scheme or constant value of
+package at this point.
+There is talk that Pearl in the future
+might support more than just packages.
+So, right now this doesn't really change
+at any Pearl that you look at, but I'm
+thinking that based on what I'm seeing
+is that this could change to something
+else
+in the future.
+Next thing is a type. So, the type of
+package or protocol such So, this is
+basically your package system.
+Think RPM, NPM, Gem,
+um all those things.
+And then you have the name space, um
+which is optional.
+And then you have a name, so the actual
+name of the package,
+the version of that package,
+qualifiers such as the OS, architecture,
+repository, and then a subpath within
+that package if it's
+appropriate. And most of those, so
+really just the name,
+um type, and schema schema are required.
+So, what does that look like in
+practice?
+So, this is just some examples.
+Again, I put the the list of uh
+components.
+These are some common or some some
+examples that were listed on the uh
+um
+in the Pearl repository. Um and then
+here's a few examples that we actually
+have in our
+schema for the CVE record format
+under the what we'll see later is the
+package URL uh object.
+Do you have anything to add?
+Also, is that mic working by the way? Uh
+I have one on. Oh, yeah, you have one
+on. Okay, good.
+All right.
+So, adding Pearl to the CVE record
+format,
+it must be added to currently must be
+added to the CVE JSON directly today.
+It's only one object, so it's not a huge
+lift and this can be done through
+Vulnogram through the source tab.
+Um, but there is no official support in
+the Vulnogram editor today. That will
+likely change in the future. I'm sure
+we'll see an update to that at some
+point soon. Um,
+but today it is something that you would
+need to add directly. It recently or
+fairly recently got added to the record
+format.
+Um, it's defined using the package URL
+uh
+object.
+Um, [clears throat]
+and note
+importantly that today, and I'm not sure
+if I'm in the way for everybody, um, is
+that
+uh we don't support the optional
+version
+>> [clears throat]
+>> component of the Pearl today. What we
+want you to do is define the package
+name here without a version
+and then use our existing versions
+structure um or array within the record
+format to define the uh
+the versions as you would normally do in
+the affected array.
+Um, so no version in the package URL
+today and we do validate that via CVE
+services. Yeah, and that was debated
+when the working group when Pearl was
+being proposed. Uh this is what the
+working group on it decided kind of the
+consensus was
+having two different ways to do versions
+in CVE would end up being more of a
+problem, especially cuz if you had both
+you could end up having both in one
+record and they wouldn't agree. And that
+would be a a bad thing. So the decision
+was made to only stick with what existed
+for versions. Yep.
+Now, if we find a better way and if
+there's
+>> Always open to change. Yeah, we're
+always going to be open to change on
+that. We if there's feedback from the
+community that points us in a different
+direction, we'll be open to that.
+All right, so why include Pearl within
+the CVE record format? Um, there was a
+fairly large push for this. There hasn't
+been a huge adoption of it just yet, but
+um it is something that's used by a lot
+of the open source community.
+And, you know, there was a number of
+folks that that said we should add it to
+the the record format, and
+so we did.
+We'll continue, like I said earlier, to
+add software and hardware identifiers as
+needed. We're not just going to pick CPE
+and Pearl as
+you know, the official identifiers.
+We'll We'll be open to anything at that
+point as if it's broadly used.
+Yeah, in fact on that note, we had we
+had another one proposed very Omnibor.
+We did. And the working group at this
+point decided that there wasn't enough
+demand or call for Omnibor to move
+forward, but it's still out there as one
+of the RFPs.
+So, there are other formats out there
+that people have brought up.
+It's uh
+the balancing act of
+when do you add something to a standard
+like CVE cuz it's hard It's It's easier
+to add things to something like a record
+format than it is to remove it in the
+future if it's not being used. So, you
+kind of want some certainty that there's
+a demand for it before you go through
+the work of making everybody deal with
+it cuz once you add it to the record
+format, all the tools that parse that
+record format and everything else then
+need to understand it. So,
+Omnibor after being brought up to the
+working group, there wasn't enough
+support for it I would I guess I would
+say at this point. But, it's a really
+new standard. Yeah, the support, you
+know, I don't think there's huge
+adoption for it in the community just
+yet, but I think the other thing was is
+that we might have
+needed to handle that identifier
+slightly different
+because of the way it's designed.
+So, so there was it was debated and at
+this point it was kind of decided that
+well, let's wait and see on that one I
+think was the working group's consensus
+was
+not seeing a real world requirement for
+it yet. It's kind of a newer standard.
+That's right. Nice thing about
+standards, there's so many to choose
+from.
+Wow.
+Do I have to stand on top of it?
+All right. Uh So, switching gears a
+little bit, let's talk about CPE.
+So, CPE is a structured naming scheme
+for identifying platforms,
+products, and software packages.
+It's been around a bit longer, since
+2011.
+And actually even before that, I think
+when MITRE created in the mid-2000s.
+And then
+I think NIST has hosted that and owned
+that since 2011 if I'm not mistaken.
+But they did release CPE 2.3 in 2011.
+So, NIST NVD, I'm sure most people in
+this room are familiar with that. Has
+been hosting the official CPE
+dictionary.
+I don't know when that started actually.
+I forgot to grab
+>> It's been a while. Yeah, it's been a
+while.
+But basically there is no official
+dictionary for Pearl, which we just
+talked about. It's designed so that you
+don't need an official dictionary. CPE
+on the other hand does.
+Let's
+All right. So, CPE 2.3 format includes
+11 fields not counting the CPE and
+version at the beginning.
+These are all fairly self-explanatory
+although there's a couple of notes on a
+few of these.
+The naming specification has multiple
+formats. This format in particular is
+the formatted string binding and it's
+what most people are familiar with.
+Commonly used fields are part, vendor,
+product, and version.
+Lots of the other fields you'll notice
+show up as asterisks, which we'll cover
+in a second. Which basically just mean
+anything.
+It's not a field. But in this case in
+these couple of examples, you'll see
+Microsoft.NET Framework and a version.
+And that is an A, so that's an
+application.
+That is an O, that is an OS. And you can
+tell by looking at that. Um, so those
+are pretty common.
+The other sort of common thing is the
+target hardware, which is second to the
+last, which you'll a lot of times see
+might have like x86 or
+iOS or something along those lines. Um,
+the addition attribute was deprecated in
+CPE 2.3, but it's included as an option
+to preserve backward compatibility with
+CPE 2.2.
+All right. So, what is the CPE
+applicability language?
+Um,
+the CPE applicability language is part
+of the overall set of specifications for
+CPE.
+Um, so you have the naming spec, which
+we talked or which we just covered.
+Um, the applicability language defines a
+standard structure for performing
+complex logical expressions of CPEs. And
+this is what we've included in the CVE
+record format. So, it's much more than
+just a single object. And we'll look at
+examples of this.
+Um, so these expressions,
+applicability statements, are used to
+define
+checklists, policies, guidance, um, and
+documents that, you know, contain lots
+of information about which products are
+affected. Um, so for example, a security
+checklist for Mozilla Firefox 3.6
+running on a specific OS, like in this
+case Vista, could be tagged with a
+single applica- applicability statement
+um, that ensures only systems that have
+both Mozilla Firefox 3.6 and Microsoft
+Windows Vista
+um, will have the will be affected by an
+applicability statement. So,
+essentially, you can do a lot more than
+just tag
+a piece of software. You can tag a
+specific
+instance of that on a specific OS.
+So, why include CPE within a CVE record?
+Um so, when we added this in 5.1.1,
+um there was some problems with
+NVD data being enriched. I don't know if
+everybody remembers that or everybody
+knows about that. Um
+but essentially
+um it became more important for the CVE
+team to start adding
+some of the enriched data that CNAs
+could provide.
+And what we thought was, well,
+let's add the CPE data or add the
+ability to include CPE data in the same
+way that the NVD does. That way we can
+help that process and help everyone in
+the community.
+So, we decided to include CPE and CPE
+applicability statements um almost
+exactly as they appear within the NVD
+schema.
+So, what you'll see in the examples
+coming up is that we've done almost
+exactly the same thing with just a few
+minor modifications.
+And for those who really familiar with
+the stuff may remember CVE actually
+already had CVE record format already
+had a way to include CPE.
+Uh what we found was it was
+basically broken
+cuz you could include CPE as just an
+array of CPE values originally the the
+the older way of doing CPE.
+Uh the problem was
+without the like the applicability
+record format, there was no clear
+indication of what those CPEs meant. And
+what it turned out from the few people
+who CNAs who were actually using them
+was it was being used inconsistently.
+Some people might be listing the CPEs of
+the fixed versions. Other people would
+have an array of CPEs and it was CPEs of
+the broken versions. So, if you're
+trying to do automation, that's uh not
+that useful to you because you have a
+list of values and you don't know what
+they mean. Is this fixed? Is this
+broken? Is it how would I Is this a mix?
+What is this?
+Um and so that's one of the reasons we
+we undertook the effort to introduce a
+better way to do CPE when like there was
+this kind of gap in the market. Uh
+cuz CPE applicability as we'll see
+allows you to be um
+more precise in what you're you can
+label as a metadata basically associated
+with the actual object.
+Is it fixed? Is it broken? That kind of
+thing.
+That's right.
+And one thing I don't know if I
+mentioned for Pearl um as well as CPE is
+that both
+are optional in the CD record format.
+>> Right. To that end. So um we we require
+at least one affected array item, but
+CPE and Pearl are entirely optional.
+Um you can add it. You can add both. You
+can add none.
+Um so terminology
+um and I'm going to skip through this
+real quick cuz we're we're starting to
+get close on time or not close, but uh
+we're halfway through. Um
+so configurations
+in the NIST NVD format or JSON,
+configurations is sort of their
+top-level array.
+Um configurations
+contains multiple nodes.
+Nodes contain CPE match uh items and
+sort of and I'll walk through this slow.
+I've got some examples that I can uh
+walk through, but but in the CVE record
+format, configurations has been changed
+because we already had a configurations
+uh object. Yeah. So we changed it to CPE
+applicability.
+So that would be one difference from the
+uh the NIST format.
+>> [snorts]
+>> Um other terminology, like I said, nodes
+is another array under configurations.
+CPE match is an array, which then
+contains one or more CPE names or CPE
+match criteria.
+And then running on with if anybody in
+here is familiar with
+the NIST NVD and using their site you'll
+notice that some of their configurations
+will state running on with which you
+know, basically is it's running on this
+OS or this specific
+this platform. They define it as running
+on with but I'll show some examples
+where it's just part of the same
+arrays that are defined above.
+I really wish this would work without
+having to point at it.
+So, NIST site examples. So, it's helpful
+to
+sort of get an introduction to how the
+NIST NVD site lists it which then helps
+you understand the record format and how
+it's listed there. These actually came
+from a NIST document which I referenced
+in the the back of the slides
+as examples for how to read their their
+site. But, basically just some some
+quick examples that are smooshed
+together here. This first one is very
+simple. It's a single CPE match criteria
+which is pointing to a specific product.
+And then they're using a
+property to define a specific version
+range
+in this case up to 4.5.7
+and including 4.5.7.
+The second example shows a running on
+with configuration. So, you've got a
+specific version of Netgear firmware
+defined as a CPE name.
+And it's a name because it's got
+the rest of the thing. There's And
+actually no, I take that back. It is CPE
+match criteria because it's showing a
+drop down for matching CPE. So, there's
+multiple
+things that could match this string.
+And then it's running on a specific
+version of Netgear hardware. And you
+note that by the H here.
+That's specifying hardware.
+The O here is specifying [snorts] OS,
+but in this case it's
+the OS of the hardware.
+So,
+I'll show how these look in the JSON in
+just a moment. Um down here is another
+example
+um a configuration with
+um multiple CPE match criteria.
+In this case, note that there's an
+application
+on a piece of or actually on an OS on a
+piece of hardware. So, that is listing
+multiple things that have to be present
+and there's an and logic here to make
+sure [snorts] that all of these things
+have to exist for there to be a match on
+the affected item.
+What if it's infrared?
+What's that? It might be infrared, but
+we're going to have to have to do that
+at the receiver. Might be, which is
+terrible.
+All right. Um
+So, where is the CPE applicability
+defined within the CVE record format?
+Um it is a separate array
+that sits at the same level as affected.
+So, if you're familiar with the CVE JSON
+um and you've defined effect the
+affected array, it sits at the same
+level.
+Um in this case,
+this is a very simple example um which
+you can compare and see that it's the
+same thing here as it is here.
+I'm using just a CPE name to describe a
+specific product, fictional of course,
+and another down here showing it how it
+would look in the affected array.
+And I think it's the same example on
+this slide, so we're going to just be
+able to skip it.
+Yep.
+Let's go to the next one.
+All right. So, example two.
+We're just going to walk through some
+some additional examples just to kind of
+step into a little more few more complex
+items. Um so, the previous one was just
+a single affected product. This one is
+two different branches
+within CPE applicability. Um so, in this
+case
+you see we have one CPE applicability.
+This is the configurations that we
+talked about before.
+You have one nodes array
+and then you have one CPE match array.
+That match array contains two items and
+these are the two branches that are
+affected in this case. So vulnerable
+true, vulnerable true.
+Um you've got
+one product version or one product
+listed here which is vulnerable from
+1.0.0
+and it's up to but not including 1.0.11
+or 11.
+And then also the same thing for the 2x
+branch up to
+but not including 2.0.5.
+Um and the
+it can match on either of these things
+because the operator here is specified
+as or.
+Yep. Okay.
+So um an observed example of this
+um here's some kernel items from the
+NIST site.
+you can see that yeah and this is pretty
+much the case with every Linux kernel
+CVE record. You've got multiple uh
+versions of the kernel
+and it shows the different CPEs for that
+um and the different branches for
+um the affected ranges of the kernel in
+this case.
+Um so this is
+a real example of the one I just showed
+in the previous slide
+and how it might look on the the NIST
+site.
+And then I think that I have this listed
+in the JSON.
+So this
+and this is an old
+uh picture but this is showing the NIST
+actual NIST NVD schema but it's the same
+thing in
+um the CVE record format but there is
+one thing to point out that you won't
+see in the record format and that's the
+match criteria ID.
+Um you can provide that in the record
+format today
+but we don't use it. So it's entirely
+optional but this is something that
+comes from the NVD and it's the way they
+identify their match criteria. Yeah, we
+we allowed it as an optional field
+to to make it life easier for people. If
+they just want to copy if they if they
+I'll just copy over what NIST already
+did, create the CPEs, you don't have to
+worry about it. You can just copy and
+paste it basically because we kept it in
+there.
+>> Yeah, you can essentially just copy it
+over, change the top-level
+configuration's name, and dump it right
+into your record if you wanted to.
+But, this is the same thing from the
+previous slide that's showing the actual
+JSON of those Linux versions.
+Next.
+Next slide.
+Um little more advanced example.
+Um in this case, you can see
+that we have CPE applicability, one
+configuration,
+but we have actually two node items in
+the array.
+Um and what this is doing is it's
+separating
+two affected product uh branches
+that must exist
+on two different platforms. In this
+case, it's either a an appliance, see
+the hardware,
+or an OS, the Linux kernel in this case.
+So, essentially this is the running on
+which
+that we saw earlier from NIST. Um so,
+these two
+product branch or uh
+version branches
+must exist on one of these two things
+here in order for the affected array to
+match.
+Yeah, go ahead. Yep, I think I went
+twice.
+Okay.
+Um and then another example, little more
+little more specific. Um this is the
+same thing as the previous slide, except
+now
+we've used
+two different configurations. I don't
+know if you can tell, it's kind of
+small, but these are separated. So, now
+we're saying that
+branch 1x
+is only affected when it exists on this
+single platform,
+and branch 2x is only affected when it
+exists on this single piece of hardware.
+Um and the operators here are important
+as they're defining
+the logic for how these things are
+interpreted. So, in this case,
+it's an and at the top level, which
+means um
+both of these things must exist. I'm
+sorry. These things are This is an or
+No, I'm sorry. This is an and to say
+that both of these things must exist.
+The or in this case can essentially be
+ignored for the most part. There's only
+one criteria. Cuz there's only one thing
+in that node.
+but I did realize, too, that sometimes
+if this is CPE match criteria, which it
+is, multiple things can match that, so
+that it's also or Mhm. for those items
+within that node.
+Right.
+All right. So, observed example for
+those two advanced examples that we just
+looked at, um this is just sort of a
+snippet of
+uh a .NET Framework CVE. I don't
+remember which one now. I'll have to go
+back and look it up. Um but it is a real
+example.
+Um and there's much more than just this.
+Um but you can see there's a mixture of
+things going on here. Um you've got
+configuration eight, and NIST labels
+them or numbers them, but there's no
+significance there on their site. It's
+just a number.
+Um and they're not in any specific
+order. But for configuration eight, um
+it is a match and it's affected on .NET
+Framework 2.0 SP2,
+and .NET Framework 3.0 SP2.
+Um when it's running on the specific
+versions of Windows Server 2008.
+Um and notice the X8 X64 and X86 here.
+We talked about that earlier.
+and then configuration nine is more .NET
+Framework versions
+um with ranges being specified
+um in this case and then one at the very
+bottom with just
+a single CPE match criteria no range,
+just 8.0.0. So, lots of different
+variation in this one, but some of the
+.NET Framework CPE records are pretty
+complex.
+so this is the JSON that of what we just
+looked at on the previous slide.
+Um so this is showing you that um .NET
+Framework 2.0 SP2
+and 3.0 SP2 along with the match
+criteria, which like we said is
+optional.
+Um so that one's fairly easy.
+Um moving on to the next node, you see
+that these are the platforms that they
+have to exist on.
+And then this is configuration nine,
+which was the the bottom half of that
+um showing you the the couple of CPE
+match criteria
+um with the 6X version range and the 7X
+version range
+and then the 8.0.0 at the bottom.
+So.
+So, um
+how can CPE be included within CPE
+records today?
+I I think many folks, we took a survey
+at one point, use
+Vulnogram. Lots of folks have their own
+tools.
+Um Vulnogram does support adding CPEs
+um since that's been in the format for a
+little while
+a little while now.
+and then support for Pearl, like I said,
+will likely be sometime in a future
+update. That's a much easier thing to
+add. Um and obviously they can be added
+directly to the CVE record format today.
+Um and you can actually do that within
+Vulnogram just within the source
+directory. There's a source tab for it.
+Um so Vulnogram, as far as what that
+looks like and how you might add CPE,
+um you'll see it down here at the very
+bottom.
+basically the way it's defined today in
+Vulnogram is that
+um you turn on auto update and as you
+start filling in your the fields for the
+uh affected product and version, it will
+begin to fill in the name of the CPE for
+you. Now, is it going to be perfect? I I
+don't believe so. I think there's
+at least a couple of people have
+mentioned bugs as far as how that's gets
+defined. Um once you define it up here
+and it's down here and you want to tweak
+this,
+turn off auto update and go to the
+source tab, which is going to be
+somewhere up here.
+Yeah, I guess we can't see it in this
+view.
+Um I cut it off, but but basically you
+could go to the source tab and and tweak
+it there if you wanted to. Um
+and we do strongly encourage, by the
+way, um
+not to add CPEs to your CVE records
+unless you know it exists in the NIST
+NVD uh official
+dictionary. Um and if you do
+want to include it, I would suggest that
+you search the CPE. Um that is actually
+in my list of references. And
+um if it doesn't exist,
+uh go through the proper channels to
+have NIST added to the NVD.
+Um and once it Go ahead.
+>> You can add anything you want into the
+CPE. There's no restrictions on it.
+But because of the central dictionary,
+it's not very useful to someone if they
+go to like So there's some shorthand
+product name in the CPE string, and then
+they don't know what that means. Like,
+if they're automating something. That's
+cuz they have to use a dictionary to
+resolve it.
+Um so, there is a a mechanism, which
+basically involves emailing NIST.
+Yep. Uh if you So, if because this
+happens, we're seeing a as a vendor,
+we have new products, sometimes
+marketing decides to change a product
+name, whatever, and it's not in the
+dictionary. So, if you need to add a CPE
+for something, you can always tell NIST,
+"Please add this."
+So, yeah. It's just because CPE is an
+official dictionary, it's good to for it
+to exist there before we start including
+it in the records.
+All right. And I mentioned the source
+tab. This is what that looks like in
+Vulneragram. You know, I'm probably in
+the way.
+It's down there.
+Yep. It's that whole thing.
+Um so, yeah. You can go into the the
+source tab in Vulneragram and tweak
+anything you like, and
+I know in the past it didn't like it
+when you added new parts to the like the
+whole CPE
+applicability block before that existed.
+But now I think it's okay. You can
+>> It's a little better. Yeah, they're
+still cuz we
+we have an internal tool, but but we've
+also occasionally used Vulneragram, and
+and
+you can get into trouble if you add
+things to this view, and then you go
+back and edit things in the text view,
+cuz sometimes it will auto up you know,
+it regenerates the source, and you might
+you know, step on things.
+So, it's a good idea if you're going to
+modify things in the source, do that
+last.
+Yeah, don't go back to the other and
+start making changes.
+All right. And then references, I
+promised. Um
+I think these are all the references
+that I used for the various things that
+I plugged in,
+and this should be useful. I don't know
+if people are getting slides now that I
+think about it. As long as you provide
+them, I believe they're being made
+available.
+>> Yeah. So, we'll make them available
+somehow.
+Um but this does show you the CPE
+search.
+Um, the page that I used for
+understanding the NVD, which is helpful
+for understanding
+how it's used in the record format.
+Um, and then where to look at
+where to find more information about
+Pearl.
+And
+we also have a CVE uh quick start guide
+for using CPE and CVE records, which has
+been there for a while. Yep. We'll
+probably do the same thing for at some
+point, which will be fairly quick for
+and I think that's it.
+All right. Questions, anybody?
+Go ahead. There's I think this mic's
+working right here. We're we're live.
+Just test it. Is it working?
+Uh thank you for your presentation. I
+would like to ask why in both formats,
+either Pearl or CP, are not mandatory in
+CV creation? Like why there is this
+optional
+that is provided to the vendor and
+uh to manage CV at scale without CP
+inside, without affected product, it is
+a bit of a problem for us, for instance,
+because it's quite difficult to have a
+specific team that reads all the
+description and understands what are the
+the affected product. What do you
+recommend uh for those CV without CP?
+Uh
+I would say the majority of CVEs don't
+have CPE. Um
+as why it's optional is not everybody
+uses CPE. We've had people outright say,
+"I will never use CPE. I If you make me
+use it, I'm not publishing CVEs anymore,
+basically." Um it it cuz some people use
+Pearl, for example, open source, like,
+"We don't do CPE, we do Pearl. So, give
+us an option."
+You're never going to see CPE as
+required in all CVEs. I don't see I
+don't see that happening. I'm a board
+member, I would never vote for it.
+cuz cuz there's too many people out
+there who would refuse. It's also a real
+world thing. I as putting on my other
+hat working for a vendor, since CPE was
+out of the CVE record, it's been on my
+list of things I'd like my CNA to put in
+our CVEs. We don't yet. Development
+resources, it's not a priority for us to
+get the development resources to to add
+that to our tooling.
+It's on my wish list. So, it's a real
+world thing of like not everybody does
+it. So, there's lots of different
+reasons why
+you don't see it in all records.
+I think it's a good thing if you can do
+it to do it. Um we've seen larger CNAs
+start doing it.
+CPE is not perfect. I will say there's
+some resistance to it just because it's
+it can be difficult to work with CPE
+depending on your product and how the
+versions are done and this and so
+for some people like I don't understand,
+you know, there's some philosophical
+objection to it.
+As for in general, if you see the record
+today, and this is an ongoing debate, um
+there's also several working groups.
+There's the quality working group,
+there's also the consumer working group,
+there's the researchers working group.
+There's lots of discussion about what
+should be required in a record.
+Historically, the goal of the CVE
+organization was
+to give as many vulnerabilities an
+identifier as possible. So, you know,
+the idea was it's better to have a CVE
+ID assigned to something so everyone
+could talk about the same thing and know
+they're talking about the same thing.
+And so, to keep the barrier to entry for
+that as low as possible.
+So, it was basically you had to have a
+description, you had to have uh some
+affected product listed in the affected
+array. And it was what was one of the
+one of the minor thing required. There's
+very little required to publish a CVE.
+Uh because it was let's make the barrier
+to entry as low as possible and
+encourage the most people to assign an
+identifier. We can always add you can
+always add more later, right? Like NVD
+was doing you know, they're they're
+adding CPE and things, but at least you
+have an identifier.
+There's some discussion about as the as
+the ecosystem has matured and CVE is
+getting much more widely supported and
+adopted, it might be time to mature the
+requirements, too, and say, "All right,
+now let's focus more on this." There is
+an effort amongst obviously the quality
+working group to how can we improve the
+quality of CVE, not just the quantity,
+like getting more CVEs published.
+And so there are discussions about what
+needs to be required. Uh do we need to
+require CWE? Do we need to require CVSS?
+Do we need to require and like it was
+what exactly should be required?
+And as you might imagine with a large
+global organization
+there's not always agreement on what
+should be required. Uh you talk to data
+scientists and I've heard some people
+speaking here. I know of a CVE
+organization who are doing that kind of
+CPE, Pearl, any kind of
+to make that CVSS, those should be
+absolutely required. Uh you talk to
+other people and they're kind of like,
+"Oh, CVSS is terrible. We should never
+use CVSS. We should never require that."
+So it's it's the kind of thing you get
+into. There's a lot of debate. I think
+we probably will see more fields being
+required. Uh exactly what I I'm not
+willing to say right now cuz there's a
+lot of debate happening.
+So one thing in addition to that as far
+as Pearl goes, you wouldn't necessarily
+want to require Pearl in every case
+because the scope of Pearl is fairly
+limited right now. It is focused on
+packages.
+>> Packages.
+So that wouldn't work for a lot of
+commercial software. So you couldn't
+necessarily require Pearl.
+Well, like you said, they're talking
+there's discussions within the group,
+you know, the people who are disposed to
+Pearl about having more than a package
+type. So maybe they're maybe in the
+future Pearl will embrace more variety,
+so.
+And like I said, there's other you know,
+there's proposals for OmniBOR and we
+know there's other
+version schemes.
+The current system is absolutely not
+perfect. Uh it's better. It keeps
+getting better. Uh you know, so I've
+been involved with CVE for 10 plus
+years.
+Uh I think what's supported and what's
+impossible. So a lot of what's happening
+right now was more
+encouragement and peer pressure. You
+know, they're try trying to encourage
+CNAs to provide CWE, CVSS, uh CPE if
+without mandating as much.
+But, I think we're kind of moving in
+that direction.
+Any other questions?
+Yep, there's one. Take the torch.
+You can ask a question. We got time.
+Uh thank you guys for presenting. I saw
+on there you were mentioning
+applications, hardware, and operating
+systems. How do you plan on handling
+firmware and firmware-specific
+identifiers?
+That's
+I You're talking specifically about CPE,
+where it's like an O H.
+>> We are not storage of the CPE record
+format, so that's probably the I think
+is my NIST the current storage of that.
+>> So, that's probably a question for like
+how would you do that? Right now,
+firmware would probably end up probably
+lumped in the hardware cuz it's
+dependent on the hardware.
+Yeah, that's a good question. It's It's
+again, it's not a perfect system. So,
+right now it's like you have three
+buckets, pick a bucket, right? And so,
+is it the operating system or is it the
+hardware? I'd say in that case, it's not
+the application or the firmware.
+Uh I probably lean cuz as a vendor that
+sells hardware, I probably lean to
+putting firmware into the hardware
+because our firmware specific to that
+hardware.
+there could certainly be There has been
+discussions as with in one of your early
+slides. It's been
+15 years since CPE CPE was updated to
+2.3, published in 2011.
+I know there have been discussions about
+hey, it's about time for a 2.4.
+Uh and I don't know how far along those
+are at this point. That's one of the
+things I'm not personally involved in.
+But, I I agree the world has changed a
+bit since since 2011. It was a very
+vendor-focused standard in 2011.
+A lot more open source programs and
+things, uh and the the standard probably
+needs an overhaul, I would say.
+But, as far as that example, yeah,
+there's a good one right there. Yeah.
+So, Netgear firmware is considered the
+OS I'll put it in your OS.
+>> of that Netgear hardware.
+It probably depends on on how you parse
+things. Yeah.
+I don't for our hardware we have both
+firmware updates and software OS
+updates. So, they're they're two
+different things. Depends on how you
+look at it.
+Thank you.
+Thank you for that question. Anybody
+else?
+I I have one. Sure. Okay. I think it was
+on page 22 there was a drop down. Oh,
+right there. There's a drop down. Yes.
+How do those get How do those duplicate
+Where do those come from? So, this is
+looking at the NIST NVD site. Yeah.
+>> Um so, this is basically like a a match
+string.
+And this in this example, it's a single
+product with no version specified. So,
+when you drop this down, it's going to
+show you everything in the NIST official
+dictionary that matches this product
+name or actually this entire string.
+>> So, it matches any part of that name?
+Yes. Okay. I got
+>> any anything in the
+If So, the dictionary has thousands of
+entries cuz every specific for software
+version for product has a separate entry
+in the dictionary. So, whatever matches
+that string all the wild cards in the
+end
+it basically is a pattern match to the
+dictionary and says, "Everything in
+Everything in my dictionary that would
+match this pattern." Okay. Got it. Thank
+you.
+>> And that is something maybe I didn't I
+missed in my notes, but
+the
+It'll It'll include everything. Yes.
+Or
+Oh, yeah, because of the Oh, yeah,
+because of that's part of the string is
+also the pattern includes up to version
+457. Yeah.
+Whereas this was one that I didn't even
+notice until I
+just in this session was that this
+string actually has a firmware revision.
+So, this is is version field right here.
+But, there is it's still considered
+match criteria because there's evidently
+multiple things that match this.
+>> And you pull that pull down and it might
+end up being one of the show matching
+might be one. It could be, yeah. It
+doesn't tell you One thing it doesn't do
+is show you on the screen here how many
+things match.
+I don't remember if this changes
+depending on if there's one or more.
+I don't think so.
+But good question.
+>> says CPE {apostrophe} of paren S paren
+cuz it has to be singular.
+Any more questions?
+Happy to give you guys 6 minutes of your
+life back.
+Uh and I'd say uh
+if you're interested in this kind of
+stuff, if you want to see changes made
+to the record format or additional
+versioning things stand to come in. This
+is a working group. It is open to the C
+CVE community.
+So if you're interested, this is the
+quality working group. Um
+you know, get involved. And that's uh
+there's also other working groups for
+other CVE things. The automation working
+group, I know there's some things that
+are happening here this week for the
+automation working group.
+Um There's actually a session tomorrow
+for
+well, couple of sessions for the working
+groups.
+>> Yeah. The quality working group is one
+of those.
+Yeah, there's also now if you're like a
+security researcher, there's a
+researcher working group.
+Uh and uh now they're fairly recent
+addition to the suite of working groups
+cuz there's a bunch of them is the
+consumer working group. We've been
+saying for a while, some of us have been
+saying
+we have a lot of CNAs, a lot of supply
+side participation in the CVE program.
+But we really want to hear more from the
+people who are consuming CVE. What do
+they need? What do they want? What are
+they looking for? What needs to be done?
+Uh and there is now an official consumer
+working group for CVE to get that kind
+of feedback
+um into the program. And I'm really
+happy to see that out there.
+So there's there's lots of ways to get
+involved.
+All All Any last questions?
+I guess not. All right.
+Thanks, all.
+>> [applause]

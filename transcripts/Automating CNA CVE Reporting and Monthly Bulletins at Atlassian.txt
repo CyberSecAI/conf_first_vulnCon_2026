@@ -1,0 +1,1495 @@
+[music]
+>> Okay. Cool.
+Hi cool. Thanks. Thanks Reese.
+Good Good morning everyone.
+Welcome to Walcon.
+And thank you for being here. And I know
+there are a couple of other great
+sessions happening right now. But thank
+you again for choosing to be here
+and to hear about the everyone's
+favorite pastime that is filing CVEs.
+Um
+Cool.
+So today I talk is going to be about our
+journey about how we evolved our CVE
+program which was completely manual very
+intensive program to a fully automated
+pipeline that's completely built on
+Atlassian's cloud stack. Um
+We've built this
+pipeline we've built this program over
+couple of years now. So we have some
+battle scars and we have some success
+stories that we do want to share with
+you all on how we evolved this from a
+fully human centric process to an event
+driven service.
+Uh so quick intros.
+My name is Deepak
+and I'm a
+I'm an engineering manager in the
+product security team at Atlassian. Um
+I've been with Atlassian for over 6
+years. I started as an IC as a principal
+engineer and then very recently I made
+the transition to the dark side of
+management
+and I'll pass it on to Zach. Hey
+everyone. My name is Zach and I'm a
+security engineer at Atlassian. Um
+Currently a technical lead for product
+security team. We mostly work on
+securing Atlassian's ecosystem. We have
+a marketplace with thousands of apps
+made by third party developers and we
+run vulnerability management all kinds
+of things for that.
+But prior to that we did a lot of work
+in the internal vulnerability management
+space and building out our CNA program.
+So
+that's what the talk is about today is
+about how we built that out and um, how
+it's uh, slowly become a mature process
+that doesn't involve dedicated people
+for the task.
+Uh, I also wanted to give a quick
+shout-out to our colleagues from all the
+way from Australia, uh, in the
+uh, incident response team, who are
+proud members of the first community.
+Atlassian builds uh, apps for
+collaborations.
+I'm
+not sure if
+the name Atlassian rings bells for
+everyone, but I'm willing to guarantee
+that everyone must have heard of our
+uh, products. Our flagship product is
+Jira. Um, I'm pretty sure if
+uh, if you open up your laptops, there
+might be a Jira
+tab that's hanging around in one of your
+browsers.
+Jira is a ticketing system, as you all
+know.
+And then we also have Confluence, which
+is
+which is a place where all our customers
+use
+use it to write the technical documents
+and strategy
+We also have Bitbucket. Bitbucket is
+the place where all the source code
+lives for our customers.
+And Loom, which is a recent acquisition
+that we made,
+which is used for recording screens and
+videos.
+Our customers do it to share it with
+their teams.
+And we have
+another popular product which is Trello,
+which was which is a more visual project
+space.
+And one of the most recent additions is
+Robo, which is your
+friendly
+AI team mate that lives across all these
+products and makes your day-to-day work
+easier.
+I just mentioned six apps here, but
+there are at least 20 plus apps that
+Atlassian makes that I that are not
+listed here. And
+I'm not trying to make any sales pitch
+here about Atlassian, but I'm just
+trying to set the context of the scale
+of the problem that we're talking about.
+And most of our Atlassian products are
+used by Fortune 500 companies in their
+in their environments and
+when you have your software running in a
+Fortune 500 company that have like
+dedicated soft teams and and very very
+stringent compliance requirements. Being
+a CNA is no longer a good to have thing.
+It sort of becomes a requirement.
+Cool. So, as I said,
+we operate as a CNA
+and as part of and as a CNA
+we are now part of a global ecosystem.
+This wasn't really about an internal
+hygiene sort of a thing, but it was more
+of a commitment that we wanted that we
+made to the community and to our
+customers to make coordinated
+disclosures.
+And so and when you are a CNA so you're
+you become the source of truth for the
+vulnerabilities in your product and that
+requires a level of
+process and procedures that is filled
+with bottlenecks and if you're still
+living in
+tracking vulnerabilities in
+in
+spreadsheets and CLI, it it really
+becomes a pain.
+Uh, I quickly wanted to talk about how
+our product are products are spaced. So,
+we offer two versions of most of our
+products. One is the data center version
+and then the cloud version.
+Cloud version, as the name suggests,
+it's a it's a SaaS solution. We maintain
+the software, we maintain we run the
+software for our customers and
+and essentially security is sort of a
+magic here. So, whenever there is a
+vulnerability in one of our products,
+we ship it we up upgrade our customers
+instances and customers usually don't
+even have
+an idea that they don't need have to
+really really lift a finger. And in most
+of the time they are not even aware that
+a vulnerability was existed in the
+particular product.
+And then we have data center which is
+most of them it's an on-prem solution.
+This is where our software is run inside
+our customers instances. And as I said,
+these are usually very
+air tight
+and federated instances that run in
+silos.
+Um and uh
+And and it's it's not a simple patch
+upgrade that they can do. So, when
+you're running a system like that, it's
+mostly it's almost a mini coordinated
+project that you need to do to apply
+patches.
+And usually these customers, they
+require a very formal and
+action-oriented CV from us
+so that they can go go ahead and justify
+their maintenance schedules and secure
+the systems.
+So,
+as I said, yeah,
+and in this world, like missing a CVE
+isn't just like a technical oversight.
+It could lead to be a massive compliance
+failure for them.
+So, yeah, our CNA program was
+essentially born out of the necessity
+for the data center customers. And
+that's why we started the we started
+decided to be a CNA.
+Uh a quick trip down the memory lane
+back when we were basically doing CVs by
+hand, it was a very intensive and
+laborious process.
+In the early days, we were still trying
+to figure out the balance between a
+company that is transitioning from data
+center to cloud products. And also, we
+were trying to meet the rigid
+requirements of being a CNA.
+Uh cool. Quick show of hands. Has anyone
+ever filed
+a CV manually?
+Oh, cool. Awesome. We all share the same
+pain.
+Uh so,
+it's it's a painful process, really.
+Our early workflows, they're very
+manual. We were relying on some of the
+We were relying on tools like
+Vulneragram and CV library. And we were
+pushing manual JSON blocks to the CV
+list GitHub repository.
+Every single disclosure was almost a
+mini project for us. And you know, most
+of our security engineers were spending
+a lot of time. And this was before AI.
+So, they were spending a lot of time
+reviewing this JSON blocks and they were
+reviewing and essentially was going
+through a lot of peer peer feedback. And
+it was not time well spent for this this
+folks.
+And
+but the truth is it worked. Technically
+it worked, but
+it was very slow, error-prone, and
+exactly not the kind of work a security
+engineer would rather find exciting to
+do.
+So, we had to move on. So,
+oh yeah, and during those days as when
+we were operating as an early CNA, it's
+mind-blowing that we used to have
+dashboards that would track metrics like
+uh
+age of unreported vulnerabilities in our
+product and coverage frequencies, those
+sort of things.
+So, this essentially meant that we were
+sitting on vulnerabilities that had
+patched findings, but we were not able
+to disclose them in a timely manner to
+our customers.
+And our engineers were using mostly CLI
+tools. As I said, it was very
+it's hard to work with. And there was a
+lot of ad-hoc chaos that was happening
+during that time.
+but to be honest, it was more of a duct
+tape solution we put together with a
+good intention. Um the whole CNA program
+was built primarily to for the crisis
+mode. Essentially, if there was a RC
+that got dropped in our one of our
+products, it we need to immediately send
+out an emergency advisory
+to our customers.
+So, it was built it was built for the
+crisis mode and it was not a sustainable
+pipeline
+for the steady stream of vulnerabilities
+that we're receiving from the different
+sources that
+in our system.
+Uh quickly again, I'll just show you the
+manual reporting journey. It's not
+rocket science. It was just a five-step
+process. Uh it started with uh
+with a bottleneck at every step. It
+started with once you identify
+vulnerability and once you patch it,
+um uh
+someone creates a public Jira ticket and
+uh that then it's passed on to security
+to go review it.
+Um security would review the Jira ticket
+and they file a complex JSON file and
+then they uh publish it then they raise
+a PR request to the GitHub the Mitre
+GitHub repository. And once it gets
+approved, it CVE is issued and the CVE
+gets uh listed. Um
+it sounds linear, but uh any change of a
+version number or anyone who contests a
+CVSS vector, it sends us all the way
+back to step two. So, it was pretty
+chaotic. It was essentially a security
+engineer's telephone game that no one
+really wanted to play.
+if you if you can notice, I said uh a a
+public Jira ticket. Uh that's because
+uh we at Atlassian, we have a public
+instance of uh Jira for all our
+customers. It's called
+jira.atlassian.net.
+This is where our engineering teams
+track every single issue, every single
+bug in our product. Uh this is for our
+customers to go and follow along. Um
+it's a Jira ticket, so it has a comment
+section, so they can come, give
+feedback, interact with us. They can
+even raise issues for us. So, if they if
+they find an uh bug or if they find an
+issue, they can raise it here and
+interact with the Atlassian directly
+through this instance.
+and as I said, this covers even security
+vulnerabilities, not just uh bugs. So,
+it's essentially like uh
+giving uh comment section to the whole
+of internet to go and talk about
+security vulnerabilities.
+It gets very spicy. Uh we get really
+interesting comments on over there.
+Um and that made us think like why
+doesn't NVD have a comment
+Right? They should have a comment
+section so that everyone else feels the
+same pain that we do.
+Cool. Uh
+apart from the manual toil,
+uh we were also getting really hurt very
+badly uh on the support side. So, it was
+a double whammy for us.
+we would frequently get bombarded with
+the customer questions and escalations
+around the CVs that are being reported.
+Um sure couple of folks might have
+related with
+uh related with this year that we would
+get a huge Excel sheet with hundreds and
+hundred rows of CVE IDs sent out to us a
+customer support team asking, "Am I
+impacted by the CV?" And they expected
+us to manually triage all those uh
+um Excel sheets.
+It It was I mean like and these reports
+were generated by open-source tools like
+Bug Black Duck or some SCA scanner
+they're using in-house.
+So, it was
+it was getting very chaotic, very hectic
+for our customer support team as well.
+during that time, only 13% of the uh
+sorry, the 13% of the support inquiries
+that were coming in were just the CV
+requests.
+it was a massive resource drain that
+hurt our customers' trust and because
+obviously we couldn't get to all the
+questions that you were asking. So, we
+were hurting the customers' trust and
+even worse, we were slowing down the
+sales cycles for our for our teams.
+Um it's not like uh we were not fixing
+vulnerabilities. Our data center team
+was spending hours and hours patching,
+making fixes, patching all the bug
+bounty submissions, pen test reports,
+the SCA findings, you name it. All sorts
+of vulnerabilities that were coming,
+they were scheduling it, we were
+we were putting in the effort. But
+but we were not able to disclose all of
+them. Um at that point we were at point
+we were only disclosing 11% of the
+vulnerabilities that were getting
+uh reported to us. And I said this was
+designed only
+crisis mode, right? So, we were patching
+like crazy, but as I said, only 11% are
+getting disclosed. So, that's like
+almost like that feels like you're
+running a marathon, but you get to only
+talk about the first two miles of your
+marathon. Right?
+Um it is painful.
+Uh we had all the fixes, but we were
+lacking a microphone to talk about it to
+Cool. All right, that's enough of me
+ranting about uh the our history and how
+things didn't work. I'll pass it on to
+Zach who built the whole system from
+ground scratch, and he will talk about
+how and why we built it.
+All right, thanks Deepak for the intro
+and the breakdown of uh what was going
+on with our CVE program. Um so, yeah, I
+was I was
+running into this issue of like, how can
+we automate this? Um
+I'm sure every engineer thinks thinks
+this way, which is, okay, I I'm I'm
+doing using CLI tools or I'm using APIs
+or I'm doing some type of workflow, why
+can't I automate this?
+Um So, there were like a few key
+capabilities that we wanted our CNA
+program to support. Um
+one was CVE records. I wanted to be able
+to just reserve a CVE number and get one
+CVE out on a scheduled basis. So, um
+somebody comes to me, sends me an email,
+says, "Hey, Zach, I found a
+vulnerability in our in your product."
+we're like, "Oh, cool Okay, cool. We'll
+get the engineering team to fix it." We
+fix it, uh and we want to put a CVE out,
+right? Maybe the researcher, the person
+that reported to us wants credit for it,
+or uh they just want other people to be
+aware of the issue.
+And then the other two things we wanted
+to support was um this is the biggest
+thing we needed, which is a monthly
+security bulletin. Uh we wanted to have
+coordinated disclosure happen on a
+monthly basis on a schedule uh with no
+surprises, right? So, customer knows
+what day we report our CVEs every month.
+They can go on our website and review
+them, and these all end up in one place.
+Uh the last piece is our critical
+advisory process, so being able to
+report um
+some exploitable CVE, something we're
+seeing a lot of activity on. Uh um
+Uh
+for the case of this talk, we're just
+going to focus on the first two. Uh but
+we have done similar automation for our
+our crisis uh comms process. So, um that
+means from when we get the CV to when it
+gets reported is a very very short
+amount of time, but it involves all the
+stakeholders and notifications and all
+of that.
+So, how can we build this, right? Um
+It's easy for us to know this working at
+Atlassian cuz we get to use our products
+all day. Uh but for a lot of people in
+the industry like it's just another tool
+for you. Um
+and I know a fair number of people in
+this room may have access to this
+already. So, um the goal is not really
+to sell you on Jira, but it's just like
+if I have Jira, how do how can I
+leverage this stuff? Um so, there's
+three like key ways to build automations
+on the Atlassian Cloud. Uh one is
+automation rules. So, these are no code
+workflow rules. So, you could say when I
+see a specific event, I want it to do X
+thing, right? So, you can do API calls,
+you can do uh data formatting, you can
+do all kinds of things, regex, etc.
+Um so, that seemed like a promising
+source for us to start building stuff
+with um like our MVP or proof of
+concept. Um and then there's two other
+ways. One is Connect, which is a way to
+build applications.
+Uh this requires you to run your own
+microservice outside of the Atlassian
+Cloud and basically hook up to events.
+So, you're listening to create events or
+update events for specific tickets. Um
+this is being deprecated. We're
+migrating onto Forge. And uh what Forge
+is is going to be the primary way you
+would build an app on the Atlassian
+Cloud. And it's pretty much just a Node
+JS app that runs in our cloud on a
+lambda. So, you can build your your
+workflow and business logic and and um
+event hooks and all of that, and you
+don't have a microservice anymore. That
+just gets deployed in the cloud.
+You get a bill for it if you go over a
+certain amount, uh but it's cheaper than
+EC2 or whatever. So, um it also comes
+with some performance benefits. So,
+in our case like migrating onto Forge
+would uh boost our performance of how
+fast we update issues because all the
+processing is happening at the same time
+as the Jira instance. Um
+so, here's a quick view of what an
+automation rule looks like. Uh
+this is an example of an automation rule
+I created to update CVE IDs on a Jira
+ticket.
+So, I go reserve a CVE number and I want
+to assign it to a vulnerability
+internally. Um how do I do that, right?
+So, I just create a webhook here. You
+can see at the top I added support for
+webhook. It's very simple. Edit CVE ID,
+take the JSON with the ID in it and just
+put it in the ticket. Uh and then put a
+comment on there so whoever knows that
+uh this has happened, right? So, we
+don't want to just leave this in the
+history, but you just want to just put a
+quick update for whoever's working on
+this issue.
+>> [snorts]
+>> So, initially I was like, "Let's just
+automate all of this on these automation
+rules, right? Like, why can't I just
+build this whole workflow on automation
+rules?"
+There were some technical limitations at
+the time of the product for this. Um it
+didn't support storing secrets,
+uh which was
+one of the biggest downsides at the
+time. They have since added this
+feature, uh but at the time when I built
+this a few years ago, we didn't have
+secret storage. So, if you're trying to
+use a remote API service and you had to
+use a secret or a token to use it, um
+there was no safe way of storing that.
+You would have to store that in plain
+text that anyone with access to the
+rules could see.
+so, I didn't want to do that. Uh there
+are ways though now to write code this.
+We have a product called Studio. Um it
+helps you make automation rules or you
+can even build a Forge app with a
+prompt. So, you might just give it a
+prompt like, "Here's an API spec. I want
+you to subscribe to event hooks for Jira
+tickets and based off the status of the
+change, update this remote API." And it
+it'll go build that. Um
+it's still pretty early stage. Uh the
+products are getting better there, but
+uh I still recommend probably taking the
+Forge path, right? Go build a a Node.js
+app that can do this. Uh it should be
+easy to approach.
+So, to kind of give you an overview of
+what our CVE ticket integration looks
+like. Um as you can see here there is a
+security engineer they're updating a
+Jira CV ticket, right? They want to be
+able to reserve and publish CV
+numbers.
+And we built this connect app that hooks
+up to the minor CV services API and then
+it also hooks up to this public Jira
+issue tracker so customers can read and
+learn about the CV.
+Whenever we report a CV that's what we
+put in our resources so similar to how I
+get up and other people put like
+advisory links.
+We just put our version of that so it
+just links to a public issue and yes you
+can comment on it, right?
+The biggest thing here at the time I was
+building this was um
+right when minor put out their CV
+services API I think like version one or
+something like that.
+it was still somewhat like unstable.
+They were still kind of doing some
+development and changes and migrations
+between formats and also
+just overall availability. So I ended up
+implementing a pool so it'll go reserve
+a block of CVs based off our usual
+monthly consumption. So instead of
+reserving one CV I'd say give me 10 cuz
+I know I'm going to go through 10 this
+month and I'll slowly assign those out
+as they come up, right? So I wouldn't
+have to necessarily hit the API every
+time cuz that wasn't
+as responsive. Um
+I would say you probably don't have to
+do this anymore.
+We've been using the API and
+the response times are a lot better. We
+haven't had any issues with that.
+So moving on.
+That was the demo or that's the overview
+of it. We're going to do a quick quick
+video demo of this what what this looks
+like. So you can see here
+this is a Jira ticket internally and I'm
+assigning it to a public issue that I'm
+tracking. And this is what the CV record
+internally looks like. So actually set
+up a feature for it to auto sync data
+from this public issue tracker so it'll
+pull the CV
+description, the the versions that are
+affected and fixed and this will allow
+us to automatically create the CPE
+records.
+So it's findable on on on scanners. And
+as you can see there's a transition
+there to reserve CV, and all that does
+is it hooks up to the Mitre CV Services
+API, and it grabs you a CV number, and
+it just set it right there on the
+ticket. So, um
+as you can see, it take it takes like 10
+seconds for us to auto draft and create
+a CV number, and all we have to do is
+just schedule it for release.
+So, this was the easiest part of this
+project. We built that in probably like
+a week. Uh and now it's like the AI
+tools, honestly I feel like any security
+engineer can do this. You probably don't
+need to write any code, uh but you can
+get pretty far.
+My biggest biggest piece of advice here
+is um
+they do have a um dev instance of the
+Mitre CV Services API. So, you don't
+necessarily have to risk accidentally
+reporting junk data. You can work with
+the dev version of CV Services API. You
+can make your own test Jira project and
+work through this until you iron out all
+the kinks, uh like scheduling and
+releasing and all kinds of stuff. Um so,
+as you can see, it got scheduled. Here's
+our CV number. So, it goes on NVD, um
+and this is
+uh reported through the CV Services API.
+And um
+it links to that public issue that I
+mentioned earlier. So, now we have a
+building block, right? We have the CV
+record that auto fills, and I can just
+schedule it and get it out. How do we
+like scale that, right? Like how do I
+take this to the point where I can do
+that for all of our CVs for the month.
+Um so, we built a uh sanitization
+process.
+Um and this works the same way as that
+app I mentioned earlier. It's just an
+app we subscribe to events for whenever
+a vulnerability is patched, and when we
+see a vulnerability is patched, we just
+go create a a sanitized version of that.
+So, instead of us uh taking like a bug
+bounty report in plain text and pasting
+how to exploit it on the internet, um
+we do some sanitization, make sure that
+we're not uh putting customers at risk,
+but we're giving them enough
+information. So, um as it sanitizes, it
+creates a draft version of that issue I
+showed you earlier on Jira.
+And um that gets reviewed by a person,
+right? And then also, it'll auto draft
+the CVE record in the CV services API
+and that internal record view.
+So, what what CVEs do we want to scope,
+right? We're a CNA program.
+Um we have this issue of customer
+scanning our S-bombs and saying, "Hey,
+you have a bunch of CVEs. What's the
+status of each one? When are you going
+to fix this?" Or, "Okay, you fixed it.
+How do I even see when that was done?"
+Um so, we wanted to scope in a few
+pieces.
+And um let's kind of walk you through a
+little bit.
+At the top, we have our I'll call it
+like human-generated generated sources.
+So, our bug bounty programs, our uh pen
+test program. We do pen test. Um we have
+a pen testing team. And then we also buy
+pen tests from third parties. And those
+findings end up in our vulnerability
+We also have internal security reviews.
+So, a security engineer looks at a
+project, right? They review one of these
+data center projects uh products and
+they say, "Oh, I found an API issue or
+an authorization issue." They report it
+in here. It gets patched. We want to
+scope that in there. Um and then we
+wanted to include SCA.
+Um so, that's just S-bomb scans, right?
+Like, what's in the product? And then
+finally, like uh customers uh reporting
+something to us or researchers coming to
+us. So, something's on the news or
+something like that. So, whenever we see
+activity, uh we want to include that in
+our program, patch it, and release it.
+Um [snorts] the biggest thing I I would
+say here with SCA is it's not a
+one-to-one relationship. We track um
+SCA findings per version line of our
+product cuz we have long-term and um we
+have long-term release cycles and we
+also have a latest version, right? So,
+we have like three major versions of
+each Atlassian product. Um and those
+individually have the same CV filed for
+it so then they can patch them
+individually, if that makes sense. Um
+So, that means our our our our logic has
+to account for that. So, it won't mark a
+CV fixed until it's released in all
+three version lines.
+All right. Getting back to that public
+security issue I was talking about, Um
+um,
+we wanted to have a way to auto
+template-ize this content. So, how much
+metadata can we use from our
+vulnerability process to not have to
+explicitly describe the vulnerability as
+is, right? Like, we don't want to just
+take the description from a bug bounty
+researcher and just put it on the
+internet cuz then someone's going to
+start exploiting it right away. Um,
+so we started CWEs. Uh, most commercial
+scanners will spit out a CWE number. Uh,
+you can leverage those for SCA findings.
+If there's no CWE available, then you
+can do keyword matching, so you can look
+for stuff like remote code execution.
+You can look for cross-site scripting.
+So, you can use reject-based matching to
+mark a vulnerability class. So, you can
+work your way down where you start with
+a CWE and then if there's no CWE
+available, use the vulnerability class.
+Um, and then on top of that, when I'm
+writing this description, use the CVSS
+vector. Uh, we we actually require this
+for our triage. So, bug bounty, pen
+test, anything like that will have a
+CVSS vector described for it. And that's
+really powerful cuz there's a lot of
+information in that metadata, right? You
+have, um,
+whether or not it's authenticated,
+whether it's accessible remotely or if
+it's a local, uh, exploit, right? So,
+you have the CVSS vector breaking down
+each part, right? So, you can see in
+this case the attack vector says remote,
+so we know that this is a network level
+attack, right? So, you have to have It
+has to be reachable on the internet for
+it to even be exploited. Um,
+and for our data center products, that
+means if you run it on your own internal
+VPC and it's not on the internet, then
+this vulnerability isn't really not
+applicable for you, right?
+>> Um, and then, yeah, in our description
+as well, we want to include like
+vulnerability patch uh, advice like,
+here's the version you should upgrade
+to. We'll give you a recommended
+version.
+Okay, doing that is not very simple on
+the recommended version side because we
+do not have linear versioning, right? I
+can't say our product is vulnerable from
+version seven onwards cuz then 8 might
+have the vulnerability still, but 7.5
+might have like a back-ported fix,
+right? Cuz we fix individual
+version lines. Um so, we have to hook
+this up before we go and sanitize this
+public issue and write the fixed
+versions, uh we have a release database,
+uh which is funny enough, it's just
+Bamboo. That's one of our products, but
+Bamboo is how we do our releases, and we
+spit out the results to a database, so I
+can query, here's all the CVEs we
+patched this month, and
+uh take take that subset of CVEs, create
+the version ranges based off the
+available releases that we have. So,
+that would mean I'd never say that,
+right, version 8.5 onwards is vulnerable
+forever, because if we ever release
+8.6, it will be marked as vulnerable by
+every scanner. So, we want to be very
+explicit in which versions are affected,
+so we'd just say 8.5.0 to 8.5.3 is
+vulnerable, and here's the fixed
+And so on for each release uh line. And
+that generates your CPEs uh in your in
+your CVE record. So, that allows
+scanning tools and other stuff like uh
+S-bomb generation tools to know
+uh whether or not you have a
+vulnerability.
+Okay, so that's it's really important
+that you have high-quality CVEs,
+otherwise your your CVE program is
+pretty much going to be manual.
+Everyone's going to have to go read a
+page, and then
+the scanner tools are not going to be
+able to pick this thing up. Um so,
+initially when we were building this, uh
+we didn't really I mean, we're on the
+security side, we didn't even know about
+like these specific release cycles that
+these data center teams have, right?
+Like long-term release and all of that.
+So, what ended up happening in practice
+is, when we first launched this,
+we actually saw an increase in customer
+support volume, cuz they were confused
+whether or not they were affected,
+right? They said, "Everything after
+version 7 is vulnerable. I'm on version
+9, does that mean I have the
+vulnerability?" We're like, "Well, no.
+Like, we actually release a a version 9
+fix."
+so, we we had we had to ditch the linear
+reporting and go to the range-based,
+which involved an extra feature.
+if you're if you don't have um that uh
+if you don't have like
+long-term release cycles and then a
+latest version, then you probably don't
+have to solve this problem at all. Um
+but it this was a probably a lot more
+challenging than just just just building
+a CVE record automation.
+So, now that we are um auto drafting all
+these CVE records as they come in, uh
+we're now sitting on a bunch of
+pre-drafted content, right? We just have
+like potentially dozens of hundreds of
+uh Jira issues that have vulnerability
+information in it, but it's not
+necessarily
+public yet. Um but we don't want to just
+release stuff, right? Like right away,
+cuz there could be issues with the data,
+right? Like maybe the fixed versions
+aren't accurate or the effective
+versions aren't accurate, or maybe the
+description's missing details, right?
+Maybe maybe it wasn't able to detect the
+vulnerability class, so it just says a
+security vulnerability instead of
+cross-site scripting in X product.
+So, let's build something for that. Like
+I mentioned earlier, we wanted to have a
+CVE record, then the bulletin, and then
+the critical advisory. So, in this case,
+we built a a new record, all right? A
+new Jira ticket, basically, that allows
+us to do the review of the uh monthly
+security bulletin.
+And what this does is it's an end-to-end
+pipeline from draft to disclosure,
+right? It'll pull in all the applicable
+vulnerabilities released in the last
+month or so. It'll pull like 40 days
+worth of vulnerabilities that are in a
+draft state. And then it will set those
+up to be reviewed by humans, all right?
+Cuz we tried to automate all the
+painstaking work we didn't want to do.
+But
+coordinated disclosure is also
+responsible disclosure. You don't want
+to just be dumping junk on the internet.
+Uh so, what we end up doing is we had to
+have a human review step in this
+process, so someone has to go read all
+this stuff and make sure it's legit. Um
+and once humans say it looks good, it
+goes out to NVD, goes out to Mitre, it
+goes on our public website. Uh we have a
+public portal, too, so you can search
+these.
+Um so, key functionality the bulletin
+had to support was
+aggregating all these CVEs for the
+month. Um and
+these will be auto templated in a page,
+right? Um we wanted to do
+a table with all of the CVEs of the
+month per product and give them the all
+the affected ranges and then the
+recommended fix, right? Cuz if I give
+you five vulnerabilities and I tell you
+each affected and fixed range,
+you're going to have to slowly upgrade
+linearly until you get to the last one,
+right? So, what we do in that case is we
+generate a table that just says,
+"Upgrade to version X and that will fix
+all the CVEs we release this month." Um
+the other thing we wanted to do is
+coordinate reviews. So, we wanted to
+assign tasks to individual people to go
+review at stuff that's applicable to
+them. Um
+the other piece is
+automation is not perfect, right? Anyone
+claiming that they can completely
+automate anything is probably lying to
+you, right? Uh so, we had to add support
+for the ability to include or exclude
+issues. So, if there's a bug in the
+automation, I can last minute take out a
+vulnerability that shouldn't be released
+because it was misfiled or um last
+minute a researcher just texted me on
+Signal and says, "Hey, I have a CV. Can
+I get a Can I get this released this
+month?" If we patched it, we include it,
+right? Uh and then the last piece is we
+want to schedule this, right? We don't
+want someone sitting there at um
+the third Tuesday of the month at 10:00
+a.m. PST clicking a button, right? Like
+that's not the goal. We want it to be it
+just completely scheduled.
+So, let's do demo this.
+All right, there's a lot here,
+but this is what the cockpit or the
+ticket looks like. You can see that
+there is links on how to triage this.
+There are links to the internal draft of
+this ticket, so you can look at the
+what's going to be public, right? You
+can see the bulletin. Um you can also
+see that there are uh people assigned
+tasks and then the status of what their
+review stage is at, right? So, has Zach
+reviewed his product? Um and then over
+here you can see the ability to add or
+remove vulnerabilities. So, maybe I
+added a couple extra. In this case, my
+my demo I this was a real one so I took
+out all the real stuff and put some
+example data. Um so, in here you can see
+this is what an engineering team would
+see. Um I can see I'm responsible for
+just two CVEs. There's tasks on there.
+Really what engineering is supposed to
+do is just look at the the versioning
+data. They don't know anything about CV
+CVs themselves. So, that responsibility
+is on to security. So, they just have to
+review those tickets, those two, and
+then review the public version of the
+draft of what uh customers are going to
+see. So, to do that
+I put my ticket in review. I look at
+this public Jira issue. I can see all of
+the affected versions were loaded in. I
+see the fixed versions up there. So, as
+a lead I would just confirm those two
+fixed versions were actually released.
+Um and then you can see this is another
+issue. This one's RC in Bamboo. And if
+you look at the description, it's our
+auto templated content and you can see
+it's right there. It's in the table.
+This is what the customer would see. So,
+they go on our website, they would see a
+table of that same title. Um it's just
+hyperlinked to this public Jira ticket.
+So, when that CV goes out on NVD, it
+just links back to this.
+Um and then you can see here it's all
+automated and auto templatized. So, as I
+remove
+uh applicable CVs, it'll just drop off
+the ticket over there. So, let's say I
+moved uh the 26342 ticket, it'll just
+poop out in a second. Yeah, it's gone.
+And um that means that it'll now go
+regenerate that public view table,
+right? Um
+So, it it it's it's just event based.
+So, once I make any changes to the
+ticket, it flows into here. And as you
+can see, this uh whole Confluence page
+is actually auto generated. It's just a
+template. And um as the CV drops out,
+the version range is updated. It drops
+it down to just one CV record uh for my
+product Bamboo.
+And then yeah, now that I've reviewed my
+CV, I can mark it as done. I just have
+to confirm the versions look good to me.
+Put a funny comment about how I totally
+looked at it and then approve it.
+All right, so a lot happened there.
+Um I will break it down afterwards, but
+let me just get a little sip of water.
+All right, so
+let's break it down.
+Um how does this work?
+I get a Slack notification. Hey Zach,
+sign for the bulletin. Like every month,
+it happens every month, right? So, same
+week I'm on call or just an expect
+expectation that I'm going to be here
+for it. Um we rotate people that review
+this, so
+Hey Zach, it's time for you to review
+the bulletins. The second second Tuesday
+of the month. Um and you can see up
+here, it shows the counts of the
+vulnerabilities. There's my assigned
+task.
+You see my name up there, the issues
+that I can add and remove.
+on the sidebar there's a view of these
+manually included CVs as well. Um these
+can be created last minute, like ad hoc.
+So, if I am about to go out for the
+bulletin this month and I had a last
+minute addition, I could just add it in
+there. Uh it just has to be approved at
+or reviewed at the end.
+Um the tasks are split up by team.
+So, this means that every engineering
+team um
+is only looking at their own issues,
+right? So, it's not uh
+you don't want to overload engineering
+teams with go review the entire bulletin
+and figure out which CVs are yours. You
+would just say, "Hey, it's uh Bamboo's
+review this time." And they're able to
+see what's in scope for this month. Uh
+the big key here of like, why are we
+even doing this? We're global company.
+Some of these teams are in India, some
+of them are in Australia, some of them
+are in Europe. We cannot just have a
+Slack war room every month cuz people
+are going to be logging on at 2:00 a.m.,
+right?
+Um so, this process allows us to work
+across time zone from anyone in the
+world. The review process is broken down
+over a week. Um so, security is the
+first triager. We review it, make sure
+that the data coming in looks good,
+right? If if any bugs or any issues with
+our data set, um then we can do a little
+cleanup before we even get
+engineering team's eyes on this. Um
+typically,
+uh the entire commitment from our
+security team is probably like
+an hour.
+Uh so, what do product teams see? It's
+what I showed. You have a couple tickets
+on there. You have the ability to add
+and remove them. It tells you what
+product you have.
+why even involve engineering? They're
+the architects. They're the people
+building the software. They know whether
+or not they added a package, right? So,
+if they're the ones making the fixes,
+they should be the ones that understand
+whether or not it's in that release
+number, right? Um
+you could go further down the automation
+path of trying to detect stuff with
+S-bombs and all of that, but it's just
+too much scope creep for us, and we were
+just trying to just get this to a good
+enough state.
+So, as you can see, those two tickets
+end up in this uh final draft of the
+bulletin. Um this is what goes public,
+right? So, this is what customers can
+read.
+>> So, this whole process operates like
+clockwork. It happens every month. It's
+a one-week process. At the beginning,
+there's a draft. It happens actually um
+over the weekend or like pretty late uh
+because we have to account for
+Australia, so
+we create it on Monday technically. It's
+month uh we we create it on Sunday, it's
+Monday in Australia, right? Um
+and then you can see the step
+step-by-step review process, like each
+person has to review stuff. We have a
+no more changes at this point day,
+right? And then last-minute additions
+will They can be escalated, but uh the
+whole process is one week.
+So, we have 12 collaborating teams that
+work with this on this. Uh
+we went from this being just the CNA
+team, just the security team building
+this. Um that process works if you have
+dedicated people for it. We don't have a
+dedicated CNA team, so it's just
+whoever's on call in security to go do
+this. Um so, we wanted to really size
+down our time investment. Uh but at the
+same time, we didn't want quality to
+fall. So, we had to involve uh
+collaborating teams. In in case, we have
+12 collaborating teams. Um nine of them
+are like product teams. Um, so every
+product team has an engineering tech
+lead that owns this and they can also
+swap rotations. So, they're not on the
+bulletin every month. They can swap with
+their senior engineers or they can have
+like a head of engineering take over
+that month. So, uh, every month there's
+somebody reviewing it from each team.
+Um, and not every app or every product
+has a vulnerability that month, right?
+So, most months it's maybe two or three
+out of the nine. So, most teams there's
+no action taken, right? They just look
+at the They just double check the
+bulletin and they say, "Actually, I did
+release a CV that month and I don't see
+it on here." They can manually include
+it.
+Uh, one of the biggest challenges we had
+to solve here was aligning product
+releases.
+It's not really exciting, but
+it's reality. Uh, we have a bunch of
+products. They all work on different
+sprints, different schedules. A lot of
+them are acquisitions. So, some people
+were releasing versions every week, some
+were doing it every 60 days, some were
+doing it every 30 days. Um, we had to
+align them all on a 28-day cycle, um,
+to at least get their their
+vulnerability fixes out, right? They can
+still release feature cycles every two
+months or whatever, but every month
+there is a release from Atlassian for
+our products with CVE patches.
+>> Um, speaking of commitments,
+we had to break down tasks this way,
+right? So, security team is responsible
+for anything CV related, vulnerability
+related, describing the CVSS vector,
+CWEs, uh, the description of the
+vulnerability. Um, we maintain a
+rotation where, uh, somebody will review
+this on a monthly basis. Um,
+typically the majority of our bulletin
+is third-party CVs.
+So, we're not even writing anything. Uh,
+we're just auto-populating NVD data.
+We're putting the NVD description in
+there and then we're adding some extra
+context at the top about what's upgrade.
+Um, so maybe two two out of 10
+vulnerabilities are first-party. Those
+are the ones that security engineers
+have to individually go review and write
+cuz those are the stuff coming from bug
+bounty and pen test. Uh, product teams
+are responsible for just telling me
+whether or not they're affected. That's
+No more to it, right? So,
+uh, they just have to review the release
+cycles, review the timelines of when
+things are going out, and see if that
+aligns with the bulletin. So, that means
+we've aligned all of the product release
+cycles to line up when the bulletin goes
+out, so the patch is available right
+away. Uh we're not sitting on
+vulnerabilities too long without
+disclosing them, and customers can have
+it immediately available.
+That's what the public bulletin page
+looks like. It looks exactly like that
+internal draft I showed you. It just
+ends up on our website.
+This was a This was a fun addition, um
+which is our CVE portal. Uh this just is
+a uh JQL query, which is like Jira query
+language or something, but we just pull
+all of the CVEs we've ever released on
+Jira, and we just put in a a table that
+allows you to search it. Um
+the biggest benefit of this is customers
+can self-service, so they can get their
+own CVE information. Um there's an API,
+so they can just set up a daily hook to
+go grab and see if Atlassian put out any
+new CVEs. Um
+it's the single landing page for all our
+CVEs, and then um our monthly bulletin
+automatically flows in, right? So, as I
+release CVEs for the month, this ends up
+right here.
+All right. So,
+what's the so what factor, right? Like,
+why why should I go invest time and
+money in this? Um the biggest impact we
+had, right? We we launched this in 2023,
+so it's been running for 3 years,
+operationally sound. We've reported 240
+CVEs through this. We've had a 90%
+reduction in our customer support
+questions related to CVEs to the point
+there's no longer dedicated people for
+this. There there used to be like three,
+four people constantly asked for
+answering CVE questions. Um
+that it's pretty much non-existent. Very
+few customers have to come to us cuz we
+just give them the self-service
+documentation and tooling. Um
+we saved 60 work weeks of engineering
+time, right? What does that mean? It's
+It's based off an average of how much
+time would it take for us to report one
+CVE
+over the scale of all of our
+disclosures, right? So, um
+we basically gained the operational
+efficiency of one full-time employee, uh
+which is nice, right? So, we don't have
+to hire a person to go do this. We have
+tooling to support it.
+Um so, investing in coordinated
+disclosure has increased our customer
+trust by a long shot, right? We've seen
+a lot less escalations. We're not
+blocking any deals. Customers are
+generally content and happy with
+Atlassian's investment in security. Um
+we invest a lot of time and money into
+security. We just don't put out a lot of
+disclosure or trust information about
+it, right? So, this was a learning
+lesson for us to go invest in that
+because it really shows
+customers that
+it uh it shows customers the investments
+you're making, right? Um it's not that
+you're not doing it. You you just have
+to be transparent. So,
+we've we've gone from 11% of coverage to
+100% um over all the classes. Uh we
+cover all our data center products.
+we even include some of our desktop
+tools. So, um even apps. So, if you run
+like Confluence Companion, which is like
+a headless browser or not a headless
+browser, but like a Selenium or whatever
+browser of our product, um we patch
+that, we'll disclose that, too. Um
+and then we saw a This was the biggest
+uh security impact we had, which was
+uh when it comes to customer upgrade
+time frames, coordinated disclosure
+ended up reducing it significantly. The
+average customer was taking 90 I think
+it was like 91 days to upgrade their
+dis- their instances whenever we put out
+a new security fix, and we have dropped
+that down to 28 days. Um
+so, over the years we have just seen a
+steady steady drop in how fast customers
+are upgrading uh because A, we're
+putting out more security releases, and
+we're always putting out a fix every
+month. So, um
+pretty much anybody that is a system
+administrator or owner of a a Jira or
+something deployment in data center, um
+they understand that. So, they just have
+it on a schedule now. They they know
+that that's the day of the month where
+they do their upgrades. They have like
+um
+they have it pretty much all planned
+out. They put notices to the people at
+the company. Maybe they do it midnight
+at midnight, but they do the update
+every month. Um
+So, yeah. That's That's pretty much the
+high level of how we solved it at
+Atlassian. I'm going to open up for Q&A.
+So, we can we can chat a little bit
+about any any questions you folks have.
+>> [applause]
+>> Okay, we have a microphone here. So, if
+anyone has any questions,
+please throw up your hand and I'll run
+over with the mic.
+Hey, thanks, Zach. Uh this is uh it's
+pretty cool. Um we we use uh Jira Cloud
+um and uh I wanted to see if we can
+implement the exact same thing in our
+instance. Is it out of the box um or is
+it something that you guys have
+customized heavily just for your use
+case?
+It is customized to our use case.
+Um actually start playing around with
+like one of our AI tools to see if I
+could make a open source or available
+version. Um but it just depends on
+people's interest. Like if everyone
+wants it, I feel like that's something
+we could probably do for fun. Um
+That being said,
+I think I would still recommend building
+it for your own use cases. You probably
+have a lot of proprietary data sources
+internally of your own products that can
+help you do this.
+Uh but I will say like start start with
+just a CVE record, right? Like just
+having that be automated is honestly a
+huge jump in in uh manual labor savings,
+right? Like I'd say start there. Um but
+yeah, on the Atlassian Cloud you can
+pretty much build exactly the same
+thing. There's nothing like necessarily
+proprietary that we put in that you
+can't get.
+Any other questions?
+Then I have one. Um
+so, you mentioned at the start that you
+had 11% coverage of vulnerabilities. Is
+this 11% to own code vulnerabilities or
+is this 11% of the total uh own code
+plus CVEs that are in third-party
+products? So, it was actually 11% of our
+own like first-party issues. So, that
+was
+we just had a growing backlog really of
+CVEs we weren't putting out. Um
+and then on top of that was SCA, right?
+So, we we did not do any third-party
+like supply chain type of vulnerability
+reporting at all.
+Um and that was actually the most
+requested thing from customers. They're
+like, "Oh, it's it's great that you fix
+this bug bounty thing only you know
+about, but um attackers can run an
+S-bomb against your product and exploit
+it, right?" So, um
+the the coverage is now like SCA,
+first-party, etc.
+Very good. And the 90% reduction in
+qualms, is that mainly about the
+third-party vulnerabilities that are
+discoverable from S-bombs? Yep.
+Yeah, that's exactly right. So, um
+that 90% number was primarily like
+customers running their own commercial
+tools. So, they've run like something
+like Black Duck or um I don't know
+um OSV or something like that and they
+would just say, "Hey, you're I see in
+here you have the CV number that you're
+affected by because of this library."
+And they would want to ask, "Are you
+affected, right? Are you using that
+code? Are you importing it, etc."
+we have that level of granularity with
+our scanning. Um
+we still just generally just report
+whether or not we patch
+a CV anyways because in a lot of cases
+customers are audit-based and that's
+what they're using, right? They're
+saying, "Hey, I have to pass a report. I
+need I need to pass a compliance um tell
+me whether or not you have the CVE and
+what's the status of it, right?" So, if
+they if they know we are fixing it on a
+scheduled basis, then we could just
+point back to that and say, "Here's our
+public website. We say we fix high
+issues in 28 days, right?" Then, you can
+expect that any S-bomb issue with a high
+issue
+um within 28 days it'll be patched and
+then it'll be reported on the bulletin.
+Thank you.
+Any further questions? I can ask
+questions all day. All right, very good.
+Hello. Um
+awesome pipeline, first of all, it's
+really
+every company needs it. And I see that
+comparing to 90 days, obviously, 28 days
+is a big improvement. But I feel like if
+it's, especially, vulnerabilities in
+your own code,
+28 days could be
+uh large amount of time. You might get a
+lot of zero days. A lot of the
+vulnerabilities are exploited before
+they hit the databases. So, does that
+mean you're uh like if you're doing it
+monthly, and if you're not addressing
+vulnerabilities as as they come,
+um are you really open to exploits in
+during that month before you address
+them?
+Yeah, I will say, um that number is a
+like an average metric across everybody,
+right? Um smaller customers that are
+smaller enterprises would upgrade like
+within a day. Um but really large
+companies that have um uh a lot of
+third-party applications installed, like
+we have plugins. Um in a lot of cases,
+they're like worried about
+compatibility. So, when they're doing
+the upgrade cycle, there's a dedicated
+team that's testing the upgrade, testing
+all the apps, making sure nothing broke
+before they move forward, and that can
+take weeks, right? Um
+so, yeah, I agree. Uh
+you're still if the average customer
+still upgrading in 28 days, they're
+potentially exposed to vulnerabilities
+for a full month. Um that's a huge step
+away from 90 days, which was honestly a
+scary metric. Um that being said,
+we use this process primarily for
+high-severity issues. Um anything that's
+like a critical CVSS, like a 9 9 to 10
+CVSS, um
+that goes through our critical advisory
+process, and it's like crisis comes and
+saying, "Upgrade right now. Take it off
+the internet. You have to patch
+immediately." Um and we use that for any
+CVEs where we see active exploitation.
+Um so, I think the 28 days probably fine
+for most businesses.
+It just depends on your compliance
+framework, but most most businesses are
+upgrading within 30 days for high
+severity issues.
+But in the case of critical here, we
+have a crisis comes thing.
+It wasn't necessary covered by this
+talk, but we have tooling similarly for
+our crisis comes
+and we'd basically put out like an
+emergency patch and we just say upgrade
+immediately and that would go out to all
+the users.
+That sounds good. Thank you.
+All right.
+Well, I think we will say thank you
+Deepak and Zachary for your session
+today. It was fantastic and please if
+you have any questions that you thought
+you can only take directly, come and do
+so. Thank you very much everyone.

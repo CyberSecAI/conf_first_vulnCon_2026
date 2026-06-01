@@ -1,0 +1,1668 @@
+All right. All right. We're good to go.
+I think we can't see you. So,
+>> for what it's worth,
+>> it's packed. Yeah,
+>> it's exactly how I dreamed.
+>> Well, it's the end of the of the day, so
+looking forward to talking a little bit
+about um CWE with all of you. Uh I know
+there's been a lot of really good talks
+about this this week. We're really
+thrilled to add to the focus on C.WE
+this week, Steve and I. Um, our talk
+really is sort of a reflection of the
+last couple of years of work that the
+C.WE program has done um through its
+collaboration with tremendous
+partnerships and collaborators in the
+community. Um, and then looking maybe a
+little bit at some of the stats around
+things and and some metrics and sort of
+measures of success that we have. And
+then and then also looking forward. Um,
+before we get to do that, I just saw
+your title. That's good. Thanks.
+Uh we might do a little introduce a
+little introduce we might introduce uh
+ourselves. So Steve do you want to go
+first?
+>> Uh yes I'm Steve Christie Kohley uh
+co-founder of CD back in 99 co-founder
+of CWE circuit 2005.
+Um the words that Alec originally had on
+this slide for me were uh uh perhaps a
+violation of corporate policy. It was
+colorful in its language. So I adjusted
+it slightly in a good way.
+>> In a good way. Yes. I adjusted it
+slightly to uh vulnerability fanboy.
+>> All right.
+>> If I could do all the time, I would.
+>> Yes. All right. And I'm Alex Hmers. I'm
+MITER's CVE and CWE project lead. I
+didn't found anything, but uh I am here
+to uh talk about CWE. I realize we
+didn't put any notes down. So, I will
+just say from uh the things that I hope
+you take away today is that CWE uh isn't
+going anywhere. In fact, it's uh
+becoming more and more important, I
+think, which is a great thing because um
+we all know that uh in the recent
+discussions around the ecosystem that
+the vulnerabilities certainly aren't
+going anywhere and uh there might be a
+lot more of them to be found and
+identified uh in due in due short time.
+And CWEs
+uh real strengths in terms of its impact
+to the community is the idea that we
+could actually avoid some of these
+things, right, if we didn't uh if we
+didn't do uh some things in a way. So,
+Steve, do you have anything in terms of
+takeaways?
+Um, nope. Hope you learn and hope you
+see what it is the the progress we're
+making and uh uh we want to help you uh
+help us.
+>> Yeah. All right. Uh so yeah, quick
+overview uh to start us off here and
+then revisiting. I actually gave a talk
+at the first one at rally back a couple
+years ago uh and we talked about some of
+the things that we wanted to do as a
+program. So we're going to revisit that
+and sort of reflect on where we were and
+where we are now, right? the current
+state of um current state of things and
+then uh thinking about from a CW
+perspective uh the language that we use
+right I think CWE has a unique language
+that many people react to differently
+when they first approach it or engage it
+um but it's very important and I I look
+forward to that discussion too and then
+ideally I think we'll definitely have
+room for questions so please be thinking
+about them as we go forward just to kick
+it off I think maybe people are more
+familiar now with CWE than than maybe in
+years past but what is it right It's a
+knowledge corpus. Its mission is to
+identify, define and catalog weaknesses.
+The weaknesses themselves are sort of
+the conditions that under certain
+conditions can become vulnerabilities.
+Right? So the idea is that they are the
+root cause of a vulnerability. You might
+have many specific instances uh of a
+weakness that is demonstrabably
+exploitable in countless uh products
+throughout the ecosystem identified
+ideally by CVE. um C.WE really might
+have maybe one or two for for many
+different kinds of vulnerabilities,
+maybe three um that really show the root
+cause or the the condition or the
+mistake or the the the the mistaken
+behavior that was meant to be done by
+the by the developer um or the product
+supplier and um and and something went
+ary, right? And so if we can identify
+these things um early on in the process,
+it means we can avoid the things bad
+down the line. Uh which we have seen uh
+through research countless times show
+that it's actually cheaper and easier to
+do. Um but that's sort of what CWE is at
+a at a top level. So this is a quick
+just overview of I think about the whole
+talk that I did a couple years ago which
+is what um our plan was from a
+perspective of uh driving adoption of
+CWE driving awareness of CWE and driving
+coverage of CWE. Um we had a lot of
+feedback from the community uh over the
+years about some of the challenges
+around it. um we knew that it needed to
+be responsive in terms of the
+advancement of different technologies
+and the coverage within the C.WE uh
+corpus to account for those kinds of
+issues that come from that technological
+advancement. And we also had some great
+examples from our sister program CVE in
+terms of how we can leverage the
+capabilities and knowledge and
+experience of the community to advance
+something like uh this knowledge
+program. So the first part of it is we
+were going to be um really focusing on
+trying to federate the program in a
+sense of working with different sets of
+community members across you know the
+government sponsor space um the academic
+space the uh industry space all these
+spaces to really help us improve the
+content of C.WE we um both in terms of
+what is already there um but also to add
+additional um you know weakness uh
+content that that didn't exist that that
+really should for the purposes of
+enabling defenders and and and product
+uh developers. The other thing was we
+knew that um CWE had a lot of room to
+grow in terms of its usability. Um, and
+by usability I mean not only being able
+to navigate and sort of find the
+information that you that you want, but
+also to um be able to understand it and
+be able to discern what it's saying and
+and sort of the the common phrase you
+might have heard of like a wall of text,
+right? and and how do we absorb this
+information?
+And and lastly, the way that we were
+going to try and go about doing that was
+through engagement really and thinking
+of C.WE uh as uh as a vehicle really for
+some of the some of the things that had
+become sort of part of the popular
+narrative around cyber security at the
+time, which was things like secure by
+design and thinking about how we can
+avoid as I said before the the idea of
+many, you know, the proliferation of
+vulnerabilities downstream. if we can
+analyze the vulnerabilities that we have
+and find their root cause, maybe we can
+stop uh earlier on or we can feed that
+into our software development life cycle
+um and go from there. So the idea was to
+really engage the community around these
+some uh some of these key uh ideas and
+this is what we did, right? So blowing
+that up a little bit um we did have some
+of these working groups. We didn't have
+all of them. Um but some of the things
+that we did in terms of federation was
+really engaged the community in these
+different groups. So one uh and it
+remains to this day. One of our great
+successes in community engagement was
+around the hardware special interest
+group which still exists um and it meets
+uh every month and it's been a
+tremendous uh benefit to the program
+because it expanded the scope uh of the
+program into the hardware design space
+for the first time. We also uh had the
+user experience working group which was
+really the ground uh ground swell area
+of people coming together to tell us how
+we needed to improve the user experience
+and uh we worked closely with the
+community and our dear uh our dear
+partner Rogue uh as a as a chair as a
+co-chair there to really help. Yeah,
+wherever you I can't see any there. Um
+to to help us there and and of course
+root cause mapping, right, which is
+something that we've talked a lot about
+at this uh conference already this week.
+Um, so the idea simply being that, you
+know, there's a team at MITER of great
+people that work on this every day, but
+there's also a lot of people out in the
+ecosystem with a lot of expertise and
+experience that we can capture and
+leverage. Um, usability improvements.
+Steve, do you want to say say anything a
+little bit about I've talked feel like
+I've talked a lot.
+Um yeah, I I I think we've made a number
+of changes to the website based in the
+past couple years based on a lot of
+input from the user um from the user
+experience working group and um uh we
+haven't gotten a lot of feedback on it
+but I don't think we've gotten a lot of
+critiques either and we used to get
+quite a few. So yeah,
+>> um you mentioned the wall of text. I
+don't know if we have a I don't think we
+have an example here, but even just
+change changing the layout of the
+information helps with the wall of text
+and um customizing allowing uh users to
+customize what bits of information they
+want to access uh based on what their
+particular use case is uh was also a
+significant improvement that we've made
+in the in the last couple years.
+>> Yeah. Yeah. I think just as you say, so
+so actually this we don't have the
+before, right? But uh for those of you
+that may be able to cast your minds back
+if you looked at 78 CWE 787
+uh I don't know two years ago or
+something it would look vastly different
+than it does today. Uh you'll notice
+that we we started to incorporate visual
+aids that can sort of help uh with
+understanding from a different
+perspective uh for those that are
+learning about weaknesses and also
+simplifying a description such that we
+better use the schema itself. Right? So
+rather than having a description that
+has all sorts of vast detailed amount of
+information about everything from
+impacts and potential mitigations and
+everything touched uh we really focus on
+what the weakness really core is and
+granted you can't see everything here
+but and then we use the rest of the
+schema to talk about alternate terms and
+mitigations and consequences like I said
+and relationships and other such things.
+Um yeah so there's there's examples
+there too. um you might be familiar and
+we'll talk a little bit more about the
+vulnerability mapping labels that we
+have uh and the notes associated and
+also just things about like the visual
+uh nature of the website where it was
+actually really hard to read tables
+which really helps to to make a table
+look better. So some
+>> a small change but a very significant
+difference to readability.
+>> Uh pretty much um
+>> unanimous unanimously wellreceived uh
+when we presented the changes. So,
+>> and again, a lot of that came through uh
+uh directly from the user experience
+working group. Yeah.
+>> Uh the other thing that we um that we've
+developed and we we haven't heard a
+tremendous amount of feedback about
+either, but we do know that people are
+using it.
+>> We know people are using it.
+>> Yeah. And um and and that is a REST API.
+So, we sometimes fail to promote it
+perhaps. Um but yes, you can now engage
+uh CWE information more uh in a
+different kind of manner than than uh
+than than routine navigation of the
+website, right? And um there's always
+been ways to do that at scale, right,
+with bulk download and other these kinds
+of things. But um the REST API is
+something that you might be interested
+in. Uh and uh and you can find it on our
+website if you go there and you look at
+um I think it's in the middle column,
+something like that. Do you want to say
+anything about the REST API?
+>> Um no, it's it's out there. We could do
+a better job of promoting it. Um we're a
+nonprofit, we don't have a heavy
+marketing arm and sometimes it shows.
+>> Yeah.
+Um Yeah. And this is sort of just on the
+third point I made before, right, about
+like storytelling, right? And when we
+engage the community, when we start to
+talk with product uh maintainers,
+product developers, this is something
+that I think is really powerful uh
+message and a visual, right, to think
+about. We and as I say we we know from
+research uh in a lot of areas right that
+when you look at how a product is
+developed and you go through sort of a a
+generic uh sort of process here we know
+that generally speaking it's it's
+earlier on right where these kinds of
+weaknesses are introduced to the product
+life cycle right um they are often
+caught no doubt right um but sometimes
+they're not right and when they are
+there and they go through all the
+process and we get over here and
+suddenly we get to the point where we're
+all excited to deploy and maintain. Um
+we have the discovery of these kinds of
+things that are actually much harder to
+deal with at that time. Um they're often
+much more expensive to deal with than if
+they're handled earlier, right? And so
+telling this story where we can say,
+well, if you really invest, right, to
+find these things earlier on through CWE
+um you can avoid these things, right?
+And um we can we can we we can in short
+remove the root causes, right, that lead
+to vulnerabilities. Um, and this is a
+really good uh tool to think about some
+of the things that we've talked about
+over the years, right, with uh terms
+like shifting left and building security
+in and and secure by design, right? And
+and so in a way, CW is really a vehicle
+for helping you uh achieve those kinds
+of goals.
+All right, so I think we were going to
+talk about observations and impact. Now,
+um what did we see after all this? So I
+we just sort of took a little bit of
+time uh talking about the state of
+affairs a couple of years ago and the
+things that we wanted to do. Um one of
+the things that I'm really excited about
+just thinking about from the engagement
+of those that are disclosing
+vulnerabilities uh and the value of
+looking at the root cause of those
+vulnerabilities and reporting it at the
+time of disclosure. If we cast our
+timeline back uh a couple years ago,
+there were 371 total CNAs of which there
+were uh 273 that had a record uh in the
+previous I believe this stat is for 6
+months prior. Um and for those CNAs,
+those that had 100% of the records that
+they disclosed uh had CWEs were at the
+202 level, right? Uh and that was 74% of
+CVES, excuse me, CNAs with a record. And
+you'll note that this year we just
+pulled these data, excuse me, we just
+pulled this data um at the beginning of
+the month and obviously we've had
+tremendous growth in the uh in the CNA
+program uh or community which we're very
+thrilled with. But in addition, we've
+also seen tremendous growth in the
+adoption of C.WE and root cause mapping
+at the time of disclosure. And this is a
+very good thing um because as we say,
+there's a value for those CNAs to
+reinforce and inform their uh their
+training to inform their software
+development life cycle um and all their
+product development things. But also it
+helps us with this data looking at it
+across the landscape, right? Where you
+can uh start to to to see signals in the
+um in the ecosystem and start to draw
+conclusions and think about it more um
+you know where where investments might
+be made or where focus might be made
+from a policy perspective for example.
+Um anything to add?
+>> Um I would just I would just add that uh
+it is through close association between
+CVE and C.WE we that this is happening,
+but a lot of this adoption is really
+being driven by the by the CVE side of
+things while we're supporting the the
+creation and the usability and other
+improvements on the C.WE side. Uh but
+there's pretty close uh collaboration
+there.
+>> Through a single central point.
+>> Yes.
+>> Um
+>> Oh, but yes.
+>> No, maybe. Well, well, I would say
+potentially, but also I would say that
+actually some of the things that we've
+done with things like vulnerability
+mapping notes, right, and labels, I
+think that's been tremendously
+successful because it helps.
+>> It's been influential uh back to the CNA
+community and and we'll be touching on
+that later.
+>> Absolutely. So, just looking at this
+again, uh what did we see in terms of
+not only people doing mapping, but what
+did we see in terms of how good those
+mappings are? Uh different timeline
+here. This is looking uh over the last
+two years, top 25. Many of you might be
+familiar with the CWE top 25. What this
+is really showing is that there's been a
+market improvement uh in terms of the
+actionability of the CWEs that people
+are mapping to. So one of the things
+that um you might know about CWE root
+cause mapping u or you might have heard
+or maybe experienced is that there's a
+lot of CWEs and there's a tree there's a
+hierarchy of abstraction and sometimes
+you know boy it's easy to just use
+something very generic and say this is
+an input validation problem right um but
+it's not really actionable in the way
+that we would really like to think about
+um really thinking about how this can be
+resolved or avoided it's really more we
+want people to think sort of down the
+tree so to speak at a more precise nice
+level of abstraction. Uh and and we
+think about that from an actionability.
+So you'll see the numbers here and
+really what it's showing um boy there's
+a lot of numbers actually. Um but what
+it's really showing is that we're seeing
+people mapping to things that we say um
+are are labeled with allowed or allowed
+with review. These are labels that I've
+alluded to actually on every CWE entry.
+There is a a sort of label saying should
+you should you map to this? Right? It a
+is this a weakness? Right? Is it not a
+list of weaknesses, but it's actually a
+weakness and it's actionable, right?
+It's at the level of abstraction where
+you uh have that sort of, you know,
+balance of precision um and and really
+knowing uh uh not something at sort of a
+broad high level, but something that's
+actually really usable from a from that
+perspective. Any anything to add there?
+Um I would just add that ironically the
+uh the CWEs that are discouraged for
+various reasons for mapping but still
+can be used um are highlighted in green
+here. Um but you know back in 2024 in
+our top 25 we had six C.WES that were
+discouraged and we see now that we've
+cut that slice of the pie in half.
+>> Yeah that's great.
+Um, another one here, similar nature of
+success, I would like to say. Um, again,
+apologies for the many numbers, but
+hopefully it's it's telling a a
+compelling story. What we really start
+to see is when we talk about the
+hierarchy of CWEs and at the very
+highest level, sort of a pillar and then
+going down to classes and bases and
+variants from the highest level of
+abstraction to the most uh the least
+level of abstraction. Again, we like to
+see mappings for C.WE PW root cause
+mapping at the base or the variant level
+again for the actionability and
+precision. And what we've seen across
+these two top 25 analyses um is that we
+are seeing positive trends both in the
+increase of mapping to base level
+weaknesses. We're seeing a positive
+trend in the fewer mappings to classes
+which are more abstract. We're seeing an
+increase uh in the variant level which
+is the most precise type of weakness
+that we define. And then unfortunately
+we do have the one negative which is uh
+we have uh some mappings this year or
+rather we had one in the in the top 25
+uh for a pillar which was that
+>> I I should remember all the top 25 uh
+but I don't but uh not all pillars are
+created equal. Some pillars are there's
+just not enough research background to
+really have a fully fleshed out subree.
+So some pillars get used appropriately
+more often than others. But in general,
+we want to be having users using lower
+and lower level C.Wees and modifying and
+updating C.WE as needed uh in order to
+provide additional specificity in cases
+uh where we're talking about weaknesses
+that are maybe not as well researched,
+where we don't have a sufficiently bushy
+tree underneath some uh some of these
+pillars.
+>> Yeah. Yeah. So, so long story short,
+it's been it's been successful. I think
+I think we still have, you know, room to
+go to to grow both in terms of usability
+and coverage and and some of the things
+that we want to do, but we we've really
+accomplished a lot here.
+>> I think the next section we're going to
+talk about is content development. Do
+you want to switch spots and and drive?
+So, I'm going to let you do that.
+>> So, as we've been working on the
+adoption, we've also been working on
+various improvements to C.WE's content,
+uh, including, um, additional engagement
+with the community. So I'm going to talk
+about that a little bit. One of but one
+of our goals that we've started uh
+taking on especially in the last six
+months or so is that every CWE entry has
+about 20 different elements. Things like
+mitigations, consequences and so on. Uh
+but not every entry is created equal.
+Not every entry has um full and complete
+set of elements that we we really
+ideally would like to have. Um and so
+for that we touched on uh uh what we
+want to characterize as entry
+completeness. Um we talked a little bit
+about some conceptual coverage uh
+already. Um but when we talk about
+completeness for entries these are
+things like how many CWB weaknesses you
+know across the entire repository 900
+plus weaknesses how many of them even
+have a given element such as mitigations
+or consequences. you know this is
+important information for some of our
+users to have available and that has a
+direct impact on the usability and the
+utility of CWE to those users. So we
+want to have that kind of information.
+Um also however some of the uh some of
+the elements that we have uh have a lot
+of subp parts to them a lot of specific
+different kinds of details that have
+been formalized within our schema and
+that gets into the depth of individual
+elements. Um but as we're making these
+changes and as as we're looking into
+improvements to the CWE repository
+entirely, we need to be mindful that of
+the data inside it um that it is correct
+but also timely and satisfies other
+kinds of uh quality requirements and
+quality has been one of the big themes
+clearly for CVE and CWE uh for this uh
+for this VNCON entire week.
+So to give a little bit more examples of
+what we talk what we mean when we talk
+about depth uh the applicable platforms
+element uh it has uh sub elements that
+cover you know the affected programming
+languages that a weakness appears in
+what operating systems it might appear
+on what kinds of technologies it's
+related to say you know hardware uh or
+um web servers uh and the different
+kinds of um processor architecture and
+we have specific um programming
+languages, oss and so on, but we also
+have general classes uh as well. Um as
+of uh a few months ago, uh we had most
+of our CWE entries had applicable
+platforms, but only about 200 of those
+CWEs mentioned a specific affected
+language. And so if people are really
+interested in, you know, they're
+adopting or using a particular
+programming language and they want to go
+and search CWE and see which CWEs are
+really related to a particular
+programming language, there's an
+indication here that we have some
+potential gaps because our data is not
+deep enough.
+Um and so we have a number of different
+elements that have this kind of uh
+complexity or depth to them uh that
+we're now starting to track and trying
+to figure out how we're going to um uh
+handle uh in order to improve the depth
+of C.WE which then again uh ultimately
+will improve its utility. Um so this is
+an attempt that we're starting to make
+of trying to track how well we're doing
+in certain areas. And one of the tasks
+that we took on middle of last year, end
+of last year was to really figure out
+which elements are really most important
+based on the different kinds of use
+cases that we wanted to support. So
+those are highlighted in blue there. And
+you can see for example for detection
+methods across the entire repository,
+this is 4.19.
+Um only 52% of C.WE have some kinds of
+detection method information associated
+with them. If people want to know and
+learn how to actually detect certain
+weaknesses, that's a that's a particular
+kind of gap. Um, Alec had talked about
+and showed the diagrams that we're
+using. They're very good. They've been
+very wellreceived. Um, they also take a
+lot of labor, as you might imagine, to
+create. So, we've, uh, we've got 75
+there. Um on the right hand side, this
+is a view that's a little bit more
+hardware focused because our engagement
+with members of the hardware SIG. Um
+they've been prioritizing and giving us
+feedback on what kinds of elements we
+should really work on for our
+completeness and uh generally they care
+a lot about depth. So for example
+uh on the hardware side 87% of the
+hardware related CWEs have at least one
+demonstrative example um but the
+hardware SIG wants to see more um but
+nonetheless these kinds of uh gaps in in
+uh depth or in uh in breadth um help us
+to then prioritize with the targeted
+community um which kinds of uh CWES
+which kinds of elements we want to uh
+complete.
+and that will be in close collaboration
+with them.
+>> Uh we talked a bit about diagrams
+already. We've uh every CWE release we
+have around 10 to 15 diagrams that we
+add. Uh we have a good team of uh uh of
+people coming up with these diagrams. Uh
+and so we're up to 75. So yay, only 800
+more to go. Um, we're still figuring out
+how to optimize our process, but we've
+got a pretty well- definfined process
+and we're uh um we're out of the early
+learning stages.
+Another way that we're engaging with the
+community is in the CDR, the content
+development repository. And this is uh
+something that we launched publicly, I
+don't know, about a year and a half ago
+or something like that. Uh but which has
+been under development for a couple
+years. Uh, and this is where anyone in
+the community can submit ideas about
+either potential new entries to add or
+modifications to make to existing uh,
+C.WE. And typically we get about zero or
+uh, up to five new submissions per
+month. Uh, it es and flows. Um but we've
+established a pretty well- definfined
+process uh which provides transparency
+and um traceability for what happens
+with these submissions as they come in.
+And we've developed a a methodology that
+includes more or less a checklist of
+different things that need to be
+considered when we're looking at a
+submission in order to in in order to
+ensure that it meets our quality
+expectations uh within C.WE. and CDR is
+public. I have a URL down here, but uh
+you can just search for C.WE CDR and
+you'll be able to get a look at it.
+So, this is awesome. 191 total
+submissions in the course of the last
+two or three years. Um we still have 102
+active. Uh why do we have so many that
+are still active? Well, turns out we
+aren't really sure how to characterize
+weaknesses appropriately. So as part of
+the quality checklist, we have these
+labels that identify different kinds of
+problems that particular submissions
+have. So you can see some of the red
+bars here that are really getting at
+questions of the submission. It's not
+even clear what the weakness is that
+it's talking about. Some uh talk
+specifically about focus on what the
+attack is. This kind of attack works.
+Well, what's the weakness underneath it?
+Um, and then we have other cases on the
+right hand side here with a tall bar
+affecting over 25 submissions where it's
+not even really clear what the weakness
+is. Maybe it's not described well. Um,
+but this requires quite a bit of back
+and forth interaction with the
+submitters to try and figure this out.
+What's in the yellow uh for the yellow
+bars and you can see here uh
+one pretty tall yellow bar here
+affecting over 25 submissions is that
+people propose submissions that overlap
+partially something that's existing in
+CWE already. But we want to really be
+able to have every single weakness be
+pretty clearly unique and distinct from
+other weaknesses. So that's one area
+that's a pretty much of a challenge for
+us. Um and then on the left hand side we
+have a number of proposals from people
+that are like uh that we're expecting to
+see a new C.WE entry but it's at such a
+low level of abstraction probably it's
+better and more suited to integrate into
+an existing CWE.
+>> Uh and now there's a bit of a language
+shift we need to make. Let's start off
+with we can sort of start. It's actually
+a great segue coming from the last point
+because what a lot of the submissions
+that we see perhaps don't have a clearly
+defined idea of what the weakness is.
+Yeah. Um and it's reflected in this idea
+that I think over the last several
+decades really since the dawn of maybe
+cyber security might even say has really
+focused uh from the perspective of sort
+of the attack right or or the
+vulnerability really right you know um
+or the negative outcome right the the
+the the the suboptimal outcome as that
+it is the result of this issue right um
+and so what we see in a lot of these
+submissions and one of the things that
+I'd like to get on my soap box and you
+can sort of prop me up or take my place
+whenever you like is sort of the idea
+that um as a as a community I think it's
+actually it would be quite valuable if
+people started to start thinking about
+these things differently right so
+instead of uh focusing on the the the
+exploitive outcome right it's no doubt
+valuable and and it's needed from you
+know the response perspective and sort
+of remediation but if we start doing
+this thinking more directly both at the
+time of sort of that analysis it starts
+to change the way that we think right
+and the then the the mental models that
+we all operate under on how we view
+things um is a really powerful force and
+I think as a collective it shows uh both
+in terms of I guess as an anecdote
+looking at the numbers right we get all
+these submissions that say oh well you
+know
+you know from the perspective of the
+attack like like you said I can't think
+of a good example it's late in the day
+but um if we if we get more people
+thinking in this way not only will they
+be able to submit perhaps their idea
+more um more in a compelling manner from
+the perspective of a weakness are more
+detailed and defined from the weakness
+perspective. But we'll actually start to
+see I think improvements in the general
+security of the products that are you
+know developed and supplied to the
+ecosystem. So that's my thinking and I I
+think you can give a good example here
+right in terms of how something's broken
+down. Yeah.
+>> Uh yeah. So for CWE9 SQL injection you
+know always very high up on the top 25
+but the name SQL injection itself is a
+is attack oriented and yet that's the
+name by which many people know the
+weakness. The actual weakness name is a
+little bit more awkward, right? About
+improper neutralization of special
+elements used in an SQL command. Almost
+every single word in that name we've
+defined within C.WE to have a a pretty
+precise and clear meaning, although it's
+not always uh received and understood
+that way, and we'll touch on that
+momentarily.
+>> Um, but then we also try and file things
+under other kinds of alternate terms.
+>> Improper, we don't have that.
+>> Such as um Yep. No, improper is another
+word as well. Yes. Um we'll touch on
+that one in a moment. Um but also you
+know there are abbreviations like SQLI
+for SQL injection and we want to make
+sure that we have these abbreviations
+there. But that's really for improving
+searchability and lookup because these
+are the terms by which people know these
+kinds of issues. But for CWE we're
+really focused on the weaknesses. And so
+there is this little bit of a disconnect
+in a way with many consumers. uh and
+we're trying to get them to the point of
+thinking a little bit more about uh
+weaknesses.
+Um in addition, we have uh a number of
+terms in the industry that have been
+long established and yet nonetheless are
+either conflicting or uh or or vague. Uh
+just take the phrase buffer overflow.
+That phrase has been around for 40 years
+or something like that, maybe more. Um,
+but different people actually have
+different interpretations of what the
+word buffer what the phrase buffer
+overflow means. Many people think it's
+like, you know, writing past the end of
+a buffer, but other people will think
+it's either a read or write either after
+the end of the buffer or before the
+beginning of the buffer. This is the
+exact same kind of phrase. Also, other
+people just call it buffer overrun.
+Slightly different phrase. We all kind
+of know what we mean, but as we're
+looking more towards automation and
+being more consistent in our language,
+these are some of the challenges that we
+face.
+>> Didn't you do a poll on social media
+about
+>> uh I did a poll on social media. I
+decided not to include it here but uh
+yes but for example I did a poll with
+all the different kinds of uh
+permutations of buffer overflow and only
+70% of people said that they how they
+defined it was as a right past the end
+of the buffer
+70% is a lot but it's not 100%. Um and
+so you know in any particular case if
+someone's using that that buffer
+overflow flow term at least 30% if not
+more are going to misunderstand some of
+the specifics about what that means. And
+so we can try and capture at least some
+of that uh in terms of how we improve
+our own language uh in C.WE. But we
+still need to be able to make sure that
+uh the words that people know this stuff
+by somehow hooks into these weaknesses.
+So, it's a bit of a balancing game. Um,
+and we have other kinds of uh situations
+where we have vague terminology with
+maybe multiple definitions that will
+vary depending on uh you know who the
+audience is, who's reading it. Uh, and
+as I mentioned before, we tried to
+define our own terminology. We have a
+glossery of about 60 um 60 concepts or
+something like that. literally just
+looked at the glossery an hour ago to
+try and figure out how we had define
+some things. Um, but that's us within
+C.WE trying to use a fairly limited
+language and originally our targets were
+a more formalized uh audience uh static
+code analysis vendors and so on. But now
+with the growth of CWE, we have a more
+general knowledge audience. And so we're
+running into these kinds of conflicts.
+But nonetheless, uh, we need to address
+this in C.WE. and in general in the
+industry we need to get better and more
+uh precise and more careful about our
+terminology.
+Um there are other areas where we can
+have different kinds of disconnects
+between C.WE's established terms and how
+they might be interpreted by uh other
+stakeholders. Um so for example there's
+that word improper. uh we defined it and
+I've been following it pretty closely
+the way we defined it going back to
+about 2010 or something like that um we
+treat it as a generalization of missing
+inc or incorrect. So for example
+improper authorization
+could capture situations where you're
+either missing authorization or you're
+just doing authorization incorrectly. Um
+but there is a common definition that uh
+uh was raised to us you know that it's
+like a not in accordance with propriety
+improp uh improper uh rude or not good
+manners and we certainly don't want to
+say that or we don't want to imply that.
+Um and then there are other other words
+that we might use that we have very
+clearly defined that might make uh you
+know legal teams or corporate leadership
+a little bit uh uncertain about things
+because they don't want to necessarily
+make themselves look bad. they're
+already at least admitting to a
+vulnerability, but if they're using some
+of these words in their name for the
+weakness, there may be some reluctance
+>> And we've also realized
+>> I was going to just jump in for a second
+actually on this just to call back to
+the root cause mapping issue, right? The
+idea of mapping to something sort of at
+the improper level is an interesting one
+because it's a great example of when oh
+well you can be more specific in your
+root cause mapping and you can also
+avoid this troublesome word if you just
+use one of the children, right? So if
+you have missing authorization, you
+should map to that and or incorrect. So
+>> and we have pretty good coverage in C.
+C.WE. If there's something that's
+improper, blah blah blah, we usually
+have children that's either missing or
+incorrect.
+>> Uh and that's an important distinction
+to make as well because it's my
+suspicion that um you know missing if
+you're just not doing something, you
+know, there's a lot of different ways to
+not be doing something, but that's
+really simple. There's a whole bunch of
+ways to do things incorrectly.
+Um, and then finally, when we're talking
+about uh uh terms and interpretations,
+there can be language barriers as well.
+Uh, and some ideas and some notions can
+be literally lost in translation. And
+something that came up with our
+colleagues from Panasonic this week, uh,
+they were showing us a lot of the
+translation that they have done from
+C.WE names and CWE terms into Japanese.
+We had a couple, um, really clearly
+defined C.WE we terms that we've been
+using very consistently within English
+that nonetheless translated to the same
+Japanese term and whether that
+translation was perfectly correct or not
+uh even if it wasn't necessarily correct
+or ideal in that particular situation
+you can imagine for you know any two
+human languages you're just going to get
+this kind of loss of specificity as
+you're doing translation so as we you
+know grow in international use in CWE E
+as the CNAs themselves start using CWE
+across the globe uh we may we may well
+run into more of these kinds of
+complications.
+>> Um we also have to deal with uh as Alec
+touched on the the difference between
+really a weakness mindset versus a
+vulnerability mindset and there are a
+lot of uh different kinds of
+inconsistencies that sort of need need
+to be dealt with. You know, if you're
+coming from a vulnerability world, you
+might care a lot about impact. You know,
+code execution, information leak, or
+privilege escalation. Those kinds of
+phrases that you hear over and over
+again in CVE descriptions. Uh, but each
+of those kinds of technical impacts uh
+could be the results of uh that could
+occur in dozens of different C.WE
+leading to the same kind of uh impact.
+Um people often understand things in
+terms of attacks and so it can be very
+difficult for us to um really get
+underneath what is the condition, what
+is the weakness underneath the hood um
+that allows that attack to happen. We
+just uh uh my colleague Connor and I
+just had a conversation again with our
+Panasonic friends uh about some um uh
+some well-known and well understood
+attacks at the protocol level where it's
+like I don't know, it's really not
+entirely clear what the underlying
+weakness is. But there's clearly
+underlying weaknesses because the attack
+is succeeding. Um and uh oftentimes we
+have uh uh absence of a mitigation or um
+emphasis on mitigation some kind of
+vulnerability that doesn't really get
+into what the uh what the weakness is.
+So, as we're bringing more people on
+board to use uh to perform CWE mapping
+and to get a weakness mindset, these are
+some of the areas that we need to be
+able to educate them about if they're
+coming from a vulnerability perspective.
+Uh, and we have a few different areas in
+C.WE in general that uh seem to be
+frequently mismapped or misused. Access
+control is one of our big examples here.
+Um, that's a that's a pillar. Um it's
+one of the three most popular
+discouraged CWEs uh that get used across
+uh many different CNAs. Uh and part of
+the problem is that you know many people
+have different definitions of what
+access control even means. A lot of
+people are confused or uncertain about
+what the difference is between
+authentication and authorization. We
+have our own opinion as documented in
+the glossery. Um but one little factoid
+I like to share sometimes is you know
+NIST the standards organization if you
+look at their glosseries um and their
+indices they have 10 different
+definitions for authorization right and
+so if if NIS the standards organization
+struggles with this well it's
+understandable why we all do um uh
+there's a lot of other areas that we've
+noticed where there are a series of
+mapping errors um or confusion that
+happens with users And we've been
+building on trying to improve that
+education. Uh and that's where the
+mapping usage labels come in. So we've
+already uh talked about this. We have,
+you know, uh for some CWEs it's allowed
+for mapping or it's allowed as long as
+you perform some kind of close review.
+Uh discouraged. Maybe there's some kind
+of problem with a C.WE. Maybe it's a
+little too high level and there are
+child CWEs available or maybe it
+involves a very commonly confused
+concept. Uh and then there are CWEs that
+are prohibited, but these are things
+like arbitrary categories or the IDs
+that we have for views or for deprecated
+CWEs. We don't deprecate CWEs very
+often, but sometimes we do. And if we
+deprecated, people shouldn't be using
+them. So, we'll prohibit them.
+And one of the things that we've started
+doing now that we have increasing
+adoption by the CNA community uh in
+performing CWE mappings is to look at
+the patterns of the mapping usage that
+they have across either either an entire
+repository or even for a single CNA.
+So um using the coloring of you know
+orange is not so good discouraged and
+red is bad prohibited and then different
+shades of green which is good stuff. Um
+let's take a look at NVD from
+approximately 2016 2017.
+Uh
+quite a bit of red here and then a huge
+number of discouraged uh CWEs as well.
+But you know this is going back nine
+years or so. Uh if you attended Harold
+Boo's talk this morning, you know he
+talked about changing a number of
+different changes they made in NVD at
+around 2016 2017. And one of those
+changes that they had made was they were
+originally using a very narrow set of
+C.WES that uh I informally called NIST
+19 which itself included some categories
+and that's something this view is
+something that Harold and I developed
+together. So I was all on board with
+using categories way back when. So
+eventually I learned my lesson.
+>> Um so we have a huge amount of orange
+and a and a bunch of red indicating
+prohibited. uh and a lot of the common
+uh suspects that we complain about uh in
+terms of discouraged CWEs CW119 which is
+the grandparent of all buffer overflows,
+CW200 which is about information leaks
+uh CW284 which is related to access
+control and a number of others. those
+were in the NIS 19. Um those influenced
+uh NVD those that that NIS 19 list
+influenced a lot of activities um not
+just the mapping that was used in NVD.
+Um so we inadvertently created a problem
+for ourselves and uh uh we're rec we're
+recovering from it but nonetheless this
+is what the state of things was way back
+in 2017. And you might also ask well why
+only 19? you know older days there was
+not as much of a great variety of
+weaknesses as there are now and also we
+thought at the time that it was
+reasonable for the humans to not be
+drowning in 900 different options. So we
+would give them you know sets of fairly
+high level op uh CWEs that would then
+allow them to cover things pretty well.
+Uh however things have gotten a lot
+better. So looking at our data set from
+2025,
+uh due to the methodology we use, we
+effectively took mappings from NVD. We
+also had insight into mappings that came
+from the vulnerrichment work. Um as well
+as CNA or the Yeah, sorry.
+>> As well as CNA provided mappings to NVD
+itself. Um there's maybe not 100%
+overlap there. Um but nonetheless
+uh some of you can't see but that the
+discouraged is now like a much smaller
+portion there covering um uh I don't
+have the percentage written down here
+but it's uh but it's a much lower
+percentage and this is the uh you know
+looking at the collection of all
+mappings that are out there from these
+different sources. So we've made some
+significant improvements but we still
+have the same old suspects for
+discouraged CWES being used. I think one
+thing to point out here too that we
+might you know there's 50 50,681
+mappings in the data set right but this
+is an interesting thing because there's
+not that many CVEes in the data set
+right and so I don't think we have the
+number up here that's why I wanted to
+mention
+>> we don't have the numbers
+>> I think it was like 38 now or something
+like that
+>> I don't recall it correctly
+>> yeah so but you can find it in in the oh
+maybe we have the answer out there the
+the the point being that um there is the
+possibility right that um more than one
+CWE is mapped to right from an
+individual vulnerability And I think
+another point here actually is that this
+is a lot of mappings but it's across
+over 500 unique CWEs whereas back in
+2017 when NIS was just coming out of
+using the NIS 19 and using a larger list
+there was only 98 unique CWEs.
+>> So we're seeing just in the raw numbers
+uh increasing broad usage of uh more
+bases and classes reflecting the greater
+variety of weaknesses that are out
+Um so that's you know usage across the
+entire NVD but we can look also on a per
+CNA basis and so this is uh looking at
+one particular vendor uh that with that
+you know has a good chunk of uh CWEs
+that are discouraged uh again the same
+suspects uh 284 access control CW20
+input validation. this vendor could be
+looking at this kind of analysis and
+using it to help guide how it is they
+might want to go and improve their
+mappings um and I'll mention the talk
+that was done uh yesterday on using
+machine learning with helping CWE
+mappings um with uh some researchers
+from uh Boston University uh and their
+work was actually emphasizing and
+looking at uh building improvements and
+suggestions for those uh CVEes that were
+using discouraged or prohibited mapping.
+So I think there's a lot of potential
+there
+>> um for uh uh for people to improve their
+usage here.
+And this is a group of uh information of
+CWEs um that were used by another party
+that a CNA coordinator. Um again there's
+some significant improvements here in
+the data set for 20 uh 25 top 25. Uh the
+point here being though is that any CNA
+uh can look at this kind of uh usage of
+mapping usage and pretty much anybody
+can if they just look at the data
+because we have for every CVE we know
+who the CNA is pretty much right.
+>> Um so this is the kind of analysis that
+we can do on a broad scale.
+Um, another area uh where we've had a
+lot more direct CNA engagement uh was
+through the um the top the top 25 in the
+last year. Our methodology included
+actually contacting CNAs and sending
+them reports of uh CVEEs that we thought
+maybe might not have uh the best
+mappings. We have a basic, you know,
+keyword matcher that looks for common
+phrases that are associated with lower
+level uh CWEs.
+um we know what some of the frequently
+misused CWEs are. So they're on they get
+special attention if the CNA uses them.
+Uh and then um this year for 2020 for
+2025 we worked with um Chris Madden of
+Yahoo on a lot of the AI machine
+learning assisted uh research that he's
+been doing that Alegate Kristen talked
+about at last year's von con uh and made
+some additional mapping suggestions as
+well which got included in those reports
+that we then sent to the CNAs. Um, and
+based on the responses we got from those
+CNAs, uh, who were able to reply, uh,
+they indicated that they had learned
+quite a bit from the, uh, feedback that
+was in those reports. So, they wound up
+correcting their mapping errors and now
+the thinking is that, um, their mappings
+will now be improved looking forward.
+>> Ah,
+>> so let's get back to the community
+engagement other aspects of it.
+>> So, I I can cover this one too. You want
+to switch that? Yeah. Yeah. So, um,
+yeah. So, one of the things that I
+talked about at the beginning is how
+important it is to engage the community
+and very proud of what we've done as a
+program in that regard. Looking back
+back in 2021 when we started the user
+experience working group, um we've
+really done a lot of improvements to the
+program through it, right? And I've
+listed some here, adding weakness
+visualizations, you know, talking
+through how we might do that, what those
+things should include, how we should
+think about those things. The mapping
+notes and labels have been, you know, a
+tremendous boon to the ecosystem
+adopting CWE root cause mapping. uh and
+also the filtering right we didn't
+really talk about that today but now you
+can sort of go to any CWE in the corpus
+and really focus on the types of
+elements within it uh that you want to
+focus on and if you jump from CWE to CWE
+you can see those things uh more
+directly um also in addition uh just a
+couple years ago we started the root
+cause mapping working group and it's
+been tremendously valuable to understand
+the challenges uh including from the
+user experience working group as well
+but specifically from the CVE community
+which has been really helpful in that
+regard to understand the challenges
+around mapping and how we can improve
+our mapping guidance for them and also
+talk about the the necessary value of
+why it's important to map in the first
+place and why it's important to um do so
+in a public uh way. So um you know the
+these are really great accomplishments
+and I and I think one of the things I
+really wanted to emphasize with this
+slide you can sort of get where we're
+going but the idea is that these these
+working groups were stood up to
+accomplish something specific. Um we
+worked with community members um Chemic
+Reguski with the user experience working
+group uh you know helping us along that
+route and also in the root cause mapping
+working group um you know Chris Madden
+mentioned before he had been very in uh
+instrumental in helping us advance that
+with the CWE team uh members themselves
+um and we've realized just reaching sort
+of a point of uh well reaching a point
+of recognition that there's really this
+opportunity now to take the the the wins
+that we've had and sort of close out
+these individual efforts and bring them
+together into a new working group. And
+what we're really looking to try and do
+is is is thinking about the success of
+the hardware SIG, right? Originally, it
+was set up as a SIG specifically, right?
+It was the a collection of folks that
+are together um with a with a shared
+interest, right? A special interest uh
+group, hence the name. Um and we want to
+establish that going forward for C.WE to
+combine uh the kinds of challenges that
+we see across uh that we want to tackle
+next in terms of the challenges. So, you
+know, steering continuous improvement
+through not necessarily a specific task
+focusing on user experience, although
+that will continue now in this new
+group. Um, but also uh things like um
+maximizing adoption um and uh advancing
+technology, right? We talked about the
+rest API and how we could strengthen uh
+that going forward as well. The other
+thing that we're really excited about
+this too is we're gonna we're thinking
+about exploring a different operational
+model. One of the things that we started
+to see sort of after the some of the
+successes that we've had in some of
+these other groups uh is that we we tend
+to get sort of people coming and going
+and sort of finding great success or
+they they champion and help us get
+through one particular accomplishment.
+Um and then we sort of start to see a
+little bit of a disengagement or less
+less um less activity. And we found
+really great success with the hardware
+sig and we're going to try and replicate
+it here with the cross domain sig. Um
+but the idea being that we're going to
+sort of have a core group of folks that
+meet more regularly and then opening up
+kind of in a way the idea being to have
+a quarterly uh sort of summit for the
+broader ecosystem. So if you're not able
+to contribute and you're not able to
+engage sort of on a more regular basis
+um that you might come every quarter and
+sort of offer the feedback on what's
+been accomplished by the smaller group
+in the in in the in between time and we
+this is a suggestion by Rogue at Red Hat
+which were really uh which resonated
+with me personally. I think we all sort
+of thought it was a good idea. Um, and
+so we're going to try it out. And so be
+on the lookout for that because we're
+looking to launch it um, in the early
+summer here. We haven't really figured
+out when exactly, but um, so just
+looking at sort of wrapping things up. I
+know we sort of are getting to the end
+of the time. We want to make sure if you
+have a question, you're able to ask us.
+Um, one of the things that we're really
+proud of is that the federation and
+modernization efforts that we sort of
+talked about earlier on have really laid
+the groundwork for today's progress and
+where we are in 2026 versus 2024 when I
+first spoke at the first Phonecon about
+this. Um, the usability improvements I
+think no doubt have made really a a
+noticeable measurable um uh change in
+adoption across the ecosystem especially
+in the CVE program and the CNA
+community. Um, and that only really does
+do do better for the broader ecosystem,
+right? We talked about how vulnerability
+root cause mapping helps inform your
+software development life cycle, but
+also helps you avoid these things being
+repeated going forward. Um, I do want to
+encourage those that are uh here to
+think about the idea of how we can shift
+maybe our mental models and our thinking
+uh rather from just thinking of the
+attack language or thinking of uh you
+know the the negative outcome or or the
+exploitation, right? Start to think
+about what is the actual mistake, right?
+what is the weakness uh inherent in
+this? And I think that's a really
+valuable thing as an as an industry that
+we could do um both uh to help us
+communicate with developers um to avoid
+these things and and also just for those
+that are defending and and looking to
+prevent the repeated kinds of problems
+that we see. Um yeah, so I might open it
+up here. Uh I can't not see it's very
+bright up here, but if you have any
+questions, we have a few left.
+>> We can see if there's a forum at the
+microphone standing there.
+>> Oh yeah, we can. I vaguely see somebody
+coming.
+>> Ah, I I think it's P.
+>> Uh oh.
+>> Any other questions?
+>> Saved by the microphone being off.
+>> Uh
+>> oh, I don't hear. I mean, I can hear
+you. I'll repeat it. Yeah, I'll repeat
+it. Yeah.
+>> Yeah. So, I think this was a really
+great
+question. Um you're doing a lot of
+really important work by the way by
+design. So obviously I'm a huge fan and
+the question is by let's pick some date
+in the future 2030
+want to have seen as not the work that
+you've done but outcomes of the CWE
+program and how can the people here help
+you?
+>> Yeah. So, so Bob from Secure by Secure
+by Design Fame asks us what are what are
+our hopes andor dreams by 2030 that we
+see in terms of outcomes from the work
+that we do. I I'll I'll go first and
+then maybe you can go. So, so one of the
+things that that when I think about
+this, it's actually sort of a there
+there's there's two sides to it because
+we all know that vulnerability uh the
+identification of vulnerabilities is not
+going to drop, right? It's going to go
+up and it's going to continue to go up
+and that's almost a reality we can't
+avoid. um especially as the CVE program
+covers coverage expands. Um at the same
+time, we are arguing and I would say
+that what I would really want to see is
+that the more adoption of CWE means we
+actually see fewer of the repeated kinds
+of of of uh weaknesses being manifest in
+vulnerabilities in products, right? So I
+it's easy for me to say, well, we'll see
+more uh secure products, which would
+mean less vulnerabilities in the
+ecosystem, but I don't think that's
+really true. So I think you have to
+couple it to a specific product perhaps
+or a specific CNA. And I think what I
+would say is then we could measure to
+say okay I would love to see CNA uh A
+CNA B CNA C right those organizations
+take CWE to heart and incorporate it and
+they can start to show trends that say
+look we saw that we have this problem
+right in our developer space and we made
+the decision to address it in this way
+and look at the success that we have
+right so with that in mind that's what I
+think success would look like but at the
+same time you won't see it if you look
+at the number of total vulnerabilities
+that are identified. So Steve
+>> uh yeah I think to expand on that uh
+seeing more variety in the CWEs that are
+being used on a per CNA basis overall.
+Um you know the top 25 for the most part
+we've got all of these stubborn
+weaknesses. They show up again and again
+and CWE has a role in clarifying that
+and tracking that from a trend
+perspective. Um but at any rate uh uh we
+should be seeing more variety. Um I
+think I think in general one goal that I
+would have for 2030
+uh one is measurable and the other is is
+maybe not so measurable. Uh just so we
+have better and a broader variety of
+mappings where we have many fewer
+discouraged mappings and there could be
+two different reasons for having fewer
+discouraged mappings. One of which is
+just improved mapping abilities by the
+broader CNA community. Uh and then
+secondly, there are places where CWE has
+gaps or maybe isn't as easily usable as
+it should be in its hierarchical
+organization. And if we can address
+those kinds of issues with uh feedback
+and help from the community, fill in
+those gaps and improve its uh
+organization, uh then that would also
+lead to reduction of discouraged uh
+mappings. Um so that's that's uh that's
+one area. A a different area that maybe
+is not exactly as measurable uh but
+maybe is uh reflected in the mapping
+quality is people having a better
+understanding of the distinction between
+the weakness mindset and the
+vulnerability mindset. It's a difficult
+thing to teach especially for people who
+are coming in from a vulnerability
+perspective. Uh we've been working on
+and we had we had a workshop earlier
+this week on CWE mappings that was
+wellreceived. Uh and if we can take on
+an educational role um with the support
+of other others in the community, uh my
+hope is that we get a lot more people to
+really understand the weakness mindset
+which then can lead them to um be better
+about their software production and
+start avoiding these things. Um don't
+want to see the same problems over and
+over and over again.
+>> We've had enough of that I think. Yeah.
+>> Thanks for the question.
+>> I have a question. So you may have seen
+um a kind of a bucketing by the UK NCSC
+about the kind of weaknesses into one
+bucket which is excusable and another
+bucket which is non-excusable. The
+excusable ones are like you know
+complicated logic problems that people
+could not figure out. The non-excusable
+are like you know this SQL injection
+things that could have been easily found
+by commonly available freely available
+tools. Right. Do you have any idea to
+kind of use that to measure?
+>> You've been thinking about that. I I've
+been thinking about that a bit, but um I
+like the work that the UK has been
+doing. Um uh I haven't read it that
+paper came out some time ago. Um but the
+way that they were thinking about these
+things were how do you capture in a way
+what's really um forgivable or
+unforgivable. Uh we shouldn't be seeing
+the same old stuff that's really easily
+fi easily findable, easily exploitable.
+we should be seeing more complicated
+kinds of scenarios where um weaknesses
+are are being being exposed. Um and that
+that particular uh paper that I read at
+least lays out some of the
+characteristics and some of the ways you
+could then interpret um what those
+findings are. Um uh but who can do that
+interpretation and what kind of
+information we have available to do that
+information I'm not entirely sure about.
+you know, no uh no criticism of them.
+>> Flagging CV
+>> starting starting to flag things
+forgivable.
+>> Yep.
+>> Um and I might be okay with that
+actually. Um but uh other work that
+they've been doing and I forget whether
+it's in the same paper or in a different
+paper is um we have mitigation
+information in a lot of C.WE. And um
+it's not fully fleshed out. We don't
+necessarily have the depth for
+mitigation for every C.WE. But one thing
+that's kind of hidden is that we have
+themes or different kinds of mitigations
+that get shared across many different
+CWEs because the same mitigation can
+cancel out or at least reduce the
+severity of many different C.WE. And
+what the UK did was they actually went
+and they looked at that so that they
+could sort of reverse instead of like
+these are all the bad CWEs to worry
+about. If you apply this particular
+mitigation, you're going to help address
+all of these different kinds of CWES.
+Yeah. And the mitigations go across a
+variety of practices both for
+implementation, design, choice of
+programming language and so on. And so
+that work I find um really really
+compelling and it's also uh positive in
+a lot of ways. And it's much more
+manageable too.
+>> Yeah, great answer.
+>> I think we might have exhausted our
+time, but happy to answer another
+question.
+>> I don't know. We're not being told to
+get off the stage yet. Hey Alec, it's
+Chris. Oh, too close. Hey, just a quick
+note. I did have a question, too, but
+I'll save it. Um,
+>> you guys were struggling to recall the
+pillar that was on the top 25.
+>> So, it does in fact happen to be 284.
+>> And guess which number it is on the top
+25?
+>> Oh, yeah.
+>> Number 19.
+>> Okay, thank you. Um, yeah, I can further
+I can further add to that. We did make a
+number of methodology changes in 2025
+including no longer using Vue 10003
+which is a limited set of 100 plus CWES.
+So in in previous top 25s 284 because it
+was a pillar was never in view 10003. So
+it just got dropped.
+>> Y
+>> and so we we chose to use lower level
+CWES not to do any conversion to view
+10003. And so we have a number of uh
+significant changes there. the uh the
+only one negative thing and I I now that
+you mentioned I do remember seeing it's
+like h we're stuck with it but that's
+the reality of what the mapping is
+today.
+>> Right. Right.
+>> And it's no longer being hidden by us
+converting our results to Vue 10003. All
+CWEs are available now. Y
+>> thank you very much.
+>> All right. Okay. Thank you everybody.

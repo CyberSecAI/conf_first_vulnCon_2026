@@ -1,0 +1,957 @@
+What are the big things that matter to
+consumers? And we stood it up and we
+weren't quite sure how to capture that.
+Um, you know, so like we had issues open
+on GitHub and people would open things
+up and be like, "Hey, you know, make CPE
+better or you know, things like that."
+And it was sort of haphazard and it was
+really hard to talk about what's a
+priority, what are the things that are
+important. And so it was very technical
+things that it was very scattered, some
+were very detailed, some were really
+high-level, uh, and they were really hit
+or miss and just sort of ad hoc. And so,
+uh, thinking about this and I know Jerry
+runs CNA scorecard and so, which is a
+great resource if people can check that
+out cnacorecard.org.
+And basically it's going through the
+data, looking at at data quality just
+from
+being there kind of thing.
+>> Yeah, is it there or is it not? I'm
+trying to not be too judgmental on it
+and I think that's kind of what the data
+quality framework we're going to talk
+about today is about too, yeah.
+>> Right. Yeah, and so
+this started us down a road trying to
+look at data quality and so
+with any good research effort you start
+with a lit review, going out trying to
+identify the literature and that's where
+we're going to start, after this slide,
+but
+>> Yeah, yeah, this is part two almost. You
+did all the philosophy stuff with art,
+and this is getting into the more of the
+technical side, but it's still not
+implementation. It's a level above
+implementation. But Yeah, it's a good
+add-on. Yeah, and so as we talk about
+data quality, everyone heard, you know,
+during the keynote this morning that we
+need to focus on data quality. Data
+quality, we're in the era of data
+quality now. We've been building up
+CNAs, but we need to talk about data
+quality. And certainly, I mean, the
+stats on the slide uh tell the story
+that data quality is
+it's going to become a a much, much
+bigger challenge than it is currently,
+and it's already a big challenge. Uh but
+just the volume that we have and the the
+need to process this automatically, I
+think is the challenge. All right, let's
+go back to everybody's favorite time,
+Jay, 1920s.
+Yeah.
+>> And this is where the roaring '20s, and
+let's see what this has to do with CVEs.
+This is where data quality starts. It It
+It actually comes out of product
+quality.
+Uh and so, people may be familiar with
+some of these names, Deming, uh Juran. I
+don't know how to pronounce that. Was
+that Bob? I assume. I heard Juran and
+Bob. Um [snorts]
+Anyway, but they they talk about product
+quality, and and the big thing that came
+out of this was actually Juran in 1951.
+He talks about fitness for use. Uh and
+even before that, Deming though talked
+about um
+that that the emphasis there is on the
+causes of defects, and um the one with
+uh Shewhart talking about the you you
+you talk about the product and what is
+what does that need to be, and that's
+how you measure it. So, it's looking at
+the outcome, saying, what is the outcome
+we want? Now we go back to the input.
+>> And I think an important part here, and
+I'm not a total academic, but on the
+Deming, it's rather than blaming
+individuals, it's blaming the process.
+Let's figure out what's wrong with the
+process, not wrong with the CNA or the
+person in the CNAs in the P-CERT team
+putting in the data. Let's Let's it back
+up a level, and I think that's really
+important to remember well as we go
+through this. Right. And when when Jerry
+and I started this, just real quickly,
+we had a whole outline of all the data
+tests we could run, all the things we
+could look at and dig in, and and
+there's none of that in here.
+It's we're we're going to be mainly
+talking about this theory this mental
+exercise that we went through on this.
+So, the the next step in data quality
+basically starts to become its own field
+in the '90s
+when obviously we get the internet and
+data becomes a much bigger deal. So, we
+start with with Wang and Strong. They
+did a survey where they went out and
+talked to a whole bunch of consumers of
+data, and they created this four
+category 15-dimension framework based on
+all of that. And and again, they talk
+about fit for use. We define data
+quality as data that are fit for use.
+And so, they they would talk to these
+consumers like, "What are you actually
+using it for?" Oh, and how do you
+measure that? And this is the the real
+start of data quality.
+And then we get into the the next slide
+on frameworks and taxonomies. And so,
+this is where we start to get more
+solidified into the 2000s.
+Um couple of interesting things here.
+This one in the middle, Batini et al.
+They did 13 different data quality
+assessment methodologies and did this
+whole synthesis of it, and it's um
+if you're into that, it's a great read.
+Uh
+but then the bottom one here, textbook,
+really really great textbook, second
+edition, 2016.
+Um and that's a really great textbook
+talking about data quality.
+It is a really good textbook. So, I just
+ordered it off Amazon.
+>> Did you really?
+>> Really looking forward to digging into
+it.
+And then finally, we get into the next
+era, the final era we'll talk about
+here,
+where we get into standardization of
+data quality. And so, we've got the
+ISO/IEC
+framework. ISO is the 8000 series, a
+bunch of different ISO documents on data
+quality, and then finally the IMF one
+here, the
+International Monetary Fund. Yep. Um but
+they created this data quality
+assessment framework, and this is like
+the first time that it's a big deal,
+like a group implemented and did this.
+It was all about economic statistics,
+macroeconomic statistics, and and how
+they assess that data quality. It's the
+first time it was like really
+really big high visibility thing.
+Yeah, I worked with some
+economics people when I was with the
+government, and they were really really
+into getting good quality data so they
+can make those predictions and make them
+correctly for for everything from growth
+to to whatever. So, yeah. Yeah.
+And
+just from my experience working with
+data in security,
+um
+we don't often have the luxury to talk
+about data quality. Honestly, we take
+the data that we can get. Uh and a lot
+of our data is just coming from devices
+and things like that, and
+um we take what we can get. So, it's
+kind of nice to be at a point in the CVE
+program where we can talk about data
+quality and talk about how do we measure
+it. And so, it's a really it's it's
+almost a luxury, I think, Yep. to talk
+about that. And this is just an overview
+of of where we are.
+Um
+Bob Lord, my co-chair on the consumer
+working group, will often talk about CVE
+is we need to treat it like a product uh
+in the program. We need to think like
+product managers,
+you know, and and treat that the CVE
+records as a product as we're developing
+in the CVE program. And we'll be talking
+with Bob tomorrow
+in the consumer working group room.
+Yep. All right, let's go to the the
+process for CVEs. So.
+Yep. So, this is a high-level overview
+of the process. There's seven steps
+here. Um
+it can be you could expand the detail
+out in each of these and have like 12.
+You could reduce it. I I we're at four
+at one point. But basically what you
+want to do is you want to start with the
+tasks. The the customer scoping, what
+are the tasks? Then you look at, given
+these tasks, what fields must be
+present? Like if you need to We'll talk
+about the task, but if you need to
+identify the vulnerable software,
+what is the data you need? How does that
+task work? And you get into the
+requirements and the dimensions that
+you're going to use to measure it.
+For what Jerry and I did, we we
+simplified this down. We'll talk about
+the dimensions that we used to to
+measure these. And it's
+it's a nice start, I think, what we did.
+We simplified it down quite a bit.
+>> Yeah, and I think before we before we
+move on, I just want to talk about the
+consumer scoping here, cuz I think that
+that's the biggest thing that this group
+can take away here. Is we have to to
+come up with and I don't like personas,
+but marketing people love What's the
+persona of the user? And we have that.
+And we need to come up with a general
+persona of who's going to use this data
+as CVE consumers. And it can't be CNA
+specific. And I know that that we get
+into that a lot. I know you talked to
+some of the big CNAs and they're like,
+"Well, this is the only data that our
+customers want, so we're not going to
+put any more cycles into making the
+record any more complete than this." And
+you have open source
+maintainers who say, "This is These are
+the parts and I want it." But we got to
+get everybody in a room and decide that
+here's what a consumer needs. And it
+might not be what my individual consumer
+needs, but what the overall consumer as
+a persona needs. And I don't think we've
+got to that point yet. And I think
+that's something we really need to to
+sit down and, you know, through those
+studies and surveys, figure out what do
+the top 90 What what's in that 90%
+circle that everybody needs to see?
+>> Yeah. And I think one of the challenges
+that we're going to run into in that is
+that right now, I think a lot of the
+consumers actually don't use CVE records
+directly.
+Uh and and I think that's going to be an
+interesting challenge as we get there,
+cuz people are going to, you know, a lot
+of the consumers are going to grab
+scanners and grab the output of that
+scanner and a lot of them may just use
+CVSS that the scanner reports or this
+the scanner has their own score,
+whatever it is. There's not I think when
+we get into the end practitioner the
+number of people processing CVE JSON or
+NVD or whatever, I think it's pretty
+small. I don't know, does anybody have
+any other thoughts on that? Like do
+people know practitioners that are
+actually consuming this data where
+they're not a large bank, for example?
+I think it's The CVE list is on GitHub.
+Can we look at their metrics?
+Good question. I don't know. It's a
+Ben said that the CVE list the from
+cve.org is on GitHub. There might be
+some metrics there that we could look
+at.
+All right.
+Let's move to the next slide. Sorry for
+going on a tangent there. Yeah. Yeah.
+You want to talk through these, Jer?
+Yeah. Yeah. So,
+here are the four consumer casts that we
+know as a that everybody needs to do.
+The identification, that's super simple,
+right? Is this vulnerability present in
+my environment? Um I worked in
+vulnerability management for a long
+time.
+Simple question,
+impossible to answer for most people
+today, right? They don't know what
+they're running. They don't know exactly
+what they're running because A, it's
+hard to define that and B,
+a lot of times
+the the software is so bundled that it's
+hard for users to actually know. Um
+characterization, what exactly is this
+vulnerability and should I worry about
+it, right? And that goes into the
+remediation part, which is the third
+step. How urgently should I act on that?
+That's where EPSS and other
+prioritization programs comes in on the
+prioritization, right? Like do I need to
+to act on this today or can this be a
+Monday problem or can it be a normal
+patch window problem? Yep. And there's
+more the next slide is details on this
+of course, but before we get too much
+into the details, one of the things I I
+wanted to talk about is we're going to
+define the tasks and the data quality to
+support it, but there's an extra layer
+we're not going to get into is the
+governance. So for example, Jerry
+mentioned EPSS and we've had discussions
+should we put EPSS into the CVE record
+and I don't think so. I think it should
+stay out and so I've never tried to push
+for EPSS score to be in the record
+because it's updated daily. Um and of
+course if you have used CV data, there's
+a little field that says last updated
+and all of them would be updated today
+and that would we'd have to figure out
+how to do that special for that, but I
+think prioritization is there's a lot
+more that goes into that and I think
+that the CV record has a role, but
+there's a governance decision like a CVE
+board level decision saying we want to
+support this task, not this one or this
+part of that task, whatever that is. So
+we're not going to get into that
+government side, we're going to focus on
+these tasks and these all break down
+into to a little bit more specific
+things.
+Did you want to talk to this one or did
+you
+I could. Do you want me to? Yeah, go for
+it. So in identification, there's
+basically two three ways to look at
+this.
+the the the challenge here is talking
+about like asset to vulnerability
+matching in an automated way and
+basically, I mean this is going to
+break. Um
+and this is going to show up a little
+bit different when you look at the
+outcome, but basically like we want to
+make sure that the record has stuff in
+it
+when we start looking at the actual data
+task. Um but also like dependency
+checking, duplicate detection,
+applicability determination, we're going
+to get into the you know, talking about
+the version using a version to identify
+that is a is a huge challenge.
+>> So I'll talk about characterization
+because you and I got into a discussion
+on this, right?
+At the end of the day, I believe a CVE
+record should have the minimal data in
+it to allow someone to build a detection
+rule. Um Snort is probably the closest
+thing to an open IDS rule detection that
+we have today. But I think that if you
+say, "Hey, is this a good CVE record or
+is this not a good CVE record?" That can
+simply be judged by can I look at the
+CVE record and write a detection rule
+that could detect my that could protect
+my network or my my devices. And that's
+where I land on detection signature
+development and that whole
+characterization um
+thing. I know that there's a lot of
+people who disagree with that and will
+go with the "Oh, we're making the job
+for the attackers easier." But I think
+that that's that ship has sailed for a
+for a lot of the classes, yeah.
+>> Yeah. Yeah. Yeah.
+And then to the remediation, right? Uh
+patch information and application.
+Uh we're still living in a world where
+the CVE
+program doesn't require a patch to be
+part of a vulnerability. I know that
+that's a big point of of frustration and
+discussion and debate. But right now you
+can have a CVE that doesn't have a fix
+and that's a proper CVE record. And I
+know that at least on the consumer
+working group side, we we talk about
+that a lot, right? A CVE without a fix
+is really just a data point at at this
+point.
+Yep. Yeah, and also that it does support
+workarounds in there, too. And I think
+that's sub 1%
+>> Yep. of records. And this is like in the
+last 6 months, not total. A lot of what
+we do, by the way, we've got a paper
+that we just pushed.
+Um and in the paper we talk a lot of a
+lot more detail about this stuff. Uh but
+the workaround, I think, is sub 1% of
+CVEs published in the last 6 months.
+>> Yeah.
+Uh and I think it's all by one CNA.
+Yeah. Yeah, only one CNA is using the
+workaround field. And then I'll let you
+talk to prioritization.
+>> Yeah, so this this is an interesting
+sort of sub category. Everybody needs to
+do it and how much the CVE record should
+support it is a good discussion to have
+because
+global prioritization requires a lot of
+Intel. You want to know what are
+attackers doing? What are we seeing for
+activity? What are we seeing for, you
+know, malware activity for discussion
+forums online? Whatever we can see, it's
+a real-time evolving set of data points
+to do that global prioritization
+accurately
+and does that belong in a CVE record?
+But in the CVE record we do have the
+identification of the system, hopefully,
+right? We can talk about the the vendor
+and their popularity, their install
+base. Yeah, so and back to
+prioritization. I was talking to Lindsey
+about that today. I don't know if she's
+in here or not or if she's gone, but the
+CISA Kev list is a local prioritization
+list and they'll tell you that it was
+built for the Federal Bureau and we take
+that local list and want to use it as a
+global prioritization list, which I
+think fits into this perfectly, right?
+>> Mhm. Yep.
+Yeah, and so trying to break down that
+global versus local and as we get into
+the actual assessment part when you get
+into the dimensions, we'll factor that
+stuff in.
+>> Yep.
+Ready for the next slide?
+Yep, so rather than talk about really
+meticulous dimensions and get into the
+the data analysis, we decided to keep it
+really high level. At a high level we
+want to talk about to do this task
+right now,
+is it a population gap? Meaning the CNAs
+are not necessarily putting the data in.
+And so with that, it's a pretty easy
+fix. Hopefully you can do some
+motivation,
+maybe some training, some,
+you know, maybe some
+CNA scorecard where you're saying this
+CNA is doing this well or things like
+that.
+The second one is a design gap. In other
+words, basically you want to put this
+in, but you can't.
+And so if we talk about like, you know,
+building signatures, how would you put
+the steps in to capture there's no field
+in the CVE record not to do that. We'll
+talk about that. Yep. And then the last
+is the ecosystem constraints, right? And
+this is just kind of fuzzy because the
+schema might support it, but the back
+end it doesn't. This is when we start
+talking about about linting or checking
+to make sure that that data that gets
+into the record is of high quality and
+usable data. So, while it's similar,
+it's just a little bit different. And
+then the last one is organizational
+knowledge, which nobody
+which can't be in a global record,
+right? That goes back to the local
+record.
+>> Local prioritization versus global
+prioritization.
+>> Yeah, there we're not going to see
+people's uh you know,
+configuration of their firewall in a CVE
+record. This is local information that's
+going to help you prioritize locally,
+so.
+Right.
+Let's do the identification part.
+Yeah, so basically we broke this down
+into three steps, um identification,
+presence in the record. And we marked
+this a population gap because in theory
+it the the CV record actually has like
+five places you can put product
+information. Uh so, there there's no
+shortage of ways to get that data
+information, but when we looked, I think
+it was 28% in the last 6 months had some
+form of either CPE or Pearl in there.
+So, from a machine usable perspective,
+that's what we're seeing right now about
+28% I think it was.
+>> Yeah, and 27.9%
+of that is CPE. Um please go to the
+Pearl's discussion, and if you're a if
+you're a CNA of open source software,
+please please start using that. I think
+there are less than 200 CVEs that have
+Pearl information in it as of today.
+But, when we look at this task of
+identification, the second part is that
+we have to look at the the estate of our
+technology. We have to look in our
+environment and say, uh here's the
+technology I have, right? And that
+doesn't exist. Yep.
+This is a
+What do we call it? Ecosystem
+constraint. So, like this is This
+doesn't exist. So, like our ability to
+do identification right now is limited
+by
+the products. We can't even do this task
+regardless if the CVE if we fix that and
+everyone puts CPE information in there,
+we still can't accurately pull that out
+of our products.
+And then the version.
+The version, yeah, and I was talking
+about this earlier today, but yeah, it's
+it's a The versions are designed for
+developers and we are overloading it for
+software identification. There's several
+cases we go through in the paper about
+why this this is a challenge to do with
+there and we put it as a design gap
+because the What was the the stats? Like
+58% of CPE strings in NVD don't have a
+version. Version. It just says this
+software. Yeah.
+Yeah. Which makes
+And that's funny and then it's not. Like
+Apple has just thrown up their hand. I
+don't think that I haven't seen anybody
+from Apple here and I appreciate Apple's
+openness. They're just going to tell you
+when they fixed a vulnerability and
+they're just going to tell you
+everything beneath that is vulnerable.
+So, when they released what it 14.2.1,
+the CVEs they fixed in that, they're
+just saying everything before that is is
+there.
+>> Yeah. Just assume Get to the latest. And
+that's the
+That's one way to do it and I respect
+that that versus trying to really get in
+there and and do the the thing you said
+in these particular versions is where it
+was introduced, here's where it was
+fixed. Yeah. All right, we only have 7
+minutes, so we're going Okay, we'll
+we'll go through quick. So,
+characterization, I think this is going
+to be
+uh
+moving forward, we've got a lot of work
+to do here, but um data public
+disclosure is really interesting to
+know. Right now, I think there's like
+20% uh in there and I think it might be
+one CNA. Yep. Um and so that's a
+population gap. If we can start to push
+CNA's to do that, relatively easy fix.
+This the CWE, the nature of the fault or
+the weakness. If we know what that is,
+we can start to do more better
+prioritization, more categorization, all
+sorts of stuff like that. Another
+population gap, uh the component that's
+in This is a challenge to to make it
+machine usable, but another population
+gap. Now, where it gets tough is we talk
+about exploitation conditions. This is
+where we want to be able to do the the
+signatures uh that Jerry was talking
+about. We can't do it. There's nothing
+in the record to support that.
+And the security consequence, we've got
+CIA and CVSS, but we did some great work
+in the paper, I thought, looking at how
+ineffective that is at differentiating
+security consequences. I think it it
+reduces down to like three bits of
+information or something, and how it's
+actually applied uh in the
+in use.
+So, another design gap to talk about
+security consequence.
+So, remediation?
+Both of these are population gaps.
+>> Population gap, yeah. The it's there,
+we're just not filling it in. Um
+uh big shout-out to Lisa from Microsoft.
+I see you're back there. We had a
+discussion, CNA scorecard. Uh she
+started putting patch information in all
+the CVEs now. So, if you're looking at
+the data, the patch field is now filled
+in for Microsoft. So, so that's great.
+It's there. I just don't think enough
+people know to go look now. Yeah. Know
+that that field is there to fill it out,
+right? So, part of what I'm doing with
+CNA scorecard is trying to talk to CNA's
+and say, "Hey, please I know you have
+the data. If you have the data, fill it
+out, cuz I know more than 7% of CVEs
+have patches that are released with
+them. The CNA's just aren't filling out
+that that data point." Right.
+Yep. And finally, prioritization. This
+doesn't really have much I mean, the the
+local prioritization requires the
+organizational knowledge.
+The the global The fact that we get the
+other two categories up here, that's
+what's going to help us prioritize, and
+that's what CVEs have to focus on as
+those top two, I think. But, that's
+another, you know, it's a debate to have
+how much we want to support that
+Yep. And then on to the discussion
+points, um
+Do you want to do this one? Yeah, I
+mean, this is sort of a proof of value.
+Like I said, the consumer working group
+This work is going to transition into
+the consumer working group. So, if you
+have any interest in helping out,
+talking about your use cases, helping
+define them,
+these use cases are going to get a whole
+lot more detailed in that working group.
+And then we're going to put a lot more
+effort into the dimensions, measuring
+requirements, all of that stuff.
+And so, this is a nice proof of value in
+the paper that we're publishing, that we
+published, is going to be available to
+to at least see what we did here. But,
+the the big five talking points
+in the paper, I want to call out Lord's
+automation test, this fourth one. The
+scaling problem is a huge problem. So,
+Lord's automation test, Bob Lord put out
+the
+>> Yeah, it's not a religious thing, right?
+Not a religious thing. But, it's But, he
+put out the CVE design manifest data
+quality manifest, sorry. And in there he
+he sort of just as side remark said
+something like, if
+if if you're loading
+if a data requires human intervention,
+it doesn't pass pass the automation
+test. And it was just like and then he
+went on. And so, that really stuck out
+for me and I was like, ah, that's an
+automation test, right? So, if you if
+you have to write custom logic or have a
+human interpret something, it's going to
+fail the automation test. And I think
+all of them failed the automation test,
+if I remember.
+>> Yeah, yeah. None of them passed.
+>> none of them, maybe CPE kind of, but it
+didn't practice it fails. Um
+But, yeah, and so, I think for the
+interest of time, we should probably
+stop here. But, this is all in the
+paper. Do you have a link that we can
+put in?
+>> So, if you go to the GitHub, it's our
+org is CVE DQAF. Uh there's one repo
+there. Uh but, we'll be adding more as
+we as we move this paper forward. It's
+in draft stage now, so, um, just email
+either one of us if you have any
+comments or questions about the paper
+and we'll be working on that as we go go
+forward. Uh, we have time for one or two
+questions and then all the questions at
+the bar afterwards. Yeah.
+And there there's a mic front in the
+center here.
+So, cat or uh, CISA has a vulnerability
+program. Mhm. And so, they can do a lot
+of this quality improvement themselves.
+But is there a danger of them doing some
+of this stuff
+in a way that is not the C- in a way the
+CNA doesn't appreciate? In fact, we've
+already had conflicts with that. Um,
+how does that kind of the originator is
+not the one doing the data quality work?
+How is that conflict handled within this
+framework?
+>> It's it's hard because it's not This is
+This is the question. If you fill it
+out, then CISA at least said they're not
+going to come back and write over the
+top of you. The NVD doesn't have that
+statement. They're they're known to come
+back and say, "We don't think you have
+the CVSS right. We're going to Yeah,
+when they're enriching. When they're
+when they're enriching, yeah.
+But that but that's what That's a great
+point, right? But I think the key is if
+you put the data in, that should lock it
+and not give anybody else the ability to
+to override it. Yeah, without a lot of
+discussion. And maybe me and Jay don't
+agree on this. Right.
+Uh, I'll leave it at that. Yes.
+Uh, just want to say thank you guys for
+your work because I am a CVE consumer. I
+have read far too many. Um, and one
+thing I want to distinctly talk about is
+you know, we had one side talking about
+that automation of the corpus and I
+think about that a lot because I think
+that's the main way the industry is
+headed. But when we talk about incidents
+where you actually do have an analyst or
+someone pulling up a report and having
+to look through it. Are those
+considerations or are we primarily
+focusing on like the end goal of
+automating everything when it comes to
+the CVE records? There's There's a good
+debate about that. I think I do think
+that the analyst
+So, the question is I think more Should
+the analyst be looking at the JSON or
+should there be a tool that they look
+at, right? So, like right now I think in
+the CVE record the number one section
+with like
+eight 18 times the number of fields is
+the CVSS section because there's four
+different versions and they break out
+all those metrics. But, like it could
+just be literally like the vector string
+and uh maybe the score if you want to
+get fancy, like two fields and that
+would handle all versions, you know,
+just the vector string. But, like
+it's really hard to read and so you'd
+need some kind of a tool to go in and
+just be like, "All right, I see the
+vector string. Let me pull that out and
+mark, you know, attack complexity high,
+whatever." And show that in an
+interface.
+Um but, yeah, I mean like there's I do
+think you absolutely We have to do We
+have to support analysts learning from
+the records, but the question would be
+do we
+do we create the records so that still a
+machine may have to grab it and present
+it or do we want people to go in the
+JSON and scroll through and be like,
+"Ah, I see this, you know." I mean, they
+can still do that, but like make it a
+lot easier, which is which it is right
+now. So, like for example, if you go
+look at the CVE data in the GitHub repo,
+they're they're pretty printed. They
+have new lines and indents and stuff
+like that.
+Yeah. I mean, but if you think about it,
+if we double CVEs in the next year,
+that's one every 5 minutes and even the
+best analyst can't go through a CVE
+record in 5 minutes, right?
+>> But, they they will. I mean, like you're
+going to be able to look at 10 this
+month or something, you know. So, you
+still want the data and we have to
+support that, but the question is is it
+through a tool or direct to the data?
+And that's sort of a implementation
+detail, I think, as we But, we'd love to
+have you at the consumer working group.
+was going
+>> Yeah, the one field is the description
+field, cuz I have actually like looked
+at the line and then gone into where
+>> Yes. Yes. Yeah, that description is the
+Yeah. We will talk into that more. Yes,
+sir. You mentioned earlier that
+people are using CVEs wrong. How and how
+do you use them right?
+Did I say wrong?
+Did I say it or did he say it?
+I'm pretty sure it was you.
+>> [laughter]
+>> Oh, boy. Now I got to defend it somehow.
+Well, let me tell you how people are
+using it wrong. Uh
+No, I don't I don't know how people are
+using it wrong.
+I don't know why I said that.
+I don't know.
+I think that like
+not wrong. I think that the CVE I can
+kind of defend this. I think the CVE
+record was designed 27 years ago for a
+different purpose than it's used now.
+When it was designed, it was designed to
+be a database
+>> the design is wrong. Yes. CVEs and not
+used not designed for consumers to to
+look at it and then figure out how to
+patch it and how to remediation. The
+remediation part is totally removed from
+the CVE record as a standard.
+>> and I think I think one of the wrong
+things would be
+that
+that um
+the way that we are asking that we're
+pushing this on CNAs and saying provide
+data quality when it's very difficult
+for them to do that in some of these
+fields.
+>> And I feel like pre-apologizing for
+whatever I said. And so, before we get
+to the next questioner,
+I want I want to talk about CWE and the
+challenges that we have with data I'm
+just sorry. Steve, yes.
+Um this is more of a comment than a
+question.
+>> Um you know,
+27 years ago, I don't know if that
+predates JSON, for example, but you
+know, data format automation was very
+minimal.
+>> And for things [snorts] like the CVE
+description, it took us a couple years
+to figure out what some of the key
+details were. Yeah. And so it's uh
+uh you know, some of those details
+aren't really fully spelled out yet near
+as near as I can tell, no longer being
+in the in the day-to-day of CVE.
+>> Right. But um you know, there are bits
+of information
+such as you know, attack vectors and so
+on, which we learned pretty quickly were
+really important for like distinguishing
+different vulnerabilities. Yeah.
+>> And so on. So
+um but anyway, that's just a that's just
+a comment. They're defending 27 years
+ago the
+>> And And you don't you don't have to
+defend
+>> is great, you know, I'm not I'm not
+objecting to that, but you had to
+mention 27 years, so. And we do we do
+mention this in the paper. So we do say
+27 years ago the problem being solved,
+the problem in your paper um
+was
+that there it didn't exist, right? And
+Right. It was just getting people to
+talk about this everything, period.
+>> And the fact that it's still usable
+without a major overhaul in 27 years
+just talks to the great work you did.
+And you know, just think about
+>> That's why I came up here was to hear
+that. Thank you. Just Just I mean
+>> the stuff I learned about AI 18 months
+ago is now ancient, right? And the
+half-life of the CVE as written isn't I
+don't think it's there yet, right? Like
+so it it was a well-thought-out design.
+It's just time to move it forward for
+the next quarter century.
+And Thank you. I'm I'm done fishing for
+compliments. No more No more comments. I
+got one more compliment though, cuz in
+the paper you said, "I think all we need
+in the CVE is the like an idea in the
+description." Yeah, we didn't even think
+references were important at the time.
+>> Right. Right.
+>> that really quick. And I think like a
+lot of the work I've been doing lately,
+I think that's still accurate. I I we
+just need to redefine when we say
+description, I think we've got like we
+can there's a lot of work we can expand
+and pull on those descriptions rather
+than a free text field, we might not
+have you know 15 types of assertions you
+can make.
+>> Yeah. Yeah.
+Sorry. Thank you. Thank you. I think we
+went over our time but thank you guys
+very much and enjoy the rest of your
+night. I don't know is there
+anything scheduled? No this is it.
+This is it.
+>> Okay.
+Oh there is a is there a thing in the
+yard?
+Oh yeah
+in the vendors there's like a little
+walk around.
+Okay. All right. Yeah. So
+It's in the expo floor? Okay. Sorry we
+were left unsupervised so that's as good
+of a directions as you're going to get.
+Yeah thanks everyone.
+>> Thank you.
+>> [applause]

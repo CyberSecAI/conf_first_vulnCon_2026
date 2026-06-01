@@ -1,0 +1,1372 @@
+[music]
+>> Hey everyone. Um, thanks for coming.
+Um,
+>> [clears throat]
+>> so,
+where do we begin? Um,
+I have been thinking a lot about
+uh, vulnerabilities and reasoning on
+them and how to sort of,
+um,
+build a system or a model that is
+defensible,
+um, and also quantifies,
+you know, the risk uh, of these things
+in our environment, which we don't
+really have any control over.
+Um, or at least, you know, the economic
+incentives of, uh, of that is, you know,
+we want technology in our environment to
+enable business outcomes,
+but there are economic, economic, um,
+there are no economic incentives that
+that technology is actually safe, right?
+And so, you hear about secure by design.
+That's awesome. I love the initiative.
+Let's do that. But this is the
+operational reality that we're currently
+living in right now, um, with just a
+humongous amount of vulnerabilities that
+are known and a, uh, you know, an
+unknown amount that are unknown. And,
+uh, you know, with AI and, you know, all
+that jazz, uh, could potentially make
+that worse, but that remains to be seen.
+So, anyway, uh, my talk is quantifying
+Swiss cheese the Bayesian way and it's
+towards a quantified vulnerability risk
+model. Um, this is sort of my idea of,
+you know, what does a good system that
+build around a model look like for
+actually operating in this space within
+a company?
+So, a little bit about me.
+Um, first and foremost, I'm an engineer
+by trade. Um, I, I work at Moderna.
+Um, and I'm also the EPSS SIG co-chair.
+Um, we had a, a SIG meeting yesterday
+just to sort of outline
+what it is we do and all that. And so,
+if you're interested about, um, the
+actual special interest group, feel free
+to come and talk to me after. Happy to
+to chat about that. I occasionally
+speak.
+I think this is like my third or fourth
+talk.
+And you know,
+I have three kids at home. I don't like
+to get out much. So,
+you're welcome.
+Um
+what I'm currently focused on are these
+three things. Um
+I you know, I'm a security engineer by
+trade. Um I realized that the system is
+sort of
+partially broken.
+Um I I like to look at data science. I
+like to have
+you know, evidence-based uh
+I guess methodologies to sort of solve
+security problems. And then I'm of
+course also uh looking at the magical
+agentic engineering, whatever that means
+in practice. I'll let you decide that.
+Um and then this is the question that's
+been driving me. Um is you know, we're
+doing all this work in cybersecurity and
+especially in enrollment management and
+patching all the things, but I have no
+idea if that's actually making us safer.
+Um I don't know.
+Can Can we validate that? Can we Can we
+um you know, does it actually you know,
+prevent breaches? Does it prevent
+losses? I don't know.
+Um and so that's this is sort of you
+know, how I think about it and this is
+this is an attempt to
+um
+uh I guess
+provide a framework for an answer.
+So,
+again, cybersecurity is a hard problem.
+we are currently living in an
+environment with a bunch of
+vulnerabilities arriving
+that we don't really have control over
+that arrival rate other than
+potentially changing our you know,
+what we actually use in our environment
+and and the rate of arrivals for that
+specific product um are known and that
+could all go out the window in the next
+year. So, um essentially, like we don't
+have control over that arrival rate, but
+we do have control about how we act and
+operate based off of that arrival rate.
+and uh the other the other thing is
+like, okay, based off of the current
+like vulnerability management paradigm,
+whether you're doing, you know,
+traditional stuff or you're doing uh
+risk-based stuff, like that's all great.
+There's a bunch of prioritization
+mechanisms out there, including things
+that I've talked about in the past, uh
+you know, using EPSS thresholds, um and
+and using uh SSVC or CVSS or or some
+sort of combination of all those things,
+or rolling your own.
+Cool. The problem is that you don't know
+whether or not that is working.
+You can't. You can count the things that
+you're fixing.
+You can, um
+you know, use uh some sort of, you know,
+paradigm of whether or not, you know,
+this thing is actually impacting our
+environment, um and whether or not it's
+it's exploitable in our environment, and
+that's a great filter, but at the end of
+the day, I want to know, cool, did the
+action that we take actually make us
+safer? Um and so, that's a hard problem,
+I think. Um and so, my attempt to answer
+that is to build a quantified
+vulnerability risk model from the ground
+up. Um and if you're familiar with like
+the fair sort of uh taxonomy, um it's
+sort of mirrors or is adjacent or is
+compatible with that, um but instead,
+we're going to start from the ground
+layer uh with vulnerability
+exploitation, and go all the way up to
+you know, material incident likelihood
+or material um risk exposure.
+because ultimately, I think that is the
+question we're all trying to answer,
+right? Uh
+there are vulnerabilities in our
+environment, should we care? Do they
+actually lead to loss? Do they
+you know, if they don't lead to loss or
+they don't lead to uh you know, effort
+taken that like does it actually matter,
+right? Um there's the whole argument of
+like security for security's sake and I
+get that. Um and I want that to happen.
+But we also live in an environment where
+that's
+almost impossible I would argue. So,
+anyway, uh I also like to um
+find the constraints of the system,
+right? I I like to go um okay, where can
+this logically take me? Um and so enough
+background about that, but uh
+this is sort of like what I mean when I
+say a local risk model. Um I I want to
+bring in all all these data points,
+right? I want to say what are my assets,
+what are my vulnerabilities, what are
+what is my exploitation likelihood model
+and in this case it'll be EPSS, right?
+and how effective are my controls? Um
+Do those how how often do those lead to
+incidents? And then how often do those
+incidents actually lead to monetary
+impact to my business?
+Um which is again several steps that you
+have to take and several assumptions
+that you have to take, but just because
+those assumptions are have to be made
+and they're hard to quantify or hard to
+measure doesn't mean we shouldn't try.
+So, like this is my attempt at trying.
+last year I uh I presented on sort of
+like the base layer for all of this. Uh
+I I I spoke at last year's Long Con. I
+talked about grouping EPSS at the asset
+layer where you take the complement
+product of each EPSS score for each CVE
+that's on this asset and you can uh
+essentially calculate the probability
+that at least one vulnerability on this
+asset uh will be exploited in the wild
+in the next 30 days. And that's sort of
+like
+okay, we can that that gives us like a
+nice view and then you can sort of layer
+in things like
+business impact or what data is on these
+assets and you can get like a less
+opaque view of what you know, where your
+hot spots kind of are.
+Um and I've been, you know, playing with
+that and then uh this year um and sorry,
+this is the formula for that. I
+shouldn't be putting formulas in slides,
+so I'm sorry, but I feel like it has to
+be there just for my sanity.
+Um, and then this year doing control
+adjusted asset level stuff and then
+bridging it all the way to risk
+quantification, which sorry, you came to
+a risk quantification talk. Um, and I'm
+going to do talk about risk
+quantification. Um, but I also think
+that, you know, that's the logical next
+step of what we're all trying to do is
+to sort of base our qualitative labels
+and measures off of quantitative
+math underneath the hood.
+you guys
+uh probably know what the Swiss like the
+Swiss cheese model is in risk. Uh if you
+don't, this is kind of the mental model
+of what it is. We have defense in depth.
+We have layers of Swiss cheese that have
+holes in them that we don't know the
+size of those holes.
+Um, in practice in in in your mental
+model, it's like, "Okay, cool. I have
+these controls in place. I'm protected.
+I'm mitigated. I I I've reduced the
+risk. Um, and I feel like that's a lot
+of the times when I
+look at risk registers or I look at um,
+you know, folks talking about risk
+internally uh at at from a very
+qualitative standpoint,
+that's what they're saying, right? And
+my
+question to them is always, "How do we
+know?"
+Um, and they don't like that question.
+so uh this is my attempt again at
+figuring out
+how to how do we do this? How do we how
+do we measure specifically the
+prevention rate of our controls for
+exploitation, right? Like, do do our
+controls work in preventing
+exploitation?
+there are a couple problems with that.
+Um, there's some
+>> [sighs]
+>> uh there there's barriers uh to
+empirically measuring this.
+but uh
+they can they can be overcome. And so
+I'll just go through um one right here.
+This is the in statistics, this is the
+missing missing not at random problem,
+which is essentially saying you don't
+know the denominator for all of the
+things that you are measuring against.
+Like you have counts of
+um you know, IPS prevention events that
+say like, "Yeah, you prevented this many
+exploits at the network layer,
+but you don't know how many that you let
+through. You have no visibility into uh
+whether or not um attacks actually
+succeeded that don't have a signature.
+Um so
+there's a
+problem with the denominator. We can
+count things, but we don't actually know
+whether or not it's good. Like there's
+no bar. Like there's no
+>> Like it there's just a lot of
+uncertainty, right? Like it's not enough
+information to sort of make a judgment.
+Um again, like detection, prevention,
+and tool tuning. Um so I I'm in my sort
+of mental model of what what controls
+are,
+um you know, IPS uh uh signature-based
+prevention or EDR or uh WAF or or
+anything like that, um
+that can all affect
+control effectiveness, and you sort of
+have to go tune all of those things and
+then continue to measure.
+Um you don't know this
+uh signature database completeness. I've
+asked several vendors how complete their
+signature database is, and again, they
+have a denominator problem, so it's a
+I've no idea. I don't know.
+Like how Do you know how many uh
+vulnerabilities or or classes of
+vulnerabilities that your firewalls
+today can actually prevent? Uh cuz that
+would be a useful piece of information
+uh for this model.
+Um and then there's also FAIR-CAM, which
+I don't If you guys don't know what
+FAIR-CAM is, FAIR is the Factor Analysis
+of Information Risk Taxonomy by
+Jack Jones, um and then the CAM
+extension is I think Control Analytics
+Module or Model or something like that.
+Um it essentially says like, "Okay, we
+can apply control effectiveness, but
+it's not empirically sourced and it's
+decays over time and
+I feel like that was just too
+complicated for what I was trying to
+show. So, um I just didn't do it. I did
+my own. Um
+And so, I'm going to let this this is a
+GIF. It's going to change.
+but uh what this what you're looking at
+right here um is sort of a way to
+quantify our uncertainty about the
+control effectiveness of something. Um
+you start off with a
+I don't know. A flat line.
+Um this is a this is a probability
+distribution function or uh of a well,
+it's a beta function of successes and
+and failures. Um and if you have no
+successes and failures, um you start
+with complete
+no information, right? I have no idea
+how uh this control works. Um you can
+then update that over time with um
+either pseudo uh you know, trial trial
+trials with, you know, uh subject matter
+expert surveys that sort of say like
+here's everyone's opinion on how well
+this control works. And that gives you
+some
+basis to sort of start on. Um and then
+uh I also have here So, like that's the
+second modification here where it
+changes like, okay, now we have a shape
+of of of our uncertainty about this. And
+then I add 200 bass observations, um
+which bass is stands for breach and
+attack simulation, but it can be really
+like penetration testing, red teaming,
+whatever tooling that you're using to
+have a controlled experiment about
+this control exists, this attack is
+happening that we know of. So, we know
+the denominator
+what happens in this trial,
+um did it fail or succeed? And you can
+then
+put that into something like this that
+gives you
+um an updated view of your uncertainty
+over time. Like it doesn't have to be
+just a one
+time thing. You can do it over time. You
+can continuously measure how well you're
+doing.
+that's great, Stephen. How do I actually
+do this? Um thanks for asking. Uh I
+don't know how many of you have actually
+read this book. If you haven't, I highly
+recommend it. This is Doug Hubbard and
+Richard Seiersen's book, How to Measure
+Anything in Cybersecurity Risk. Um it
+goes through um it actually talks about
+vulnerabilities in here, but it's not
+actually applying uh any of this stuff.
+Um and one of the key things that you
+sort of learn early on is that you
+actually have a very data-rich
+environment, you just don't know it. You
+can go talk to people in your
+organization, get their opinion, um and
+then sort of quantify their opinion on X
+thing. Um and granted it's an opinion,
+it's going to be biased potentially by
+their own
+um you know, experience. It's going to
+be it's going to be biased by how well
+they know the tool. It's going to be
+biased by several things, but what this
+really is is a starting point. So, they
+talk about in this book, you should
+calibrate your subject matter experts to
+sort of give better responses. And I'm
+like, yeah, that's great. I want to just
+go and empirically test whether or not
+my controls work rather than continuing
+to talk to people about their experience
+with controls. Um so, in order to do
+that, I have these these three questions
+here that I that is really that's the
+survey. Um and it's three questions, and
+really
+you could get away with two. Um but the
+first one is basically telling us
+whether or not they know this control.
+It's a self-reported expertise um
+assessment, right? Like, do they I'm not
+going to read this, but it's essentially
+like on a Likert scale of one to five,
+like, how well do you you know, how
+confident are you or how well do you
+know this tool? And that sort of sort of
+serves as a weight later on.
+Um and then these two ones down here at
+the bottom, um you know, it's saying
+like, okay, out of 10 vulnerabilities,
+doesn't have to be a CVE, but just out
+of 10 vulnerabilities, um that, you
+know, sort of
+that this control sees, right? Um how
+many do you think that the uh they would
+prevent the exploitation of? Um so like
+this is sort of saying like their
+opinion on how
+um how well is the control configured?
+Uh how you like does it actually have
+prevention rules in place? Um and this
+is without me actually looking at the
+firewall itself. I don't actually care
+about the configuration, I care about
+the outcome of the configuration.
+Um and so
+uh you can And so I get an answer there
+and I sort of like the the first answer
+is, you know, their their median answer,
+their their percent their 50th
+percentile answer. This is their a
+a guess into the ether. And then I
+follow it up with another one and this
+is also from the book just sort of say,
+"Okay, best case scenario, you're 90%
+confident that the number is beneath
+this."
+Answer the same question again, right?
+And then you get two numbers uh that you
+can then quantify their You can actually
+reverse engineer their beta distribution
+from those two numbers.
+Everyone following?
+Cool.
+>> [laughter]
+>> Um so
+uh aggregating via opinion pools, this
+is sort of how I do this. This is uh
+Python code that just does what I just
+said, reverse engineers um the uh beta
+distribution based off of their P50 and
+P90 responses.
+Um and then you say it's relatively
+simple, it's a couple of lines, it's two
+it's an it's a um
+function within a function.
+Um and then down here is like you you
+have to provide it with an initial guess
+of what the actual parameters are and
+then it over time, you know, it'll you
+know, hopefully converge on the answer.
+And so this is what this gives you is
+like a a pseudo count of that um
+success and failure for the actual
+control if, you know,
+it's what is the effectiveness rate if
+this me was right, right? And and that
+would be
+um you know, what you get out of this.
+And then what you can do is aggregate.
+And so what I do is I aggregate these
+over two beta distributions. One is
+weighted um with that expert that
+expertise Likert scale that I give them.
+I think that's the that's the red curve
+and this is an example I have in my
+blog. Um but essentially like that's
+quantifying the uncertainty of how well
+this control works
+for exploitation prevention
+for if if we believe experts are
+weighting themselves
+accurately.
+Um and then the blue one is sort of just
+aggregation, right? Of of just equal
+equal weights. Um and by when I say
+expertise weighted, what we're taking is
+that Likert scale and normalizing it to
+uh between zero and one and then just
+taking their responses and and
+multiplying it by that weight. And so
+it's essentially just a crude method of
+saying
+uh we don't know. This is a lot like th-
+this still is it's not a flat line,
+right? But it's still a lot of the the
+shape of this and the the volume
+underneath the curves
+still tells you
+we don't know.
+but it's not nothing. It's it's it's
+saying we have a better idea of not of
+complete unknown like we don't know how
+this works. It's not a 50% sort of
+thing. Um but it's a starting point,
+right? And so uh
+and this is another GIF and I'm sorry um
+the next like the logical step that I
+took after that was like, okay, I have
+this initial sort of um
+uh estimation based off of uh
+SME inputs into my environment about
+exploitation prevention.
+What if I just took direct telemetry
+observation from these tools from these
+uh controls? So this is something like
+um again, the counts of
+uh uh firewall, you know, uh or IPS
+exploit prevention events. But again, we
+run into that MNAA problem.
+Um and but this is sort of just showing
+what that looks like if you did that,
+right? You're sort of
+going to be biased towards it's always
+effective because you don't have account
+for failures. You're going to count only
+successes.
+Um and so, don't I I would not recommend
+doing this.
+Um but it this is sort of just a
+demonstration of why not to do this. Um
+but if you have like the denominator and
+you're able to sort of um you know,
+uh calculate, you know, your successes
+and failures, uh it becomes a little bit
+easier. And so, we address this with
+attack simulation or red teaming or or
+penetration testing or any again, any
+uh simulation that we can or experiment
+that we can run where we know how many
+attacks we're going to launch against
+our own infrastructure.
+Um and we know how many are going to be
+we have telemetry that says like these
+ones succeeded, these ones failed. Um
+you can get uh
+some nice trial results based off of
+that. And this is all just pseudo data.
+Um so, please, you know, don't I didn't
+actually run these. Um this is more of
+like a how would I do this? Um and I
+need to sort of like I don't know how
+expensive it is to do this. So, please
+take that caveat away, right? Like there
+is there is a an expense um uh or you
+know, an economic expense that you sort
+of have to um take into account and
+operational risk of actually running
+tests in your environment and all that.
+And so, but if you can overcome all of
+that, you get some really nice data,
+right? You can say, "Okay,
+for my IPS, my WAF, my EDR, uh and and
+these controls all affect different
+assets in my environment. Here's, you
+know, the results of those um tests and
+how effective this actually is." And
+granted, like there's still uncertainty,
+right? Like we're not seeing like a a
+sharp I mean, it is kind of sharp, but
+like we're not seeing like it's just
+this is how effective it is. It's always
+going to be uh an an estimation of, you
+know, how
+effective it is. And you sort of have to
+be okay with that, right? It's it's
+fuzzy. We're never going to know for
+sure whether or not these things work in
+the in the way that we
+um think that they do. Um
+I mean, we can, it's just going to take
+a lot of effort to do that.
+Um so, this is sort of like how do I how
+do I do a low effort but high signal
+sort of exercise to get that out?
+>> Um
+So, what I just described is
+Bayesian updating.
+Um we're taking a beta distribution uh
+with uh alpha and beta parameters. Um
+and we are saying, "Okay, we're going to
+add the successes and failures um from
+our previous experiment to get a
+posterior alpha and beta parameter." And
+alpha and beta here is just successes
+and failures.
+Um and
+like this is I just wanted to show like
+again, this is a number another formula,
+but it's simple. It's It's just
+addition.
+Just add things.
+Um and then you can just add this into a
+a a beta distribution or beta function
+to to get the the curves out. Um and
+then from those curves, let me go back a
+little bit.
+>> You can get Let's see.
+No, sorry.
+This one.
+No, this one. Um when this is happening,
+you can see that I put confidence
+intervals in here. Um this is just a 90%
+confi- confi- confidence interval.
+You're 90% sure based off of your
+observations that it's between these two
+numbers. And if you're going to pick a
+like a single point estimate, um there
+are multiple options for that. Um my
+recommendation is to pick the
+P5, so the the the fifth percentile um
+number, which is a extremely
+conservative estimate based off of um
+your observations, um but it I think
+it's arguably the most defensible um
+uh thing to to add uh to to your model.
+Um so, going back to
+this one.
+Um that's great, Steven.
+We now have a measure of control
+effectiveness for exploit prevention.
+How do we then use that? Um and what you
+sort of see here is a table that I'll
+explain in a second.
+But what we want to do
+is go
+and this is an update to my last talk.
+Go component by component
+of what is on the actual asset that
+we're talking about. And by component, I
+just mean like what software is
+installed? Like are there what and what
+vulnerabilities are associated with that
+software or that component of the
+system?
+Um and taking the max EPSS score, max
+exploit likelihood score of the
+vulnerability that's out on that system.
+So, we don't over index on
+say like you have a component that has
+like 10 vulnerabilities on it. If you
+use all 10 in your calculation, you're
+going to over index on that vector.
+I guess or on on that,
+you know, outcome. So, what I do is I
+just take the max
+for each component. And then what I do
+is I I map a vector from CVSS to that
+component. So, like
+SMB
+adjacent, right? Like across network,
+but not hopefully not on the internet,
+right? I
+IIS, this is all Windows stuff. I
+don't really like Windows, so I'm I
+apologize to both you and myself. But
+this is sort of the example that I
+chose.
+Um and essentially I'm creating a table
+that says like, "Okay, max EPSS for that
+component. What
+what vector does that component operate
+on?" They could operate on multiple.
+They what controls apply to that vector?
+What is that
+control
+failure P5 rate? And then after we do
+all this math, you get this outcome of
+like, okay, here's the
+um, residual exploitation likelihood for
+this component on our asset. And you can
+do that for each component. Um, and then
+at the bottom here, you can then take
+again the the group EPS that score of of
+that asset based off of the components
+um, that are on there. Um, and what that
+means is, you know, granted you have
+like the components or given the that
+you have the components on um, this
+asset and the vulnerabilities that are
+on this asset, what is the likelihood
+that this asset gets um, uh, ex- you
+know, has exploitation activity
+associated with it in the next 30 days.
+That's control adjusted, right? So it's
+a much
+more
+nuanced view of how you should view sort
+of exploit risk um, because we're not
+necessarily talking about individual
+vulnerabilities anymore. We're talking
+about our organization. We're talking
+about our assets that are there. We're
+talking about the risk that they
+inherently have um, based off of, you
+know, uncontrollable factors that we
+sort of have to accept.
+Um, and so
+I don't actually show like the the the
+um, uh,
+the outcome of this all of this
+essentially, but if we did the math here
+of okay, I'm going to take the the
+component residual uh, from this column,
+take the complement of that, uh, which
+is just one minus that, so we get the
+um, what is the uh,
+success rate? Yeah.
+No, failure [clears throat] rate. So
+like how how how well does it um,
+actually prevent the thing? Um, take the
+product of that, then that sort of gives
+you, okay, that's the probability that
+no components will be exploited in the
+next 30 days on my asset.
+And then you take the the inverse of
+that, one minus that value, you get at
+least one. And that is what relatively
+the the asset exploit likelihood score
+given the 30-day window.
+>> so, what I just described to you is
+two components in a larger system
+um that I've been sort of toying with
+and playing with cuz that's not the
+that's not the end, right? You take
+these two steps
+and uh
+the the logical conclusion to that is
+sort of like, "Okay,
+I I want to know
+what my you know, like does this does
+this matter? Like what
+do these components uh or do these
+assets actually
+like what's the chance these actually
+lead to an incident uh that involves
+exploitation? What are the chances that
+this incident becomes material?
+Um that would, you know, affect
+potentially, you know, our stock price
+or you know, if it's if you're not a
+public company, you can sort of generate
+your own version of what material
+actually means as long as it's
+consistent. Um but it's you know, it's
+the same problem or the same uh argument
+at the end of the day like
+what are what is the uh
+you know, likelihood that exploitation
+in my environment will actually hurt my
+business or hurt my organization?
+Um so, that's the question I've been
+trying to answer.
+Uh and I try to answer that in this
+thing called exploit vector incident
+loss, which stands for or which the
+acronym
+happened by accident, but it's apt, I
+think. Um
+So, uh what I call is I call this the
+evil model. Um it's it's it answers this
+question.
+Um given the current state of
+vulnerabilities in our environment, what
+is the material exploit risk exposure
+and which actions would reduce it the
+most? Um cuz ultimately, it's an
+economic problem. How do we sort of uh
+uh decide which actions that we can take
+to reduce our exploit risk exposure and
+couple that with the level of effort
+that those actions actually have, right?
+And so, when I think about this, like,
+yes, patch cadence is important. Yes,
+attack surface management is important.
+Granted you do all these things, what
+else like are there other things that
+you can
+focus on or or maybe you don't have the
+capability to do all to do all those
+things, right? And so,
+it's it it just becomes a a a the
+outcome is sort of like, okay, you now
+have
+an economically defensible
+action list of of how to reduce your
+exploit likelihood exposure.
+Um and then I'm going to un-blur this
+for you. Um this is essentially the the
+full logic flow of of this model.
+Um you can see down here that there are
+four steps initially. You sort of start
+up here and I don't I really have a
+starting point, so sorry about that cuz
+it it really is a feedback loop. Um but
+step one, step two, step three, step
+step four. We just covered step one and
+part of step two. Um what I do here, and
+I have slides for this, I'm probably not
+going to show them, but is convert that
+30-day exploit likelihood at the asset
+level to a
+hazard rate. And if you don't know what
+hazard rates are, that's okay, I barely
+know what they are.
+Um but they are essentially a way to
+reason on how to scale that 30-day
+window to either a day or whatever
+horizon that you want to model for. So,
+when I do this, I'm like, okay, I want
+to know the material exploit exposure to
+for the next quarter, right? Or for the
+next
+uh a year or or whatever horizon that
+I'm asked to give, I can give it because
+I can convert this into a hazard rate.
+Uh and there's a couple of
+caveats on how to do that. Um and I'm
+sort of working through the kinks of
+that because it's it's mathy and statsy
+and I'm an engineer and not a math or
+stats person. Um but apparently I am
+now, so sorry. Um but that's like
+uh it's a it's a crude sort of
+method of okay
+again, given the information that I
+have, I need to make a an estimation of
+what my exposure is, right? I want to
+know how bad things are.
+Um and you know what, we're going to
+make assumptions throughout this entire
+process, right? And so the problem is is
+like, yeah, you can make assumptions,
+but how do you sort of correct for those
+assumptions? How do you sort of validate
+that this is the right model and all of
+that and I'll I'll get there.
+Um but after we have this daily hazard
+rate for each asset, we can then
+aggregate that to get an organizational
+hazard rate and by aggregate I just mean
+sum. Just sum it, just add it all up.
+Um and you get like
+okay in in this day we're going to have,
+you know, potentially 38 or 40
+you know
+events that could be exploitation and
+you're not going to see this in
+practice, right? This is a gross
+overestimation or a gross
+underestimation, you don't know.
+Um and you don't you don't have
+telemetry, you know, usually internally
+to sort of
+figure this out, right? But it's still
+valid to try and reason on this so you
+can make better decisions. And so what I
+do is then convert this into threat and
+loss event frequency, which is terms
+from FAIR. Um but really what it is is
+saying, okay, how many um exploit events
+does it take to generate uh an internal
+incident? Right? I I want to know
+whether or not these are actually
+costing us time and money in responding
+to things.
+Um and then from there you can also jump
+all the way up into, okay, is that
+incident going to be material? Right?
+What is the relationship between
+um the the vulner- the exploitation
+activity that we may or may not be
+seeing in our environment and our
+material
+um likelihood of loss. And then you can
+bolt on loss data, right? Like this over
+here is uh I sort of hand waved this
+because it's
+I I use uh Scientia Iris uh data to sort
+of calibrate this. Um but this is can be
+a whole model in of itself and a
+decomposition of
+how valuable are my assets
+quantitatively. Um and you know, that
+I'm sure would lead to lots of internal
+debate. So, I have ideas on how to do
+this. I'm just not going to talk to them
+right now um because it's not
+necessarily important for the the
+overall model um talk.
+And so, after you do all that um you get
+to this spot where it says model
+outputs. What does model outputs look
+like?
+This is a loss exceedance curve. Uh it's
+kind of shitty.
+Um but it is what it is. Uh it it's
+essentially telling you, "Okay,
+>> on on the Y-axis, this is our exceedance
+probability of um the loss threshold of
+our X-axis. Um and this is again a a an
+outcome of doing um those calculations
+all the way up to, "Okay, exploit risk
+material loss exposure." Um and I put
+some lines in here. Uh the medium sort
+of loss value would be like in this
+example 700 to K, right? I put in uh an
+example cut like insurance coverage you
+have you might have here of a million
+dollars. And so, is is most of the time
+that's going to fall under your
+insurance.
+Um if you have it, right? So,
+is it economically viable for you to do
+anything to, you know,
+to you know, reduce this blob or is it
+more worth your time to reduce things
+that are above that tolerance? And I
+would argue this, right? You want to You
+want to be able to reduce the size of
+this or beyond this purple line or
+beyond this coverage line of of
+tolerance that you have in your
+organization.
+usually vulnerability management
+programs have no visibility into what
+the insurance coverage is. I per-
+certainly certainly don't, but it's
+feasible that you could get that number
+and then calculate, okay, which actions
+would reduce my the area under this
+curve above that. And that would be a
+defensible way to show that you are
+actually measurably reducing risk when
+it comes to vulnerabilities.
+how am I doing on time? Okay.
+so,
+in practice,
+uh, like this is all nice and sweet,
+right? Like, cool. We have a loss
+exceedance curve. This is where I find
+that most risk quantification people
+stop.
+Um, and I'm curious about that cuz I'm
+like, well, how can you just stop there
+and not
+like, I I want to operationalize this. I
+want to I'm an engineer. I want to and
+and I, you know, I say that often, but I
+really I'm like a full stack. I run the
+whole vulnerability management program
+for Moderna. I want to know from
+discovery all the way up to action of
+what we're doing and measurably reducing
+our risk. And so, how do I take the
+outcome or output of this and say, okay,
+what should I do to reduce this? Like,
+what what How do I What are my next
+actions?
+and so, uh, this is an example of that.
+And what we do is we we can simulate
+removal.
+Um, so, we have all of that is built off
+of a data set that we have of
+all of our assets, all of our CV- CVEs
+or vulnerabilities, all of their exploit
+likelihood, all of their control
+effectiveness.
+what we can do is, okay, based if we
+group
+Hello?
+No?
+Oh, I lost this.
+If we group, um, those
+If we group those um
+vulnerabilities by the remediation
+action, and that can be either, okay,
+um we want to patch this CVE above a
+EPSS threshold by doing this specific
+action, or I want to change uh the
+control effectiveness and re-measure
+this,
+um or I want to patch this vulnerability
+that's ubiquitous across my environment,
+and it's on every single end user host,
+and um
+you know, I I I show you the scope over
+there. Like again, this is an example,
+but it's a good thought exercise, right?
+If you have 50 assets where you have a
+something that's above an EPSS threshold
+of
+.8 maybe, or .7, like whatever your
+capacity is,
+that seems like a logical thing to do,
+right? I I want to reduce my exploit
+likelihood of
+uh of those vulnerabilities, so I should
+prioritize
+based off of that. Um same thing with
+control. We don't know what the the
+EPSS score is, cuz it's not a a
+vulnerability,
+um but you could, you know, say like,
+"Oh, this is our control prevention
+rate, and we would have to re-measure
+this, and we can't really quantify the
+like what would happen if we change this
+on a simulation."
+So, but I just put in this in here as
+like, this is another option of what you
+could do to reduce risk. You could
+change configuration in your
+environment. You can change You can And
+then go test it again, and be like,
+"Okay, this actually helps reduce it."
+Um and then the last one here is uh
+again, patching uh just This is patch
+cadence, right? Like, are you updating
+your your your systems on a regular
+basis? Are you Are you pushing updates
+to your workstations? All that jazz.
+Um so, I actually have a Well,
+this doesn't work anymore. Sorry.
+The The question I have here is
+which one would you What would you do
+first? Um cuz it doesn't seem obvious
+from here, unless you have the answer,
+which I have.
+I think the general guidance is do this
+first one.
+Um which is defensible. You can
+completely do that. I don't I don't
+think there's anything wrong with doing
+that. Um and really you could defend all
+of these.
+but if you run it through the model that
+I that I built
+um and you sort of simulate the removal,
+uh you can then quantify how effective
+each action actually is.
+And so, what I did was that. Um and I
+said, "Okay, if I remove this
+vulnerability with a point eight per or
+an eight percent EPSS score on 50 hosts
+uh and this is again calibrated from
+Iris data. So, I'm not it's not actually
+calibrated to my um own organizational
+data. Um
+so again, it's crude. Um but you can see
+like, "Okay, we would that would
+potentially save us 19
+.6k in
+risk exposure." Like that that that's
+how much that's how valuable that is.
+Again, that's a crude estimate. You're
+not taking into account where these are,
+what is on those hosts.
+Um that's where like that the apply the
+loss model uh or apply the loss um data
+what you'd have to decompose and get
+better at that, right? Um but it still
+gives you some sort of
+um view into that. And again, same thing
+with improved EDR control. Um I actually
+don't know if that's right. Uh I think
+it's
+you'd have to measure that again. Um and
+again, in the simulation, we we're using
+we're changing the the EDR control from
+effective rate from like, I don't know,
+point two to point three or point four
+or something like that. I forget what
+the actual number it turned out to be.
+But it was a defensible like,
+we have to change this configuration and
+retest, and then we retest and we see
+that, "Oh, it jumped up based off of our
+our test data."
+but then the last one here, and and this
+is sort of like, "Oh,
+why is this?" Right? Why why
+is it so much more valuable to just do
+patch cadence um for
+uh uh
+your entire fleet um versus spending
+effort on this? Like this would be like,
+"Okay,
+this should be automated, right? You
+should be automating this um already and
+having a good
+um patch cadence here, but like this is
+shows you the value of doing that,
+right? This this
+is sort of like
+do the patching.
+It's economically viable. It will reduce
+your risk.
+Um and this is actually consistent with
+a paper, I think, from 2 years ago.
+Um I don't know. Sandy, you might have
+heard about this, but the I think the
+the the two most um
+effective interventions in a
+vulnerability management or even just a
+security program are attack surface
+management and
+patch cadence.
+And this outcome
+relatively verifies that independently,
+I guess. Um I'm not a scientist, but I
+pretend to be one, so I would love to be
+corrected on this.
+and so
+this last one here is the sort of the
+conclusion that I I draw from this.
+Moderate per asset risk multiplied
+across thousands of assets dominates the
+aggregate hazard of your
+environment.
+Um and so you should be focusing on
+reducing that first and foremost, and
+this sort of just empirically proves
+patch cadence is
+your number one priority to sort of
+automate and get right, and then you can
+go into one-offs that sort of happen.
+>> [snorts]
+>> Which
+contra- co- which contradicts
+advice I've given in the past.
+take that for for granted.
+Um and then so after all that, like my
+question goes to um is this useful and
+is this right?
+that's a good question.
+I think the answers to these are, is it
+useful?
+Yes.
+I think it's useful. I think it's it's
+helping me reason on
+not necessarily vulnerability
+management, but exploit risk management.
+I don't necessarily care about the
+number of vulnerabilities that are are
+in my environment. I care about the
+you know, reducing the the risk uh,
+which would be likelihood and impact of
+exploitation in my environment,
+regardless of the count of
+vulnerabilities. And so, this sort of,
+you know, ties kind of nicely into, you
+know, what we could sort of are seeing
+with AI. Like,
+we might see a bunch more
+vulnerabilities. We might see a bunch
+more exploitation activity. Um,
+this model sort of
+accounts for that. You don't have to
+like change what you're doing. It sort
+of doesn't matter
+about the arrival rate of
+vulnerabilities. It What it matters is,
+what are the most economic impactful
+actions that I can take to reduce my
+exposure, given that, you know, we
+operate in this environment that has
+technology with software weaknesses in
+it.
+Is it right? No.
+Absolutely not. Um, there's no way to
+prove it. Um, I've tried. Um, the it's
+or
+I've tried. I would love to see if
+someone else can try um,
+on my behalf. Um, and the reason that
+it's hard to say if it's right or not is
+that it's extremely hard to validate
+that what this is doing is actually
+reducing risk. Going back to my initial
+uh, question of like, how do I know I'm
+reducing risk?
+I don't know. I still don't know. Um,
+but I have a
+I have a pretty good defensible model
+and answer
+for it, right? I'm never going to be
+100% right or 100% know if I'm right,
+but I'm going to be a it's it is useful,
+right? This goes I'm going to
+Again, go back to George Box. If you
+don't know who that is, look him up, but
+his quote is all models are wrong,
+but some are useful. And so this is a
+again a wrong model. I think it's better
+than most, right? And so
+The question actually is is this model
+less wrong than what you're doing right
+now?
+And that's the question you should be
+asking yourself.
+And so
+that's you know, the question I ask
+myself constantly is what I'm doing
+today better than the bar. Like what is
+the bar? Like what how should we be
+comparing ourselves against other
+organizations or or
+you know,
+or against ourselves, right? Like can we
+measure how well we're doing and then
+can we get better and then take another
+measurement to say
+we're doing better or or worse?
+And so that is the talk. So thank you
+for for hearing about that and
+I have some time for questions, but I
+also want to um
+note that this is an incomplete
+idea that I have, right? I'm in the I'm
+in the throngs of
+writing all of this down into a paper
+and also as code and hopefully open
+sourcing it.
+And so stay tuned for that.
+So if you have ideas on how to make this
+better, I'm open to that. I want to hear
+your opinions. This is more I mean I've
+done experiments with this with market
+data, not with real life data. I want to
+I don't know if this is good or not, but
+I think it you know, it logically makes
+sense to at least try and and get this
+right.
+So yeah, thanks.
+>> [applause]
+>> If there are any questions, please come
+use the mic so the people on the stream
+can hear you. Thank you.
+Hi, Jerry Gamblin, big time fan.
+Can you can you go back to your slide
+with with the dollar amounts? Yeah.
+I was looking at that and just some back
+of the napkin math, right? Like it's
+$400 reduction per 50 hosts at the top
+and like $25
+per host at the bottom reduction. Yeah.
+And I think that's how money people
+would look at that.
+>> Yeah. But there's no time element yet,
+right? Like how long it takes to patch
+the host.
+>> Correct. Like level of effort. Yeah,
+like so that would be a a logical
+extension, like can you compare this to
+the level of effort that it takes to do
+the actual
+remediation or mitigation or whatever,
+right? Like
+that if you want to have a a quantified
+risk model, like that you need to have
+that, too, right? I like I sort of
+glossed over that, but that's like the
+next sort of thing. Can you can you
+compare
+you know, that that that that, you know,
+in- influences what you prioritize.
+So.
+Thanks for this, Steven.
+I need to think on this a little bit
+more and I'm I'm going to watch this
+talk again. I'm I'm looking forward to
+your paper, but I'm I'm
+the numbers
+are giving me trouble at a gut check
+level. And I I I'm I'm like struggling
+to even kind of formulate exactly why,
+but I I think that
+>> the scale of the difference in the
+number of hosts, I think is is kind of
+presupposing a discoverability friction
+that I'm not sure is there on the
+attacker's side. Sure. Right? And so
+it's like
+if the difference in discoverability or
+like targeting capability of the
+attacker Yeah. is a lot more
+asymmetrical Yeah. for the hottest CVEs
+for whatever reason like architecture
+Yeah. the
+then I feel like that some of the
+assumptions here kind of become
+slippery, right? So
+>> Completely. Completely agree.
+I There's a There's a kind of a a
+parallel thing. I It It reminded me I
+need to go back and rewatch your talk
+from last year because one of the things
+that we found last year when we were
+preparing our really disorganized talk
+at VulnCon was
+Um we were essentially looking at the
+number of exposed hosts per entity per
+CVE and looking at that distribution.
+One of the things that we found was that
+there were 50,000 CVEs of
+300 something thousand that we looked at
+that always showed up together.
+Right? So there was like there were
+these groups of four CVEs Yeah. across
+four software fingerprints that always
+showed up together [clears throat] and
+so we started to like ask questions
+about coincidence and and like stacks,
+right? Because we deploy software in
+stacks. It makes sense that CVEs would
+also show up in stacks, right?
+>> be
+There's correlation for sure.
+>> Yeah. And and so
+>> independent assumptions in here. Yeah.
+And and we never actually followed up
+and did any work on that coincidence and
+what does that mean for risk and what
+does it mean for exploitability? The
+obvious answer is you just take the max
+EPSS of the CVEs inside.
+>> It's a crude way to sort of
+correct for it. Yeah. I'm not And again,
+I'm not saying it's right. It's like
+that's another decomposition. Like how
+complex do we want to get this model to?
+Like is And is it
+how how, you know, what's the level of
+effort to do that? And what and all
+that. And so
+Yeah. I I completely agree. It's It's uh
+I'm making a lot of assumptions. I'm
+making a lot of independence
+assumptions. I'm making a lot of um I,
+there There's a ton of correlation in
+here that's not like that's not being
+reflected. Right. Yeah, but I I think
+it's super interesting. I'd love to keep
+talking about it. I'd love to to
+collaborate on the paper or like just
+give you feedback on the paper as you
+write it. So, thank you. Yeah, thanks
+Andrew.
+Thanks.
+Don't be evil.

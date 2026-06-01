@@ -1,0 +1,420 @@
+Hello everybody.
+Happy Patch Tuesday.
+>> [laughter]
+>> Um
+I've been at Microsoft since 2013
+working on Patch Tuesday, so
+uh
+I live by the I live by the month
+monthly cycle, I guess.
+Um it's it's the same job that I've had
+for years and years, but every month
+it's different. Every month there's new
+challenges. This one is no exception.
+It's officially the biggest release if
+you count both third-party and
+first-party CVEs, and uh
+there's some reasons behind that, but it
+is it was a huge release this morning.
+It got out the door okay.
+Uh we we'll probably hear tomorrow if it
+lands well.
+>> [snorts]
+>> So, um
+well, that's similar. So,
+the fact is that um
+we put out these CVEs those of us that
+are vendors,
+and we put out lot of lots and lots of
+them,
+and um I'm always wondering because that
+there's many reasons why we should
+publish more CVEs than we do.
+Um
+there are vulnerabilities that Microsoft
+knows about and fixes and we don't
+publish CVEs. Um
+but I also think, you know, what is the
+cost to the world of a of a CVE? They're
+not They're not free. They're not free
+for
+Microsoft and they're not free for, you
+know, the teams around Microsoft that
+fix the problems and the researchers
+that find the problems.
+Um but then there's a ton of people
+around the world that have to
+have to figure those things out.
+And so, um
+as we look forward to
+the
+the even much more CVEs that are going
+to be required in the in the couple
+years to come given you know both AI and
+the CRA requirements.
+We need to we need to think about if
+there's ways that we can be more
+efficient about you know
+publishing this data and consuming this
+data.
+So
+um
+I asked Copilot of several months ago
+what is the cost to the world of a
+Windows CVE.
+And and it went through its machinations
+and and figured out you know what what
+everybody in the world does in response
+to a Windows CVE.
+Um there's lots of devices that run
+Windows.
+There's um there's teams around the the
+world that have to
+look at the vulnerability maybe assess
+the vulnerability maybe test in their
+testing environment uh before they put
+it into their production environment. So
+there's a lot of things that go on. And
+so Copilot decided that the there's
+small and mid-size and large
+um companies around the world that have
+to
+figure out this CVE and they all
+depending on how big it is they may take
+many hours to adjust to a CVE.
+And so
+it said okay there's 10 million
+uh organizations worldwide and let's say
+that there's a weighted average of 20
+human hours
+and
+so that's 200 million estimated global
+human hours devoted to a Windows CVE.
+And if then you think about the years we
+publish many many Windows CVEs over the
+years and so I think if you compare it
+to other tasks you could build the Great
+Wall of China 25 times based on on this
+number of hours that have been spent.
+And
+and yeah, things are a little different
+than they used to be in that we publish
+a lot of Windows CVEs at the same time.
+Not every Windows CVE, I think there was
+120 Windows CVEs today or right around
+there.
+They don't spend as much time on every
+given one because you either decide to
+install Windows or or you don't, right?
+Or you pass it by this month.
+clearly these numbers may be
+exaggerated, but if you think about
+every company around the entire world
+that is running Windows, the the effort
+isn't zero. The effort is quite a bit.
+So that's just playing with Co-pilot.
+but as we move to a more
+machine-readable world, is
+is is there going to be efficiencies
+that can be gained or is or do we all
+have to do the same amount of work to
+adjust to a new
+a new update of software?
+I I think the answer has to be no,
+right?
+I mean, we can't we can't do everything
+and we can't test everything to
+completeness. And so
+so as we move into the next couple of
+years, we're just going to have to get
+better. And can vex help us?
+Um and can all these standards help us?
+We've you know
+as CISA says that we're moving into the
+quality age of CVEs,
+do these standards help us raise the
+quality? I think in some sense
+um the
+the regulators think yes, that if
+everybody gave the proper CVSS score, a
+very good complete CVSS score, CWE, uh
+CPEs, if you had CPEs for all your
+software, if you did everything right,
+then it would be a quality CBE. Um, is
+that true? I don't know. The
+my
+my talk here is not full of answers
+really, it's full of questions
+>> because I think we all as an industry
+have to to grapple with these questions
+and figure it out and and help each
+other.
+So,
+in in my world of MSRC, we have been
+glomming on to all these standards.
+We've done all of these over the years.
+Um,
+CBRF was before my time, but I think all
+the others uh, have happened in my 13
+years of of being at MSRC and managing
+Patch Tuesday. So, I think they're very
+important. I think it helps. I think
+customers have reacted well to the fact
+that we are now getting on the standards
+bandwagon. I don't think that MSRC was
+considered a very good CNA back in the
+early days,
+although we've we have always been the
+CNA
+since the beginning.
+so these are just some anecdotes in my
+life of
+of what's been happening this year alone
+because I think we're all seeing the the
+wave start to overtake us this year. So,
+Microsoft republishes
+um,
+Chrome CBEs because as everybody
+probably knows, Edge, that browser Edge,
+is 95% Chrome and we've got a little
+veneer around the outside to make it
+look like Edge. And so,
+every
+every every other week, Google publishes
+Chrome CBEs and last year,
+they published 174 Chrome CBEs
+throughout the whole year.
+The number at this point is 186,
+I think, for the first 3 months of the
+year.
+so they're definitely the um
+they're ramping up.
+I heard or at um
+excuse me, at RSA, Google claimed that
+they're going to find and fix all their
+vulnerabilities in the next year.
+Excuse [cough and clears throat] me.
+So, so that's one thing, right? They had
+they they came out with 60 CVEs last
+last week and yes, we have a pretty
+automated way to create those CVEs and
+um I took it from the person that
+usually does it cuz she was running the
+release.
+so it's it's bulking up. Um our red team
+is finding vulnerabilities in bulk
+and they've
+they are working with the management at
+MSRC to
+excuse me, give them [snorts] to us in
+bulk and and the
+person said, "Oh, we're going to
+automate everything. They're just going
+to submit it to us. We're going to the
+assessments are going to be done. We
+don't have to work on the cases, blah
+blah blah."
+And then he said, "Does that mean
+anything for you, Lisa?"
+Well, if everything else is going to be
+automated, you have to automate the
+entire CVE process as well. So,
+I can't do it any faster or better than
+anybody else in MSRC. So, if you're
+going to automate their job, you have to
+automate mine.
+And then of course, Madison wrote this
+great uh article on LinkedIn the other
+day and and
+I I encourage you to go talk to her
+about it, but GitHub is just getting
+overwhelmed
+with the number of CVEs.
+And so, it's a great great article on
+LinkedIn.
+Thank you, Madison.
+>> So, we did start publishing VEX last
+And I just thought these were kind of
+amazing numbers. We're publishing VEX
+statements for only one product, Azure
+Linux, we're kind of building the engine
+that's going to do it for the rest of
+the Microsoft products as we move
+forward.
+But, look at these datas. This This is
+This is can't see these numbers very
+well, but this is a 100 million reads.
+And so, you can see January, February,
+March, people are reading these back
+statements. I'm not quite sure who is
+reading is reading these back
+statements, but there's
+over 100 million requests in the month
+of
+March.
+So, that's kind of amazing. Thank you
+very much. That's nice.
+Somebody is reading them.
+And then you can see these the chart
+above is
+is millions of uh requests per day.
+So, so it's it's a lot of traffic. That
+gives me some amount of hope, though,
+that if somebody if a lot of people are
+paying attention to these back
+statements that we're creating for one
+product, maybe they're going to
+you know, these numbers are going to be
+astronomical
+when we do it for every Microsoft
+product.
+But,
+maybe they're figuring out ways to be
+efficient cuz cuz I think we all need to
+figure out efficiency, is that right?
+these are some of the key challenges
+that I think we have to think about in
+the next year.
+For the CNAs,
+the the records are being created in a
+very lopsided way. 80%
+of the records are being created by a
+very small number of CNAs.
+Medicine and GitHub have popped up to
+the top of the list this year.
+And um
+we're not doing a I mean, even the top
+20 are not doing 100% on enriching their
+CVEs.
+I want to put a a plug-in for CNA
+scoreboard that is Jerry Gamblin's. I
+look at that every day to make sure that
+we are at still at 100%. His scoreboard
+uh takes a look at every CVE and grades
+it in terms of how complete it is. So,
+it took me about 6 months to get up to
+100% for all our CVEs that he's looking
+at and I aimed to stay there, but every
+once in a while we forget a CWE and then
+I drop down again.
+So, that's great.
+but if if the top 20 producers who
+definitely have to automate things
+can't do it correctly, how are all the
+other
+480 CNAs supposed to do it when they
+obviously don't create very many
+records?
+>> [sighs]
+>> they're not automating it. They're doing
+them all by hand or and you know,
+scoring a CVSS score is not somebody not
+something that you can just do if you
+don't practice at it. It sort of takes
+practice to get good at this. So, if
+you're doing 10 records a year
+it are you going to be able to score it
+correctly? I
+I'm not sure. And CWE is mysterious in
+its own way and we struggle sometimes
+because there's so many CWEs
+and many of them you know, they don't
+fit necessarily, right? And so it's it's
+a hard problem that
+the top CN- I mean, the top producing
+CNAs face, but everybody else faces it
+probably even worse than we realize.
+And then um
+Oh.
+Yeah.
+I I this is my own personal thought, is
+that
+the industry needs to help itself to
+build the tools that we need.
+I don't think we can depend on the
+regulators
+or MITRE, God love them,
+to build us the tools that we need.
+They're not They're not doing this on
+the daily basis. They, you know, uh
+obviously MITRE creates a lot of
+records.
+CISA says this is a CNA and this is a
+CNA. We all create records, but not at
+the scale that that some of us do. And I
+think that
+that we need to band together as an
+industry and really think about how we
+can build the tools for ourselves that
+not only help us but also help help the
+little guys, right? They create 10
+records a
+a year as opposed to
+1,500 or 5,000 records a year.
+it's hard to do because
+everybody is kind of out for themselves,
+but I think there's enough there's
+enough work in the CBE program and the
+first program and all this work that we
+do in our working groups and our
+day-to-day lives that we can find the
+right coalitions to do it. And so I'm
+hoping that we can make progress because
+imagine a world where
+you'd have the CBE machine and it spits
+out in proper CSAF and proper VEX and
+pro you know, with proper scores and
+proper CWEs. We all spoke the same
+language. We all do it the same way and
+it it would work much better, seamlessly
+across the companies.
+And I also think that as an industry we
+need to do a better job respecting and
+protecting and holding up our
+researchers.
+They have a hard time with this program.
+We need to make it easier for them.
+How can we do that? How can we change
+the system?
+And if you bundle in LLM technology in
+into the researcher camp and they're
+finding all these
+vulnerabilities, how's that going to
+work when they spit out 5,000
+vulnerabilities
+>> [clears throat]
+>> in one go?
+And then we come to the regulators.
+And this, you know, we've all been
+talking about for the last year. Can we
+keep the CVE system together without
+splintering off? Is there a way that we
+can
+take all these developing numbering
+systems that are all good and valid in
+their own right
+and tie them together
+and at the basis, at the core, is CVE.
+I think I think it's worth it just given
+the 25 26-year history of the CVE
+program
+to try to keep it together. To try not
+to let us move off into a direction
+where we have to
+on Patch Tuesday,
+you know, produce a CVE and an EUVD and
+a GCV and a, you know, whatever whatever
+the acronyms might be.
+And and then at the other end, when
+people are trying to protect the world,
+they have to put all these disparate
+systems back together somehow to get a
+complete picture.
+I don't I don't think we want to do
+that.
+let's hope
+that we don't have to go there.
+Let's see what my next slide is.
+Questions.
+Does anyone have any questions?
+>> [applause]

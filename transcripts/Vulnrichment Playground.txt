@@ -1,0 +1,1037 @@
+[music]
+>> All right. All right. Welcome everybody.
+I'll do a very brief introduction. That
+was a great introduction. Thank you very
+much. Um, Tracy. Thank you, Tracy. Okay,
+my name is Lindsey Sirkovnik. I'm the
+Chief of Vulnerability Response and
+Coordination CISA. As Tracy mentioned,
+we do a lot of operational things in
+within my branch. We do coordinated
+vulnerability disclosure, which in some
+ways is the basis of of all of our
+vulnerability analysis at CISA. Um, I
+think I mentioned it in the keynote if
+you heard me earlier today, but I'll
+mention it again. Um, through our
+coordinated vulnerability disclosure
+work, we handle thousands of
+vulnerability cases a year. Um, we
+either
+disclose ourselves or coordinate the
+disclosure of um, thousands of CVEs. I
+think last year in FY25 it was
+over 2,000, although I don't have the
+the exact number memorized. Um, and
+something like a thousand spread across
+something like a thousand CVD cases. Um,
+but to give you some perspective, we
+have about a 45-day disclosure timeline.
+Uh,
+sometimes cases last longer, sometimes
+cases are shorter, but that's something
+that we try to use as like a guiding
+function through a CVD case. At any
+given time we're handling somewhere
+between 250 and 300 CVD cases at a time.
+I like to give those numbers because
+it's important to me that people
+understand um, we're not basing our
+observations about the vulnerability
+ecosystem off of one-zy, two-zy
+vulnerability disclosure cases. We
+genuinely have a a large scale of cases
+that we're handling um, each year that
+give us insight into kind of what the
+state of the art of vulnerability
+disclosure is. So, that's one aspect of
+our work um, on which Art is very
+helpful and Art's team especially is is
+helpful. A couple of your team are here
+today um, supporting CISA as well from
+Theros. Um,
+do you want to do an introduction? I'm
+sorry, I took the stage and didn't even
+consider
+>> no, no, no, no, no, no, no, no, no, no,
+no, no, no, no, no, no, no, no, no, no,
+no, no, no,
+So, continuing on some of the work that
+we do, if you could go back just really
+quickly and I
+>> Um, in that CBD work, we are gaining
+vulnerability analysis insight across
+CBD, but we're also doing things like
+the known exploited vulnerabilities
+catalog, which is, of course, something
+we've talked about, you know, a million
+times here. You all are probably very
+familiar with it. Um, the KEV catalog is
+attached to a binding operational
+directive and this is where I wanted to
+be on this slide for just 1 second, um,
+because I think it's really important.
+Some people misunderstand the origin of
+the KEV and it's important that we talk
+about that binding operational directive
+that, um, essentially implores federal
+civilian executive branch agencies to
+make changes according to what
+vulnerabilities we add to the known
+exploited vulnerabilities catalog. Uh,
+this is why the federal KEV is the way
+that it's it is. It's the the built-in
+the design that we have to do a little
+bit more consideration for confirmed
+exploitation prior to something arriving
+on the KEV because it does incur cost to
+the federal civilian executive branch
+agencies for us to put something on the
+KEV and that means that your taxpayer
+dollars, if you're a US citizen, uh, are
+going towards that vulnerability being
+fixed across federal civilian executive
+branch or FCB agencies. Um, so, that's
+really important to me. I I think
+something that's important to point out
+and a point that I want to make prior to
+really launching into our vulnerability
+enrichment material is that, um, the
+work that we do in protection of FCB and
+the work that we do in protection of
+critical infrastructure entities,
+um, that work is mandated, right? That
+that work is something that CISA does as
+part of its um
+legislative requirements, for example.
+But, it produces so much vulnerability
+analysis that we had not previously
+provided publicly uh until we sort of uh
+started looking at at all these data
+sources and going, we really could
+provide a lot of this analysis that we
+already do on taxpayer dollars um to the
+public. Democ- democratize that data and
+and put it out there in a way that's
+consumable for defenders. And so, I have
+this slide up here to show you that
+yeah, these are our primary
+stakeholders, um but the analysis that
+we do for them isn't specific to them,
+right? That some of that analysis that
+is agnostic and useful to to to the
+whole world. And so, that was our our
+effort to with Vuln Enrichment to bring
+that data into the public. So, now you
+can go to the next slide.
+>> Sure.
+Through that analysis that work that we
+do, um through our sort of mandated role
+in the federal civilian executive branch
+agency protection,
+um as I outlined previously, we produce
+a lot of uh products, services,
+and I think there's like a whole
+click-through.
+>> whole click journey.
+>> There you go. Okay, so you saw the first
+one was our coordinated vulnerability
+disclosure page. Um, we are clearly
+involved in the CVE program as a CNA,
+assigning CVEs.
+Um, we have a CSAF Common Security
+Advisory Framework CSAF um
+repository on GitHub. We also put out
+ICS advisories in human-readable and
+also in our CSAF format. Um, we do
+stakeholder-specific vulnerability
+categorization scoring or SSVC scoring
+for every new CVE. We have also done it
+retroactively for something like I don't
+have the latest number, 140 or 160,000
+CVEs now um provided publicly through
+Vuln Enrichment and the CISA ADP. Um,
+and we also do the known exploited
+vulnerabilities catalog. All that is to
+say, we we put all these freaking
+products together, right? We put all
+these products together for the FCEB and
+for our critical infrastructure
+partners. How do we provide that data to
+the public? How do we we it back into
+the CVE record in a meaningful way, and
+how do we experiment with all this data
+that we're producing and all this
+analysis that we're producing in a way
+that teaches us something that we can
+then incorporate into how we run the
+program.
+Yeah, and I mean part of that portfolio
+is also Vuln Richment, right? So, all of
+this work needs to be done by mandate.
+Can be public published sometimes to the
+benefit of all of us. Uh thank you CISA
+for for for doing that cuz it we do
+benefit from it, right? And Vuln
+Richment is one of those uh products or
+services, so to speak.
+Uh
+about a year and a half old. We we
+talked about year one last year at this
+event.
+>> Yes, yeah, we did.
+>> So, maybe maybe you were remote.
+>> You were remote. But we made it work.
+Right. So, but this is it, right?
+There's the the primary interface here
+is a is a both a GitHub repository and
+the CVE ADP container. So, you can get
+your Vuln Richment information straight
+from the CVE uh data sources.
+Uh or you can get it from from the
+GitHub repo uh that
+>> Have you all heard of Vuln Richment?
+Yeah, yeah. Making sure everyone's heard
+of it. Okay, great. They've heard of it,
+right.
+Yeah, and I mean here's actually there's
+Lindsey last year. Um she had to be on
+on on camera remote.
+Uh we talked about Vuln Richment year
+one, and sure enough uh good for us, I
+guess, last year we did say that
+part of the point of having of working
+with uh Vuln Richment was to test in
+production and perform experiments,
+right? KEV
+binding operational directive, not a lot
+a lot of room to make random changes to
+KEV, right? That's a sort of a fixed
+structure and would require careful
+decisions to change.
+We can play play around a little bit
+more uh with Vuln Richment.
+Uh and
+that's what we're going to talk about a
+bit.
+So, um we're talking about the Vuln
+Richment playground, and I I'm not a
+huge GenAI user, but I am really proud
+that I, you know, I typed in the right
+prompt that came up with this
+quasi fever dream hallucination.
+Right, I forget what was. Show me here,
+I wrote it down. Playground with CVE CWE
+CVSS SSVC.
+Um, and you know,
+as we've seen anywhere, I don't know
+what I'm not sure what this letter is.
+It's hard to see.
+I don't know what CVSS HLA AAH is or
+Mike Wright. Anyway. Some fun fun
+characters got created there. But, uh
+we're playing around a little bit in
+Vuln richment.
+Um
+Do you want to Yeah, I'll talk about
+these slides. So, this is so handy to
+have these up here. I don't need to turn
+around No, no, I'm good. Okay, just not
+at all. Um, you can go ahead and go
+through the the bullet points that way
+they're up here. But, I I think I sort
+of alluded to it earlier, but I will
+just more directly say we want to spend
+public funds efficiently. That's
+something that is important to me as a
+civil servant. Um, certainly in my role
+at CISA, but whether I were
+whether I'm working for CISA or some
+other federal government agency if I
+civil servant, it's my responsibility
+and it's certainly my goal to spend
+those funds efficiently. And so, I kind
+of talked about it previously but like
+how do we take all this analysis that
+we're producing for the benefit of the
+federal government and put it out into
+the world, especially cyber data, right?
+This is This is analysis and and
+information that any organization could
+benefit from.
+Um, and so that's really been one of our
+sort of biggest priorities.
+So, one one of the things that we look
+like look at as we're sort of learning
+from Vuln richment is whether now that
+we have the benefit of having done this
+for a couple of years, we have we really
+do have a historical data set to look at
+and a historical sort of I would even
+say like footprint through GitHub to
+look at um how our engagement with the
+public has been going. We really want to
+figure out like what data is useful,
+um what data is not useful, what takes
+the most amount of time for my analysts
+to produce and to um
+kind of enter into a a CVE record
+effectively and whether that information
+is then used by consumers effectively or
+whether it's kind of not useful at all
+um and make that sort of cost-benefit
+analysis decision about um where I
+should be investing analysis time
+uh and and where I should maybe not be
+investing analysis time. So, I think one
+of the Let's see.
+Yeah, anyways, so um I'm sorry. I don't
+like reading my Maybe I don't like this
+thing. Maybe it is actually distracting
+me. Like, [laughter] what? Um like maybe
+I don't like that little screen down
+there. But um one of the things that uh
+I think like in the first when I did
+this presentation in the first year it
+was like, "Are you going to stop doing
+anything?" And the answer is yes, we've
+already stopped doing something um
+and that is CPEs. Uh originally when we
+first started doing vuln richment, we
+had kind of committed to experimenting
+with putting CPEs into vulner into CVE
+records and seeing whether that CPE that
+common platform enumeration identifier
+was useful.
+Just for your sort of edification and
+education, it took our analysts about
+2/3 of their analysis time to do CPE
+records. And so, the trade-off for me
+and my team at that time was we cannot
+do CPEs for everything with the current
+staff and investment that we have. So,
+we're going to prioritize how many
+vulnerabilities we actually like fully
+vuln rich past SSVC and apply a CPE to.
+But we kept getting feedback from the
+public and from stakeholders that said,
+"These CPEs are not that useful to us.
+We would prefer if you invested that
+vulnerability analysis time in putting
+SSVC, KEV, and further enrichment into
+all CVEs." And so, we did that
+by eliminating the CPE eliminating the
+time that it took to produce CPEs
+for records,
+we expanded our sort of aperture for
+doing further vulnerability enrichment
+and now are able to do vulnerichment
+essentially on every new CVE.
+Do you want to add anything Art to that?
+>> I'll just say there's another possible
+stop doing something example and I have
+this I have this GitHub issue number
+memorized this 262. So this is the the
+Linux kernel is as a request they're
+requesting that vulnerichment not
+do CVSS assessments for upstream Linux
+kernel vulnerabilities. You can go read
+it there's a long long discussion and
+debate there. I don't think we have an
+answer yet but the point is we have this
+transparent public GitHub right there's
+an issue there we have the discussion.
+Vulnerichment may choose to to stop
+doing that not just because of the
+request but because we think it's a a
+good idea and this is squarely in the
+playground experimentation right we
+might stop doing something if it's not
+useful is there a reason not to do it.
+We don't want to just play that usual
+game of we'll just add some more stuff
+add some more stuff next year add some
+more stuff right reducing
+is is a good good move also at times.
+Yeah try it what's the cost is it
+effective is it impactful and then maybe
+we try something different and one of
+the things I didn't mention that I'm is
+sort of near and dear to me is this very
+last bullet he's just going to do a
+little Yes. teaser but
+I am really interested in the idea of
+relationships between CVEs it's been
+something that
+I mean Art you've been discussing it for
+years and years right? Yes. And I think
+one thing that you know if we were going
+to propose another experiment in the
+future I would really like to explore
+experimenting with how to represent CVE
+relationships in the CVE record or
+through vulnerichment so that's
+something that I think is on the horizon
+I'm making no promises because you know
+we have to find a technical solution to
+that but
+I'm very interested in in trying to
+represent how CVEs might work together
+because often right now we're doing it
+in a a description field and maybe
+there's a more effective way to do that
+and maybe we learn from trying it in
+full enrichment and make a
+recommendation through a working group
+to to make an improvement to the schema.
+That's kind of the long-term goal. Right
+on. I think that's it for this slide.
+>> Okay. The next bit is a I won't
+dig sort of too too long into this, but
+I'm going to pick one CVE record because
+I happen to have looked at it very
+carefully and we have some knowledge
+about it. Um and this is an example of
+sort of how Vuln Enrichment can can
+add and change information and it still
+opens some questions about what else
+could Vuln Enrichment do or should do or
+should not do.
+So the the the vulnerability in question
+here is this issue in Pandoc.
+Does anyone remember this one? This was
+kind of a messy
+It was a mess. I feel like I might
+remember it really well cuz I don't know
+why I have a personal problem anyway,
+but uh
+um
+it came out as a exploitation was
+happening, right? And I think it
+actually came as a KEV analysis request
+from from CISA saying, "Hey, this
+thing's being talked about publicly." I
+think it's Wiz said that they saw this
+activity and they implicated this CVE.
+Pandoc converts one format to another.
+There's a bunch of formats it converts.
+Um in this case, Pandoc is being run
+somewhere. We don't actually know in
+this case where, but run as a web
+application on a web server somewhere
+where I can probably submit a PDF and
+get markdown back or vice versa, right?
+It was being abused that that service or
+services out there were being abused um
+by to try to get um
+these things are uh sorry, um
+Amazon tokens of some kind. Sorry,
+where's the
+Did I not instance metadata service,
+right? AWS tokens. You can sort of do an
+SSRF and try to try to grab tokens and
+if you're running IMDS version 1, you
+were vulnerable. IMDS version 2 has some
+built-in defenses, so rate and and run
+version 2, but this was a thing
+happening and they're claiming right
+vulnerability exploited in the wild. Um
+so that the CVE history is we had a the
+first first record came out.
+Uh there you have January sorry, July
+11th, CNA container. There's a
+description.
+Um the affected array said N/A in it. I
+know there's a GitHub issue open to
+we don't like putting N/A in there, but
+you have to put something in there, a
+dot, a space, three letter A's,
+something.
+Um and some references that are not, you
+know, technically correct. Um this was
+just the first sort of quick, we have a
+record out there. We've got an ID for
+it. We've named it.
+It's got a starting point, right? Yeah,
+and that Sorry, this is a testament to
+the point you made in your talk just now
+from I was sitting in over there and
+records are going to change over time.
+So it's it's interesting to observe in
+the wild in this specific case how how a
+record changes over time and why.
+Um so uh same day. So what happens is
+right, CVE records are created, the
+vulnerability process mechanically is
+pretty simple. We get a you know, we
+notice a new record and vulnerability
+goes and and updates it. So
+um since this CVE record did not have
+problem type CVSS on it, those were
+added. Vulnerability always does SSVC,
+so that stuff was added in the ADP
+container.
+Same day,
+you know, same business day, normal
+normal procedure, right? Um couple
+months later and I forget at what point
+the
+the all good analysis and the cab
+analysis was going on. Um this reference
+was added this reference was added,
+pandoc.org. This is just a typo
+basically. There was pandoc.com here,
+pandoc.org. Um with the tag product tag.
+So CVE has um reference tags which you
+might want to use. They might be
+informative. We tried hard to in this
+case to
+fill out all the possible fields, right?
+I don't actually know why, it's slightly
+embarrassing,
+vulnerability went back and changed the
+SSVC. That that T means uh technical
+impact total,
+which is incorrect and I really don't
+know why this happened. Good news is we
+fixed it later, but mistake was made
+probably.
+Uh so, October or that was uh that was
+sorry, September 24, 25. October,
+this is when sort of some more
+experimentation happened. Uh added some
+references to the Vulnerability
+Management ADP container. Um CVSS was
+revised again. We fixed that that SSVC
+technical impact back to partial. SSVC
+has total, partial, and none. It's a
+very simple very simplified sort of
+impact metric. Right, updates are being
+made. Updates are being made. This is
+still pretty much in the Vulnerability
+Management scope, I believe. I don't
+think we stepped outside here.
+References, CVSS, SSVC.
+Um here's a bit of a hack. Um
+and I think I actually wrote this. We
+just invented this not applicable sort
+of protocol in front of the HTTP
+protocol and use an existing tag not
+applicable to try to convey that
+if you click on those links, you're
+going nowhere. One might be an auto
+parts store. The other one is like a not
+working domain. So, you're going to
+figure that out, but here's here's the
+question, right? How in CVE or in ADP
+does one indicate something is broken or
+incorrect?
+There's not a clear obvious way, so you
+you might try a hack like this. If this
+is useful, maybe we would have a a
+change to the schema at some point. If
+it's not useful, we, you know, tried it
+once and we move on with our lives,
+right?
+Outside of Vulnerability Management's
+normal scope is to actually change the
+description, which we did in this case
+as part of a a playground experiment
+one-off. Um and this was a rewrite of
+the description. Uh and again, this is
+also because we had absolute first-hand
+knowledge and analysis of what was going
+on. We did a lot of testing with
+different Pandoc flags, and
+even more side story, the Pandoc
+documentation wasn't exactly clear, and
+we uh filed a couple issues with the
+maintainer, and they had a little
+debate, and
+I'm not sure anything changed, but at
+least it's all it's all out there in
+public, right?
+Um so, description was updated, and then
+I think the final uh sort of story story
+point in this in this in this story in
+his- historically is that the uh CNA
+container then it updated, and it
+basically merged the two
+uh the two descriptions. And honestly,
+the only thing I really personally sort
+of
+uh don't like is
+access and compromise the whole
+infrastructure is pretty pretty poorly
+defined and I just can't do that with
+this vulnerability. If I get your AWS
+tokens, I can do a lot of bad stuff, but
+that's
+like a second or third impact here. So,
+uh and then sorry sorry, the last is
+more more all of the open source
+discussion I mentioned was added into
+the CNA container.
+So, the results here are guess what?
+Over time we got more information,
+more accurate information.
+Um things were added. There was
+discussion. There was first-hand
+analysis. There was engagement with the
+developer and the maintainer. Great.
+We still have this in a problem, which
+is
+kind of an inherent
+identify the software problem. Should
+vuln enrichment add that? Should we call
+the CNA and ask them to do it? Should we
+find the maintainer and ask them to do
+it? What is the actual actual like
+system-wide answer?
+We can hack through a couple of these by
+hand, but
+three year out of however many thousand
+years not going to not going to cut it.
+So, these are unanswered but possible
+questions for what would the next scope
+of vuln enrichment maybe look like.
+Um and we Lindsay mentioned
+relationships.
+Um I glossed over it, but
+uh
+Pandoc uses some other library or other
+code to
+do certain conversions. So, if Pandoc's
+doing it internally, it does certain
+things. If you say {dash} {dash} use an
+external helper, it does that. And now
+the config and the security parameters
+are all changed because you use an
+external helper which has a very similar
+SSRF vulnerability. And the relationship
+is um
+is uh written in the last sentence here.
+Can also enable a different
+vulnerability such as
+I'm a human, I understand that. Can the
+machine understand that? Can we scale
+that? Absolutely not.
+>> Right. And then is there a way to make
+it machine usable, not just Exactly.
+>> readable,
+you.
+Thank you for attending my other talk.
+>> talk, yes. yeah, so
+I'm going to call it a win, but
+open questions, right, for vulnerability
+management. What do we do possibly in
+the future? Do you want to very briefly,
+could you go back and do you have any
+anything you might want to plug about
+the supplier ADP,
+the SADP in that's from that second
+book? Yeah, I mean, you
+we're working on this other work in in
+CV programs. So, supplier ADP um in
+theory
+Right, if if I use uh Pandoc for
+instance, right? Pandoc has let's say
+this CVE is is is valid and it's here
+and I use Pandoc in my software.
+Possibly have an online web app that
+converts documents for you randomly and
+borrow keeps a copy of your document, so
+don't do that. Um
+Right, am I vulnerable to this? I might
+be or I might not be. It absolutely
+depends on what I wrote in my web app
+and how I call Pandoc. Do I use it with
+{dash} {dash} sandbox or {dash} {dash}
+server or {dash} {dash} be safe or
+{dash} {dash} yolo?
+That all depends. So, my instance, my
+use of that vulnerability vulnerable
+software may or may not also be
+vulnerable. Supplier ADP is a way, if
+I'm also a CNA, I could add an ADP
+container to the CV record and say,
+"Hey,
+artswebsite.com not vulnerable because
+we don't call it in the unsafe manner."
+And again, it's a one-sy, two-sy,
+one-off is fine. We need to do this at
+scale system-wide for the program,
+Um I'm going to I'll I'll flip through
+them, but
+I'll pass back. I'm going to
+Uh I will light up the whole thing here.
+Sorry, pardon my fancy animation.
+So, we might do more things and I just
+want to acknowledge part of the other
+debate going on is
+interesting questions that to my last
+talk. Definitionally, right? Pandoc
+behaves this way. It's documented to
+behave this way. Is retrieving untrusted
+content from the internet a
+vulnerability?
+Is it if it's well documented? Is it if
+it's by accident? We have some
+interesting definitional questions which
+are perennial and still under under
+debate.
+Um but there's some more options for you
+know what do we do in the future?
+>> sure. So I think um this this third
+bullet if you look at it, how is
+conflicting information handled?
+Disputes? Question mark. Um tomorrow I'm
+actually on a a CVE disputes panel with
+Alec and a few CNA representatives, some
+of whom are here. But um that'll be a
+good that'll be a good conversation, but
+I think on the sort of practical and
+operational side when I'm looking at the
+CVE record itself, I do sort of wonder
+is there a way to better capture why
+something's disputed, what the dispute
+is, and maybe perhaps as a consumer of
+the CVE record, you know, running a
+vulnerability management program, maybe
+I care about what the dispute is. Maybe
+that matters to me and maybe, you know,
+two CNAs sitting in different or two
+consumers sitting in different seats
+have different perspectives on that
+dispute. Uh and so we do look at things
+like what what else should we or could
+we represent in a CVE record? Um and and
+could we try doing that through vuln
+enrichment prior to making it a sort of
+program-wide
+um uh
+philosophy or rule or schema change? Um
+Do you want to close this one out? Yeah,
+I mean
+open questions still, but we we do plan
+to experiment play around in the
+playground um further. Um we're open to
+suggestions or ideas um or agreement or
+disagreement or please don't try
+something. We'd like to hear anyone's
+anyone's thoughts on this. Please don't
+try something. No, I mean that could be
+that's fair, right? We'll we'll hear
+anyone. Um
+and again, we you know,
+this is a place to experiment. We think
+that's valuable, but
+it really matters when we decide, do you
+make a change, you know, to a policy, to
+a schema, to a directive, right? When
+does it become so useful um
+that it it warrants a system-wide
+change. And I guess SATP is a kind of
+version of that, not vuln enrichment
+specific, but
+the ability to experiment is is useful
+and we're trying to do it in a in a
+reasonable way.
+Um and uh yeah, that's we're close to
+time, but we may have some time for I
+think we have maybe 5 minutes for
+questions.
+>> if anyone's got them. Yep.
+Happy to take those.
+Mics in the middle.
+Oh, shoot. Ooh, there's a race.
+So, I'm curious when you guys have
+feedback that CPE was not
+where where folks thought it should be
+focused on.
+I'm curious on why because as a role
+manager or for me like a researcher, the
+thing that I'd want to know most is like
+What's effective?
+What vendor Yeah. I do need like what
+version. Absolutely. I don't need all
+this to CPE which is like everything
+downstream. But I do need where it is.
+So, I'm like that would be most useful
+for me. Please do that.
+Sure.
+Do you want to Sure not I can take care
+of it and I can take the other part.
+>> I can have a couple couple of thoughts.
+There's really just two I think. So, it
+One is sort of fundamental was is is CPE
+useful for that purpose? And I think it
+is to some extent. I've used it for that
+purpose. It's a lot of string matching
+and grep, but I have looked for you have
+a vendor name in there, right? Show me
+Microsoft stuff. I can probably find
+that. Microsoft colon Windows, right?
+So, maybe useful. Um I think maybe the
+hardest part though is in in all of the
+the sort of two-thirds of effort sort of
+problem
+>> aspect is what I'm looking at, right?
+And I'm say I'm thinking like, you know,
+if a consumer is looking at this and
+then having to do a significant amount
+of work on a CPE string that's maybe not
+correct according to what the CPE
+dictionary contains, right? Then and I'm
+spending this much time and resources on
+it, could I be doing a lot for the for
+the you know, greater good and for the
+public service side of it, could I be
+doing a lot more with this
+um with these time and with this time
+and these resources? A lot of that
+turned out to be um the third party
+trying to figure out which thing it was.
+So, like if if the first party who made
+the software tells us,
+good to go.
+If you're a third party investigating,
+it really gets astronomically expensive,
+so yeah.
+I still there's value there, yes.
+>> NA? You know like NA? NA?
+Hey, so just a quick question. I like
+the Vulnrichment program. Uh the
+question I get asked a lot from
+consumers and people trying to use the
+data is where does it rate in terms of
+data quality or data usefulness? So so
+you have you have the CVE program which
+is a bare record, you have the NVD, and
+you have Vulnrichment. So if I tell
+somebody to to rank those three in order
+of trustworthiness, how do we how do you
+do that and how do you expect people to
+pull the Vulnrichment data into their
+programs and and to use it as a
+corrective to the to the CVE base record
+or
+or what?
+>> Yeah, I think that's a fair question.
+The first thing I would say is part of
+our initial design with Vulnrichment was
+that it would be feeding into the AV
+ADP. So my ideal is that they're not you
+know, I would hope that people are
+gathering that data from CVE from the
+CVE record as an ADP container rather
+than going directly through
+Vulnrichment. I mean they could do
+either, right? But um gathering it all
+in one go is a little bit more efficient
+in in theory. Um I you know, to date at
+least I know you you know this Jerry,
+but I
+if the CNA did not provide X Y or Z,
+we're we're backfilling X Y and Z. So in
+a truly public public service role,
+right? There's something that's sort of
+lacking the
+vaguely normal recommended stuff,
+public service is backfilling that for
+you, right? If everyone filled these
+out, we'd have less of that type of
+Vulnrichment work to do. So part of it
+is simply it's there because someone
+else didn't who maybe should have didn't
+actually do it. And I'll say for for
+accuracy and quality,
+these things are tricky, you know, go to
+my last talk about CVSS and all those
+things, but at the very least, public
+GitHub, transparent.
+Uh I I'm not sure Ruben's here, but we
+have Yes. Um
+something's wrong, file an issue, we're
+on it. I mean, it might be a weekend,
+but we fix the stuff or at least engage
+with you and maybe argue about it and I
+lose the argument, but we still engage
+on the CVE should be this, the CVSS
+should have been that, please add a
+reference.
+We just try to add it. So, yeah. And
+some of the issues are are not and I
+don't mean issues in in GitHub, but
+generally speaking, kind of to your talk
+previously, some of these issues are not
+resolved, period, across the community
+and no amount of debate will solve them,
+but I do think that having the public
+conversation is useful because it gets,
+in theory, everyone up to the same point
+where okay, I have seen this adjudicated
+to this point and recognize that this
+might be an ecosystem-wide problem that
+requires me to have uh to devote more
+attention to it and I don't need to go
+through the first 10 steps of debate
+because we've all done that in the Vuln
+Rychment GitHub already or in the
+wherever public debate has happened. Um
+I really like that aspect of Vuln
+Rychment or any open repository that
+allows you to have public conversation
+about um a disagreement that is like
+currently unresolved in the ecosystem.
+Go ahead.
+Uh simple question, I I hope, but
+is every CVE available for Vuln Rychment
+or are they selected for
+some reason or another?
+>> It's every as of right around the start
+point, which was a couple of years ago.
+We're not working backwards
+all the way to 1999 or earlier. So,
+everything current from
+April of '24, maybe January. We work
+backwards a little bit, but we're we're
+it's current and it goes back to the
+starting point. We're not going to try
+to
+do ancient history backfill. So, if I
+published one in November, it might come
+up and then what And from today forward
+and anything that could, know, today 20
+come out, they'll all be vuln enriched.
+Is there like a list of things that get
+enriched? So, like I want to put as much
+in the CVE record as I can to make it
+accurate, protect my product, make it
+accurate.
+So, if it comes under vuln enrichment,
+is there some responsibility that I I
+can If you as a CNA or a product owner
+have already put that information into
+the original record, we don't overwrite
+the CW CWE, CVSS.
+And a couple other things. Yeah, no, I'm
+trying to figure out if we have any of
+that.
+>> KEV flag if it becomes a KEV, and we'll
+put in our SSVC scoring, which is
+something that we provide
+categorization, like the first three
+decision points for that. But if it's
+already if you've already got a CVSS
+score in it or a CWE, we're not
+correcting those. Okay. We're taking the
+original supplier CNA's entry for that.
+>> Super short story is if you do CVSS and
+CWE, we do not because you already did
+it. Yep.
+>> We're not going to reanalyze or argue
+with you. Okay.
+>> missing, we're going to add it. That's
+not the purpose of vuln enrichment
+currently. Okay, excellent. Thank you.
+Probably last question. Yeah, I think
+last question. Do we have time or I'll
+I'll make it
+>> But it's it's Maggie, so we'll we'll let
+her I'll make it really quick, I
+promise.
+>> Yeah, yeah. No, and I I I love the vuln
+enrichment program, and I think it hits
+exactly where we need to be going as an
+industry, right? That I don't think we
+can expect the US government to hold our
+hand and tell us like
+this is your priority backlog. We need
+all the information so that we can make
+those decisions ourselves, accept those
+risks internally as companies with the
+help of our legal and our enterprise
+risk teams. And I'm curious,
+and I'm sorry I didn't just ask you this
+over coffee at home, but
+I'm curious if you all have done any
+work with some of the like SAS, DAST,
+SCA vendors to do some big data analysis
+on what vulnerabilities they're
+typically re-scoring
+northbound or southbound to help better
+understand
+um if we look at like an armor code or a
+check marks or a sneak or a black duck
+and they are working with their
+customers like us, right? To
+um transform some of that data to align
+to kind of what we've said is our risk
+formula.
+I I wonder if there's some analysis that
+could be done there. Yeah. In
+partnership to see like what kinds of
+vulnerabilities are getting re-scored
+significantly across the industry and
+why.
+Yeah, I think that's an interesting
+question. Though, I will say um from
+CISA's perspective, not in any kind of
+formal way, um but what I what I would
+say is we have um our specific
+stakeholder set is federal civilian
+executive branch agencies who are
+enrolled in CDM, continuous diagnosis
+monitoring. Whatever whatever I'm going
+to cuz sometimes I get the wrong letter
+wrong. Um but we can tell through CDM
+and through speaking with those agencies
+through like our weekly stock call,
+which is kind of how we do response
+activities.
+Um we can tell where there's dissonance
+between what they're getting
+messaging-wise from their providers and
+what CISA's messaging or what they end
+up having to respond to an emergency
+directives or binding operational
+directives. Um so we do have that
+stakeholder set, which is a little bit
+of a like there's an overlapping Venn
+diagram, I'm sure. Um so we do we kind
+of get that signal and I do find that
+really useful and I think your point is
+is really good. I don't know if your
+team has done any separate No, I mean it
+sounds it's it's intellectually
+interesting. I hadn't quite even thought
+of it or how to go about it, but it's an
+interesting, you know, I I
+I'm glad you have any any signal at all
+about the case things are way off.
+If you're getting that kind of signal,
+there's probably a fundamental issue
+somewhere and but um
+I mean I I think there's still that like
+forever question of or not question, but
+um quandary of if your organization is
+using just CVSS to prioritize
+vulnerabilities, you're probably not
+getting the best signal.
+And so, CVSS is very important and
+valuable in the vector string in
+particular can give you great insight
+into,
+you know, how you should do technical
+analysis for a vulnerability to
+prioritize it, but in and of itself it
+won't give you your prioritization. And
+so, I still see a lot of that dissonance
+from the federal civilian executive
+branch agencies. And I suspect that's
+true across across the world.
+Awesome. Thank you guys so much.
+>> Thank you everyone. It's time. Thank
+you, Lindsay. Thanks.
+>> [applause]

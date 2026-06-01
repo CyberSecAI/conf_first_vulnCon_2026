@@ -1,0 +1,825 @@
+Hey everyone.
+Um thank you for being here.
+Uh it's a real pleasure. Let me start
+off with something recognizable. CVSS
+feels like subjective to many of you,
+right?
+And subjectiveness does not work with
+automation. I think most of us realize,
+Uh this talk will go into why CVSS feels
+subjective, why that if you give a um
+vulnerability to two different analysts,
+that often you really receive two
+different factors,
+and then we will introduce a approach
+that allows for a reproducible and
+auditable scoring method
+that uh supports automation at scale.
+Cool.
+But first, let me introduce you who we
+are. Uh I'm Ruben, Ruben Boss. I'm here
+with my uh colleague Carlo Kneebone.
+Um we're coming from the red teaming
+side. So, we haven't been in the
+defensive side for
+uh as long as we live, obviously, but we
+have been doing bug bounty and testing
+pen testing for uh most of our career.
+And at some point, we started in 2019,
+we started automating bug bounty hunting
+at scale. Um
+in 2022, we decided it was time to
+automate CVE scanning.
+You might guess where this is going. Um
+we were ingesting the public data.
+Our scanner wasn't really fast nor good.
+Ha.
+The data came delayed, if it came after
+all. And if the data was there, it was
+often inaccurate or inconsistent. Um so,
+in 2022, we decided,
+"You know, we're going to tackle this
+problem." And we went full-time and
+started Fluirion to just do one thing,
+CVE enrichment at scale to solve this
+problem once and for all.
+But why do we even need automation? I
+think that's pretty clear, uh especially
+since Harold from NIST had a talk
+earlier today where they explained that
+manual analysis is not really going to
+hold up anymore. They need to prioritize
+where their efforts are going.
+So, with the ever-growing amount of
+vulnerabilities being published, I think
+First Forecast even said 100,000 is what
+we might hit this year.
+We need automation to give the defenders
+at least
+the information and the speed so they
+can respond to
+the threats that, of course, are going
+to be exploited faster than ever.
+Let me show you what we started with a
+couple of years ago in terms of trying
+to determine CVSS for a CVE.
+Um
+Is this readable for you guys?
+A bit, right? Okay, I'll explain what it
+says.
+Um it's just a screenshot of a part of
+our earliest prompt where we ask one
+model
+um to give us, please, the CVSS factor
+for a given vulnerability. Uh CVSS 3.1.
+We also tried it with 4.0. It's just the
+same principle.
+It's not the same specification, but I
+mean same principle in terms of use the
+AI for one shot.
+basically, it didn't really perform
+well. We gave we received factors. They
+looked good. The factors were, you know,
+possible.
+But, once we ran the same query again,
+the factor was different and we had no
+insight into why it was different. Um
+nor did we know if it was even correct.
+So, it looked good. It was an
+well, an easy effort,
+but it did not hold up. At least, we're
+not standing behind
+giving customers different factors once
+a CVE record is updated and when we we
+recalculate calculate it
+um and it just completely changes its
+mind.
+So, uh in order to promote insights into
+what the AI was doing and why it was
+different, we came up with a new
+approach, which is a walk-through.
+Basically, we tried to steer the AI into
+certain thinking processes. This was
+before the reasoning models became
+affordable, by the way.
+Um and what we did for each metric, we
+had a set of questions and answers. This
+is just a simple um one.
+And we asked them basically what
+privileges does the attacker require for
+a successful attack? And then it answers
+in any type form, it requires a low
+WordPress
+level account or something. And then at
+the end, it needed to use those answers
+to come up with the metric values. So,
+we had insights, we had a bit more
+consistency.
+And we even were able to steer away from
+misinterpretations that the AI used to
+make when there was no audibility. Uh
+so, consistency and insights really got
+boosted here, but
+it didn't give us the satisfaction that
+we needed. The AI still answered a bit
+weird here and there, and the factor
+ended up
+not how we wanted it, but it also
+introduced something
+really funny that we didn't expect uh
+before we started this. It answered one
+question based on a completely different
+attack scenario than it answered the
+other question. Um so, what we're asking
+here and what is highlighted is
+give me the information about privileges
+for a successful attack.
+As the previous talk already explained,
+you need to score on a scenario. And one
+vulnerability can have multiple
+scenarios. So, what the AI was doing, it
+answered based on
+what it felt like. Uh so, sometimes it
+said the attacker is going to be remote,
+but it then also scored on
+requiring no privileges,
+uh while with a remote attack you do
+need privileges and there being a
+scenario where you don't need privileges
+if you use user interaction, for
+example. It just mixed multiple
+scenarios into one list
+uh, of answers, which, what we like to
+call it, produced Frankenstein factors,
+right? It just mix and it
+at the end it represents nothing. It's
+just cherry-picked favorable metrics.
+Um,
+so we did a step back. Why do CVSS
+factors differ, right? We know there's
+now a mixing problem,
+but apart from that, what what is the
+cause for factors to differ? If we
+figure this out, then we hopefully can
+create an
+approach where we can eliminate
+uh, those
+uh, errors.
+The first one being,
+this is quite a, um, obvious one. People
+have different opinions, right? The
+specification says, "Score on the
+reasonable worst-case scenario."
+Reasonable sounds a bit subjective.
+Someone might think that a,
+um, memory bug allows for
+a denial of service and someone else
+might think it's, uh, totally okay that
+it achieves code execution. So, they
+score differently.
+Second one being, they have different
+knowledge at their disposal or they just
+have different information, um, or
+different
+uh, level of knowledge.
+So, the same vulnerability, they score
+the same scenario, but one of the
+analysts know that something needs to be
+bypassed just doesn't know and it wasn't
+being said anywhere. So, they try to
+truthfully score it,
+um, but they end up with different
+factors.
+Third one being, they're misinterpreting
+the specification.
+they're still trying in good faith, but
+they just read the specification wrong
+and that's okay because the
+specification is pretty difficult,
+So, it's, I mean, I wouldn't say it's
+okay, but it's it's logical. Um
+one might say that there's a subsequent
+impact. The other one might say, "No,
+it's still the vulnerable system in this
+case."
+Then there's the complete opposite. Some
+people do not the specification. They
+just decide, I want the bigger bounty,
+or you know, the other way around. They
+intentionally try to play with the
+factor in the hope that no one catches
+it.
+Um I did not introduce you the example
+vulnerability, by the way. I hope you
+already did. It's about a blue Bluetooth
+Wireshark vulnerability, and then the
+examples are giving different views on
+that.
+Um the fifth one is that people just
+forget uh what is required in an attack.
+If you score a mental model of a
+vulnerability, and you're not scoring an
+explicit attack scenario, then sometimes
+it's easy to forget that a user might be
+involved within an scenario.
+so one person might do a checklist
+approach uh with CVSS,
+and they say, "I don't see any mention
+of user interaction here." While the
+other person might say, "Logically, in
+order to trigger this, a user needs to
+import the capture file." And this is
+the scenario of
+uh attack vector local. So, it's the the
+user interaction one.
+And then the sixth one, that's the fun
+one.
+You do know the scenarios, but you just
+mix them um into one factor that
+represents neither of those scenarios.
+Yeah, in this case, the vulnerability
+allows two scenarios. So, there's the
+scenario of uh local user, the victim,
+importing the capture file, or there's
+the scenario of the attacker
+uh injecting the package through the
+network, an adjacent attacker, uh
+without user interaction. But you can
+squeeze those together into one factor,
+and then you think you represent the
+vulnerability, but in reality, you're
+not truthfully scoring, because it
+doesn't represent any of the scenarios.
+So,
+score the scenario. Do not score the
+vulnerability, right? You have a
+vulnerability that allows certain
+scenarios.
+If you make the scenario explicit, then
+we can probably eliminate quite some
+things off the list. At least if it's
+explicit,
+uh we can introduce audibility and we
+can agree on a scenario before we start
+to think about CVSS labels. If we go to
+CVSS right away,
+then it introduces the option for
+misinterpretation. As
+Harold uh earlier said today, we need to
+have people score the vulnerability
+using the same standards, right? The
+same interpretation of the standard. Um
+how do we promote an approach where
+people are scoring a vulnerability
+using the same specification without
+having to deeply be invested in the
+specification and all understanding it
+in the same way?
+We introduce to you a graph-based
+approach.
+We start with step one. It's going to
+build the graph uh through the slides
+here, but we start with every atomic
+action within an attack scenario
+uh through the delivery and the
+exploitation phase. So, there's no
+persistence, there's no
+preparation. It's just those two phases
+because that's what matters to uh CVSS.
+And we start
+uh from a top-to-bottom graph
+with in this case uh it's the Wireshark
+example from the previous slide with two
+different delivery
+um paths. You have the path of injecting
+the uh packet yourself as an attacker or
+you utilize the uh victim to import a
+capture file with the packet. And then
+they um
+merge back together
+into the same exploitation steps.
+At this point,
+we know the frame of the graph. We know
+what is happening, who is doing what in
+terms of
+uh
+attackers,
+users, so the victims, but not always a
+victim, so we call it user, and uh the
+system. Those three types are the only
+ones.
+>> [snorts]
+>> At this point, we can derive user
+interaction because we know a user is
+going to be present in attack or they're
+not. But, apart from user interaction,
+we don't know any much more than that.
+So, we start attacking characteristics
+of each action. Uh we attach these to
+the nodes. We represent this in JSON, by
+the way, just for your mental model of
+how this can be represented. Um it's
+just an array in
+um
+in order of uh nodes, and then each node
+can have uh
+edges towards other nodes, right?
+So, we attach the characteristics in
+terms of properties.
+Each action needs to have a proximity.
+not the system action, uh obviously, but
+if it's an attacker or user, we need to
+know are they remote? Are they local?
+Are they adjacent? Maybe some physical.
+Uh so, the proximity is relative to the
+vulnerable system.
+We also need the phase, the kill chain
+phase. Is it a delivery phase, or is it
+exploitation phase? Because if we
+combine that later with
+other things we know about the graph,
+then we can derive the attack factor.
+That's a fun fact I will save for the
+end of the uh slide.
+Yeah, there are types of properties that
+are precisely curated to
+create every possibility of the
+specification uh the no every
+possibility of each metric value in
+combination with um
+the other metrics.
+After we have attached this, we can
+derive the attack factor, and we can
+derive the privileges. Because if either
+of these require privileges, then it's
+the privileges property that we attach
+to where it's actually needed.
+Instead of being a global thing, right?
+After that,
+how do we derive attack complexity?
+Well, it's simple.
+We Well, it's not simple. Looks simple.
+>> [laughter]
+>> Right? We figured it out. Now it's
+simple.
+You add conditions. And this can be on
+path. They don't need to be global for a
+vulnerability. They can apply to paths
+specific where they are needed.
+Uh some graphs might have impact here
+already. And in order to reach that
+impact, you don't have to pass the
+condition. In this case, the impact is
+going to happen here. So, after we start
+walking the tree in a later step,
+um we notice that this attack complexity
+needs to be overcome.
+So, we attach the conditions, right? And
+then we have attack complexity or attack
+um requirements in CVSS 4 for the people
+that
+like that.
+Then, it's time for impact. Which uh
+action yields impact? We call it effect,
+but in in essence in in the
+specification, it's just impact.
+Every action within a graph can yield
+impact.
+it's important that we attach it per
+action. So, when we traverse the tree,
+we can know what exploitation parts um
+are needed to be followed to
+reach certain impacts. It's not a global
+thing for a vulnerability. It's a
+certain action that yields a certain
+impact, and those are
+interconnected through the graph.
+And then we can obviously derive the
+CIA.
+But how do we
+do the scope, right?
+Um well, impact occurs on a system.
+And a system is what determines the
+scope. So, um
+the impact needs to
+impact a system. And that's basically
+defined within the same JSON. We just
+show it as like a different node here,
+but essentially it's still in this node.
+This node This node yields an effect,
+and the effect has just a system
+property.
+And systems can have a state. Either the
+system is the vulnerable system that
+introduced it, or they are just
+affected, so it's a subsequent system.
+Once we know that, we can derive a
+programmatically
+what impact applies to what systems, and
+is there a scope change that has
+happened here.
+Yeah, so then we derive scope.
+Uh at this point, we constructed the
+whole graph, but there's one more thing
+I should say.
+Conditions aren't really as simple as I
+made them look like. Attack complexity
+is probably one of the most subjective
+things, right? What is attack
+complexity? It's not the complexity in
+terms of how much time it takes for an
+attack, or how complex it feels. It is
+actually something that should be
+captured in types.
+Um so, we figured it out
+during like a year of brainstorming,
+being within the specification for at
+least 1,000 hours,
+trying to objectively argue with each
+other what we think uh it should
+capture. Luckily, CVSS 4.0 introduced a
+new
+attack requirement property or metric,
+uh which gave us some more insight in
+what attack complexity in 3.1 was meant
+to capture. So,
+after a lot of back and forth, we have
+this set of fixed uh condition types,
+and together they make up either attack
+requirements in CVSS 4.0 or attack
+complexity in 3.1, or squish them
+together and you have attack complexity
+in uh 3.1 like it it didn't exist yet,
+this one in 3.1.
+And there's configuration, of course,
+which doesn't contribute to any of them,
+but we like explicitly, so if there's a
+condition, we rather label it as uh
+configuration instead of leaving it out
+because then someone might mislabel it
+later on.
+So, yeah, we give the condition a type.
+At that point, we know in 4.0 what
+the downgrade is going to be, AC or AT.
+I told you earlier that we stored in
+JSON. This is how it sort of looks like.
+This is an one note and the notes just
+sit in an array.
+Um this one yields effects. The effects
+apply to systems. The systems are
+defined globally outside of the flow of
+nodes. And the system just has the name
+and the type being subsequent or
+vulnerable.
+Uh yeah, they have edges. You see the
+properties that we discussed.
+Now, let's dive into the fun things,
+right? How do we practically use this to
+see if it even works?
+Um there's this vulnerability in a
+desktop app that upon installation
+something weird is happening and then
+you can submit a crash report and the
+crash report accidentally includes the
+Wi-Fi password. That's the
+vulnerability.
+The public record says there's no
+complexity at all. There's no user
+interaction and it affects
+the vulnerable and the subsequent system
+in terms of confidentiality.
+Could be right, could be wrong. Let's
+see.
+If we construct the graph for this step
+by step, we start with a condition being
+required, which is
+what we saw earlier.
+Let me see where it is. I don't see it.
+Okay.
+Oh, yeah, the failure needs to occur,
+right? Yeah, during installation the
+failure needs to occur. That's a
+specific execution condition and we need
+to model it in order to objectively
+determine if attack complexity is there
+or not.
+Uh not based on feelings.
+Then the system um
+offers to the user if they want to do
+the crash reporting, the user actually
+needs to submit it. So, this part we
+know there's user interaction, right?
+It's not just a mental concept of the
+vulnerability anymore. We concretely put
+it in terms of attack scenarios. System
+attaches the credentials with it which
+it shouldn't have done.
+And then at some point the attacker can
+read the log and obtain
+the credentials. Then we have the whole
+chain of how this can be misused in
+terms of a
+um attack.
+So, we know
+that this factor wasn't really true
+after all.
+Then we go to the second one, which is a
+bit more difficult. There's a PDF
+reader.
+And
+the PDF reader allows code execution
+through malicious PDFs uh either by
+importing them as a victim or if you can
+trick the victim into a malicious
+website and they have the
+plug-in enabled, then it's also
+importing.
+So, that's two scenarios, right? How do
+we objectively score two scenarios here?
+The public factor is saying it's through
+the network and there's no complexity
+here.
+But, if we model it,
+there's more here, by the way, but I cut
+it out because it wouldn't be able to it
+wouldn't be readable anymore. Basically,
+we have two different delivery methods.
+One requires that the uh plug-in is
+enabled and installed, and the other one
+doesn't.
+The other one says you need a victim to
+open the PDF locally,
+while the one with the PDF um
+the browser plug-in says you just need
+to get them to a web page. So, there
+might be different characteristics here.
+Some might say it's a passive user
+interaction, the other one might be
+uh active user interaction.
+It's different exploitation on the
+delivery uh phase.
+They come back together again for the
+system doing the processing and allowing
+the code execution.
+So, here I showed the two scenarios.
+They're very similar in score, but
+they're completely different. One says
+local attack vector, the other one says
+network.
+and we should know which one is going to
+be the highest scoring one, but you
+can't know before you both evaluate
+them, right? That's also one of the
+problems that scores diverge. Um people
+are making a guess on what scenario is
+going to be the highest severity one.
+Uh because that's what the CVE record is
+going to contain.
+In this case, we modeled them both. We
+derived them through the graph, and we
+see that the high scoring one is the one
+with the uh plugin. We could have
+guessed it, but now we know for sure. We
+model that uh attack requirement is
+present for the plugin, and we say it is
+attack vector network instead of uh the
+other one being local.
+Now, let's go to fun example, right?
+This was just
+easy stuff.
+Um there's a vulnerability in Grafana
+and open redirect that allows attackers
+to achieve code execution, but only if
+the CSP is disabled. Um or it allows for
+same-site request forgery if the Grafana
+image renderer plugin is installed. The
+CVE ID is on top if people want to know
+about the details, but this is basically
+a too long, didn't read.
+Public CVE uh CVE says factor says user
+interaction required, no privileges. So,
+we know the analyst that attached this
+factor scored on the cross-site
+scripting um scenario because they say
+user interaction is required.
+But is the cross-site scripting scenario
+the most severe one because there's also
+the option to score on the same-site
+request forgery vulnerability?
+So, if you model it, it's a bit small,
+but I will tell you what it says. There
+are two completely distinct paths here
+that do not merge back together because
+they're really different.
+The right one is the SSRF one, and the
+left one is the cross-site scripting
+They both have conditions. Cross-site
+scripting says at this point you need
+either to bypass the CSP or you will
+never reach the browser executing the
+JavaScript. And the right one says if
+you even want to start this path at all,
+the plugin needs to be installed.
+Otherwise,
+you will never reach uh access to the
+internal network system, which is the
+impacted system.
+If we derive So,
+um I set the right characteristics for
+each node.
+And then I derived the vector
+programmatically. Um
+and it shows up here. The SSRF one says
+it's medium and the cross-site scripting
+one says it's a low. At this point, we
+know that the previous slide
+is incorrect, but it's also a different
+version. It's 3.1 and this is 4.0. So,
+there might be a bit of wiggle room, but
+they should have scored the SSRF instead
+of the cross-site scripting one. But
+yeah, that's so difficult to know
+if you're not modeling them both.
+Um or be explicit about what you're
+modeling.
+I think we're almost at the end already.
+Yep.
+So, let's go into take some takeaways.
+Uh score the scenario,
+not the vulnerability. That is a
+takeaway that I've seen in multiple
+presentations already.
+Um might sound easy, but most people
+treat CVSS as a checklist instead of uh
+building a scenario with the right
+characteristics. They put CVSS first
+instead of the model.
+Second one is model all scenarios so you
+don't have to guess which one is the
+most severe. As we saw, people do
+guesses and it
+leads to
+different CVSS factors being published
+by different people.
+Third one is just derive them instead of
+checklist them. It sounds really easy.
+An AI can do this way faster than we
+could, but it allows for um
+a higher accuracy if you derive them. If
+you put the characteristics first
+instead of the labels.
+The third one is that auditability is at
+the center of reproducible results.
+Um if you remember the first very first
+slide of our automation attempt, we
+asked for a factor and there was no
+insights at all.
+We end up with a graph uh for the right
+approach that shows us exactly why each
+metric fact each metric value
+was chosen because we have the right
+properties.
+And then some fun facts.
+So yeah, we do have an attack graph and
+it's very useful for CVSS, but it's use
+useful for much more.
+For example, the automatebility as a
+CVSS metric, we can derive it because we
+know every step, every complexity, every
+proximity of the user, the attacker.
+CAPEC can be attached.
+We can make chains if we know the
+starting and the ending point of an
+attacker and we know
+um the privileges they require and they
+gain, then we can start chaining things,
+right? So the graph is just a single
+source of truth for so many conclusions.
+And that's it. I would like to thank
+everybody for listening. Um
+I think there's probably quite some
+questions. Just
+fire away.
+>> [applause]
+>> Yeah, we have time for a couple of
+questions.
+Thanks guys. Very very interesting
+approach to the CVSS experience. Um
+I
+your the the the last example that you
+showed where everything really diverged
+massively. The the the Yes, this was
+fantastic. So like at
+when I look at this, I'm seeing what
+looks like two separate vulnerabilities
+almost this one. Or they you know, this
+could these could get two CVEs even
+maybe. So
+is there a point um where you guys are
+are in this process and you would start
+to think maybe this should be a a
+separate thing entirely. The scenario is
+different enough or like
+maybe the issue is really in the the
+image render or plug-in, you know, uh
+for for the second scenario in this case
+or something like that. Um I don't know.
+You have any insights on that?
+Are you asking us if we would like to
+see two different CVs for Yeah. Yeah, I
+mean
+>> basically or at which point you would
+you would decide it's a separate I mean
+technically yes, but you know, we don't
+have control over that. So, we just
+model the vulnerabilities or like the
+the attack paths and then try to do the
+best we can. So, that that's why this is
+also really helpful, I think. Yeah.
+We don't judge that. We do see indeed
+one CV that should have been multiple. I
+think in this case it's just one
+weakness allowing multiple
+exploitations, but we have seen what you
+describe. At that point it's even more
+difficult for a manual analyst to score
+it because which of the scenarios are
+you going to score, right?
+But yeah, we we're not in a position
+where we can
+uh pull it apart.
+And I think what's also interesting is
+that um since you have two vectors, you
+can actually score the one that's most
+severe to your environment.
+Is everything so clear that no one has
+questions? Um It's so auditable.
+I got a question for myself. What about
+There's there's
+The graph is version agnostic because we
+don't we model the characteristics.
+So, you said that moving to four gave
+you some more freedom and like ability
+to model these better.
+Um is there anything in CVSS currently
+that you would hope in version five or
+six or 12 or whatever that would enable
+this more? Like what metrics are missing
+or what granularity of values are you
+missing or what could make this easier
+to construct if you had more in CVSS?
+Um that's a good question. I'm not
+really sure how to um
+answer it.
+>> if you want. Yeah, that's a really good
+question. We both have opinions, of
+course. We discussed this a lot of
+times. Um
+So, what we did for the complexities is
+something that we did for ourselves to
+make it objective, but also make it
+fair. What CVSS right now doing is
+compressing all the conditions into one
+downgrade for the score. That's true.
+One vulnerability might have one
+condition and it's being downgraded the
+same as one attack scenario having five.
+And the different types also have
+different levels of effort in order to
+overcome them.
+So, we would like to see the
+specification making a bit more of
+um differences between them. Okay.
+>> Yeah. Can Can I build on that?
+Um you know, for example, a mitigation
+condition is actually quite
+controversial because it's often seen as
+a thing that can be bypassed. And a
+vector or like a secret condition where
+you need to actually perform a second
+attack is much more complex. So, I mean,
+to to like bundle them together is kind
+of strange, I guess.
+Yeah. Yeah, some like a position
+condition of being, for example,
+Right.
+>> could be way more difficult uh in
+exploitation than someone
+needing a plugin in their environment or
+uh you need a secret or something.
+Completely different levels of
+the effort that you need to take to
+overcome them. Some are not even bound
+to effort. They just They need to have
+that as a prerequisite or they don't.
+That's not up to the attacker. So, we
+would like to see some differences.
+>> So, you're going to come to the CVSS SIG
+from now on and tell us all about this.
+We We would like to, yeah.
+>> Yeah, that's Sign up. The meetings you
+can come.
+Appreciate that. Thank you.
+Thank you.
+So, we are going to a break now. We'll
+be coming back in 30 minutes. Thanks.

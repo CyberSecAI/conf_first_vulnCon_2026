@@ -1,0 +1,1407 @@
+Good afternoon.
+So, as Dave was saying, I really want to
+dig into vulnerabilities without CVS and
+kind of what does that mean? You know,
+it's a common story in a lot of pentests
+or red teams. You see a system has no
+vulnerabilities according to pretty much
+every scanner that's out there. There's
+no CVE, there's no findings. That
+doesn't necessarily mean there's nothing
+wrong with it. It just means that
+there's nothing tracked in the
+dashboard. In this case, the system also
+gave me domain admin in about, you know,
+14 or so seconds. Sadly, uh it's kind of
+a common occurrence. So, I'm going to
+spend the next, I don't know, 40 or so
+minutes trying to convince you, or maybe
+at least just attempting to uh that the
+way most vulnerability management
+programs are structurally incapable of
+seeing the things that actually get you
+compromised. Uh and then I'm going to
+show you what to do about it. So just
+quick context on me. I spent about a
+decade doing offensive work. Uh that's
+red team work, adversary simulation, uh
+the whole thing. I was breaking into
+environments. I was trying to get to
+impact. And sadly, I was often writing
+reports that nobody was reading. Uh the
+the woes of being a red teamer in a you
+know in a blue team centric environment.
+But along the way, I noticed something.
+uh the path that I took to compromise
+almost never went through what the
+customer's vulnerability management
+program was really uh tracking. So I'd
+sit in the readout, you know, and I'd
+hear people from the the blue team, from
+the the security team that were talking
+about their dashboards. You know,
+they've got all these these highs, these
+criticals that they're tracking.
+Everything is looking green. You know,
+the program is trending positively over
+the past couple years. They've made a
+lot of strides. Uh, but really what I
+was thinking is none of what I just did
+was really uh shown in the work that
+they're talking about. And that's
+typically because I went through all the
+weird stuff. Um, you're talking
+abandoned services that nobody really
+owned, internal tools, you know, that
+are written by say an intern in 2017,
+temporary things that became permanent.
+Nowadays, you're talking a lot of AI,
+you know, created code as opposed to
+creating, say, an Excel macro for
+whatever accounting project you're
+working on. It's a lot easier just to
+ask chat GPT, hey, you know, build me a
+solution to this problem and it'll
+happily spin up some Python for you that
+you're not testing, you're not vetting.
+And really, that's not something that's
+going to wind up in your system. But
+like I was saying, on paper, we're doing
+great. There's tens of thousands of CVES
+that are tracked every year. The
+dashboards look good. SLAs's look good.
+remediation rates are looking good and
+yet the systems that often get us
+compromised uh rarely have anything in
+the pipeline at all. So either attackers
+are getting extraordinarily lucky or
+we're potentially measuring the wrong
+things. I'm going to argue that it's
+probably the second one.
+So let's talk about how big the blind
+spot really is. The CVE ecosystem
+is massive. Um, it's I mean, frankly,
+arguably the most successful
+coordination effort that our industry's
+ever had. And I'm not here to tear it
+down. I want to be very careful. Uh, but
+it has a structural limit. Uh,
+I'm not saying the CV programs are bad.
+I'm not even saying the patch management
+is a waste of your time. Obviously,
+those are very important work that we
+all have to do. But what I am saying is
+again, there's a blind spot. It's a
+structural one. And the blind spot is
+where a lot of those actual incidents
+live.
+I was listening to Art and Jay talk
+yesterday. There's 50,000 CVES that are
+discovered. You know, that was last
+year's statistic. We're expecting even
+more this year. They're saying, you
+know, roughly a hundred a day. I think
+Art even said over the first three
+quarters, uh, sorry, Jay said, um, there
+was a new CVE published every 10 minutes
+in those first three quarters.
+Scanners are fast. They're frankly as
+fast as they've ever been. Patch
+automation is even better. Most mature
+programs have real SLAs's. They have
+real metrics. And yet a huge percentage
+of what's running in your environment
+has zero coverage in that ecosystem. Not
+low coverage, not delayed coverage,
+zero.
+I want you to take a moment and feel how
+strange that is. If I told you 20% of
+your servers had no antivirus or EDR,
+you probably spin up some sort of an
+emergency. If I told you that 20% of
+your software or your systems weren't
+going into a SIM, at a minimum, you're
+going to have some sort of tiger team or
+you're going to spin up, you know, a
+process to track it. But right now,
+there's at least 20% of your software in
+most cases in most enterprises
+that is completely outside of your
+entire vulnerability management system.
+It has no vulnerability assessment at
+all. And because of that, nothing
+happens. It doesn't show up as a gap in
+the dashboard. just shows up as nothing.
+It's absent from your entire system.
+Like I was saying, that's a blind spot.
+And it's not the dashboard is
+necessarily wrong. It's that the
+dashboard can't see what isn't named.
+So, it lives in the blind spot. Frankly,
+it's not exotic. It's everywhere.
+There's vend uh sorry, there's legacy
+vendor applications or appliances. These
+are typically things that were, you
+know, an acquired company, an abandoned
+product. it's still listening uh you on
+a port in production because nobody
+wants to be the one that turns it off.
+You've got your your base image junk
+drawers as we like to call them. These
+are just the utilities that get baked
+into a gold image five years ago.
+They're inherited everywhere. It's
+running as a root. Nobody can tell you
+why they're there.
+You got temporary migration services,
+you know, built for a project in 2019.
+Project ended, the service didn't.
+uh regional or or niche software. We're
+talking real software with real
+privileges, but no advisory ecosystem
+because the vendor is so small or the
+user base is small. There's really no
+one to coordinate disclosure with.
+I would also say internal tools, you
+know, oftentimes it's written by
+somebody who left two years ago. It's
+used by exactly one team. It has
+database credentials baked in.
+The thing all these things have in
+common is that they're real production
+software with real privileges and real
+network reach. and zero of them produce
+a finding when your scanner runs.
+So the problems in prioritization, it's
+not severity scoring. It's not SLA
+tuning. It's not a CVSS argument.
+Really, it's identity. And I know that I
+heard Art and Jay again talk about this
+one yesterday. You know, um they're
+really talking about identity in the the
+realm of software that is coming from
+established publishers. I'm talking
+identity in the sense of things that
+can't be even named.
+If you walk through how vulnerability
+finding gets created, a scanner creates
+a scanner sorry discovers an asset. It
+tries to fingerprint the software.
+Uh it produces a product name and a
+version. It looks up that product and
+version against a CVE or vulnerability
+database. If there's a match, you get a
+finding. But notice how every step after
+fingerprinting depends on the
+fingerprinting working.
+If you can't identify the software, you
+can't match it. And if you can't match
+it, no CVE applies. If no CVE applies,
+obviously no finding. If no finding,
+nothing in the dashboard. If nothing in
+the dashboard, the finding doesn't
+exist. The risk doesn't disappear. The
+ticket disappears. The vulnerability is
+still there. It's still exploitable.
+It's still reachable. It just never
+enters the system that's supposed to
+handle it.
+So there's a model that I find useful
+when I'm thinking about these uh these
+types of of software, right? There's
+let's call it three different worlds of
+software. The first one is known
+universe. This is named product
+recognized versions.
+There's a scanner fingerprint, a CVE
+coverage exists. The patches are
+published. Really, this is where your VM
+program already works. And honestly,
+it's pretty good there. Um it's not
+perfect, but it's good.
+World two is known but uncovered
+software. You can name it, you know it's
+there, but there's no real advisory
+ecosystem around it. This is typically
+like your regional vendors, maybe forks
+that diverged years ago, abandoned
+products whose vendor was acquired and
+then shut down. You might know what it
+is, you just don't get told when there's
+a problem because there's no one to
+coordinate it. And then there's world
+three. That's the dark matter. It runs.
+It has privileges. It affects
+production. Nobody really knows what it
+is. Maybe it's mystery binaries,
+temporary services, old container
+images, processes with no owners.
+The reality is most vulnerability
+programs measure world one. Most
+attackers are perfectly happy living in
+worlds two and three. And honestly, when
+I was on the other side, when I was
+doing red team work, that's where I
+spent most of my time because that's
+when the engage the engagements got
+really interesting. Uh mostly because
+that's where nobody was watching, you
+know. So it's in a lot of offensive
+work, you know, you start with a pen
+test and that's identifying the impact,
+you know, or just trying to say whether
+or not the known problems are actually
+exploitable. Oftentimes then red teaming
+is going to go and it's going to try to
+find maybe the threshold of detection or
+it's really going to try to illustrate
+the impact of these findings in your
+environment. You know, chain these
+things together to truly find what's
+wrong.
+If you're really sophisticated or if you
+get into an environment where they're
+asking you to really kind of, you know,
+test them beyond what they know, this is
+where you start spending a lot of your
+time. So oftentimes we would run into
+security, what they call security stack
+analysis. You know, they're they're
+saying or software stack analysis. Tell
+me, you know, look at this product for
+unknown problems that exist. We we trust
+that it's already covered by CVEEs, but
+how do we actually address any of the
+unknown findings? And we'd use that a
+lot of times uh when we were actually
+trying to determine who we were going to
+purchase from because we couldn't trust
+say like TPRM because that was mostly
+just transitive trust through some sort
+of add astation you know and I'm not
+going to necessarily bash on those
+things but asking a vendor to maybe uh
+tell on on themselves and all the
+problems and and where they chose not to
+actually implement security fixes but
+accept risk is kind of asking you know
+for a problem.
+So really what do you do? A lot of
+pentesting is guessing from the outside.
+But I hate to say it, but that's truly
+what it is. You know, it's looking for
+all the tools in your toolbox, comparing
+it and trying to say, are these things
+actually exploitable?
+The real answer is you stop looking from
+the outside and instead you start
+looking at the host itself. You know, at
+this conference, it's mostly, you know,
+defenders. It's mostly people that are
+looking at the vulnerability systems. We
+don't have to exist within that blackbox
+world. We need to exist looking at the
+systems based on the telemetry that we
+can gather. So that's really the whole
+pivot. Scanners infer from the outside.
+They look at banners. They look at open
+ports and registry keys. They look at
+file hashes. And they make a lot of
+guesses.
+The host observes everything from the
+inside. It knows exactly what ran. It
+knows who spawned it, what privileges it
+held and what touched.
+And really that difference is is the key
+technique.
+So what does ask the host ask the host
+actually mean? Well, it means telemetry,
+real telemetry.
+um from the inside, from the operating
+system, not from a network scan or from
+an agent that's scraping registry keys.
+The host sees exactly what happened.
+So when we're looking at this really
+like four categories of things that
+you're going to be able to see process
+execution what ran where did it live aka
+what you know path did it have who
+spawned it and critically with what
+arguments the privilege context its user
+ID what are their capabilities is it a
+service account and also you know what
+is its reachable blast radius
+you can look at network behavior so
+we're talking about listeners any open
+sockets that it's creating inbound
+connections egress address directional
+connectivity and you're going to have
+the process ID attached with all of
+those things. And I would also say file
+and disk activity. So what does it read?
+Was it write? Are there temp files? Is
+it accessing any type of configs? Is it
+perhaps reading any type of environment
+variables? And also does it make any
+type of changes to executables?
+You know, a quick caveat,
+host telemetry does not prove app layer
+semantics by itself.
+you know that boundary it really
+matters. The point isn't magic. I'm not
+trying to argue that it is. The point is
+defensible vulnerability evidence.
+So here's what it actually looks like.
+Here's one single process execution
+event captured by the host and it can be
+enough to tell you the whole story. An
+unknown binary, let's call it PDF
+converter. It's a web-f facing parent uh
+of Goonicorn. Gunicorn. I don't even
+know how to say I call it Goonicorn,
+a shell invocation that used some sort
+of interpolated input, right? It took
+input from the actual web host and then
+it ran it into a shell command. It's
+running as a service account. It's
+listening to the world on port 8080 and
+it makes an immediate egress to an
+external IP.
+Yeah, you obviously have secondary
+things like the image age. In this case,
+it was about 2,000 days old. That's
+probably going to, you know, scare you
+on first glance.
+And the key here was there was no CPE
+match because why would there be? It was
+an internally developed tool. There's
+really no vendor or product to tie it
+to. So how do you actually associate it
+with anything? So the scanner returned
+nothing.
+There's no single line on this slide
+that proves everything. Just want to
+call that out. But when you pull it all
+together, they provide enough to create
+a high confidence vulnerability finding
+in software with zero CVE coverage.
+That's really the threshold that I care
+about.
+I also want to say that the difference
+is not the cis call but it's actually
+the lineage. So in this case if you look
+at the lefth hand side here
+it's just systemd it's just a shell
+invocation that's you know spawned from
+unicorn. It's in response to web request
+and it was followed by outbound egress.
+That's command injection. It's in a
+reachable process. If you look at the
+right hand side same thing same shell
+invocation but it was spawned from cron.
+You know it's running a backup script.
+It calls tar and then it copies it to
+S3. It's a scheduled cron job. It's
+exactly what it's supposed to do. It's
+identical SIS call, but it's a
+completely different story. The host
+telemetry gives you that parent lineage
+for free if you're capturing it. And
+that's where most people are falling
+short.
+So, we're going to dig into all of that.
+Um, you know, buckle up because we we've
+got a lot of really like deep
+nitty-gritty details here. But before I
+kind of get into that, I just want to
+talk real quick. You don't need to start
+with a hundred patterns. You can start
+with three. You can start with one. It's
+whatever you want. A handful that I
+would recommend, right? Pattern one,
+webto shell, anything that's a web
+parented process that spawns a shell or
+interpreter from interpolation, trusted
+argument patterns. Realistically, you're
+looking for command injection in its
+purest form. It's typically CWE78.
+Pattern two, unauthenticated software
+that's touching a data store. This kind
+of stands out on its own. Um I'm I'm
+sure you guys can kind of follow where
+I'm going with that one. And then one
+that a lot of people aren't thinking
+about, but it's it's worth exploring is
+if there's any type of egress with like
+say metadata. So if you have a process
+that's actually reaching out to the
+cloud metadata sources while it's
+holding some sort of projected
+credentials. We'll dig into that one a
+little bit as well. But if you can
+describe the behavior, you can join the
+evidence, you can emit a structured
+finding, then these are patterns that
+you can use to actually have something
+real that you can actually action upon.
+So let's dig into a couple of those. Um,
+in these cases, three patterns, three
+cases, scanner return nothing for each
+of them. So let's talk about the legacy
+PDF converter. This is one where there
+was command injection and we kind of
+just dug into it, you know, but in this
+case, this was actually a real one where
+the vendor was acquired six years ago.
+The product was discontinued. Nobody,
+the customer remembered installing it.
+It was just there. It was running on a
+web facing port uh web facing host. It
+was listening to the world on AD80 was
+reachable from production traffic. And
+so HTTP requests were actually reaching
+the code. When a request comes in, the
+converter spawned a shell with an
+interpolated input immediately fired
+exec made an outbound connection to an
+external IP. There would never be a CVE
+for the software. Uh the vendor doesn't
+exist.
+At least it no longer exists.
+So to dig into to the evidence itself,
+right, it's either a homegrown I binary
+or in this case, we just don't know
+because the vendor no longer exists. So
+there's never going to be a CPE. We know
+the parents. We know the actual shell
+execution. We can see the immediate
+egress. Together we can tell that there
+was command injection. It's reachable.
+It's web facing. We're capturing all
+this during the actual software's
+execution itself. So in a lot of cases,
+what we're actually doing in some ways
+you could argue it's threat hunting
+because we're actually identifying
+things that are actively being
+exploited. We're going to dig in a
+little bit later how you can actually
+just look at risks as they exist in the
+software itself as opposed to looking at
+say exploitation of the software. But
+you can still find a lot of these things
+by just looking at the way that the
+software is invoked.
+Case study two. This was a service that
+nobody deployed or at least nobody
+remembered deploying it. Uh it's running
+on a production host. It was reading
+from a customer database was writing
+bulk data to S3. Wasn't in any
+inventory. Because of that there's no
+CMDB. There's no esbomb, there's no
+owner. And I want to stop on that real
+quick for a second because it sounds
+like it's a paperwork problem and a lot
+of organizations kind of have that, you
+know, feeling and really it's not. You
+know, there's other services that depend
+on it. It's production traffic flowed
+through it. Uh it's real production
+software at that point. It just didn't
+exist in any system of record. But when
+we take a look at it, you know, what is
+the evidence that we can actually
+capture? Again, unknown binary reads
+from say Postgress. It writes bulk data
+S3. There's multiple services that are
+depending on it. It's in no ESBOM
+record.
+If there's no CVE, there's no way to get
+a CVE. Most people think it doesn't
+matter. The finding is defensible
+on its own evidence. And that's the
+argument that I'm making.
+Another quick example. Case three. The
+unknown fetcher random binary is
+listening on port 8080. It's accepting
+URLs as input and it's repeatedly making
+requests to 169.254.
+For anyone that's not really steeped in,
+say the cloud, that's the address for
+the metadata endpoints, at least at AWS
+and Azure. And it's how workloads get
+their IM credits. So if you can convince
+a workload to make a request to that IP
+or to that address on your behalf, you
+can potentially steal its credentials.
+And the same workload of projected
+credentials with broad permissions.
+So similar story. We can capture all of
+this evidence. We can start to build a
+case against why this is actually risky
+in our environment.
+In this case, it's really serverside
+request forgery as a direct path to
+cloud account compromise.
+All right, so let's dig in.
+I'm sure everyone is wondering how do I
+do this without actually building a
+parallel program. Uh it's a trap I see a
+lot of people fall into thinking that
+this is requiring a whole new pipeline,
+a new dashboard, a new team, a new
+workflow, new everything. Let me just
+stop you. Don't do that, please. Um
+frankly, you'll never get funded. Even
+if you did, you'd end up with two
+competing programs and no clear owner.
+So the whole point that I want to make
+over the next few slides is that this
+work has to feed into your existing
+program. It has to feed into the program
+you already have.
+So the way I like to think about these
+things is synthetic CVE.
+By doing so you can use the same queue
+just a different source. It's the same
+finding format. It's the same severity
+scale. You use the same SLA, same owner
+assignment, same dashboard your
+leadership already looks at. The key
+difference is a traditional CVE is going
+to be identified by a product plus a
+version. It's sourced from a public
+advisory and it's fixed typically by a
+patch or an upgrade.
+A synthetic CV on the other hand is
+identified by the host evidence plus
+behavior. So in this case, it could just
+be a location, it could be a binary
+name. It source from the endpoint
+telemetry itself. But the key is that
+it's fixed by restricting it, isolating
+it, replacing it, or removing it because
+you can't necessarily upgrade it. If
+it's homegrown, sure, obviously you can
+patch it yourself if you still have the
+resources to do so. But we're not
+inventing a new queue. We're sneaking
+new problems into the queue that we
+already trust, that we already rely on.
+So, I've been saying ask the host for
+what, 15, 18 minutes now. Let me show
+you exactly what that means in practice.
+Uh, I'm not going to tell you about a
+product that you're going to go buy.
+Okay, I'm going to tell you about all of
+the uh the tools that you already have
+available to you. So, if you want to
+actually leverage this in your own
+environment, fantastic. There's no
+single source though. Uh and obviously
+I'm going to only be covering Microsofts
+or Windows uh Linux uh and Mac in this
+talk. I'm sure there are ways to do it
+for the rest and I'm happy to discuss
+those afterwards.
+But like I was saying, you plug into
+multiple seams across multiple operating
+systems and you're going to correlate
+the results. And these aren't
+proprietary. Every one of them is a
+standard primitive that the operating
+system already gives you. The work is
+really in subscribing to them, parsing
+the events and correlating across
+sources.
+Uh the technologies that I'm discussing,
+these five things here are really what
+I'm calling the seams. The slides after
+this are going to kind of be like the
+deep dive.
+So, let's kind of get into the
+nitty-gritty.
+I hope this isn't
+too much of a of an overwhelm, but I
+stare at it and I wonder. So, Microsoft
+detours, right? It's the oldest of the
+techniques on this list, and it's one
+that's closest to the application
+itself. Uh, it's been part of the
+Microsoft research and product ecosystem
+since I want to say the 90s. Uh, the way
+detours works is fairly mechanical. So,
+you patch the prologue of a target API,
+Win32 API to jump to your own function,
+right? That's basically through
+something like a DL sideloading or some
+sort of DL injection. What it ends up
+doing is whenever that function is
+called uh it'll actually call your um
+your detour then you can actually log
+the call. You can inspect the arguments.
+You can do basically anything you want.
+You can build whatever instrumentation
+and then the call jumps back to the
+original uh function via trampoline.
+So from the application's perspective,
+nothing has changed.
+uh yet you still get the file handle for
+the network socket or the registry key
+that it asked for. From your
+perspective, you now have a perfect
+record of what it asked for uh in order
+of what it asked and with the full
+structured arguments. So if we take a
+look at this example, I won't dig in too
+deep, but we're looking at a create file
+uh which is you know the wind32 entry
+point for basically almost any Windows
+application that uses to open files. The
+detour function logs the the wide
+character path and then it's going to
+call the true create file which is just
+you know a bogus name that I I named it
+to basically show that you're
+trampolineing back and you're going to
+reset basically all those uh those
+parameters.
+So the results on the right is really
+the kind of just an example of what
+you're going to get from this type of a
+of a call.
+Um, so in this case you're going to see
+basically every file path that the
+application touched. You would see the
+system DLS that are being loaded, the
+configuration files that are being read,
+any document files that are being open,
+sensitive files on a network share. You
+can do it all just by inspecting what
+those actual API calls are making
+because you can see the actual source
+destination etc.
+So why does this matter you know for
+synthetic CVS? Because detours see what
+the application asked for before the OS
+interpreted it.
+Tools like uh event tracing for Windows
+tell you what file actually got opened
+but that's after path resolution.
+We can actually see here what they're
+trying to open first. So details tells
+you tell detours tells you the exact
+string that the program
+uh passed in. And if the application
+calls say load library with a bare DL
+name with no full path you see exactly
+that and that's a DLL search order
+hijack waiting to happen. You don't have
+to, you know, ask the vendor why didn't
+you identify this? You can see it all
+just by instrumentation.
+Uh if it calls create process, say, uh
+with an unqued service path, you're
+going to see that you'll see the unqued
+path. If it reads credentials from a
+writable directory, you see that
+directory. Um and this is how you can
+capture the entire execution path.
+Especially for say path integrity bug
+classes without detours. Honestly, it's
+pretty challenging. It's almost an
+invisible
+um you know operation.
+But let's be kind of clear on this one,
+right? Limitations still matter. Uh
+detours is per process and you also have
+to get into the target somehow. That's
+usually going to be through something
+like a DLL injection at process
+creation.
+Sounds pretty challenging. There's also
+um you know, Microsoft basically has
+examples on how to do it in their
+GitHub. So they will walk you through
+and give you sample code. And yeah,
+you're going to have to obviously be in
+some sort of a, you know, a sandbox of
+your own making because you're not going
+to be able to inject say into the kernel
+or anything else like that unless you go
+through the process of getting it
+signed. But for anything that's user
+mode, you don't have to worry about it
+because kernel components and you know
+the direct SIS calls are going to bypass
+it completely.
+So the only other call out that I would
+make because I'm sure someone's thinking
+it is what about on on modern Windows
+when you've got CFG or you've got you
+know code integrity or anything else
+naturally hooking is going to become um
+you know it's going to have more
+friction than it used to. But the right
+way to think about it you can use
+detours when you need application layer
+fidelity for a specific class of
+behavior.
+Moving on, you could use uh event
+tracing for Windows or ETW for pretty
+much everything else that needs to scale
+across your entire uh environment. So,
+ETW uh came out in I believe Windows
+2000,
+and honestly, nobody outside of
+Microsoft probably uses it to their full
+potential. Uh myself included.
+But it's structured. It's kernel grade
+events. Uh it has very low overhead. Uh,
+and it's already running on pretty much
+every Windows machine in your
+environment whether you subscribe to it
+or not. And that's kind of the key there
+in terms of like why it's low overhead
+because every modern Windows component,
+the kernel, the network stack, the
+registry, the DNS, uh, the firewall,
+everything already emits structured
+output, structured events to ETW
+providers at all the time. You just have
+to capture it. You have to subscribe to
+it. So, you're not increasing say the
+load because you're not actually doing
+any additional processing. you're just
+consuming.
+So in this case, there's an example
+that's just showing you the bones of
+subscribing to the NT kernel. That's a
+legacy session that emits raw process
+network registry events.
+We allocate a properties block. We set
+the good um and then we act we enable a
+few flags. You know, I should mention
+that there's a newer class uh of of
+kernel loggers. So things like the
+Microsoft Windows kernel process for
+example, they're the same idea. They're
+slightly more flexible plumbing. Uh I
+didn't I didn't add it here, but
+uh look at what comes out the other
+side. That's kind of the key that I want
+to get to on this slide. Right? You have
+observed data for both process and
+network events. And that's kind of the
+the special sauce here because you have
+a process that started with an it
+started an event with a process ID. You
+also get the lineage. You get the parent
+pro uh the parent process ID. You get
+the full image path. You'll get the
+command line, the user account that it
+launched. You can even see that there's
+a TCP connect socket that was tied to
+that process ID shortly after it was
+created.
+You can see the full source. You can see
+the registry changes that was uh that
+was made. You can even see process, you
+know, was stopped when it actually
+exited and what the duration was.
+So that's process execution, network
+behavior and configuration change. It's
+all correlated by process ID. It's in a
+single structured stream and it has
+kernel grade fidelity.
+Uh where ETW really shines
+is exactly the place where most VM tools
+fail.
+It's telling you it actually executed
+when and with what parent and what it
+touched while it was alive.
+So if you can remember the PDF converter
+case that we talked about earlier, every
+piece of evidence I described to you,
+the binary path, the parent process, the
+immediate outbound connection,
+every one of those facts on Windows
+comes from ETW. It's sitting there. It's
+structured. It's correlated. It's real
+time. And it's on every machine that you
+already own. You just have to listen.
+All right, let's dig into Linux real
+quick.
+The equivalent on Linux is ebpf or the
+extended Berkeley packet filter. You can
+combine it with the Linux security
+module or LSM.
+Honestly, uh to me, it's probably the
+most exciting telemetry primitive in the
+last uh 10 or so years. Um it lets you
+write small verified
+uh programs that run inside the kernel
+is probably the best way to describe it.
+um in response to specific events that
+you can specify. So the kernel verifier
+guarantees
+that it can't crash the kernel or at
+least that's its purpose. Um that it
+can't loop forever and that it can't
+read arbitrary memory. So you get the
+safety of user space, but you get the
+visibility of kernel
+and you don't have to ship a kernel
+module. So I mean that's that's pretty
+awesome.
+So the first snippet here
+is uh is setting up a trace point. In
+this case, what we're doing is we're
+just trying to capture any type of uh of
+execv sys call. So basically anytime
+that this program runs in the kernel,
+it's going to capture the pit. It's
+going to extract um we could skip that.
+Honestly, we're it's going to walk the
+test struck and it's going to basically
+get the process the parent pit as well.
+Um, but the the specific details are
+probably overkill.
+The second part here is the LSM hook.
+And LSM, if uh if you guys don't have a
+lot of experience with them, it's the
+same framework that powers SE Linux or
+App Armor uh and EBPF can attach to LSM
+hooks directly, which means you can not
+only observe the security relevant
+events, but you can actually intervene
+in them as well. We're not going to dig
+into that today, but I just want to, you
+know, make that correlation.
+So if you look at the events all execv
+sorry an execv of a of PDF converter
+here you can see it's going to open a
+file in this case uh it opens Etsy
+password and that's a that's an anomaly
+right we don't want that why is PDF
+converter opening that it also makes an
+outbound call and it's all tied together
+through uh the process ID we can also
+see that it then opens a child uh execv
+to the basic shell or sh it's parented
+by the converter. So every one of those
+is anomalous in the context of a PDF
+converter. Everyone is correlated by the
+PID and the process PID together. They
+describe the full exploitation chain in
+real time but you have no agent in user
+space and no kernel module to ship
+which is pretty awesome.
+All right, Mac. You know, Apple likes to
+do things the Apple way and they like to
+make things real painful for all of us,
+but in some ways they're doing it for
+our best interests, or at least they
+claim to. Um, you know, on Mac, the
+authoritative source for what ran and
+what it touched is the endpoint security
+framework or ESF. So, ESF is really what
+replaced the kernel extension module uh
+when Apple deprecated texts um back
+several years ago. I think it was
+roughly around Catalina, I want to say.
+Um, it exposes process file code signing
+events through a stable sandboxed uh API
+that's delivered through the system
+extension frameworks. Um, if you've ever
+shipped a text on Mac and watched it
+break with every minor Mac OS, you know,
+release, you know why that's a pretty
+big deal. You know, ESF is supposed to
+be and truly is at this point the
+supported forward-looking way to do
+endpoint telemetry on a Mac.
+So this example creates a basic ES
+client and subscribes to two event types
+exec and open. I will warn you on a
+typical you know Mac laptop open is one
+of the most it is very noisy. So just
+expect to be consuming you know millions
+of events a day that you're going to
+have to filter. But you can get
+structured callback every time anything
+matching those types happens systemwide.
+So for an exec event, you get the target
+process. You're going to get the
+executable path. And this is kind of the
+the most part that matters for our
+purposes as well. You're also going to
+get the code signing metadata. It
+probably doesn't sound like much, but
+you get the signing identifier, you get
+the team identifier,
+whether the binary is a platform binary,
+an ad hoc signed binary, it's properly
+signed by a known team, or if it's
+unsigned entirely. So why does that
+matter so much? Well, because on a
+modern Mac, an any unsigned binary
+executing in production is itself a
+finding.
+Um, you don't need a CVE to know that's
+wrong. The host literally tells you the
+providence is missing. Same thing for an
+ad hoc signature.
+So, if we look at a couple events here
+on the right real quick, you know, the
+PDF converter again, it executes. ESF
+tells us it has a no signing ID, no team
+ID. It's an anomaly. It opens
+master.pass. It's an anomaly. It spawns
+SH, which is a legitimate Apple signed
+binary, but it's parented under the
+signed unsigned converter. We can call
+that an anomaly. And then SH calls, it
+spawns curl with HTTP URL again to an
+external IP. It's an anomaly.
+If you patch them all together, you've
+got four events from a single telemetry.
+Provenence is attached at every step.
+the full exploitation chain is is
+restructured without any guessing about
+identity.
+And last up,
+Mac uh breaks it apart. You've got ESF
+for all of your file and your process,
+and then you've got a network extension.
+And they do this because they want the
+user to actually opt in to any type of
+of privacy concerns. So, anything that
+could potentially look at network
+traffic.
+So, the network extension is really the
+Mac OS counterpart to ESF for everything
+network. uh it tells you, you know, um
+ESF obviously tells you, you know, the
+process like I was saying and what files
+it touched, but the network extension is
+going to tell you to whom it's talking
+to on the network with full attribution.
+The key here is you're not doing any
+type of polling. You're not looking at
+LSOF. You're not trying to guess and
+like do this like tight loop. Instead,
+you're actually getting it directly from
+the kernel. It's telling you
+specifically what's happening. it's
+tying it to that process ID, that actual
+application, and you can actually see
+all the the telemetry that it's
+capturing as well.
+So in this case, we've got another
+example. I won't dig into deeply, but
+we're talking basically, you know, plain
+text eress from a child process. Clearly
+an anomaly.
+When you use these things in concert,
+you can start to actually build a
+defensible, you know, finding. You can
+say what ran, what it touched, who it
+talked to, what privilege. And really
+that, you know, at the end of the day is
+kind of what you're really trying to get
+to. Um,
+ultimately this is kind of the basis for
+what I would call a synthetic CVE. It's
+that structure of every finding that
+I've shown you. Um,
+you know, but the technique is really
+the correlation across all of the
+sources. There's not a single, you know,
+magic sensor. I hate to tell you that,
+but there's not a single vendor, you
+know, agent that can do it all. There's
+not a small number of well understood
+operating system
+um or sorry there is uh is what I'm
+trying to get to. There is just a small
+number of well understood operating
+system priv uh primitives that you can
+subscribe to deliberately and then you
+can actually access all of this
+information yourself.
+So if I had to start somewhere what
+would I do? Um I've been throwing around
+the term synthetic CVE. I want to be
+concrete about the kind of risks, you
+know, that actually live in this bucket.
+I'll start with three classes. None of
+them are exotic, but all of them are
+everywhere, and you can see them. Um,
+they're observable from the telemetry
+that you would actually see that we just
+walked through. So, the first class,
+memory and permission boundaries. We're
+talking about processes that are running
+with more privilege than they need.
+Second one, we're talking network
+posture, open sockets that nobody
+documented, talking unauthenticated
+listeners on production ports, or has
+become the most common and kind of my
+favorites as as silly as it is, you
+know, TLS clients that are explicitly
+disabling any type of certificate uh
+verification or validation. uh we're
+talking at u at the actual time of them
+creating the socket um or in this case
+the the session the connection they're
+intentionally choosing to ignore
+certificate expiration revocation hostn
+name matching the pattern is kind of
+everywhere if you're just inspecting on
+the wire you're just going to see that
+it was a legitimate TLS connection
+that's using a strong cipher if you're
+looking actually on the endpoint you're
+going to see that when it was actually
+created is created in an insecure way
+because now you know that somebody on
+the other end could do some sort of a
+man-in-the-middle or potentially, you
+know, attack it in that that sense. And
+then the third one that I'll talk about
+real quick is execution path integrity.
+This is really like your unqued service
+paths on Windows, uh your create process
+with an ambiguous, you know, binary
+reference, your DL search order hijacks.
+It's services that are resolving through
+writable directories. Um it's
+20-year-old bug and yet it's still
+exploited all the time. I've probably
+found
+I don't know 40 examples of this in uh
+in well-known software and you know
+naturally I go through the CVE uh you
+know process wherever possible but a lot
+of times that doesn't exist like I was
+saying.
+So let me dig into a couple of these
+real quick just so you can kind of get
+the you know the picture. We can paint
+it all together.
+In this case we're talking about the
+execution path integrity. Um it's the
+oldest one you know so might as well
+start there. So in this setup, we're on
+Windows and when a service or uh a
+create process call is made with a path
+that contains spaces and it's not
+wrapped in quotes, then the operating
+system does something kind of stupid.
+We've been arguing about it for 20
+years. Microsoft says it's a feature.
+It's not a bug, you know, but it
+basically treats every whitespace
+separated prefix as an executable in
+order until it finds the actual file
+that exists. So, if you haven't seen
+this one before, if you see something
+like an unqued call with a space in it
+to say something like a path that's
+cprogram
+space files space,
+really what that ends up turning into is
+uh unbeknownst to most, it's going to
+first try C/program.exe
+because there's your white space. It's
+going to see if that exists and it's
+going to try to run it. only then if it
+can't find that then it's going to move
+forward and it's gonna actually try the
+actual common.exe.
+But if someone an attacker in this case
+or you by virtue of you doing your
+testing decides that you want to drop a
+binary named program.exe in the root of
+your C you now have execution whenever
+it tried to launch that say through a
+create process or a win exec or a create
+service uh you've now taken over and you
+have execution. It's a great way to get
+privilege escalation especially through
+create pro through create service.
+Oftentimes we see this where they create
+a a service you know it's supposed to be
+running at startup and it's running with
+elevated privileges but the reality of
+it is you could just throw it in there.
+Now, the C, you know, program example
+that I'm talking about is somewhat
+contrived because you're already going
+to have to have privileges if you're
+going to write in, you know, the root of
+the C. But oftentimes you see this
+across any other place in the file
+system. I just I skipped over it to make
+life a little easier here. But if you
+were to take a look at the the rights,
+you know, you've got say a slightly more
+uh a slightly kind of more I don't know
+what to call it severe example
+where
+in this case they were actually calling
+from the uh the C users public folder
+and it also has a space in there. Now
+the problem with this one is obviously
+the public folder is worldw writable to
+anyone that actually has login on that
+machine. So, this is a great way to get
+some sort of a privilege escalation by
+or at a minimum, you know, some sort of
+a an account takeover,
+but it's a great place to start. Like I
+said, I've already seen it in probably
+40 or so pieces of of software, and I
+don't understand why it's still
+everywhere. U but uh sadly, it is. Um
+here's another one that that just keeps
+it's a gift that keeps on giving. I
+don't understand why I'm I'm still
+trying to wrap my head around it. Why do
+people go through the effort of of
+creating a TLS socket, you know, and
+then
+intentionally disable most of the
+verifications. I'm guessing it's because
+they probably had some some certificate
+or something that has expired and they
+were just trying to get around it or
+they were just concerned about that. Uh
+but in this case, you know, here's
+here's kind of a detection pattern,
+right? You can look for any of these
+uh any of these patterns. Um there's it
+differs slightly is all I'll say if
+you're on say Mac versus Linux versus
+Windows.
+Um because on Windows, you know, you're
+looking at the actual arguments and so
+you can see at the time of execution
+that it was requesting to make these uh
+these changes versus in some of the
+other ways, say on um on Mac, you're
+actually consuming from a feed. So it's
+actually telling you that it was done in
+an insecure way as opposed to you
+inferring it. Slight differences, you
+know, but for each flow, we're basically
+asking a simple question. Is TLS on?
+Good. Now, what validation return? Well,
+if validation returned that host name
+mismatch or expired or revocation
+disabled and the connection proceeded
+anyway, then obviously that's a finding.
+you know, the client explicitly chose to
+accept a certificate that it should have
+been rejected.
+And we got a couple examples here on the
+right. Um,
+but I feel they're, you know, relatively
+self-explanatory.
+All right, third one here. Third
+detection.
+This one uh is is kind of everywhere and
+I don't understand why and I've been
+talking to u developers a lot about it
+but we're talking about memory and
+permission boundaries and frankly this
+is the hardest one to summarize because
+many uh many memory behavior is frankly
+just like noisy and it's context
+dependent but the core principle is
+pretty simple. So if you watch for one
+process that's reading or writing to
+another process's memory and it has no
+business doing so and you watch you know
+for any process touching protected
+kernel regions that's really your
+detection pattern.
+So if you can take a memory operation
+event from say a host telemetry stream
+every modern OS has a way of emitting
+these. The first condition is it's going
+to cross a process
+um access where the source and target
+differ. That's this first one here,
+right? Where
+uh and then we've also got the second
+one which is if it's trying to access
+anything in say a a kernel
+or protected region.
+So there's a lot of tools I think a lot
+of identity and access management tools
+um that may have a legitimate reason to
+probably access LSAs. There's a lot of
+other tools that really don't. You know,
+Elsas is where you store all of your
+your cache credentials in in a Windows
+system. Um, when you see say a remote
+management tool that's accessing LSAs
+memory and scraping it, it starts to
+make you wonder why. If you see
+something like a PDF converter that's
+doing it, yeah, there should be alarm
+bells going off.
+All right, so we dug into like how you
+go about doing it, but then what do you
+do? You know, like just finding more
+problems is basically just, you know,
+pissing off a lot of people, you know?
+So you really need to start going into
+like what is the practical remediation.
+So in this case I'm proposing that
+frankly there's like four different
+things that you can do and since most of
+the time you can't patch your way out of
+these problems a lot of times what you
+have to do is instead either harden and
+block meaning use some sort of
+application whitelisting that can be an
+app locker policy it can be mandatory
+access control you could be using SC
+Linux there's lots of different ways you
+can do it on each one of the systems
+hostbased firewalls you just want to
+stop the dangerous behavior before it's
+ever becoming like a real possible
+problem you could always monitor and
+detect. This is great. You know, you've
+got obviously an EDR or something
+probably in your environment. So, let's
+start sending a lot of these telemetry
+feeds there as well. You know, you
+you've actually got your detection
+logic. Now, start using that when you
+start seeing these patterns as well. You
+could isolate restricts. We're talking
+network segmentation or some sort of
+lease privilege. You can strip
+unnecessary capabilities um to really
+kind of contain the blast radius. And
+then the last one I would say is um you
+know eliminate or decommission it. If
+nobody knows uh who it who the owner is,
+um maybe ripping it out is the right
+thing to do. When you find a software
+that like nobody actually knows uh who
+who uses it and probably nobody needs
+it. You'll find out pretty quickly
+either way. But that's the point, you
+know, of a synthetic finding is it comes
+with a practical remediation path. It's
+not just a CVSS score and a prayer.
+So what can we do? Let's start small. Be
+defensible. Uh I would suggest starting
+with three patterns. emit structured
+findings and then route them through the
+existing process.
+Uh
+you know if you do those three things
+then you already have a working
+synthetic CV pipeline. It'll be small
+you know but it'll be defensible and
+it'll already be finding things that
+your scanner missed.
+So the requirements are very modest. Uh
+we've already covered all of these but
+really the only things that are really
+required is you need some way of
+gathering that process execution
+telemetry.
+You want some way to gather basic
+network visibility. Uh those five
+different techniques that I was talking
+about earlier are really like great ways
+to do both of these. And then you just
+need enough inventory context to know
+frankly whether or not it's something
+that you own, you know, or if it's
+unknown. Um because in this sense it's a
+question of do I need to work with a CNA
+for disclosure or do I need to start
+taking some of these secondary actions
+like you know uh removing it from my
+environment.
+So the takeaway, right? If you only
+govern the risk that comes with a public
+identifier, you're only governing the
+street light, not the street, right?
+you're only seeing the known problems,
+the PDF converter, the data export
+service, the fetcher reading met uh
+metadata,
+uh the uncoded service path, the so TLS
+clients that were ignoring validation,
+the crosserus, memory, um none of these
+had CVS. Um and frankly, they're not
+edge cases and they're not theoretical.
+Uh they're all things that came up in
+either incident response reports. Um,
+we've all seen them, frankly, over and
+over. Um,
+but they're invisible, you know, to the
+programs that only count what comes with
+a public identifier.
+And that's it.
+Thank you.
+>> Questions? Questions?
+Bring it on.
+I welcome it.
+>> So, some of these are also going to be
+like internal apps and software like you
+said, right?
+>> Of course.
+>> Why not fix them?
+>> Yeah. Um, you could
+>> Okay.
+>> Like you find the owner instead of
+saying, "Yeah,
+>> I'm going to shut this off." Be like,
+>> "Yeah." I mean this this is kind of like
+the argument is you know the the
+industry itself sometimes like silos
+itself and fractures and tries to figure
+out like who owns a problem.
+>> Yeah.
+>> In this case if you still have resources
+you know if you sell the source code for
+example you can fix it.
+>> Or maybe you just need to decommission
+it or recreate something new.
+>> Uh but of course you know if it is
+internal if you own it then it's within
+your purview to probably fix it. Uh if
+it's not
+I mean maybe it still is. Maybe you just
+have to replace it with something else.
+>> Sure.
+>> Uh but ultimately the kind of the core
+concept, you know, like I was trying to
+get to is there's a lot that we're just
+not looking at right now because we have
+no way of actually cataloging it in the
+CVE ecosystem, right?
+>> Which I think most of us probably
+understand more than anyone else.
+>> By virtue of you being at this
+conference, you probably already like
+fully understand that.
+>> Thanks.
+Is that boring? Come on, guys. It's got
+to be something.
+Well, thank you all. I appreciate you.
+That's it for me. Yeah. No more
+questions. I'll shut up.

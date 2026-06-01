@@ -1,0 +1,918 @@
+Uh
+Thank you again today joining our
+session.
+Uh Ertuğrul and I will mention about the
+how we can
+consider the organizational context
+while making the vulnerability
+prioritization. Uh
+this is essential because
+uh we believe that security controls in
+uh in place in the organizations. Uh
+that's why why
+how we can use the security controls
+management vulnerability prioritization.
+oops. Okay.
+Okay. Let's start with the problem at
+the beginning because we need to
+understand the problem how we can
+approach the so how we can develop the
+solution. And the
+as you know as all of you know and many
+of you
+struggle with the vulnerability list
+which list. Uh and I want to start with
+the facts actually because
+maybe you already heard lots of
+statistics about the vulnerability list
+but I want to emphasize the facts
+because it is important to understand
+the current stage. And when we look the
+last year almost uh
+132 vulnerability published daily based.
+And uh in the first quarter of the 2026
+this number is higher than now 166.
+And
+when we look the details severity
+distribution almost 50% of the
+first quarter vulnerabilities are high
+and the critical. Uh
+and according to the first vulnerability
+forecasting
+this is the year over the 50,000
+vulnerabilities will be published.
+And this is the facts. This is These are
+the industry facts, right? What about
+your organization? What about the
+impact of the your organization?
+While
+when we start to
+prepare these statistics, we communicate
+one of the our collaborative customer,
+and they allow us to use their numbers
+in the this presentation. And as you can
+see, 43 new CVEs they discover daily in
+their environments. And what I mean, new
+CVEs, it doesn't mean newly published.
+It could be old CVE, it could be new
+CVE, but they are seeing these numbers
+when they complete the one of the
+assessment one of the scanners.
+And before
+jumping to next session, we shouldn't
+forgot
+the
+Frontier Airlines, right? I
+took this statistic from the One
+Identity blog post, and they mentioned
+that
+within
+within 24 hours
+new
+vulnerabilities can be exploited.
+28%
+of the vulnerabilities can be exploited
+within 24 hours.
+Okay, that's why we need to be
+quick. We need to be
+take actions immediately. But
+as I said, as I mentioned about the
+organization, we have a collaborative
+customer. You can see the what kind of
+vulnerabilities how many vulnerabilities
+they have. They have almost
+29,000 vulnerabilities in their
+environment. But it doesn't mean that
+they have only 29,000
+vulnerabilities because as you know,
+it's when we consider the how we can
+operate this vulnerability list, we
+should focus to CV and the asset based
+and we should focus to instance level.
+How many see per CV per asset list and
+if you look the numbers
+the numbers are millions of the
+instance. That's why there's a huge list
+you need to manage it and we can focus
+from the scope perspective, business
+scope perspective, I divided uh simple
+business scopes, but you can uh put the
+maybe crown jewels, maybe other scopes,
+whatever you want to, but you need to
+see the you have to understand the how
+many instance you have in your
+organizations.
+Okay.
+These are the facts. These are the
+organization numbers. Maybe you more
+than uh
+maybe you have more than this numbers,
+but maybe lower than and
+what about your security controls? Okay,
+you have
+millions of the vulnerability instance,
+but you have also security controls,
+right?
+You invest multiple security controls.
+You invest million dollars of the your
+security controls to prevent your
+organization assets
+from the attackers, from the uh outside
+of the organization.
+And uh
+when we consider these security
+controls, how we can use them to one
+prioritization?
+We believe that we need to evidence to
+decrease or the re-prioritize the
+scoring vulnerability scoring. That's
+why we need to start with the
+validation. How we can uh
+create a evidence about the
+vulnerability? This vulnerability can be
+exploited by any attacker or not. We
+need to validate it. We need to uh
+understand the which one is exploitable,
+which one is theoretical. You can look
+the security configuration, you can map
+the security configurations, but you
+need to make a real attack simulations
+to understand the
+attacker behavior. Can any attacker can
+exploit any vulnerability. This is the
+our motivation. And when you do this,
+you can re-prioritize your vulnerability
+list accordingly.
+But how?
+Okay. Thanks to notebook LNM,
+I created an image for these purposes.
+And you can see an
+asset. That asset has a vulnerability.
+And you are protecting that that asset
+from the outside of the organization.
+But
+attacker is trying to achieve attacker
+trying to bypass your protections,
+right? I think this metaphor is
+good is a good one to understand the
+situation. Attacker can try alternative
+ways to exploit the vulnerability,
+right? But you are not only prevent your
+organization on the network perimeter.
+You are also preventing your
+organization on the endpoint side also.
+And it depends on the security controls.
+This is the technical perspective. And
+as you can see, attacker can try
+multiple techniques to
+exploit or to achieve his or her
+objective to uh uh
+exploit the assets, right? And you have
+multiple on the defender side, you have
+multiple security controls. Maybe your
+vast solution are working properly
+against the TTPs, but attackers is
+trying to multiple ways to exploit it.
+And there are multiple techniques can be
+used for these purposes.
+Okay. What about the attacker
+perspective and the defender
+perspective? On the attacker
+perspective, you can use
+attacker perspective and attacker can
+use multiple ways. Maybe
+malware delivery one of them.
+Transfer the malicious file, execute on
+the systems to exploit or maybe web
+exploitation another perspective. They
+can send malicious web request or maybe
+we can talk about the post exploitation
+techniques and maybe we haven't know the
+alternative ways we haven't faced. And
+there are multiple
+ways an attacker can exploit a
+vulnerability or
+make
+an attack on the organization. On the
+defender side
+as all you know, there are multiple
+things you can take. You can patch or
+fix your vulnerable application or the
+system. You can
+take action on your network solutions.
+You can deploy signature or something
+else. You can
+deploy rules on your web solution. You
+can also apply some
+security controls on your endpoint
+solutions or you can also apply the
+policy hardening according to your
+system. There are multiple ways to
+protect your assets against attackers.
+Let's
+give an example.
+This is
+the famous
+vulnerability in the first quarter of
+the 26 and 8 and vulnerability. And 8
+and remote code execution vulnerability,
+it is a simple one, right? There is a
+web request, malicious web request, and
+attacker can use your workflow to
+gain unauthorized access or sensitive
+extracting sensitive data. And this is a
+simple one. Attacker can send a
+malicious payload via web request and
+then they can exploit your
+vulnerability.
+What about the defender side? On the
+defender side, of course, you can
+upgrade your N8N solution application
+and you can apply the network controls
+in your environment to understand who
+are
+who are attacking you and also you can
+apply the web application controls. And
+also
+I put the some of the
+vendor signatures here. You can easily
+deploy these signatures in your security
+controls to prevent these kind of
+attacks.
+That one is
+clear to understand web
+request, but what about the alternative
+vulnerability? This is also another
+vulnerability and then we look the
+score 8.8. It is an
+AD vulnerability and attacker can
+enumerate your organizational units to
+create create child
+object and
+escalate the domain admin in AD server.
+And when we look the detail of the this
+vulnerability, there are multiple space
+how it works. You can enumerate, you can
+check the DC, you can
+scan all the organizational units and
+step by step and but when this
+vulnerability be
+exploitable, an attacker can create a
+create child object in organizational
+unit and any organizational unit and get
+an access DMSH
+object in organizational unit. And this
+is the steps of the vulnerability. This
+is the hard one to understand because
+okay, this is an vulnerability. What we
+need to do on the defender side, we need
+to
+apply the Microsoft patch update. We
+need to maybe apply hardening options
+and we maybe we can apply the network
+and endpoint security controls to
+prevent these kind of attacks.
+But how we can
+ensure these actions attacker actions
+step by step attacker actions are
+working or not?
+An attacker can use these ones and
+exploit vulnerability in my environment.
+In this part we need to find a way. I
+show you two example.
+One of them is web application. One of
+them is endpoint related, right? But
+what is the need? We need to
+validate these actions attacker actions
+and we need to understand the our
+security controls are working properly
+or not.
+And that's why we need a library action
+library because
+there there is no
+there are
+thousands of vulnerabilities and we need
+to map those vulnerabilities to specific
+actions to understand the security
+control behaviors. And the action could
+be contains the these details. We need
+to understand the action detail. We need
+to understand the action payload. We
+need to understand the which technique
+ID map which CWE codes are mapped to
+that action also. And afterwards when we
+have the
+action library, maybe we can increase
+the action library one by one according
+to the
+needs, but we need to make a simulation
+in our environment to validate
+these actions are protected by security
+controls or not.
+in that perspective, I will give this a
+speech to Ertuğrul because, as I said,
+there are thousands of vulnerabilities
+and we have a huge number of action
+libraries when we create it, but how we
+going to map them?
+One by one or we have to find
+alternative way. That's why I will give
+this speech Ertuğrul.
+I'll just give a brief summarization of
+what Mehmet explained.
+He
+highlighted that we are witnessing so
+many
+vulnerabilities day by day.
+But luckily, luckily, we have secret
+controls on the other side.
+And we have an evidence-based approach.
+The evidence is the action results we
+have against vulnerabilities.
+We have a 30,000 actions repository. On
+the other hand, there are hundreds of
+thousands of CVs in on customer
+environments.
+So,
+we need a way to map these CVs with
+actions accurately.
+Actually, we have been
+mapping these CVs with actions for some
+time.
+Manually, our security analysts were
+reading CV context,
+searching through action repository via
+keywords and context, picking they pick
+the exact or familiar actions,
+and create a mapping
+for these CVs,
+but it's really
+time-consuming process.
+Sometimes,
+mapping a CV with an action can take an
+hour or or more.
+On the other hand, it is very dependent
+on the expertise of the researcher.
+One researcher may map an CV with an
+action X, the other one can map it with
+action Y. Both of them can be true, by
+the way.
+Uh according to the perspective of the
+uh researcher.
+On the other hand,
+as all you expert experience, we are in
+post era era.
+And we developed an agent solution for
+this. We created agents that search
+through CV context
+and action repository.
+And match the
+CVs with actions similar to
+our security analyst does.
+the good point is
+mapping one CV uh actually takes a
+minute or less, sometimes more, but
+generally in a minute it can be mapped
+accurately.
+the mapping has gotten standardized
+methodology. And
+uh
+every mapping has a confidence score
+with a brief reasoning. So, we can
+validate the mapping after the process
+completes and
+decide if remapping
+required for this
+uh by one-by-one mapping process.
+I want to go through the
+example
+and to stay in the same context, let's
+analyze the
+uh 251277
+CV.
+Mm This is an Active Directory Domain
+Services CV. It has high severity.
+it is published last month and affects
+nearly all of the Windows versions.
+actually, when you search through this
+CV
+the key point is the attackers exploit a
+security flaw in Active Directory Domain
+Services
+while creating delegated or group
+managed service accounts.
+By
+using this security flow, the attacker
+can escalate privilege and get control
+of the domain.
+Delegated or managed group managed
+service accounts are used for
+administrators to manage passwords.
+Actually, delegated to the
+Active Directory and forget about the
+passwords. For this purpose, they create
+they have been created. But,
+exploitation exploitation of that
+security flow can really
+create significant harm on your
+environment.
+Our AI agent mapped this CV with three
+actions.
+These actions are ordered by confidence
+score in the descending order.
+The first one
+mimics the
+enumerate that successor vulnerability
+exploitation technique.
+Actually, this is nearly direct mapping
+with this CV.
+Let me show you
+the details Mehmet shared.
+This action
+uses
+create child processes on managed
+service accounts.
+Create a weaponized delegated managed
+service and grab Kerberos tickets
+escalated domain administrator.
+Actually, this behavior is nearly exact
+match with the
+with
+the context of the CV.
+So, it has the highest confidence score.
+And luckily, we see that
+on our
+simulation results,
+the average blocking ratio is 99%.
+So, such a critical CV is mostly blocked
+on many environments.
+This is the good news. May maybe we can
+emphasize that as I said we have a
+action library, right? We didn't develop
+this action for the specific
+vulnerability. We have a action library
+and this is a bad successor
+vulnerability tool. And this tool are
+actually
+emulates the same things. Not all of
+them, but as you can see near exact
+match. Maybe some of the steps are
+missing. That's why we current we
+current plans action library action
+baseline covers this vulnerability
+actually. You don't need to
+find new
+action. You don't need to develop new
+action for this vulnerability maybe.
+the second action by the way
+is used for enumerating group managed
+service accounts and direct delegated
+Well
+just to exploit this
+security flaw, first of all you have to
+discover the
+accounts that have group managed service
+accounts or delegated managed service
+accounts. So
+it is not a direct match, but strong
+technique for exploiting this CV.
+But according to this exploit
+explanation
+the CV the action is
+at the second position.
+And we see that
+although the first one is block 99%.
+In our customer environments we see that
+the second action has a lower blocking
+ratio. So nearly half of them cannot
+block this action.
+And the third one is
+targeting active directory domain
+services, the same product but with with
+an alternative technique.
+So
+it is not exactly for
+the methodology doesn't exactly match
+with this CV, but since the products are
+uh, the same scope and the impact is
+similar.
+Uh,
+our AI agent suggested this action for
+this CV also.
+And it has 95% blocking ratio in
+average.
+our AI agent, uh, I think does a good
+job and
+uh, it goes beyond uh, simple keyword
+search.
+Uh, because in the description of the CV
+you don't see, uh,
+delegated manage services, uh, group
+manage services, create child processes
+and other details. But it understands
+the context and uh, also goes through
+the context in action library and finds
+a really good matching.
+if it were just using simple keyword
+search, most probably will bring the
+last action, uh,
+because of the name match.
+and at this point also I want to talk
+about the confidence scores.
+Actually, each mapping has a
+different confidence score.
+Uh, according to your
+uh,
+risk appetite or and security policy,
+you can define thresholds
+and decide
+uh, which actions you will take into
+consideration during uh, measuring
+security control effectiveness of the
+CVs.
+I think uh, you can continue. Mhm.
+Thank you, Erturul.
+And Erturul explained how we map the
+vulnerabilities to our current action
+library. We can increase the action
+library if we couldn't find uh, any
+relevant action, maybe we can focus to
+develop uh, alternative ways. But we
+want to show the
+you don't need to
+make an effort to develop new actions or
+because currently you already know the
+uh, your baseline and you can focus on
+that one and you can focus the missing
+part if you
+consider. And okay, we have
+vulnerabilities, CVs, we have
+actions, we know how we can map them,
+but how we going to use them? How we
+going to
+measure our
+new scores?
+At this point, we focused the
+CVSS calculation. We don't want to
+invent new scoring algorithm. That's why
+we
+focused the CVSS calculation. It is a It
+is a
+not new thing because when we read
+when we read the technical specification
+of the
+CVSS documentation, we understand that
+we can use the environment environmental
+metrics for these purposes.
+Okay,
+which parameters we are talking about?
+On the environmental metrics side, we
+focused the three of them. We can
+increase them, but we want to show the
+three of them today. And first one is
+the attack vector, modify attack vector.
+Every vulnerability has a attack vector
+already. There is an attack vector, but
+for your environment,
+it should be applicable or not. Let's
+say
+and a vulnerability, there's an action
+and you protect that action. Okay, do
+you need to use that attack vector still
+or you need to change it?
+From that perspective, we decided to use
+the attack vector. The other
+perspective, attack complexity. If you
+prevent an action, attacker actions,
+do you think that it is
+easy to exploitable or not easy? That's
+why we can use, decided to use
+uh attack complexity. I will show the
+details how we can map uh and also
+another one, privilege required. Is
+there any privilege requirement
+uh necessary for the specific actions or
+not?
+And it is important to use the
+uh exploit code maturity also, because
+we can not miss them. It is important to
+use them
+uh to understand
+uh it is exploitable or not. Okay.
+As we shared the N8 and remote code
+execution vulnerability, let's say that
+this vulnerability there's an one action
+and that action is protected by your
+security controls.
+It is a network-based
+uh attack and your network solution
+protect this one. Okay. Do we Do we need
+them
+uh to use the attack vector still
+network or should we change it to
+adjacent network?
+Because it is not accessible by the your
+network perimeter. Maybe someone try to
+inside. That's why we can map the
+adjacent network. And the
+uh exploitability is high and the attack
+complexity, it is not easy to
+achieve this attack because
+uh your security controls are working
+well. It doesn't mean
+no one can achieve your bypass your
+uh security controls. But we can say
+that it is difficult, not easy, it is
+difficult.
+And privilege, is there any privilege
+requirement for this one?
+No.
+When we map the CVSS calculation, you
+can see that the base score is 10.
+After the mapping, the base score
+decrease to eight.
+And this shows you
+the your
+controls are in place while uh
+considering the CVSS score. This is the
+your contextual score because this is
+mm belong to your organization. It is
+not the same thing for other
+organizations because every organization
+has different security solutions,
+different policies on the uh that's why
+you can use them to understand the risk
+of this vulnerability.
+Uh the this one also another uh example.
+We can focus on the attack complexity,
+privilege requirement, and we didn't
+touch the attack vector because this is
+an endpoint uh attack vector. That's why
+uh we didn't touch the attack vector.
+Uh it doesn't change anything because
+everyone tried to uh same thing via
+endpoint. That's why we didn't touch it
+touch it. Uh and but we changed the
+attack complexity. We changed the
+privilege requirement. When we do this,
+the base score was 8.8, the contextual
+CVSS
+decrease to 8.1.
+Okay, these are the
+samples, but what about the
+organizational view? As I said at the
+beginning of the session, we have a
+collaborative customer. We apply the
+this
+methodology their environments. When we
+look the on the left side, you can see
+the base score distribution. On the
+right side, you can see the
+uh contextual CVSS distribution.
+This shows you your vulnerability risk
+actually. And uh at the beginning, there
+was
+68%
+of the high and critical, but after the
+contextual CVSS, the score decrease to
+uh 54%.
+Uh this is
+a good start, right? But we are still
+missing. There are lots of
+vulnerabilities exist.
+This shows you a risk.
+Vulnerability risk, right? And
+how we can make it operational? Because
+there are millions of
+instance in your environment. How you
+can operational
+that list? On that perspective, we
+focused the exposure score. We can
+create an exposure score to operate your
+vulnerability list.
+From that perspective, we put all the
+components here. Okay, we have base
+CVSS.
+We have contextual CVSS. We calculate
+it.
+And we put the business criticality and
+the exploitability, but we haven't deep
+dive the how we can calculate them.
+These are the organizational content
+uh based on the business criticality. We
+can discuss in more detail how we can
+calculate it, but these are defined by
+the organization. Let assume that. Uh on
+the exploitability side, we cannot uh
+remove the exploitability. It is also
+important to put on the formula because,
+okay, we know the risk.
+We know the risk, but we need to
+uh also know the exploitability.
+And also we put the
+Again, we haven't deep dive the how we
+can measure the exploitability. That is
+not our scope in our session. Uh and
+we put the security control
+effectiveness here again.
+Maybe you can ask, "Why you put again?
+Because you already use it on the
+contextual CVSS." As I said, contextual
+CVSS shows the risk, but you need to
+understand your security controls. You
+need to understand the exploitability of
+uh vulnerability. You need to understand
+the business criticality. And we need to
+put all of them on the same formula. It
+is important to use them because
+as you can see
+an eight and remote code execution
+decrease to 10 to 8.
+But other one decrease to 8.8 to 8.1.
+It is not a significant drop.
+But we need to focus again security
+control effectiveness. We need to
+re-prioritize our operational list.
+That's why we can
+put on the formula, and you can use the
+any weight for each of them. We
+take the our customer weights, and you
+can see the distribution. They haven't
+focused the business criticality.
+That's why the weight of the business
+criticality is low.
+Mehmet, maybe we can remind that
+Active Directory Domain Services CV
+mostly mapped with an action, and it is
+99% blocked. Yes. So, although you apply
+it to the contextual CVSS site, you get
+the score from 8.8 to 8.1, but it is 99%
+blocked. So, we have to take security
+control effectiveness separately and has
+a significant weight in the equation.
+You are right. We show the samples all
+the time
+one CV one action, but maybe one CV can
+map the multiple actions.
+But while calculating the contextual
+CVSS, you need to decide. Maybe you can
+take the average, maybe you can take the
+maximum. Maybe you can take the low
+lowest one, but on the end, we need to
+understand the security control
+effectiveness overall in overall. That's
+why it is important to put on this
+formula. When you make simple
+mathematic, you will get the exposure
+score. You can
+manage them. Okay, we apply the our
+operational prioritization
+formula. What This result? Let's check
+Okay, as we described basic CVSS,
+contextual CVSS, and when we apply the
+exposure score,
+you can see the change.
+And it is
+important to understand we are not
+decreasing the
+score. Maybe score can be increased. As
+you can see, some of the low or medium
+ones or high ones
+are critical now because
+there's a medium CV, there is multiple
+actions you haven't blocked on your
+security controls, and it should take
+increase your vulnerability score for
+the prioritization of perspective,
+right? And you can see the distribution.
+There are
+a small portion of the
+high vulnerabilities are critical now.
+You need to focus, and you can manage
+these
+vulnerability list via
+this way.
+These are the our takeaways.
+As we said,
+CVSS alone
+is not enough to manage your
+vulnerability list, and you need to
+focus the
+security controls. You need to map the
+your CVs to actions to understand
+security control effectiveness, and you
+need to
+put those information to recalculate
+your CVs CV risk scores. And afterwards,
+you need to make an operational
+prioritization using the exposure score.
+Yeah.
+That's all in our session. Thank you
+very much for listening.
+If you
+>> [applause]
+>> Do you have any questions from the
+audience?
+>> Hi.
+Um I have a question about
+um your action libraries.
+Are are you
+just taking the behavior the the
+attacker behavior for creating the
+actions or does this
+include some sort of understanding of
+the um
+what's being exploited? So, how how how
+things can be exploited regardless of
+whether it's shown up in attacker
+behavior?
+As as you know, we are coming from Picus
+Security. Picus Security is an emulation
+attack simulation platform and we know
+the how we can simulate the real world
+threats in your environments. We We
+analyze the all of the
+attacker samples, attacker behaviors to
+create an action with the risk-free
+approach. That's why we have a huge
+library. As I said, there are multiple
+steps on the AD vulnerability, but we
+haven't uh
+focused the exploitability side, but
+when we consider the steps, there are
+multiple
+steps before the exploitability. When
+you do that, when you do those steps,
+you will understand that this is your
+security control should protect it or
+maybe detect it.
+So, you you can actually
+using the simulation, you can start to
+create actions
+before there's a known exploit.
+Can you repeat again?
+If you're doing simulations on
+what's potentially vulnerable
+from a CVE, you can
+have actions
+create actions in your library
+before there's actually a known exploit
+for the vulnerability.
+Yes, but we are not limited to our
+current action library. We can develop
+It is not a limited.
+But it's increasing day by day
+according to the new techniques.
+Hello guys. Glad to see more about what
+we talked about yesterday. Um speaking
+of the action library, I have two
+questions. One is
+how often are you updating it and
+accounting for change? I know there are
+some security controls that get
+implemented and at one point they work
+for everything and then later on there
+are holes that develop. Um so that and
+then
+we we got let's talk to that. I had
+another one and then I left my brain.
+Yeah, our action library it's developing
+by our research teams and they are
+following the
+emerging threats, newly threats,
+sector threats, whatever. And they are
+developing accordingly, but we are not
+focusing all of the threats. We are
+focusing mostly how we can measure the
+baseline, how we can measure your
+endpoint baseline or network baseline
+and increasing the action library
+accordingly. But
+you can develop your own action also.
+We don't have we haven't mapped.
+You you can develop your own action to
+understand the
+situation. Got it. Okay, the second
+question was I know you've talked about
+the security control and how that adjust
+the risk score, but you and you had it
+in two places. You had it on the CVSS
+itself and then second in the
+environment. Um I guess I have a
+question. Is that security control is
+that mapped to the CVE specifically and
+then what are the differences in the
+data between the security context
+control versus the CV? I know you
+explained it a little bit, but that was
+one thing that definitely came up a
+little bit. We are giving the score. As
+you can see, there is a score and each
+row belongs to this one. We are
+calculating that score
+considering the related actions, not the
+organizational overall score. Okay. I
+think I got it. Thank you. Thank you.
+Okay. Thank you very much for listening
+us today.
+Thank you.

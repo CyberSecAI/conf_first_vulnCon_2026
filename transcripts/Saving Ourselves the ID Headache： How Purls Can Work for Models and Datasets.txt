@@ -1,0 +1,1009 @@
+[music]
+>> Well, looks like it's going to be a very
+intimate conversation today.
+So, thanks everybody for joining. I
+imagine some other folks will trickle in
+in person, um, but I know, um,
+there are people live streaming in, so
+we'll get started on a very fun and
+technical and important topic. And yeah,
+feel free to come join, come sit in the
+front, be friendly. We can keep things
+conversational here.
+>> [snorts]
+>> All right. Uh, today we're going to talk
+about saving ourselves the headache
+using pearls or package URLs to identify
+AI artifacts. And,
+as mentioned, my name is Daniel. I'm the
+CEO and co-founder of Manifest Cyber.
+We're a software supply chain security
+startup that, for better or worse, we
+live and breathe this stuff every single
+day. And so, excited to bring a lot of
+the findings we have working with major
+companies, organizations, and government
+agencies around the world
+to hopefully improve the ecosystem
+around how we deal with
+the looming problem of AI security,
+especially for PSIRT.
+So, let's start with the problem, or
+really there are several layers of
+problem.
+So, if I were to ask people sitting here
+or remotely,
+"What versions of Claude Opus 46 or GPT
+54 or insert other frontier or
+foundational model are you using in your
+organization?"
+Would you know the answer?
+And perhaps some of of you guys are or
+people out there are scratching their
+heads like,
+"I thought 46 was the version or 5.4 was
+the version."
+Which is what a lot of people think.
+Let's try another one. Um, there's an
+issue that's found in a particular
+model. In this case, let's say it's, you
+know, Llama 337B Instruct.
+70 billion instruct, um, but it only
+affects GGML downloads.
+Do you know if your organization is
+affected?
+Or raise your hand if this actually
+makes sense.
+Or Our understand this.
+So, these are not common concepts to a
+lot of peace and professional and
+vulnerability management experts, even
+though they are near and dear to what we
+already do on a day-to-day basis uh for
+traditional product security and
+vulnerability management workflows.
+So, this key gap is people still don't
+know what AI systems they're actually
+using in their organizations.
+And ironically, as my AI depicted uh
+meme here
+tries to depict, uh we're just trying to
+throw more AI at the problem. Those are
+supposed to be a little red team and
+blue team agents. Um we're trying to
+bring more AI into our organizations uh
+and into our processes to make things
+better, but ultimately, it only
+compounds the problem that organizations
+and product security teams have no idea
+what AI they're actually using.
+Uh and as we know, we have, you know,
+decades of experience about why this is
+a problem. And, you know, a lot of us uh
+it was a wake-up call 5 years ago for
+Log4Shell, you know, Log4j.
+Understanding what we actually are
+using, where it is, being able to
+pinpoint, you know, blast radius in
+seconds or minutes rather than months.
+We saw this again just a few weeks ago
+with the Team PCP attacks, going after
+things like Axios, Trivia Action, Light
+LM, etc. Um but we haven't actually
+solved this for AI writ large.
+So, why does this all matter, right? The
+goal here is not to neologize about,
+"Oh, there's going to be, you know, it's
+really important just to create a name
+or some sort of naming convention for AI
+assets just arbitrarily or or for fun."
+The reality that most people haven't, I
+think, fully internalized is that AI
+volns, and I use that in air quotes
+because I don't want to get into a fight
+about what's an AI vulnerability or not,
+uh they're already here. Whether they
+are traditional vulnerabilities that can
+be exploited, whether they are other
+types of risks or issues like the number
+of times we continue to find uh child
+pornography in publicly available data
+sets, um,
+to things like hallucinations or, you
+know, known biases in major models and
+data sets.
+Uh, and these aren't going to go away
+anytime soon. If anything, we can expect
+them to increase as adversaries continue
+to target AI supply chains.
+And this slide is a gross
+oversimplification and it's intentional
+because of the audience we have here. We
+all know that vulnerability response
+depends on identifiers. Like, the whole
+point of VulnCon and everything we
+represent and the work that a lot of the
+people here do day-to-day
+depends on having identifiers, right?
+So, when we understand that Log4j is now
+vulnerable or Axios or,
+uh, light LLM or all the NPM libraries
+that have been compromised over the last
+6 months, you know, something gets
+announced, hopefully it's on a source
+like NVDR OSV, sometimes it's on
+LinkedIn or Reddit, which is kind of sad
+that that's now how we're consuming vuln
+alerts. We have to read the advisory and
+understand what's impacted, how it
+works, what versions. We need to then go
+look at our inventory inside of the
+organization and understand are we using
+this? Are we affected? Where is it
+affected? You know, is it something
+we've built, something we've bought?
+Next, we need to assess impact. Again,
+just because we have it in our
+organization doesn't necessarily mean
+that it's a five-alarm fire. Uh,
+thinking about a hospital scenario, for
+example, knowing that there's a
+vulnerable MRI machine, uh, that's in an
+offsite clinic is very different from
+knowing that it's in a very busy
+emergency room, uh, that may have, you
+know, connections to, you know, internet
+or other connected technologies.
+And then based on that, we can figure
+out a response, right? What do we do?
+How do we contain? How do we mitigate?
+You know, we can't just going to go
+patch everything super quickly depending
+on what it is, right?
+Which leads us to problem number two.
+We don't have a standard way to identify
+AI assets. So, the whole workflow that
+binds us together here at VulnCon and
+across PSIRT teams
+isn't actually in place for AI and
+there's a foundational uh
+uh the foundational aspect that is
+missing is how do we actually name and
+identify the AIs that we're using?
+So, where does this leave us, right? The
+problems of AI risks are increasing,
+identifiers are important, we don't have
+any AI identifiers.
+Well, fortunately, we have some existing
+precedent in software. Um we have CPEs
+and package URLs, Pearls. These are some
+of the recent ones from recent supply
+chain attacks, which will hopefully uh
+reinforce people what they look like,
+maybe trigger some strong feelings
+because neither of these things are
+perfect, um but we have some existing
+identifiers that are widely used and
+leveraged that help us in our everyday
+work combating, you know, uh exploitable
+vulnerabilities.
+And
+I joke about the trigger warning here.
+In past years at VulnCon, there have
+been very, very
+impassioned debates about CPEs and
+package URLs. This is not that talk. Uh
+there are a lot of them uh and a lot of
+discussions out there. Let's summarize
+it succinctly.
+Neither identifier is perfect. There are
+pros, there are cons to each of them.
+Uh you know, CPEs, for those who want
+the quick refresher, they're sourced
+from CNAs or, you know, cve.org/nvd.
+Uh you know, NIST and NVD will put them
+out. They really meant to describe a
+vendor products, right? So, uh uh
+Microsoft Windows or um
+uh
+Progress is MoveIt software that had the
+major vulnerability uh a few years ago.
+Uh they are standardized, they're widely
+used because they're still the primary
+way that we identify software uh and
+vulnerabilities, um but there are also
+some cons. And this is just a a short
+list of of CP uh CPE cons. Uh they're
+not tied to artifacts, like how we
+actually get the software. There's some
+naming ambiguity, like we showed here,
+like if you're looking for XZ utils on
+the left, which is a pretty major
+vulnerability in the Linux kernel,
+Would you know who made
+this open source vulnerability enough to
+know the identifier?
+No, most of us would not.
+Um
+and so uh and sometimes oh, I mentioned
+that. Sometimes the naming is uh is not
+obvious.
+PURLs are package URLs. No one
+officially owns them or creates them.
+They are inherited from package managers
+or where open source packages come from,
+where we actually fetch them. So, if I'm
+grabbing a library from PyPI, I know I
+can reconstruct my package URL based on
+that, where I got it from, who owns it,
+the name, and the the version. Uh it is
+ecosystem native. It's stronger for open
+source. Um it's not as widely used yet.
+There are a lot of us here who are
+trying to promote the usage of package
+URLs and PURLs. And there are some
+weaknesses around, you know, how it
+handles these generic packages.
+Put another way, CPEs answer the
+question, "What is this called? What is
+this product called and who made it?"
+PURLs answer the question, "What exactly
+is this thing, this artifact that we
+have deployed in our environment?"
+So, what is the situation that we find
+ourselves in?
+Not this situation. This is an outdated
+meme and I feel also now
+I feel like I'm dating myself for anyone
+here who actually used to watch Jersey
+Shore now what, 20 years ago? It is not
+this situation. It is a far more dire
+situation.
+The first is AI risks are here and they
+are only increasing and coming. Um
+again, if you spend enough time on
+LinkedIn as I do, you will continue to
+see people publishing new research,
+talking about this flaw and this flaw or
+this exploitable thing or this did you
+have template that uh there's some
+vulnerability in. Uh AI risks and
+vulnerabilities are only going to
+increase from here.
+The second, as we identified the core
+problem for this talk, is that AI assets
+lack identifiers, right? We don't have a
+consistent way of naming these things,
+of knowing where they came from or what
+we're using.
+Third, we do have existing and commonly
+used software identifiers.
+And most importantly, as many of us
+believe, AI is a subset and necessarily
+necessarily is deployed into software.
+So, when you put all these four premises
+together, you're left with a simple
+decision
+or a
+a simple choice.
+We can either create a brand new
+identifier to identify AI assets or we
+can use an existing standard.
+When faced with this sort of question,
+it reminds me of a great comic that I
+hope many of you have seen before,
+which is this one. I can give folks a
+couple seconds to read through it.
+Um this is how we end up with 15
+concurrent standards for anything we
+have in IT and tech.
+Including what's happened time and time
+again in our industry.
+So, we always have this idea of oh, we
+have existing standards, but there's not
+a universal one. It's not perfect fit.
+Manifests as deep in S-bombs. So, we
+have this conversation all the time with
+Cyclone DX and SPDX and all these
+others. Um
+as I titled this slide, please let's not
+do this. This is what I'm I've been
+trying to go around and uh you know
+yell from the soapbox, get people
+excited about hey, let's not recreate a
+brand new standard. How do we use an
+existing standard to actually name our
+AI assets so we can just solve this
+problem and move forward.
+So, before we talk about the simple
+proposal,
+let's talk about what AI artifacts
+actually look like in real life. Uh
+just for a very quickly since we have
+some time, a show of hands, how many
+people
+work in an organization that's actively
+deploying AI?
+Oh, I see a couple of people shaking
+their heads. Good for you. It's only a
+matter of time, I'm sure. Um how many
+people are working for organizations
+that aren't just using like Anthropic
+API or
+you know, Open AI's API, actually like
+tuning, downloading, using open weight
+models.
+All right, cool. Uh a slightly smaller
+subset, which is uh expected.
+So, let's talk a little bit about um
+what models and datasets look like and
+how we think about naming them and their
+various components.
+So, we obviously have names and major
+versions, and I I would say pretty
+strongly that uh
+uh most people would agree that saying
+talking about GPT-4O is it's not really
+4O is like a major version, but it's
+really part of the identifying model.
+Same with Claude Opus 4.6, Llama 3.3, et
+cetera. So, you have names and major
+versions. We have owners or suppliers of
+these models. Your Anthropic's, Google,
+could be Cisco, could be some random
+person on the internet who makes a model
+that your somebody in your organization
+really wants to use.
+Then we have this concept of snapshots.
+And also, I'm I'm getting a little bit
+of feedback on this mic. I don't know if
+anybody else can hear that.
+Snapshots represent the specific kind of
+sub-versions of models, and this goes
+back to those questions I had at the
+very beginning of the talk. So, for
+those who are deep in the technical
+weeds and actually load models in the
+code, you don't just say I want to use
+Claude Sonnet 4.5 or Claude Opus 4.6.
+Usually, you have to specify a specific
+snapshot, right? Like from this specific
+date.
+So, this is really your sub-version,
+right? When you're talking about
+vulnerability management or discovery.
+Models and datasets can also be sourced
+or fetched from different places like
+Hugging Face, GitHub, Bedrock, Vertex,
+ModelScope, et cetera. And these models
+can be
+slightly different. So, where you get it
+from really matters.
+You can also download them in different
+formats, right? So, models can be
+binaries, safetensors, ONNX. The list
+goes on. Datasets as well. JSONL,
+Parquet, CSV, TF Records, and more.
+And the formats themselves can be
+different because the formats are
+basically software wrapping these
+different packages.
+And for the case of models especially,
+you can have mutations. So, I might want
+to take this great model that's out
+there, and I want to use it for my
+internal use case, but it's really heavy
+and I need to shrink it a little bit, so
+I'm going to quantize it. I'm going to
+fine-tune it for my use case. So, it's
+really important for me to be able to
+identify I took this model
+I did some things to it, and now this is
+the actual model that I have deployed
+into production.
+And it's more complicated than this, but
+this
+is a good high-level summary of how we
+think about the different components in
+the name or idea of a model and a data
+set.
+And I think a really important thing to
+orient people around is that AI
+infrastructure can be hosted and
+accessed in a lot of different ways, and
+that has it's really important when we
+start to think about how we want to
+think about this for vulnerability
+management and identification. Right?
+So, on the top left, we can get this
+directly via the supplier API. So, for
+people who are used to writing, you
+know, uh you know, instantiate instance
+of Anthropic's API, and then make an API
+call, and I'm just going to use that to
+load a model and and run all my actions.
+You can obviously download or clone
+models from Hugging Face. You can get
+them from your cloud providers like AWS
+Bedrock or Google Vertex or Azure AI
+Studio.
+You can just retrieve specific models
+and source via API. You can use their
+chat interfaces. And especially for data
+sets, uh which I'm kind of blocking a
+little bit down here,
+you can download them from multiple
+different places, right? You can find
+the same data set, by name at least,
+that might be hosted on uh their own
+website. Like this is Microsoft's COCO
+uh data set. Has its own website. Or you
+can get them from Hugging Face. Or you
+can get them from Papers With Code.
+All of these artifacts are different, or
+at least aren't necessarily the same. Or
+becomes the on the burden of the
+security or the product security
+professional to understand the
+differences of those things. So, all
+this is to say
+it's complex, and we need to abstract
+this complexity away for AppSec and
+product security, so we can make it easy
+to identify what we're actually using
+internally.
+So, the very simple or modest proposal
+here,
+let's just use package URLs for AI. And
+uh my goal here is not to be very
+controversial or overly complex here.
+It's a nice this for that that we
+hopefully can just agree upon as a
+community and move forward from here.
+So, let's talk about why, again without
+going to the nitty-gritty of everything
+good and bad about package URLs.
+As we talked about earlier, package URLs
+are good at describing artifacts and
+locations and how you fetch them.
+So, we get better precision at
+describing we got this model from this
+source that was owned by this person and
+we've quantized it or adapted it in this
+case.
+There's a lot of flexibility in terms of
+understanding how we might fine-tune a
+model, how we talk about lineage, how
+it's trained,
+and it aligns with, again, how we
+interact with a lot of AI is much more
+akin to how we interact with open-source
+software rather than how we interact
+with commercial software, which is
+predominantly the the land of CPEs.
+So, let's get really nitty-gritty for a
+sec. What could this actually look like?
+These are the same model, a Llama model
+from Meta, and how we might represent
+the package URL or the CPE for the same
+particular model.
+And obviously, these things are a bit of
+a mouthful or an eyeful, but again, the
+idea is how do we have this
+identifier that we can automatically
+generate, consume, do vulnerability
+scanning on in the future?
+So, we can see the first one, the
+package URL. We can see that it comes
+from Hugging Face, but that Meta owned
+and wrote this model. We can see the
+base name of the model. The commit sha
+shows the version. I downloaded the GGUF
+file and specific quantization of the
+model. It's a lot of really good
+information that describes what model
+somebody in my organization went and
+downloaded and now put into some core
+product we're using.
+The CPE, on the other hand,
+is a little bit more limited, right? We
+can see that Meta wrote this model, the
+name of it, the version. Maybe we throw
+in GGUF somewhere. Even I don't even
+understand what all the asterisks mean
+on the back side of the CPE. I don't
+think 90% of people really do.
+Um but we we're missing some data or at
+least there's not a lot of obvious
+places to put some of this important
+data that describes a model.
+So, if we dive a little bit more into
+how this would look more broadly for
+several different models and how we
+could uh model them as package URLs. So,
+the first would be an example of how we
+think about in my organization, we're
+just calling
+the Cloud API via Anthropic, right? So,
+we can identify the information, the
+specific snapshot that we're using,
+right? That's identified in code, which
+is important. And we can say that that
+we got this from Anthropic and that
+we're using the API interface. Right?
+That might be different from
+for example, the second example, where
+we're using the same exact model but
+through AWS Bedrock. So, we it's not
+just we've calling the API, we're
+actually using it through some
+intermediary provider. I can represent
+that in the pearl where I'm actually
+getting this from Bedrock that is
+hosting and providing this model created
+by Anthropic with the version and the ID
+and even down, for example, we can even
+say, you know, Bedrock you can host
+things globally or via US East or West,
+I can capture that as well if relevant.
+And uh another slightly different
+example for a different model in terms
+of quantization on package URLs.
+So, we can see that with a package URL,
+again, not perfect, but we can really
+capture a lot of the reality of how
+models are provided and hosted, how
+they're built, how they can be
+customized and modified, how they are
+versioned.
+So, let's talk about use cases because
+again, I don't want this to be an
+academic talk. This is how do we solve a
+problem? How do we start building
+towards tooling and policy to align and
+move forward and solve bigger and better
+things.
+So, why is this stuff important? How
+would we use these things if we actually
+put this into practice? A vulnerability
+tracking, going back to those first two
+slides, having this stuff would make it
+really, really easy for product security
+professionals, uh Pcert, AppSec, and
+otherwise to answer that blast radius
+question when there's something wrong
+that happens in a model or a data set
+and be able to be able to save time and
+say, "Oh, this
+vulnerability affects this model but
+only in the GGUEF template." It's like,
+"Okay, well, we're not using that. We're
+fine." Right? Second, S-bomb generation.
+Uh this is a conversation happens a lot
+at VulnCons. There are lots of tools out
+there. They can some spit out CPEs, some
+spit out Pearls. There are increasing
+numbers of tools, including our own,
+that can extract models from source code
+to say, "Hey, this developer is bringing
+in a model into this uh repository, into
+this product. Security should be aware
+of it." We want to make sure we can
+automatically identify we know how to
+identify that that model, so we can add
+that to our inventory.
+Governance is really important as well,
+whether you're on the hook to a
+regulatory body like the FDA for medical
+device, if you're trying to get it
+approved, or selling to a customer
+that's demanding a bill of materials,
+you need to be able to understand and
+demonstrate what we're using, what we're
+not using, how we're using it.
+And something that came up recently from
+the last couple weeks with team PCP, you
+know, pinning isn't everything. It's not
+going to solve all the problems, but
+especially in the wake of these supply
+chain attacks, you know, you can
+actually pin the models you're using
+through APIs, through elsewhere. So
+again, if there's a brand new version of
+a model that gets put out, you know, the
+newest snapshot, and that gets, you
+know, there's some sort of issue or
+vulnerability in it, becomes very easy
+for PSIRT teams to understand, we're not
+affected. We can save ourselves the fire
+alarm.
+All that to be said, there are still
+some gaps, right? This is not a perfect
+solution. Can't let the perfect be the
+enemy of the good. Uh and this will go
+into our call to action in terms of what
+we can do as a community.
+So, as I showed you guys earlier in
+those example package URLs, I added on
+lots of different qualifiers and extra
+metadata kind of to the the right side
+of a package URL.
+We need uh to identify and align on what
+are those types and qualifiers. We don't
+just want to throw random fields to the
+right of that that package URL. What's
+the quantization? What's the interface?
+Uh etc. We need to standardize that
+nomenclature uh and those list of fields
+that people should be populating and
+expecting them
+Second, we continue to have uh provider
+fragmentation. This is something that
+affects traditional software as well.
+You can have different identifiers for
+the same model, which is a bit of a
+pain. So, if I tell you, "Hey, there's a
+new issue in Cloud 46 Opus with this
+snapshot,"
+you might have different identifiers
+versus if one of your business units or
+developers is calling the API directly
+versus somebody's grabbing it from
+Bedrock, like AWS has different nomen uh
+identifying scheme versus Azure versus
+Google. Makes life harder for the rest
+of us.
+Uh Pearls and and to a lesser extent
+CPEs, but Pearls not as good as
+understanding and talking about
+hardware, which we all know there's an
+aspect of hardware in AI, which may be
+relevant for future issues. We need to
+account for that.
+And we need to figure out um where a
+better way to track where models are
+derived from. So, if I start with this
+base model and I fine-tune it and I get
+this custom model, be nice to be able to
+understand that as well. So, there are
+gaps. It's not a perfect solution,
+but it's right in front of us and it's
+something that we can move out on
+quickly. And again, will save us many,
+many years of coming up with a brand new
+AI identification scheme and getting all
+the tooling to implement it, etc.
+So, what are the these next steps, call
+to action that, you know, I'm trying to
+build a community around here and
+beyond?
+First is we need to just start building
+out taxonomies and examples. Um you
+know, the more we do this, the more
+we'll understand some of those gaps and
+challenges, where we need to fill in. Um
+we'll understand what is the best way to
+actually describe and name AI assets,
+models, data sets, and the like.
+Then we need to go close those gaps,
+obviously.
+Uh but a big part of this is going to be
+adoption and support from the power
+players in the space. CNAs that are
+putting out CVEs uh or vulnerability
+records um and attaching CPEs or Pearls
+or some sort of identifiers. Uh US
+government entities, you know, lots of
+great speakers here from NIST, CISA, and
+others uh at the epicenter of a lot of
+the policy space here. How do we, you
+know, there's already an acknowledgement
+that AI is a subset of software and most
+of what we do for AI security should be
+what we do for software security. How
+can we just make sure that applies to
+all the identifiers when we talk about
+software identifiers versus AI
+identifiers?
+And lastly, no one's going to do any of
+this unless it's put into tooling.
+Right? So, on the companies like ours
+that are generating SBOMs or scanning
+code or doing vulnerability response, we
+need to make it easy. Open source tools
+need to bake this in.
+The, you know, vulnerability databases,
+whether it's OSV or NVD or EUVD, you
+know, the more of this stuff takes root
+and hold, the easier it is for people to
+adopt. Obviously, we need to reduce the
+friction.
+Ultimately here, what I'm hopefully
+trying to accomplish
+with the community is let's not recreate
+the wheel. Right? Let's not create a new
+identifier. Let's not try to treat this
+like something it is not. If AI is a
+subset of software, vulnerabilities
+vulnerability management depends on
+identifiers, we need to pick an AI
+identifier. We've got good examples
+right in front of us. Let's go forward.
+Let's see how far we can go with it
+because I believe we can go quite far.
+This will save us a whole lot of time
+that we can build upon in future years
+without having to start from scratch.
+And then, as we go back to that previous
+comic, end up with yet another standard
+and yet another comic created by AI.
+That is all. I'll leave a couple minutes
+for either any questions or if people
+want to come up, we can keep things very
+conversational since we have a pretty
+intimate group here in the room.
+But, thank you very much. Appreciate
+your time.
+I'm Daniel again and
+Looks like we got a microphone there.
+So, yeah, let's do questions and please
+state your name and your organization as
+well.
+>> I'm David Stovinsky from Boston
+University. I like you hinted at the
+academic talk. Uh
+But, um so, first of all, awesome talk.
+One question I have is about
+reproducibility. Um with the LLMs
+uh you can run again, same input,
+same model, you get another response
+solutions. So, you may They "Oh, I have
+a vulnerability. I'm unable to reproduce
+that vulnerability." Maybe it happens
+one one out of 1,000 runs.
+How do you deal with that? And second
+question, how do you if you take, you
+know, huge model,
+how other people can come and validate
+or reproduce this? So, there is both a
+question about the scale and the
+complexity of those models. And the
+second one uh being the
+uh as I said, the probabilistic nature
+of of these tools. Yeah, I appreciate
+the questions.
+So, I see naming as kind of an
+orthogonal um
+uh gap to address, right? So,
+if we Let's take Let's take the example
+that you provided, like model drift,
+right? So, we have fine-tuned this
+model, we've put it in our production
+system, and the output of that model is
+non-deterministic, it might change over
+time. How do we deal with from that from
+a security and a governance perspective?
+we still need to know what the model is
+or where it is,
+right? So, there's a there's a
+foundational layer before or even again,
+we're talking in in in P-CERT world here
+in VulnCon. Let's say that model is
+fine-tuned from a model which is we've
+now known as compromised somehow, right?
+And or maybe that compromise uh is
+leading to the non-deterministic nature
+or some sort of model drift. In order
+for me to answer the question, "Am I
+impacted and where is this model?" I
+need to give it a name. I need to give
+it an identifier.
+So,
+uh I totally agree that there there's an
+element of, you know,
+dealing with the
+outputs of models is sort of a separate
+and important question in terms of how
+do you deal with it. But, the core issue
+that I'm trying to call attention to is
+how do you actually name and identify a
+model? So, if I tell you, "Hey, there's
+a model out there that is now
+compromised or data set that is poisoned
+and you need to figure out your impact
+independent of the output of that model,
+P-CERT folks need to be able to answer
+the question, "Are we impacted or not?"
+I'm not sure it's I'm not sure it's I'm
+not sure it's completely independent,
+right? Because
+when you show your
+vulnerability and you need to make sure
+that you can connect this directly and
+uniquely to that model. So, you have to
+be to be sure. So one thing you you are
+you are pointing out correctly about the
+model drift. If you are not starting the
+same starting point, even if it were
+deterministic in some more, you may
+still not be able or if you look at this
+as a state machine, you may still not be
+able to reproduce. So the question is do
+we need also to
+indicate in your ID what's the starting
+point of your model? Is there is this
+starting point is this unique
+yes yes or no? So to me this almost is
+starting to extend into the the bill of
+materials conversation, right? So let's
+talk about scale and how this works
+operationally and we have some some case
+studies of how this actually looks in
+real Fortune 500 companies.
+So identifiers like anything else should
+be done at as models are being
+fine-tuned or generated and
+automatically. That's how you scale. So
+if I work for a Fortune 500 company and
+we are allowed to use Claude models but
+not chat I know open AI models, I open
+up a Python notebook, I start loading
+data sets, fine-tuning, etc. I have done
+all my testing. All right, I'm now going
+to download this model into a binary and
+get ready to ship.
+I need a bill of materials that
+describes that story, that lineage,
+maybe even down to the integrity of the
+model weights, right? So I have a
+snapshot of the origin, the story of
+this model, its current state
+pre-deployment before we figure out
+what's going on.
+Part of that bill of materials should be
+the identifier, right? This identifier
+is Dan you know Daniel's model
+you know version XYZ. It started with
+Claude for science. We trained it with
+data sets blah blah blah blah blah. So
+you need to have yes a snapshot of the
+state of how this model came to be.
+At the end of the day you still need an
+identifier and the talk is very narrowly
+focused I grant but it's just about how
+do we just quickly agree on not just
+quickly quickly but
+smartly agree on naming scheme for how
+we talk about models and data sets. So
+it becomes easier to understand like
+well what do I put in the value of this
+bill of materials for a custom model cuz
+that's not not a solved problem.
+Thanks for the questions.
+Oh, Daniel, I was just going to say
+you're right. Like
+the software identifiers and the
+vulnerability identifiers should not be
+in the same data format.
+Right? Like, if you're talking about how
+do we identify vulnerabilities
+what we've learned from 30 years of
+identifying vulnerabilities in software
+is that the names and the naming
+infrastructure and package URLs, right?
+Should not contain references to
+vulnerabilities
+cuz the the name is a lot less volatile
+than the vulnerability information. And
+so, they should stay separate.
+Totally agreed. That's so
+>> We're just We're just focusing here
+today on I don't know if this is like
+addressing the previous question. Yes,
+we're just talking about how do we name
+software and AI? Vulnerabilities will
+have their own identifiers, their own
+ecosystem. That again, for the piece of
+the folks here you walk around the
+vendor booths, how do we all do our
+stuff? You have to take an identifier
+software and you scan it to basically do
+a lookup to understand what known
+vulnerabilities match to it. Right? And
+that eco And that ecosystem does not
+exist for AI right now.
+Yeah.
+Brooke, please.
+Yeah, hello. Uh
+First of all
+I fully agree with everything what we
+have said.
+I have one
+simple question.
+Uh in your examples, you included also
+into the example
+Yeah, example pools. You included also
+quantity information about the
+quantization or you mentioned that maybe
+we could also include
+what was the mutation of the models and
+so on.
+Do you think that is a great place to do
+it here or maybe would you add it as a
+part of the AI bomb?
+I think that's a great question. I think
+that's part of a part of the discussion.
+Some of the stuff might be worth putting
+in the identifier. Some of it might be
+worth putting in the bill of materials
+that describes that model.
+Um in terms of example that the
+quantizations
+like I said, I'm not coming with the hey
+guys, I solved the whole problem. I know
+exactly how we're going to do the spec.
+Hence the the gaps to solve as a
+community. Um but I do think there are
+some exam there are some examples where
+I do think you'd want to include it.
+Um I know. I think you can actually
+solve it both ways, right? There's some
+examples where if I'm on hugging face
+and I want to download a specific file
+version of this model, I might want the
+actual file name that I downloaded from
+hugging face. So whether you want to put
+that in the identifier itself or you
+want to put that as
+uh some field in the bill of materials
+that says, you know,
+parent model is this model from hugging
+face and the actual artifact of type
+file was this name quantization.bin.
+Sure.
+I think this is going to be as often
+come as often happens in this space,
+there are multiple ways to describe the
+same information and part of the next
+step here is let's come together and
+figure out what are the preferred and
+standard way so that we know how to
+communicate it. So
+when I share these examples, these are
+not this is exactly how the pearl
+spectra work for models. This is a
+initial proposal that I'm sure other
+people could come and suggest better
+alternatives for.
+It's maybe not a better alternative but
+like a
+I don't want to put too much to pearl
+and I would like to more rely on AI ball
+because I can also include their
+information how that model was trained,
+where I use it internally. Yep. Because
+the same model can be used across one
+organization in different places and the
+base model was the same
+but it was trained in a different way
+and it
+>> goes in the bill of materials. Perhaps a
+a bill of materials with some context
+perhaps, right Rogue? Yeah, exactly.
+Amazing.
+>> Thanks.
+Cool.
+All right, I think that's all for me
+now. I'll stick around a little bit over
+here if anyone wants to nerd out in the
+depths of AI and identifiers for a
+little bit, but otherwise thank you all
+very much for your time. Um and feel
+free to if you want to chat more, feel
+free to find me on LinkedIn. I'm the
+only one with my name, so I'm hopefully
+pretty easy to track down. Thanks so
+much for Thanks everyone for your time
+and I hope you enjoy the rest of your
+Vol Con.
+>> [applause]
