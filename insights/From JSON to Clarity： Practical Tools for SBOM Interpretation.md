@@ -13,10 +13,10 @@ John Bergland (IBM, US) and Zadia Alden (Supply Chain Manager, GB) discuss the "
 - Smaller, modular tools are prioritized over monolithic platforms because they are easier to validate and fix, which is crucial when using AI-generated code.
 
 ## Notable Quotes
-- "S-bombs are currently technically correct, but operationally we'd say under leveraged."
+- "SBOMs are currently technically correct, but operationally we'd say under leveraged."
 - "If the SBOM itself is weak, every downstream decision that we make is going to be weaker as a result."
 - "AI lowers the bar to building the tooling, but it really doesn't solve the interpretation."
-- "The value isn't in generating more intelligence, but it's at least exposing what's already in the S-bombs you've received."
+- "The value isn't in generating more intelligence, but it's at least exposing what's already in the SBOMs you've received."
 
 ## Takeaways
 - Use simple visualization tools to bridge the gap between technical security data and non-technical decision-makers in procurement and legal.

@@ -1,6 +1,6 @@
 # Production Is the New Attack Surface: Why Post-Deployment Endpoint Detection Is Now Critical
 ## Executive Summary
-Tracy Ragan (DeployHub.com, US) highlights a critical imbalance in modern security where mature "shift left" tools contrast with a post-deployment defense that remains a massive blind spot. Ragan argues that while most security resources are pre-deployment, 100% of attacks target production environments. She proposes a "Digital Twin" model—leveraging SBOMs, deployment metadata, and Git repository links to create a synchronized map of production. This approach enables near-instant vulnerability detection and auto-remediation, particularly for constrained "edge" environments like satellites and IoT where traditional security agents cannot run.
+Tracy Ragan (DeployHub.com, US) highlights a critical imbalance in modern security where mature "Shift Left" tools contrast with a post-deployment defense that remains a massive blind spot. Ragan argues that while most security resources are pre-deployment, 100% of attacks target production environments. She proposes a "Digital Twin" model—leveraging SBOMs, deployment metadata, and Git repository links to create a synchronized map of production. This approach enables near-instant vulnerability detection and auto-remediation, particularly for constrained "edge" environments like satellites and IoT where traditional security agents cannot run.
 
 ## Key Points
 - **The Security Imbalance:** Organizations are strong on "offensive" pre-deployment scanning (SCA, SAST, DAST) but weak on "defensive" post-deployment protection.
@@ -17,7 +17,7 @@ Tracy Ragan (DeployHub.com, US) highlights a critical imbalance in modern securi
 ## Notable Quotes
 - "Production is the new attack surface... the right is under attack."
 - "A satellite is the size of a toaster... you're not going to put an agent on it."
-- "S-bombs are not a checkbox. They're not just a new doc you check into your git repo... they should be operationalized."
+- "SBOMs are not a checkbox. They're not just a new doc you check into your git repo... they should be operationalized."
 - "Organization buying is not required. A developer can do this on their own."
 - "The goal for us as a community is to be able to address runtime software supply chain attacks in less than one day."
 
