@@ -1,6 +1,6 @@
-# Deriving CVSS from Multi-Scenario Attack Graphs： A Reproducible, Auditable Scoring Method
+# Deriving CVSS from Multi-Scenario Attack Graphs: A Reproducible, Auditable Scoring Method
 ## Executive Summary
-This presentation addresses the inherent subjectivity and inconsistency in traditional CVSS scoring by proposing a graph-based modeling approach. The speakers argue that "checklist" scoring often leads to "Frankenstein factors"—vectors that mix unrelated attack scenarios—making the data unusable for automation. By explicitly modeling atomic attack actions and conditions in a directed graph, organizations can programmatically derive reproducible and auditable CVSS scores that accurately reflect the true risk of a vulnerability.
+Karel Knibbe (Volerion, NL) and Ruben Bos (Volerion, NL) present a method for deriving CVSS scores from multi-scenario attack graphs to address the inherent subjectivity and inconsistency in traditional scoring. By explicitly modeling atomic attack actions and conditions within a directed graph, the proposed approach allows organizations to programmatically generate reproducible and auditable CVSS scores. This "score the scenario, not the vulnerability" philosophy ensures that the resulting vectors accurately reflect real-world risk and avoid common pitfalls like "Frankenstein factors" where metrics from unrelated attack paths are incorrectly blended.
 
 ## Key Points
 - CVSS subjectivity is a major hurdle for security automation; different analysts frequently produce different scores for the same CVE due to varying interpretations of "worst-case" scenarios.

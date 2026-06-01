@@ -1,6 +1,6 @@
-# CVE Decaf： Brewing Better and More Actionable Data Quality
+# CVE Decaf: Brewing Better and More Actionable Data Quality
 ## Executive Summary
-This presentation explores the critical shift within the CVE program from focusing on the quantity of records to the quality and "fitness for use" of the data. The speakers introduce a Data Quality Assessment Framework (DQAF) designed to move CVE records toward a state of mandatory automation, as the increasing volume of vulnerabilities makes manual analysis impossible. By identifying gaps in identification, characterization, and remediation, the framework aims to transform CVE records into actionable products that directly support consumer tasks.
+Jerry Gamblin (Cisco, US) and Jay Jacobs (Empirical Security, US) explore the critical shift within the CVE program from focusing on the quantity of records to the quality and "fitness for use" of the data. By identifying gaps in identification, characterization, and remediation, they propose a framework to transform CVE records into actionable products that directly support consumer tasks. Their session details how re-engineering the 27-year-old CVE record format can meet the needs of modern, high-speed, automated vulnerability management.
 
 ## Key Points
 - Data quality is redefined as "fitness for use," shifting the focus from the technical requirements of the CNA to the actual needs of the data consumer.

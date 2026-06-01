@@ -1,7 +1,7 @@
-# The CVE Blind Spot： Defeating Hidden EOLs and Repo Jacking with Engineering Triage & Code Diet
+# The CVE Blind Spot: Defeating "Hidden EOLs" and Repo Jacking with Engineering Triage & Code Diet
 
 ## Executive Summary
-Junosuke Tanai and Kota Kambei (Future Corporation) expose the "CVE Blind Spot"—critical security risks like repo hijacking, abandoned EOL software, and CI/CD infrastructure attacks that often leave no record in the CVE system. They introduce "Code Diet," an open-source methodology and toolset (Uzomuzo) designed to shrink attack surfaces by identifying stalled dependencies and replacing unmaintained libraries with standard language features.
+Kota Kanbe (Future Corporation, JP) and Ryunosuke Tanai (Future Corporation, JP) expose the "CVE Blind Spot"—critical security risks like repository hijacking, abandoned end-of-life (EOL) software, and CI/CD infrastructure attacks that often leave no record in the CVE system. They introduce "Code Diet," an open-source methodology and toolset designed to shrink attack surfaces by identifying stalled dependencies and replacing unmaintained libraries with standard language features. Through their research, they demonstrate that "zero CVEs" does not equal safety, particularly in the case of "effectively abandoned" code that remains in production.
 
 ## Key Points
 * **Repo Hijacking Reality:** In 2026, an autonomous AI agent ("Hacka Bot Kuro") hijacked multiple high-profile repos (Trivy, Awesome Go) via GitHub Action workflows, deleting hundreds of releases and stealing tokens.

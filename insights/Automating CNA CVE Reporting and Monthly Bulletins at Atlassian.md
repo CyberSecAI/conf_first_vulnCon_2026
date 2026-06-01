@@ -1,7 +1,7 @@
 # Automating CNA CVE Reporting and Monthly Bulletins at Atlassian
 
 ## Executive Summary
-This session details Atlassian's transition from a manual, labor-intensive CVE reporting process to a fully automated pipeline built on their own cloud stack (Jira, Forge, and Confluence). Speakers Deepak and Zach describe how they overcame critical bottlenecks in their CNA (CVE Numbering Authority) program, which previously disclosed only 11% of patched vulnerabilities due to manual overhead. By implementing an event-driven service that integrates internal ticketing with the Mitre CVE Services API, Atlassian achieved 100% disclosure coverage, a 90% reduction in customer support queries, and a significant decrease in the average customer patch time.
+Deepak Chintala (Atlassian, US) and Zachary Echouafni (Atlassian, US) detail Atlassian's transition from a manual, labor-intensive CVE reporting process to a fully automated pipeline built on their cloud stack using Jira, Forge, and Confluence. They describe overcoming critical bottlenecks in their CNA program, which previously disclosed only 11% of patched vulnerabilities due to manual overhead. By implementing an event-driven service that integrates internal ticketing with the Mitre CVE Services API, Atlassian achieved 100% disclosure coverage and a significant reduction in customer patch time.
 
 ## Key Points
 - The CNA program was primarily driven by the needs of "Data Center" (on-prem) customers who require formal, action-oriented CVE records to justify maintenance windows and meet compliance mandates.

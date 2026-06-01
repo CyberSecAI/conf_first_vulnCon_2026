@@ -1,7 +1,7 @@
 # AI Systems Are Software Systems
 
 ## Executive Summary
-This presentation asserts that AI systems are, fundamentally, software systems and must be managed within existing cybersecurity and risk management frameworks. The speaker (a federal security official) demystifies the perceived uniqueness of AI, arguing that established principles like "Secure by Design," vulnerability disclosure policies (VDPs), and asset management apply to AI as they do to any other information system. By translating AI jargon into mature security concepts, the talk provides a strategic roadmap for PSIRT and product security teams to integrate AI models and datasets into their standard governance processes.
+Jonathan Spring (CISA, US) asserts that AI systems are, fundamentally, software systems and must be managed within existing cybersecurity and risk management frameworks. By translating AI jargon into mature security concepts, he provides a strategic roadmap for PSIRT and product security teams to integrate AI models and datasets into their standard governance processes. The session emphasizes that AI software carries the same fundamental security obligations as any information system, requiring a secure-by-design approach.
 
 ## Key Points
 - AI systems are not an exception to the rule that software must be secure by design; they are information systems and carry the same fundamental security obligations.

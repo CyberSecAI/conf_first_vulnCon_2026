@@ -1,6 +1,6 @@
-# Fragile by Design： Large-Scale Evidence of Supply Chain Risk
+# Fragile by Design: Large-Scale Evidence of Supply Chain Risk
 ## Executive Summary
-This presentation reveals the stark reality of the software supply chain through large-scale binary analysis of 19,000 firmware and container assets. The research demonstrates that manifest-based scanning (SCA) captures only a fraction of actual risk, with nearly 99% of vulnerabilities residing in "invisible" components not listed in software manifests. By looking past declared intent to "Software Reality," the session uncovers widespread non-CVE risks, including hardcoded credentials and expired certificates, that represent a failure of basic security hygiene across the industry.
+Gary Schwartz (NetRise) presents the findings of a large-scale binary analysis involving 19,000 firmware and container assets, revealing the stark reality of modern software supply chains. The research demonstrates that manifest-based scanning (SCA) captures only a fraction of actual risk, as nearly 99% of vulnerabilities reside in "invisible" components not listed in software manifests. By examining "Software Reality" rather than declared intent, the session uncovers widespread non-CVE risks—including hardcoded credentials and expired certificates—that highlight a significant failure of basic security hygiene across the industry.
 
 ## Key Points
 - Manifest-based tools provide an incomplete picture; nearly 60% of firmware assets analyzed had no manifest-declared components but were rife with vulnerabilities.

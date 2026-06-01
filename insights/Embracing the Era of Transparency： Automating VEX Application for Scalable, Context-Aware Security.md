@@ -1,6 +1,6 @@
-# Embracing the Era of Transparency： Automating VEX Application for Scalable, Context-Aware Security
+# Embracing the Era of Transparency: Automating VEX Application for Scalable, Context-Aware Security
 ## Executive Summary
-NVIDIA's product security team discusses the challenges of managing vulnerability transparency at a massive scale, where single container images can contain hundreds of dependencies. Despite automating the production of over 700,000 VEX (Vulnerability Exploitability eXchange) records, they identify a critical "consumption gap" where security data fails to reach the end user. The speakers propose a workflow using OCI attestations to ensure VEX context stays with the software artifact, enabling automated scanner filtering and reducing the burden of manual triage for customers.
+Jessica Butler (NVIDIA, US) and Kristina Joos (NVIDIA, US) address the challenges of managing vulnerability transparency at scale, where modern container images often contain hundreds of dependencies. Despite automating the production of over 700,000 VEX (Vulnerability Exploitability eXchange) records, a critical "consumption gap" remains where security data often fails to reach the end user. The presenters discuss how NVIDIA uses VexStream and Agentic workflows to bridge this gap, proposing a shift toward "attestation-based" security to ensure that context-aware vulnerability data is actionable and visible at the point of deployment.
 
 ## Key Points
 - AI and enterprise software stacks are increasingly complex; an average NVIDIA container image contains over 350 third-party dependencies.

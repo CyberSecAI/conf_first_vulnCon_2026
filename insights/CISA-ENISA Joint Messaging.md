@@ -1,7 +1,7 @@
 # CISA-ENISA Joint Messaging
 
 ## Executive Summary
-This joint keynote by CISA and ENISA highlights a critical strategic shift in the CVE program, marking the transition from a decade-long "growth era" to a new "quality era." Lindsey Sircovnic (CISA) and Nuno (ENISA) emphasize the importance of transatlantic cooperation in managing the global surge of vulnerability reports, accelerated by AI and emerging technologies. The session outlines a united vision for the program that prioritizes internationalization, infrastructure modernization, and technical interoperability, ensuring that CVE data remains a trusted foundation for global cybersecurity defense.
+Lindsey Cerkovnik (CISA, US) and Nuno Rodrigues Carvalho (ENISA, BE) highlight a critical strategic shift in the CVE program, marking the transition from a decade-long "growth era" to a new "quality era." This joint session emphasizes the importance of transatlantic cooperation in managing the global surge of vulnerability reports, accelerated by AI and emerging technologies. They outline a united vision for the program that prioritizes internationalization, infrastructure modernization, and technical interoperability, ensuring that CVE data remains a trusted foundation for global cybersecurity defense.
 
 ## Key Points
 - The CVE program is moving beyond simple scaling (currently over 500 CNAs across 41 countries) to focus on "programmatic quality," which encompasses both data accuracy and the overall user experience for researchers.

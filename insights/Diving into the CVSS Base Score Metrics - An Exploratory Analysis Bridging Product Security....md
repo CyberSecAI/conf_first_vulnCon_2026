@@ -1,6 +1,6 @@
-# Diving into the CVSS Base Score Metrics - An Exploratory Analysis Bridging Product Security...
+# Diving into the CVSS Base Score Metrics - An Exploratory Analysis Bridging Product Security Assessments and Real-World Attacks
 ## Executive Summary
-Panasonic researchers present a comparative analysis of CVSS "Medium" vulnerabilities in IoT products, highlighting how these moderate scores often mask significant risks in attack chains. By combining global honeypot data with internal security testing results, the study identifies high-risk "Medium" vulnerabilities that serve as critical entry points for attackers. The presentation emphasizes that organizational context and the "attack scenario line" must dictate remediation priorities, rather than the base score alone.
+Kohei Taguchi (Panasonic Holdings Corporation, JP), Takayuki Uchiyama (Panasonic Holdings Corporation, JP), and Yuichi Kikuchi (Panasonic Holdings Corporation, JP) present a comparative analysis of CVSS "Medium" vulnerabilities in IoT products, illustrating how moderate scores can mask significant risks within attack chains. By combining global honeypot data with internal security testing results, the study identifies high-risk "Medium" vulnerabilities that serve as critical entry points for attackers. The session emphasizes that remediation priorities should be dictated by organizational context and the "attack scenario line"—viewing vulnerabilities as a sequence of events—rather than relying solely on the base score.
 
 ## Key Points
 - Vulnerabilities rated as "Medium" (CVSS 4.0-6.9) are frequently deprioritized, yet they often provide the "initial access" or "foothold" required for more severe attacks.

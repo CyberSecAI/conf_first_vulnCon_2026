@@ -1,7 +1,7 @@
 # Quantifying Swiss Cheese, the Bayesian Way
 
 ## Executive Summary
-Steven (from Moderna and EPSS SIG) discusses a quantified vulnerability risk model based on Bayesian updating. He argues that traditional qualitative risk assessments lack defensibility and that we need to measure control effectiveness empirically—through breach and attack simulations—to understand if security actions actually make the organization safer. The talk moves from the base layer of vulnerability exploitation to material incident likelihood, providing an economically defensible framework for prioritization.
+Stephen Shaffer (Moderna | EPSS SIG, US) presents a quantified vulnerability risk model based on Bayesian updating, arguing that traditional qualitative assessments lack technical defensibility. Shaffer advocates for measuring control effectiveness empirically through breach and attack simulations to validate whether security actions actually improve safety. The session moves from the base layer of vulnerability exploitation to material incident likelihood, providing an economically defensible framework for prioritizing security efforts based on real-world risk reduction rather than subjective labels.
 
 ## Key Points
 * **Systemic Failure:** Cybersecurity lacks strong economic incentives for safety; technology is used to enable business outcomes, but its inherent safety is often unmeasured.

@@ -1,6 +1,6 @@
 # How to Answer “What’s Affected” in Open Source
 ## Executive Summary
-Engineers from Google’s Open Source Security team address the "vulnerability-pocalypse," where the sheer volume of alerts overwhelms developers and leads to "junk" alerts. They propose the Open Source Vulnerability (OSV) schema as a solution, which uses machine-readable Git commit hashes to provide precise, artifact-level vulnerability mapping. By moving beyond unstructured text and numeric versions, OSV enables automated tools to accurately determine if a specific project is affected, allowing developers to focus on real threats rather than "chasing ghosts."
+Jess Lowe (Google, AU) and Rex Pan (Google, AU) address the "vulnerability-pocalypse"—the overwhelming volume of alerts that leads to developer burnout and "junk" findings. They propose the Open Source Vulnerability (OSV) schema as a solution, which utilizes machine-readable Git commit hashes to provide precise, artifact-level vulnerability mapping. By moving beyond unstructured text and brittle numeric versions, OSV enables automated tools to accurately determine if a specific project is affected, allowing developers to focus on resolving real threats rather than "chasing ghosts" in their dependency trees.
 
 ## Key Points
 - The volume of vulnerabilities has grown from 321 in 1999 to a rate of one every 10 minutes today, making manual assessment impossible.

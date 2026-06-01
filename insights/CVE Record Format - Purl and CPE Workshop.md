@@ -1,6 +1,6 @@
 # CVE Record Format - Purl and CPE Workshop
 ## Executive Summary
-This technical workshop provides a detailed guide on integrating Package URL (PURL) and Common Platform Enumeration (CPE) identifiers into the CVE JSON record format (versions 5.1 and 5.2). The session explains how these identifiers remove ambiguity in software identification across diverse ecosystems and the specific logic required to implement them correctly. The workshop emphasizes that while these fields remain optional to keep the barrier to entry low for CNAs, their inclusion is vital for the automation of modern vulnerability management.
+Chris Coffin (MITRE) and MZ MegaZone (F5, Inc., US) lead a technical workshop on integrating Package URL (PURL) and Common Platform Enumeration (CPE) identifiers into the CVE JSON record format (versions 5.1 and 5.2). The session focuses on how these identifiers eliminate ambiguity in software identification across diverse ecosystems and outlines the specific logic required for correct implementation. While these fields remain optional to maintain a low barrier to entry for CNAs, the presenters emphasize that their adoption is essential for enabling the automation required in modern vulnerability management.
 
 ## Key Points
 - PURL (Package URL) is a universal, URL-based syntax for identifying software packages independent of the distribution channel (e.g., NPM, RPM, Maven).

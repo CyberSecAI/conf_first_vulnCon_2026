@@ -1,6 +1,6 @@
-# From JSON to Clarity： Practical Tools for SBOM Interpretation
+# From JSON to Clarity: Practical Tools for SBOM Interpretation
 ## Executive Summary
-IBM supply chain security experts discuss the "operational gap" in the use of SBOMs (Software Bill of Materials), noting that while they are technically correct, they remain under-leveraged for risk decision-making. They showcase a series of lightweight, AI-built web applications designed to transform dense JSON data into clear signals for non-technical stakeholders in legal, procurement, and management. The session focuses on five key metrics: data quality, dependency mapping, CVE age, license risk, and version drift.
+John Bergland (IBM, US) and Zadia Alden (Supply Chain Manager, GB) discuss the "operational gap" in the use of SBOMs (Software Bill of Materials), noting that while technically sound, these documents remain under-leveraged for risk-based decision-making. They showcase a series of lightweight, AI-built web applications designed to transform dense JSON data into clear signals for stakeholders in legal, procurement, and management. The session highlights how these tools surface five key metrics—data quality, dependency mapping, CVE age, license risk, and version drift—to bridge the gap between technical data and business intelligence.
 
 ## Key Points
 - SBOMs currently suffer from a "Wild West" of varying quality and structure, with many missing critical NTIA minimum elements like supplier data and dependency relationships.

@@ -1,6 +1,6 @@
-# The Quality Era of CVE： A Blueprint for Global Software Safety
+# The Quality Era of CVE: A Blueprint for Global Software Safety
 ## Executive Summary
-Robert (Bob) Martin from the MITRE Corporation presents a vision for the future of the CVE program, moving from a process-oriented activity to an outcome-driven mission. He argues that the current "activity" of cataloging vulnerabilities must evolve into a "North Star" goal of reducing software danger and promoting secure-by-design practices. Martin introduces the "CAT" framework—Complete, Accurate, and Timely—as the standard for high-quality CVE records. To illustrate this, he showcases a prototype of a next-generation CVE management system that uses strongly typed fields, product-linked identifiers, and AI-assisted root cause analysis (CWE) to ensure data quality is built-in at the source (upstream) rather than corrected downstream.
+Bob Lord (US) presents a vision for the future of the CVE program, advocating for a transition from process-oriented activities to outcome-driven safety missions. Lord argues that the program's "North Star" must be the reduction of software danger through root-cause analysis and secure-by-design practices. He introduces the "CAT" framework—Complete, Accurate, and Timely—as the essential standard for vulnerability records and demonstrates how shifting responsibility for data quality "left" to CNAs can significantly reduce the burden on downstream defenders.
 
 ## Key Points
 - **The "Activity" vs. "Outcome" Trap:** Martin criticizes the current CVE mission statement ("identify, define, and catalog") as an activity rather than a safety outcome. He proposes a new focus: "To reduce the dangers of using software through the analysis of root causes."

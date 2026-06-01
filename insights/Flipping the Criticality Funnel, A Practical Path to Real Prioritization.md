@@ -1,6 +1,6 @@
 # Flipping the Criticality Funnel, A Practical Path to Real Prioritization
 ## Executive Summary
-Security leaders from GitHub discuss the pervasive issue of "severity inflation," where the majority of findings are labeled "High" or "Critical," rendering prioritization systems ineffective. They introduce the GitHub Risk Score (GIHRS), a unified framework that normalizes data from 25 disparate sources into a single, transparent score. By integrating asset criticality with real-world threat intelligence like EPSS and CISA KEV, GitHub has successfully "flipped the funnel," ensuring that only the most urgent and actionable risks reach the top of the engineering queue.
+Sophia Sanles-Luksetich (GitHub, US) and Zachary Goldman (GitHub, US) discuss the pervasive issue of "severity inflation," where the majority of security findings are labeled "High" or "Critical," rendering traditional prioritization systems ineffective. They introduce the GitHub Risk Score (GIHRS), a unified framework that normalizes data from 25 disparate sources into a single, transparent, and actionable score. By integrating asset criticality with real-world threat intelligence—such as EPSS and CISA KEV—GitHub has successfully "flipped the funnel," ensuring that only the most urgent risks reach the top of the engineering queue while reducing developer burnout and triage fatigue.
 
 ## Key Points
 - "When everything is critical, nothing is"—GitHub found that 50% of their findings were initially labeled as High risk, leading to engineer burnout and "argumentative" triage.

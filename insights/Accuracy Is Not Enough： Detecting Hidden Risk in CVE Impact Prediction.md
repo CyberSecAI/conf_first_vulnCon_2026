@@ -1,7 +1,7 @@
-# Accuracy Is Not Enough： Detecting Hidden Risk in CVE Impact Prediction
+# Accuracy Is Not Enough: Detecting Hidden Risk in CVE Impact Prediction
 
 ## Executive Summary
-The presentation addresses the limitations of using basic accuracy as a metric for vulnerability impact prediction, emphasizing that security is inherently an organic and evolving predictive problem. The speaker, Kit Tana Purusham, argues that in vulnerability management, false negatives (missed vulnerabilities) carry significantly higher risk than false positives (wasted effort), yet standard accuracy metrics often mask these critical failures. By introducing data science concepts like confusion matrices and the Matthews Correlation Coefficient (MCC), the talk proposes a more nuanced way to measure and visualize "trust" in security automations and AI models over time.
+Keerthana Purushotham (IEEE, US) argues that in vulnerability management, false negatives carry significantly higher risk than false positives, yet standard accuracy metrics often mask these critical failures. By introducing data science concepts like confusion matrices and the Matthews Correlation Coefficient (MCC), she proposes a more nuanced way to measure and visualize "trust" in security automations and AI models over time. This session explores how a deeper understanding of risk-weighted metrics can prevent undetected vulnerabilities from leaving organizations exposed.
 
 ## Key Points
 - Vulnerability assessment is a dynamic process where a CVE's severity and impact can change as more information or exploitability data becomes available.

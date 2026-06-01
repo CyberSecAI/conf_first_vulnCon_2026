@@ -1,7 +1,7 @@
 # Vulnrichment Playground
 
 ## Executive Summary
-Lindsey Sirkovnik, Chief of Vulnerability Response and Coordination at CISA, alongside Art, presents the "Vulnrichment" program—a public service designed to backfill and enhance CVE records with high-quality analysis. The program serves as a "playground" for CISA to experiment with vulnerability metadata and analysis types before they become system-wide standards. By providing data such as SSVC (Stakeholder-Specific Vulnerability Categorization), missing CVSS scores, and CWE mappings through the CVE Authorized Data Provider (ADP) container on GitHub, CISA aims to spend taxpayer dollars efficiently while providing actionable intelligence to defenders globally. A key highlight of the talk is the "stop doing something" philosophy, where CISA ceased producing CPEs for all records to prioritize more impactful data like SSVC.
+Art Manion (Tharros Labs, US) and Lindsey Cerkovnik (CISA, US) present CISA's "Vulnrichment" program, a public initiative designed to enhance CVE records with high-quality analysis and metadata. Serving as an experimental "playground," the program backfills missing data—such as SSVC, CVSS scores, and CWE mappings—through the CVE Authorized Data Provider (ADP) container. Manion and Cerkovnik highlight the program's philosophy of maximizing impact by focusing on actionable intelligence, including the strategic decision to prioritize SSVC over traditional CPE generation to better serve the global security community.
 
 ## Key Points
 *   **Scale of Operations:** CISA handles 250–300 coordinated vulnerability disclosure (CVD) cases at any given time, disclosing over 2,000 CVEs annually. This volume provides unique insights into the "state of the art" of vulnerability disclosure.

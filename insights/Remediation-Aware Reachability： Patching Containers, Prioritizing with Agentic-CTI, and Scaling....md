@@ -1,12 +1,12 @@
-# Remediation-Aware Reachability： Patching Containers, Prioritizing with Agentic-CTI, and Scaling...
+# Remediation-Aware Reachability: Patching Containers, Prioritizing with Agentic-CTI, and Scaling Fixes from Code to Cloud
 
 ## Executive Summary
-Francesco Beltramini (Phoenix Security) addresses the "AI apocalypse" in vulnerability management, emphasizing that defenders must move at the speed of attackers who are already using AI for "one-shot" exploits and malware generation. He argues that traditional scanning is too slow and lacks context. Instead, a mature program must leverage reachability analysis, attribution, and AI-powered intelligence (Agentic-CTI) to distinguish "paper tigers" from real production risks and automate remediation.
+Francesco Cipollone (Phoenix Security, GB) argues that traditional vulnerability scanning is too slow and lacks the context necessary for modern threats. He proposes that a mature security program must leverage reachability analysis, precise attribution, and AI-powered intelligence (Agentic-CTI) to distinguish "paper tigers" from genuine production risks. By automating remediation and focusing on vulnerabilities with confirmed evidence of exploitation, organizations can scale their defenses from code to cloud while keeping pace with an accelerating threat landscape.
 
 ## Key Points
 * **Accelerating Threat Landscape:** Vulnerabilities are increasing at a 25% year-on-year rate, with a projection of reaching 1 million total vulnerabilities well before 2030.
 * **The "Vibe-Coded" Attack:** Attackers are using AI to generate malware and chain vulnerabilities in minutes (e.g., JetBrains exploitation took only 3 minutes from declaration).
-* **AI-Generated Code:** While GitHub estimates 50% of codebases are AI-generated, the speaker believes it is closer to 80-90%, leading to a massive surge in potential software weaknesses.
+* **AI-Generated Code:** While GitHub estimates 50% of codebases are AI-generated, the speaker Francesco Cipollone (Phoenix Security, GB).
 * **Four Essential Questions:** A functional VM program must know: Who owns the asset? Where does the problem come from? Is it in a running container/system? Is it reachable?
 * **Paper Tigers vs. Tier 1:** Many "Critical" vulnerabilities are "paper tigers" (no evidence of exploitation, unreachable). Tier 1 threats are those with confirmed evidence, acceleration, or ransomware usage.
 * **The NVD Enrichment Gap:** Approximately 50% of key tactics and techniques used in real-world exploitations are absent from the National Vulnerability Database (NVD).

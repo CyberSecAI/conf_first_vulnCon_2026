@@ -1,7 +1,7 @@
-# Saving Ourselves the ID Headache： How Purls Can Work for Models and Datasets
+# Saving Ourselves the ID Headache: How Purls Can Work for Models and Datasets
 
 ## Executive Summary
-Daniel (CEO of Manifest Cyber) addresses the looming problem of AI security, specifically the lack of standard identifiers for AI artifacts like models and datasets. He argues that because AI is a subset of software, the industry should avoid creating a brand-new identifier and instead adopt the existing Package URL (PURL) standard. This would allow organizations to precisely identify the models they use, track vulnerabilities, and manage their AI supply chain using existing AppSec and PSIRT workflows.
+Daniel Bardenstein (Manifest, US) addresses the critical lack of standard identifiers for AI artifacts like models and datasets. Arguing that AI is fundamentally a subset of software, Bardenstein advocates for adopting the existing Package URL (PURL) standard rather than creating redundant new identifiers. This approach allows organizations to precisely identify AI components, track vulnerabilities, and manage the AI supply chain using established AppSec and PSIRT workflows, ultimately simplifying the transition to secure AI integration.
 
 ## Key Points
 * **Identification Gap:** Most organizations do not know which specific versions or snapshots of AI models (e.g., Claude, GPT) they are using, making vulnerability response impossible.

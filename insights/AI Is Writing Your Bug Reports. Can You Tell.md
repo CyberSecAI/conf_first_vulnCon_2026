@@ -1,7 +1,7 @@
-# AI Is Writing Your Bug Reports. Can You Tell.
+# AI Is Writing Your Bug Reports. Can You Tell?
 
 ## Executive Summary
-The presentation addresses the surge of AI-generated and AI-assisted vulnerability reports in bug bounty programs and PSIRT queues. Speaker Khushali Dalal highlights the "elephant in the room": the growing gap between the rapid AI-driven influx of reports and the finite capacity of human triage teams. Rather than advocating for AI bans, the talk focuses on training triagers to distinguish between "polished writing" and "well-substantiated evidence," providing a strategic framework to prioritize signal over noise in an era where some organizations have seen over a 200% increase in report volume.
+Khushali Dalal (VulnCheck, US) addresses the surge of AI-generated and AI-assisted vulnerability reports in bug bounty programs and PSIRT queues, highlighting the growing gap between the rapid AI-driven influx of reports and the finite capacity of human triage teams. Rather than advocating for AI bans, she focuses on training triagers to distinguish between "polished writing" and "well-substantiated evidence." The session provides a strategic framework to prioritize signal over noise in an era where some organizations have seen over a 200% increase in report volume.
 
 ## Key Points
 - The "AI reporting crisis" of late 2025/early 2026 is driven by three factors: massive volume, high linguistic fluency that mimics senior researchers, and a psychological bias where humans mistake confidence for importance.

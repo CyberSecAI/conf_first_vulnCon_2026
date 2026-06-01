@@ -1,6 +1,6 @@
-# From Roadmap to Results： Measuring CWE Adoption to Enable Prevention
+# From Roadmap to Results: Measuring CWE Adoption to Enable Prevention
 ## Executive Summary
-Leadership from the CWE (Common Weakness Enumeration) program discusses the transformation of the corpus into a more usable and community-driven knowledge base. The session highlights measurable success in root cause mapping, with 93% of CNAs now including CWEs in their disclosures—a significant increase from previous years. By fostering a "weakness mindset" that focuses on developer mistakes rather than attacker outcomes, the program aims to provide the foundational data necessary for a "secure-by-design" software ecosystem.
+Alec Summers (The MITRE Corporation, US) and Steve Christey Coley (The MITRE Corporation, US) discuss the transformation of the CWE (Common Weakness Enumeration) program into a more actionable and community-driven knowledge base. The session highlights significant progress in root cause mapping, noting that 93% of CNAs now include CWEs in their disclosures. By fostering a "weakness mindset"—which prioritizes understanding developer mistakes over attacker outcomes—the program provides the foundational data necessary to support a "secure-by-design" software ecosystem and reduce the cost of patching downstream vulnerabilities.
 
 ## Key Points
 - CWE serves as the "root cause" layer for vulnerabilities; identifying these mistakes early in the lifecycle is significantly cheaper and more effective than patching downstream.
