@@ -33,7 +33,7 @@ mapping = {
     "UW0MzmMQ4bY": ("Panel: The CVE Supplier ADP (SADP) Pilot: Am I Affected by Upstream?", "Art Manion (Tharros Labs, US), Jeremy Daigneau (MITRE, US), Lisa Olson (Microsoft, US), Yogesh Mittal (Red Hat, IN)"),
     "3rs1uYn7fe4": ("Preparing Vulnerability Management for the Post-Quantum Era: From Legacy Cryptography to Crypto-Agility", "Arun Singh (Qualys, US)"),
     "K6Z3YRWZ1zA": ("Production Is the New Attack Surface: Why Post-Deployment Endpoint Detection Is Now Critical", "Tracy Ragan (DeployHub.com, US)"),
-    "Wo77sqI_Sqs": ("Quantifying Swiss Cheese, the Bayesian Way", "Stephen Shaffer (Moderna | EPSS SIG, US)"),
+    "Wo77sqI_Sqs": ("Quantifying Swiss Cheese, the Bayesian Way", r"Stephen Shaffer (Moderna \| EPSS SIG, US)"),
     "KXNi0oLXbEw": ("Remediation-Aware Reachability: Patching Containers, Prioritizing with Agentic-CTI, and Scaling Fixes from Code to Cloud", "Francesco Cipollone (Phoenix Security, GB)"),
     "m4bM2pWJBUQ": ("Saving Ourselves the ID Headache: How Purls Can Work for Models and Datasets", "Daniel Bardenstein (Manifest, US)"),
     "gUEjbWGH1Ro": ("Speeding Up Vulnerability Triage: Automating Context Retrieval with AI Agents", "Jorge Gimenez (Kraken, ES)"),
