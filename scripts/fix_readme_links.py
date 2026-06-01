@@ -102,15 +102,15 @@ sorted_sessions = sorted(mapping.items(), key=lambda x: x[1][0])
 
 table_rows = []
 for vid_id, (title, speaker) in sorted_sessions:
-    # URL encode filename for links
+    # Match the sanitization logic used during file creation
     safe_filename = title.replace(':', '：').replace('?', '').replace('"', '').strip()
     
-    # URL quote the paths
-    insights_path = urllib.parse.quote(f"./insights/{safe_filename}.md")
-    transcript_path = urllib.parse.quote(f"./transcripts/{safe_filename}.txt")
+    # URL encode ONLY the filename, keep ./insights/ literal
+    insights_fn_quoted = urllib.parse.quote(f"{safe_filename}.md")
+    transcript_fn_quoted = urllib.parse.quote(f"{safe_filename}.txt")
     
-    insights_link = f"[Insights]({insights_path})"
-    transcript_link = f"[Transcript]({transcript_path})"
+    insights_link = f"[Insights](./insights/{insights_fn_quoted})"
+    transcript_link = f"[Transcript](./transcripts/{transcript_fn_quoted})"
     video_link = f"[YouTube](https://www.youtube.com/watch?v={vid_id})"
     
     row = f"| `{vid_id}` | {title} | {speaker} | {insights_link} | {transcript_link} | {video_link} |"
